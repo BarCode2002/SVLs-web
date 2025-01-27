@@ -16,25 +16,24 @@
 .selected {
   display: flex;
   align-items: center;
-  width: 310px;
+  width: 315px;
   height: 40px;
   padding-left: 10px;
   padding-right: 10px;
   font-size: 1rem;
-  color: black;
-  background-color: antiquewhite;
+  background-color: aliceblue;
   border: none;
   border-radius: 10px;
   justify-content: space-between;
+  color: black;
 }
 
 .selected:disabled {
-  color: black;
-  background-color: antiquewhite;
+  background-color: aliceblue;
 }
 
 .selected:hover {
-  background-color: rgb(231, 232, 231);
+  background-color: aliceblue;
   cursor: pointer;
 }
 
@@ -46,9 +45,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: antiquewhite;
+  background-color: aliceblue;
   border-radius: 10px;
-  border: none;
   z-index: 1;
 }
 
@@ -62,7 +60,7 @@
   border: none;
   font-size: 1rem;
   color: black;
-  background-color: aliceblue;
+  background-color: white;
 }
 
 .searchInput::placeholder {
@@ -71,56 +69,57 @@
 
 .searchInput:focus {
   outline: none;
-}
-
-.separator {
-  width: 250px;
-  height: 1px;
-  border: none;
-  background-color: black;
+  background-color: white;
 }
 
 .dropdownList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 200px;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 235px;
   height: 150px;
-  margin-left: 15px;
+  padding-left: 15px;
+  border-left: none;
   overflow-y: auto;
 }
 
 .dropdownItem {
-  width: 200px;
-  background-color: antiquewhite;
-  color: black;
+  background-color: aliceblue;
   border: none;
   text-align: left;
   font-size: 1rem;
 }
 
 .dropdownItem:hover {
-  background-color: rgb(231, 232, 231);
+  background-color: aliceblue;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .noMatch {
-  color: black;
+  font-size: 1rem;
 }
 
 .cancelButton {
+  color: black;
   height: 40px;
   background-color: white;
   border-radius: 10px;
   align-self: end;
   margin-right: 10px;
   margin-bottom: 7px;
+  font-size: 1rem;
   border: none;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .cancelButton:hover {
-  background-color: rgb(231, 232, 231);
-  color: black;
+  background-color: white;
   cursor: pointer;
 }
 

@@ -1,13 +1,14 @@
 .button {
   height: 40px;
-  color: white;
   font-size: 14px;
-  background-color: black;
+  background-color: white;
   border: none;
-  border-radius: 5px;
+  border-left: solid 2px black;
+  border-right: solid 2px black;
+  color: black;
+  font-size: 1rem;
 }
 
 .button:hover {
-  background-color: blue;
   cursor: pointer;
 }

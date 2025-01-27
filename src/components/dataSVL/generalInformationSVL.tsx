@@ -38,6 +38,10 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
         dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 
         setDataSVL={setGeneralInformation} formType={'kilometers'} id={-1}
       /> 
+      <DropdownMenu fieldLabel={'State:'} selectedOwner={selectedOwner} 
+        dataSVL={generalInformation} value={generalInformation[selectedOwner].state} 
+        setDataSVL={setGeneralInformation} formType={'state'} id={-1}
+      />
       <InputField fieldLabel={'Weight:'} placeholder={'Weight'} selectedOwner={selectedOwner} 
         dataSVL={generalInformation} value={generalInformation[selectedOwner].weight} 
         setDataSVL={setGeneralInformation} formType={'weight'} id={-1}
@@ -58,6 +62,18 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
         dataSVL={generalInformation} value={generalInformation[selectedOwner].autonomy} 
         setDataSVL={setGeneralInformation} formType={'autonomy'} id={-1}
       /> 
+      <DropdownMenu fieldLabel={'Climate:'} selectedOwner={selectedOwner} 
+        dataSVL={generalInformation} value={generalInformation[selectedOwner].climate} 
+        setDataSVL={setGeneralInformation} formType={'climate'} id={-1}
+      />
+      <DropdownMenu fieldLabel={'Usage:'} selectedOwner={selectedOwner} 
+        dataSVL={generalInformation} value={generalInformation[selectedOwner].usage} 
+        setDataSVL={setGeneralInformation} formType={'usage'} id={-1}
+      />
+      <DropdownMenu fieldLabel={'Storage:'} selectedOwner={selectedOwner} 
+        dataSVL={generalInformation} value={generalInformation[selectedOwner].storage} 
+        setDataSVL={setGeneralInformation} formType={'storage'} id={-1}
+      />
       <InputTextField fieldLabel={'Comments:'} placeholder={'General comments about the vehicle'} selectedOwner={selectedOwner} 
         dataSVL={generalInformation} value={generalInformation[selectedOwner].comments} 
         setDataSVL={setGeneralInformation} formType={'comments'} id={-1}

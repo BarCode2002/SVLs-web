@@ -1,0 +1,47 @@
+.chooseSVLContainer {
+  display: flex;
+}
+
+.firstButton {
+  height: 50px;
+  width: 100%;
+  background-color: white;
+  border: none;
+  border-right: solid 2px black;
+  color: black;
+  font-size: 1rem;
+}
+
+.middleButtons {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  border: none;
+  border-right: solid 2px black;
+  color: black;
+  font-size: 1rem;
+}
+
+.lastButton {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  border: none;
+  color: black;
+  font-size: 1rem;
+}
+
+.firstButton:hover {
+  cursor: pointer;
+  background-color: green;
+}
+
+.middleButtons:hover {
+  cursor: pointer;
+  background-color: green;
+}
+
+.lastButton:hover {
+  cursor: pointer;
+  background-color: green;
+}

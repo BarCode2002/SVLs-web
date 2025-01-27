@@ -16,7 +16,7 @@ export interface GeneralInformation {
   autonomy: string,
   climate: string;
   usage: string;
-  garage: boolean;
+  storage: string;
   comments: string;
 }
 

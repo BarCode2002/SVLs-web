@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/bottomNavBar.module.css';
-import ChooseDataSVLButton from './chooseDataSVLButton.tsx';
+import ChooseDataSVLButtons from './chooseDataSVLButtons.tsx';
 import AddOwnerButton from './addOwnerButton.tsx';
 import OwnerButton from './ownerButton.tsx';
 import RemoveOwnerButton from './removeOwnerButton.tsx';
@@ -23,11 +23,7 @@ const BottomNavBar = ({ setSelectedSVLData, setSelectedOwner, totalOwners, setTo
   return (
     <div className={styles.bottomNavBarContainer}>
       <div className={styles.topPart}>
-        <ChooseDataSVLButton label={'General information'} setSelectedSVLData={setSelectedSVLData} />
-        <ChooseDataSVLButton label={'Maintenances'} setSelectedSVLData={setSelectedSVLData} />
-        <ChooseDataSVLButton label={'Modifications'} setSelectedSVLData={setSelectedSVLData} />
-        <ChooseDataSVLButton label={'Defects'} setSelectedSVLData={setSelectedSVLData} />
-        <ChooseDataSVLButton label={'Repairs'} setSelectedSVLData={setSelectedSVLData} />
+        <ChooseDataSVLButtons setSelectedSVLData={setSelectedSVLData} />
       </div>
       <div className={styles.bottomPart}>
         <RemoveOwnerButton totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
