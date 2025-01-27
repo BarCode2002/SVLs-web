@@ -35,7 +35,10 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, f
 
   const hadleOpenDropdownMenu = () => {
     if (isOpen) setIsOpen(false);
-    else setIsOpen(true);
+    else {
+      setSearchQuery('');
+      setIsOpen(true);
+    }
   }
 
   return (
@@ -59,7 +62,6 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, f
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={searchBarPlaceholder}
             />
-            <hr className={styles.separator} />
             <div className={styles.dropdownList}>
               {list.length ? list.map((value) => (
                 <div key={value}>
@@ -76,7 +78,6 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, f
                 <span className={styles.noMatch}>No match</span>
               ) : null}
             </div>
-            <hr className={styles.separator} />
             <button 
               className={styles.cancelButton} 
               onClick={() => setIsOpen(false)}>

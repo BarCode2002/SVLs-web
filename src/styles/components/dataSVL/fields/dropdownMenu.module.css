@@ -1,7 +1,7 @@
 .dropdownMenuContainer {
   display: flex;
-  align-items: center;
   padding-left: 10px;
+  align-items: center;
 }
 
 .fieldLabel {
@@ -19,6 +19,7 @@
   width: 310px;
   height: 40px;
   padding-left: 10px;
+  padding-right: 10px;
   font-size: 1rem;
   color: black;
   background-color: antiquewhite;
@@ -57,6 +58,7 @@
   margin-top: 10px;
   margin-left: 15px;
   border-radius: 10px;
+  padding-left: 10px;
   border: none;
   font-size: 1rem;
   color: black;
@@ -79,16 +81,17 @@
 }
 
 .dropdownList {
-  width: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 235px;
   height: 150px;
-  overflow-y: auto;
-  padding-right: 45px;
   margin-left: 15px;
+  overflow-y: auto;
 }
 
 .dropdownItem {
-  width: 150px;
-  background-color: white;
+  width: 200px;
+  background-color: antiquewhite;
   color: black;
   border: none;
   text-align: left;
