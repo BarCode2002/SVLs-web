@@ -1,0 +1,127 @@
+.dropdownMenuContainer {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.fieldLabel {
+  color: black;
+  width: 100px;
+}
+
+.dropDownPosition {
+  position: relative;
+}
+
+.selected {
+  display: flex;
+  align-items: center;
+  width: 310px;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 1rem;
+  color: black;
+  background-color: antiquewhite;
+  border: none;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.selected:disabled {
+  color: black;
+  background-color: antiquewhite;
+}
+
+.selected:hover {
+  background-color: rgb(231, 232, 231);
+  cursor: pointer;
+}
+
+.dropdownMenu {
+  position: absolute;
+  margin-top: -40px;
+  margin-left: 320px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: antiquewhite;
+  border-radius: 10px;
+  border: none;
+  z-index: 1;
+}
+
+.searchInput {
+  width: 200px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  color: black;
+  background-color: aliceblue;
+}
+
+.searchInput::placeholder {
+  color: grey;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.separator {
+  width: 250px;
+  height: 1px;
+  border: none;
+  background-color: black;
+}
+
+.dropdownList {
+  width: 200px;
+  height: 150px;
+  overflow-y: auto;
+  padding-right: 45px;
+  margin-left: 15px;
+}
+
+.dropdownItem {
+  width: 150px;
+  background-color: white;
+  color: black;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.dropdownItem:hover {
+  background-color: rgb(231, 232, 231);
+  cursor: pointer;
+}
+
+.noMatch {
+  color: black;
+}
+
+.cancelButton {
+  height: 40px;
+  background-color: white;
+  border-radius: 10px;
+  align-self: end;
+  margin-right: 10px;
+  margin-bottom: 7px;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancelButton:hover {
+  background-color: rgb(231, 232, 231);
+  color: black;
+  cursor: pointer;
+}
+
+
+
+
+

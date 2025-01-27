@@ -1,21 +1,20 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/inputField.module.css';
-import { GeneralInformation, Modifications, Maintenances, Defects, Repairs } from '../../../utils/interfaces/dataSVL.ts';
 
 type InputFieldProps = {
   fieldLabel: string;
   placeholder: string;
   selectedOwner: number;
-  form: GeneralInformation[] | Modifications[] | Maintenances[] | Defects[] | Repairs[];
+  dataSVL: any;
   value: string;
-  setForm: React.Dispatch<SetStateAction<GeneralInformation[] | Modifications[] | Maintenances[] | Defects[] | Repairs[]>>;
+  setDataSVL: React.Dispatch<SetStateAction<any>>;
   formType: string;
   id: number;
 }
 
-const InputField = ({ fieldLabel, placeholder, selectedOwner, form, value, setForm, formType, id }: InputFieldProps) => {
+const InputField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, value, setDataSVL, formType, id }: InputFieldProps) => {
   
-  const validateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const validateInputAndUpdateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     let re: RegExp;
     if (formType == 'year' || formType == 'kilometers' || formType == 'weight' || formType == 'horsepower') {
       re = /^\d*$/;
@@ -27,10 +26,10 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, form, value, setFo
       re = /^[a-zA-Z\s-]+$/;
     }
     if (e.target.value == "" || re.test(e.target.value)) {
-      const updatedForm = [...form];
-      if (id !== -1) updatedForm[selectedOwner][formType][id] = e.target.value;
-      else updatedForm[selectedOwner][formType] = e.target.value;
-      setForm(updatedForm);
+      const updateSVLdata = [...dataSVL];
+      if (id !== -1) updateSVLdata[selectedOwner][formType][id] = e.target.value;
+      else updateSVLdata[selectedOwner][formType] = e.target.value;
+      setDataSVL(updateSVLdata);
     }
   };
 
@@ -43,7 +42,7 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, form, value, setFo
         className={styles.inputField} 
         placeholder={placeholder}
         value={value}
-        onChange={validateInput}
+        onChange={validateInputAndUpdateValue}
       />
     </div>
   );

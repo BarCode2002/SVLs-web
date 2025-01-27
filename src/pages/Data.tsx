@@ -5,12 +5,10 @@ import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
 
-const OWNERS_LIMIT = 100; 
-const GROUPS_LIMIT = 100; 
-const MMDR_LIMIT = 20;
-const PHOTOGRAPHS_LIMIT = 10;
-const COMPONENTS_LIMIT = 10;
-const DEFECTS_REPAIRED_LIMIT = 10;
+const MMDR_SIZE = 20;
+const PHOTOGRAPHS_SIZE = 10;
+const COMPONENTS_SIZE = 10;
+const DEFECTS_REPAIRED_SIZE = 10;
 
 const Data = (): JSX.Element => {
 
@@ -19,7 +17,7 @@ const Data = (): JSX.Element => {
   const [totalOwners, setTotalOwners] = useState(1);
 
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
-    Array.from({ length: OWNERS_LIMIT }, () => ({
+    Array.from({ length: 1 }, () => ({
       VIN: '',
       brand: '',
       model: '',
@@ -27,7 +25,7 @@ const Data = (): JSX.Element => {
       kilometers: '',
       mainPhotograph: '',
       state: '',
-      photographs: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
+      photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       weight: '',
       color: '',
       engine: '',
@@ -43,19 +41,19 @@ const Data = (): JSX.Element => {
   );
 
   const [maintenances, setMaintenances] = useState<Maintenances[]>(
-    Array.from({ length: OWNERS_LIMIT }, () => ({
-      group: Array.from({ length: GROUPS_LIMIT }, () => ({
+    Array.from({ length: 1 }, () => ({
+      group: Array.from({ length: 1 }, () => ({
         date: "",
         kilometers: "",
         name: "",
         doneBy: ["", "", false, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-        maintenance: Array.from({ length: MMDR_LIMIT }, () => ({
+        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+        maintenance: Array.from({ length: MMDR_SIZE }, () => ({
           name: "",
-          components: Array.from({ length: COMPONENTS_LIMIT }, () => ''),
-          pre: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
+          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",
           shrinked: false,
         })),
@@ -67,19 +65,19 @@ const Data = (): JSX.Element => {
   );
 
   const [modifications, setModifications] = useState<Modifications[]>(
-    Array.from({ length: OWNERS_LIMIT }, () => ({
-      group: Array.from({ length: GROUPS_LIMIT }, () => ({
+    Array.from({ length: 1 }, () => ({
+      group: Array.from({ length: 1 }, () => ({
         date: "",
         kilometers: "",
         name: "",
         doneBy: ["", "", false, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-        modification: Array.from({ length: MMDR_LIMIT }, () => ({
+        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+        modification: Array.from({ length: MMDR_SIZE }, () => ({
           name: "",
-          components: Array.from({ length: COMPONENTS_LIMIT }, () => ''),
-          pre: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
+          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",
           shrinked: false,
         })),
@@ -91,13 +89,13 @@ const Data = (): JSX.Element => {
   );
 
   const [defects, setDefects] = useState<Defects[]>(
-    Array.from({ length: OWNERS_LIMIT }, () => ({
-      group: Array.from({ length: GROUPS_LIMIT }, () => ({
+    Array.from({ length: 1 }, () => ({
+      group: Array.from({ length: 1 }, () => ({
         date: "",
         kilometers: "",
-        defect: Array.from({ length: MMDR_LIMIT }, () => ({
+        defect: Array.from({ length: MMDR_SIZE }, () => ({
           level: "",
-          photographs: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
+          photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",
           cause: "",
           shrinked: false,
@@ -110,20 +108,20 @@ const Data = (): JSX.Element => {
   );
 
   const [repairs, setRepairs] = useState<Repairs[]>(
-    Array.from({ length: OWNERS_LIMIT }, () => ({
-      group: Array.from({ length: GROUPS_LIMIT }, () => ({
+    Array.from({ length: 1 }, () => ({
+      group: Array.from({ length: 1 }, () => ({
         date: "",
         kilometers: "",
         name: "",
         doneBy: ["", "", false, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-        defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_LIMIT }, () => ([false, -1, -1, -1 ])),
-        repair: Array.from({ length: MMDR_LIMIT }, () => ({
+        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+        defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),
+        repair: Array.from({ length: MMDR_SIZE }, () => ({
           name: "",
-          components: Array.from({ length: COMPONENTS_LIMIT }, () => ''),
-          pre: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_LIMIT }, () => ''),
+          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",
           shrinked: false,
         })),
@@ -145,7 +143,6 @@ const Data = (): JSX.Element => {
           repairs={repairs} setRepairs={setRepairs}
         />
         <BottomNavBar setSelectedSVLData={setSelectedSVLData} setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
-     
     </div>
   );
 }

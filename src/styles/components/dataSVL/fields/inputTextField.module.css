@@ -1,4 +1,4 @@
-.fieldContainer {
+.textFieldContainer {
   display: flex;
   padding-left: 10px;
   align-items: center;
@@ -9,21 +9,21 @@
   color: black;
 }
 
-.inputField {
+.textField {
   border-radius: 10px;
-  height: 35px;
-  width: 300px;
   border: none;
+  height: 100px;
+  width: 630px;
   padding-left: 10px;
   font-size: 1rem;
   background-color: antiquewhite;
   color: black;
 }
 
-.inputField::placeholder {
+.textField::placeholder {
   color: grey;
 }
 
-.inputField:focus {
+.textField:focus {
   outline: none;
 }
