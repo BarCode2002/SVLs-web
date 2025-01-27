@@ -1,12 +1,41 @@
+import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/bottomNavBar.module.css';
+import ChooseDataSVLButton from './chooseDataSVLButton.tsx';
+import AddOwnerButton from './addOwnerButton.tsx';
 import OwnerButton from './ownerButton.tsx';
+import RemoveOwnerButton from './removeOwnerButton.tsx';
 
-const BottomNavBar = (): JSX.Element => {
+type BottomNavBarProps = {
+  setSelectedSVLData: React.Dispatch<SetStateAction<number>>;
+  setSelectedOwner: React.Dispatch<SetStateAction<number>>
+  totalOwners: number;
+  setTotalOwners: React.Dispatch<SetStateAction<number>>
+};
+
+const BottomNavBar = ({ setSelectedSVLData, setSelectedOwner, totalOwners, setTotalOwners }: BottomNavBarProps): JSX.Element => {
+
+  const ownerSelector = Array.from({length: totalOwners}, (_, index) => (
+    <div key={index}>
+      <OwnerButton index={index} setSelectedOwner={setSelectedOwner} />
+    </div>
+  ));
 
   return (
     <div className={styles.bottomNavBarContainer}>
-      <OwnerButton />
-      <OwnerButton />
+      <div className={styles.topPart}>
+        <ChooseDataSVLButton label={'General information'} setSelectedSVLData={setSelectedSVLData} />
+        <ChooseDataSVLButton label={'Maintenances'} setSelectedSVLData={setSelectedSVLData} />
+        <ChooseDataSVLButton label={'Modifications'} setSelectedSVLData={setSelectedSVLData} />
+        <ChooseDataSVLButton label={'Defects'} setSelectedSVLData={setSelectedSVLData} />
+        <ChooseDataSVLButton label={'Repairs'} setSelectedSVLData={setSelectedSVLData} />
+      </div>
+      <div className={styles.bottomPart}>
+        <RemoveOwnerButton totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
+        {ownerSelector}
+        <div className={styles.addOwnerButton}>
+          <AddOwnerButton totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
+        </div>
+      </div>
     </div>
   );
 }

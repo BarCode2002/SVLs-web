@@ -14,6 +14,10 @@ const DEFECTS_REPAIRED_LIMIT = 10;
 
 const Data = (): JSX.Element => {
 
+  const [selectedSVLData, setSelectedSVLData] = useState(0);
+  const [selectedOwner, setSelectedOwner] = useState(0);
+  const [totalOwners, setTotalOwners] = useState(1);
+
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: OWNERS_LIMIT }, () => ({
       VIN: '',
@@ -132,14 +136,15 @@ const Data = (): JSX.Element => {
 
   return (
     <div className={styles.mainContainer}>
-      
         <TopNavBar />
-     
-    
-        <DataSVL />
-      
-     
-        <BottomNavBar />
+        <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
+          generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
+          maintenances={maintenances} setMaintenances={setMaintenances}
+          modifications={modifications} setModifications={setModifications}
+          defects={defects} setDefects={setDefects}
+          repairs={repairs} setRepairs={setRepairs}
+        />
+        <BottomNavBar setSelectedSVLData={setSelectedSVLData} setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
      
     </div>
   );
