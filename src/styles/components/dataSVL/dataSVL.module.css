@@ -1,0 +1,4 @@
+.dataSVLContainer {
+  height: calc(100vh - 2 * 50px);
+  background-color: grey;
+}
