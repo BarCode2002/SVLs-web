@@ -1,4 +1,4 @@
-import styles from '../../styles/components/bottomNavBar/bottomNavBarButtons.module.css';
+import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 
 type OwnerButtonProps = {
   index: number;
@@ -16,7 +16,7 @@ const OwnerButton = ({ index, setSelectedOwner}: OwnerButtonProps): JSX.Element 
   return (
     <div>
       <button
-        className={styles.button}
+        className={styles.ownerButton}
         onClick={handleOwnerChange}>
         {owner}
       </button>

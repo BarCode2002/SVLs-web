@@ -1,0 +1,45 @@
+.removeOwnerButton {
+  height: 40px;
+  width: 40px;
+  font-size: 14px;
+  background-color: white;
+  border: none;
+  border-right: solid 2px black;
+  color: black;
+  font-size: 1rem;
+}
+
+.removeOwnerButton:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
+.ownerButton {
+  height: 40px;
+  font-size: 14px;
+  background-color: white;
+  border: none;
+  border-right: solid 2px black;
+  color: black;
+  font-size: 1rem;
+}
+
+.ownerButton:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
+.addOwnerButton {
+  height: 40px;
+  width: 40px;
+  font-size: 14px;
+  background-color: white;
+  border: none;
+  color: black;
+  font-size: 1rem;
+}
+
+.addOwnerButton:hover {
+  cursor: pointer;
+  background-color: red;
+}

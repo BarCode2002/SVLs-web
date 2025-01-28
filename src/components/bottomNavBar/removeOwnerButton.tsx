@@ -1,4 +1,4 @@
-import styles from '../../styles/components/bottomNavBar/bottomNavBarButtons.module.css';
+import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 
 type RemoveOwnerButtonProps = {
   totalOwners: number;
@@ -14,7 +14,7 @@ const RemoveOwnerButton = ({ totalOwners, setTotalOwners }: RemoveOwnerButtonPro
   return (
     <div>
       <button
-        className={styles.button}
+        className={styles.removeOwnerButton}
         onClick={handleOwnerRemoval}>
         -
       </button>

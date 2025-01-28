@@ -5,16 +5,21 @@
 
 .topPart {
   height: 50px;
+  margin-bottom: 10px;
 }
 
 .bottomPart {
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 50px;
+  height: 60px;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: red;
+  align-items: start;
+  background-color: white;
+}
+
+.ownersContainer {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  overflow-x: auto;   
 }
 
 .addOwnerButton {

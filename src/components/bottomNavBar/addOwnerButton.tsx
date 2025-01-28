@@ -1,4 +1,4 @@
-import styles from '../../styles/components/bottomNavBar/bottomNavBarButtons.module.css';
+import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 
 type AddOwnerButtonProps = {
   totalOwners: number;
@@ -14,7 +14,7 @@ const AddOwnerButton = ({ totalOwners, setTotalOwners }: AddOwnerButtonProps): J
   return (
     <div>
       <button
-        className={styles.button}
+        className={styles.addOwnerButton}
         onClick={handleOwnerAddition}>
         +
       </button>
