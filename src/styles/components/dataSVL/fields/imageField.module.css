@@ -58,19 +58,20 @@
 
 .imageBig {
   width: 100%;
-  max-height: calc(100vh - 270px);
-  aspect-ratio: 16/9;
+  max-height: calc(100vh - 150px);
+  aspect-ratio: 16 / 9;
   border-radius: 10px;
 }
 
 .closeImageBigContainer {
   position: absolute;
-  background-color: black;
+  color: black;
+  background-color: transparent;
   border: none;
   top: 0;
   right: 0;
-  padding-right: 20px;
-  color: white;
+  margin-top: 10px;
+  margin-right: 10px;
   font-size: 3rem;
 }
 
