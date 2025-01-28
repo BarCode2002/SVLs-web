@@ -1,0 +1,75 @@
+.imageFieldContainer {
+  display: flex;
+  padding-left: 10px;
+  align-items: center;
+}
+
+.fieldLabel {
+  width: 100px;
+  color: black;
+}
+
+.fileInput {
+  border: none;
+  border-radius: 10px;
+  width: 310px;
+  height: 40px;
+  background-color: aliceblue;
+  color: black;
+  font-size: 14px;
+}
+
+.fileInput:hover {
+  cursor: pointer;
+}
+
+.imageSmallContainer {
+  margin-top: 10px;
+  margin-left: 110px;
+}
+
+.imageSmall {
+  height: 108px;
+  width: 192px;
+  border-radius: 10px;
+}
+
+.imageSmall:hover {
+  cursor: pointer;
+}
+
+.imageBigContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;   
+}
+
+.imageBig {
+  width: 100%;
+  max-height: calc(100vh - 270px);
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+}
+
+.closeImageBigContainer {
+  position: absolute;
+  background-color: black;
+  border: none;
+  top: 0;
+  right: 0;
+
+  padding-right: 20px;
+  color: white;
+  font-size: 3rem;
+}
+
+.closeImageBigContainer:hover {
+  cursor: pointer;
+}

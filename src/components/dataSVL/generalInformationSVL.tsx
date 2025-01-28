@@ -3,6 +3,7 @@ import styles from '../../styles/components/dataSVL/generalInformationSVL.module
 import { GeneralInformation } from '../../utils/interfaces/dataSVL.ts';
 import InputField from './fields/inputField.tsx';
 import DropdownMenu from './fields/dropdownMenu.tsx';
+import ImagesField from './fields/imageField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
 
 type GeneralInformationSVLProps = {
@@ -38,6 +39,11 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
         dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 
         setDataSVL={setGeneralInformation} formType={'kilometers'} id={-1}
       /> 
+      <ImagesField fieldLabel={'Main image:'} placeholder={'Select main image'} selectedOwner={selectedOwner} 
+        dataSVL={generalInformation} selectedImage={generalInformation[selectedOwner].mainPhotograph} 
+        setDataSVL={setGeneralInformation} formType={'mainPhotograph'} id={-1} 
+        allowMultipleImages={false}
+      />    
       <DropdownMenu fieldLabel={'State:'} selectedOwner={selectedOwner} 
         dataSVL={generalInformation} value={generalInformation[selectedOwner].state} 
         setDataSVL={setGeneralInformation} formType={'state'} id={-1}
