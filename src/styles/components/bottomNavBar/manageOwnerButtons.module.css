@@ -4,14 +4,14 @@
   font-size: 14px;
   background-color: white;
   border: none;
-  border-right: solid 2px black;
   color: black;
   font-size: 1rem;
+  border-radius: 10px;
 }
 
 .removeOwnerButton:hover {
   cursor: pointer;
-  background-color: red;
+  background-color: aliceblue;
 }
 
 .ownerButton {
@@ -19,14 +19,24 @@
   font-size: 14px;
   background-color: white;
   border: none;
-  border-right: solid 2px black;
   color: black;
   font-size: 1rem;
+  border-radius: 10px;
+}
+
+.ownerButtonSelected {
+  height: 40px;
+  font-size: 14px;
+  background-color: aliceblue;
+  border: none;
+  color: black;
+  font-size: 1rem;
+  border-radius: 10px;
 }
 
 .ownerButton:hover {
   cursor: pointer;
-  background-color: red;
+  background-color: aliceblue;
 }
 
 .addOwnerButton {
@@ -37,9 +47,10 @@
   border: none;
   color: black;
   font-size: 1rem;
+  border-radius: 10px;
 }
 
 .addOwnerButton:hover {
   cursor: pointer;
-  background-color: red;
+  background-color: aliceblue;
 }

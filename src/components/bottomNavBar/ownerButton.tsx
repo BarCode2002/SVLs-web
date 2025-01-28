@@ -2,10 +2,11 @@ import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.modu
 
 type OwnerButtonProps = {
   index: number;
+  selectedOwner: number;
   setSelectedOwner: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const OwnerButton = ({ index, setSelectedOwner}: OwnerButtonProps): JSX.Element => {
+const OwnerButton = ({ index, selectedOwner, setSelectedOwner}: OwnerButtonProps): JSX.Element => {
 
   const owner = `Owner ${index+1}`;
 
@@ -16,7 +17,7 @@ const OwnerButton = ({ index, setSelectedOwner}: OwnerButtonProps): JSX.Element 
   return (
     <div>
       <button
-        className={styles.ownerButton}
+        className={index == selectedOwner ? styles.ownerButtonSelected : styles.ownerButton}
         onClick={handleOwnerChange}>
         {owner}
       </button>

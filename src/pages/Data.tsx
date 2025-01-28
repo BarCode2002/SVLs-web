@@ -138,7 +138,7 @@ const Data = (): JSX.Element => {
           defects={defects} setDefects={setDefects}
           repairs={repairs} setRepairs={setRepairs}
         />
-        <BottomNavBar setSelectedSVLData={setSelectedSVLData} setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
+        <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
     </div>
   );
 }

@@ -6,24 +6,26 @@ import OwnerButton from './ownerButton.tsx';
 import RemoveOwnerButton from './removeOwnerButton.tsx';
 
 type BottomNavBarProps = {
+  selectedSVLData: number;
   setSelectedSVLData: React.Dispatch<SetStateAction<number>>;
+  selectedOwner: number;
   setSelectedOwner: React.Dispatch<SetStateAction<number>>
   totalOwners: number;
   setTotalOwners: React.Dispatch<SetStateAction<number>>
 };
 
-const BottomNavBar = ({ setSelectedSVLData, setSelectedOwner, totalOwners, setTotalOwners }: BottomNavBarProps): JSX.Element => {
+const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, totalOwners, setTotalOwners }: BottomNavBarProps): JSX.Element => {
 
   const ownerSelector = Array.from({length: totalOwners}, (_, index) => (
     <div key={index}>
-      <OwnerButton index={index} setSelectedOwner={setSelectedOwner} />
+      <OwnerButton index={index} selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} />
     </div>
   ));
 
   return (
     <div className={styles.bottomNavBarContainer}>
       <div className={styles.topPart}>
-        <ChooseDataSVLButtons setSelectedSVLData={setSelectedSVLData} />
+        <ChooseDataSVLButtons selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} />
       </div>
       <div className={styles.bottomPart}>
         <RemoveOwnerButton totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
