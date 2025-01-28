@@ -84,6 +84,34 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selected
     }
   }
 
+  const handleOnDrag = (e: React.DragEvent, index: number) => {
+    e.dataTransfer.setData("index", index.toString());
+  }
+
+  const handleOnDrop = (e: React.DragEvent, index: number) => {
+    const indexDragged = parseInt(e.dataTransfer.getData("index"));
+    const updatedDataSVL = [...dataSVL];
+    if (indexDragged > index) {
+      const draggedValue = dataSVL[selectedOwner][formType][indexDragged];
+      for (let i = indexDragged; i > index; i--) {
+        updatedDataSVL[selectedOwner][formType][i] = dataSVL[selectedOwner][formType][i-1];
+      }
+      updatedDataSVL[selectedOwner][formType][index] = draggedValue;
+    }
+    else if (indexDragged < index) {
+      const draggedValue = dataSVL[selectedOwner][formType][indexDragged];
+      for (let i = indexDragged; i < index; i++) {
+        updatedDataSVL[selectedOwner][formType][i] = dataSVL[selectedOwner][formType][i+1];
+      }
+      updatedDataSVL[selectedOwner][formType][index] = draggedValue;
+    }
+    setDataSVL(updatedDataSVL);
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  }
+
   return (
     <div>
       <div className={styles.imageFieldContainer}>
@@ -113,6 +141,10 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selected
                 className={styles.imageSmall}
                 onClick={() => changeImageSize('big', index)}
                 src={url}
+                draggable
+                onDragStart={(e) => handleOnDrag(e, index)}
+                onDrop={(e) => handleOnDrop(e, index)}
+                onDragOver={(e) => handleDragOver(e)}
               />
             </div>
           ))}
