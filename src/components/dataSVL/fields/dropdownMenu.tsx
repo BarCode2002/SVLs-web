@@ -1,5 +1,6 @@
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect, SetStateAction, useRef } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/dropdownMenu.module.css';
+import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 
 type DropdownMenuProps = {
   fieldLabel: string;
@@ -41,8 +42,20 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, f
     }
   }
 
+  const refClickOutside = DetectClickOutsideComponent(() => { 
+    if (isOpen) setIsOpen(false); 
+  });
+
+  const refScrollIntoView = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && refScrollIntoView.current) {
+      refScrollIntoView.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [isOpen]);
+
   return (
-    <div className={styles.dropdownMenuContainer}>
+    <div ref={refClickOutside} className={styles.dropdownMenuContainer}>
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>
@@ -54,7 +67,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, f
           <span>{(isOpen) ? '<' : '>'}</span>
         </button>
         {isOpen && (
-          <div className={styles.dropdownMenu}>
+          <div ref={refScrollIntoView} className={styles.dropdownMenu}>
             <input
               className={styles.searchInput}
               type="text"
