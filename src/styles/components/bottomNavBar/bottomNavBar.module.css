@@ -1,6 +1,9 @@
 .bottomNavBarContainer {
+  height: 150px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  background-color: rgb(220, 220, 220);
 }
 
 .topPart {
@@ -9,10 +12,9 @@
 }
 
 .bottomPart {
-  height: 60px;
+  height: 40px;
   display: flex;
   align-items: start;
-  background-color: white;
 }
 
 .ownersContainer {
