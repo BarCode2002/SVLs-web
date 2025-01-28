@@ -42,6 +42,13 @@
   cursor: pointer;
 }
 
+.imageSmallSelected {
+  height: 108px;
+  width: 192px;
+  border-radius: 10px;
+  border: solid 4px green;
+}
+
 .imageBigContainer {
   position: absolute;
   top: 0;
@@ -66,7 +73,7 @@
 .closeImageBigContainer {
   position: absolute;
   color: black;
-  background-color: transparent;
+  background-color: white;
   border: none;
   top: 0;
   right: 0;

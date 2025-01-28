@@ -142,11 +142,19 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selected
           <div className={styles.imagePreviewContainer}>
             {selectedImages.filter(url => url != '').map((url, index) => (
               <div key={`${url}-${index}`}>
-                <img
-                  className={styles.imageSmall}
-                  onClick={() => changeImageSize('big', index)}
-                  src={url}
-                />
+                {showType.imageIndex == index ? (
+                  <img
+                    className={styles.imageSmallSelected}
+                    onClick={() => changeImageSize('big', index)}
+                    src={url}
+                  />
+                ) : (
+                  <img
+                    className={styles.imageSmall}
+                    onClick={() => changeImageSize('big', index)}
+                    src={url}
+                  />
+                )}
               </div>
             ))}
           </div>
