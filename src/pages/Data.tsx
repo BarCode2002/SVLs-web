@@ -11,6 +11,9 @@ const Data = (): JSX.Element => {
   const [selectedSVLData, setSelectedSVLData] = useState(0);
   const [selectedOwner, setSelectedOwner] = useState(0);
   const [totalOwners, setTotalOwners] = useState(1);
+  const [editMode, setEditMode] = useState(false);
+  const [viewType, setViewType] = useState(0);
+  const [newSVL, setNewSVL] = useState(true);
 
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: 1 }, () => ({
@@ -130,7 +133,7 @@ const Data = (): JSX.Element => {
 
   return (
     <div className={styles.mainContainer}>
-        <TopNavBar />
+        <TopNavBar newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} setViewType={setViewType} />
         <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
           generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
           maintenances={maintenances} setMaintenances={setMaintenances}
@@ -138,7 +141,10 @@ const Data = (): JSX.Element => {
           defects={defects} setDefects={setDefects}
           repairs={repairs} setRepairs={setRepairs}
         />
-        <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} />
+        <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
+          selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} 
+          totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
+        />
     </div>
   );
 }

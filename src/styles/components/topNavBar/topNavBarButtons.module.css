@@ -1,14 +1,12 @@
 .button {
-  height: 40px;
   font-size: 14px;
   border: none;
-  border-radius: 10px;
   color: black;
-  background-color: white;
+  background-color: rgb(220, 220, 220);
   font-size: 1rem;
 }
 
 .button:hover {
   cursor: pointer;
-  background-color: aliceblue;
+  color: blue;
 }
