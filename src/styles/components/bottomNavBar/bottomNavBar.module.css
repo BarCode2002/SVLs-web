@@ -7,7 +7,7 @@
 
 .topPart {
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,24 +15,23 @@
 }
 
 .separator {
-  height: 2px;
+  min-height: 2px;
   width: 100%;
   background-color: black;
 }
 
 .bottomPart {
-  margin-top: 5px;
-  height: 45px;
+  min-height: 50px;
   display: flex;
-  align-items: start;
+  align-items: center;
 }
 
 .ownersContainer {
-  height: 45px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   white-space: nowrap;
-  overflow-x: auto;   
+  overflow-x: hidden;
 }
 
 .addOwnerButton {

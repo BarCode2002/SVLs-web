@@ -27,10 +27,10 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
   return (
     <div className={styles.dataSVLContainer}>
       {selectedSVLData == 0 && <GeneralInformationSVL selectedOwner={selectedOwner} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} />}
-      {selectedSVLData == 1 && <MaintenancesSVL maintenances={maintenances} setMaintenances={setMaintenances} />}
-      {selectedSVLData == 2 && <ModificationsSVL modifications={modifications} setModifications={setModifications} />}
-      {selectedSVLData == 3 && <DefectsSVL defects={defects} setDefects={setDefects} />}
-      {selectedSVLData == 4 && <RepairsSVL repairs={repairs} setRepairs={setRepairs} />}
+      {selectedSVLData == 1 && <MaintenancesSVL selectedOwner={selectedOwner} maintenances={maintenances} setMaintenances={setMaintenances} />}
+      {selectedSVLData == 2 && <ModificationsSVL selectedOwner={selectedOwner} modifications={modifications} setModifications={setModifications} />}
+      {selectedSVLData == 3 && <DefectsSVL selectedOwner={selectedOwner} defects={defects} setDefects={setDefects} />}
+      {selectedSVLData == 4 && <RepairsSVL selectedOwner={selectedOwner} repairs={repairs} setRepairs={setRepairs} />}
     </div>
   );
 }
