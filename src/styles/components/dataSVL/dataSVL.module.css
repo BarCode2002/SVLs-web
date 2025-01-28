@@ -1,4 +1,5 @@
 .dataSVLContainer {
   height: calc(100vh - 3 * 50px);
   overflow-y: auto;
+  margin-bottom: 20px;
 }
