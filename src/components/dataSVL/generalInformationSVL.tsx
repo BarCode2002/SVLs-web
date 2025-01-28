@@ -40,10 +40,15 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
         setDataSVL={setGeneralInformation} formType={'kilometers'} id={-1}
       /> 
       <ImagesField fieldLabel={'Main image:'} placeholder={'Select main image'} selectedOwner={selectedOwner} 
-        dataSVL={generalInformation} selectedImage={generalInformation[selectedOwner].mainPhotograph} 
+        dataSVL={generalInformation} selectedImages={[generalInformation[selectedOwner].mainPhotograph]} 
         setDataSVL={setGeneralInformation} formType={'mainPhotograph'} id={-1} 
         allowMultipleImages={false}
-      />    
+      />
+      <ImagesField fieldLabel={'Images:'} placeholder={'Select general images'} selectedOwner={selectedOwner} 
+        dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].photographs} 
+        setDataSVL={setGeneralInformation} formType={'photographs'} id={-1} 
+        allowMultipleImages={true}
+      />        
       <DropdownMenu fieldLabel={'State:'} selectedOwner={selectedOwner} 
         dataSVL={generalInformation} value={generalInformation[selectedOwner].state} 
         setDataSVL={setGeneralInformation} formType={'state'} id={-1}

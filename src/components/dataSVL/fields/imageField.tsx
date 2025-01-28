@@ -1,20 +1,21 @@
 import styles from '../../../styles/components/dataSVL/fields/imageField.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { PHOTOGRAPHS_SIZE } from '../../../utils/constants/constants';
+
 
 type ImagesFieldProps = {
   fieldLabel: string;
   placeholder: string;
   selectedOwner: number;
   dataSVL: any;
-  selectedImage: string;
-  selectedImages?: string[];
+  selectedImages: string[];
   setDataSVL: React.Dispatch<React.SetStateAction<any>>;
   formType: string;
   id: number;
   allowMultipleImages: boolean;
 }
 
-const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selectedImage, selectedImages ,setDataSVL, formType, id, allowMultipleImages }: ImagesFieldProps) => {
+const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selectedImages ,setDataSVL, formType, id, allowMultipleImages }: ImagesFieldProps) => {
 
   let imageInputId;
   if (id == -1) {
@@ -23,25 +24,63 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selected
   }
   else imageInputId = `image-input${id}`;
 
-  const [showBig, setShowBig] = useState(true);
+  const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
 
   const handleImageField = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const updatedDataSVL = [...dataSVL];
-      if (id == -1) {
+      if (formType == 'mainPhotograph') {
         updatedDataSVL[selectedOwner][formType] = URL.createObjectURL(event.target.files[0]);    
+      }
+      else {
+        const numImages = selectedImages.filter(url => url != '').length;
+        let maxImages = event.target.files.length + numImages;
+        if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
+        for (let i = numImages; i < maxImages; i++) {
+          updatedDataSVL[selectedOwner][formType][i] = URL.createObjectURL(event.target.files[i-numImages]);
+        }
       }
       setDataSVL(updatedDataSVL);
       event.target.value = '';
     }
   };
 
-  const changeImageSize = (size: string) => {
+  const changeImageSize = (size: string, index: number) => {
     if (size == 'big') {
-      setShowBig(true);
+      setShowType((prevState) => ({
+        ...prevState,
+        showBig: true,
+        imageIndex: index,
+      }));
     }
     else {
-      setShowBig(false);
+      setShowType((prevState) => ({
+        ...prevState,
+        showBig: false,
+        imageIndex: index,
+      }));
+    }
+  }
+
+  const previousImage = (index: number) => {
+    if (index > 0) {
+      setShowType((prevState) => ({
+        ...prevState,
+        showBig: true,
+        imageIndex: index-1,
+      }));
+    }
+  }
+
+  const nextImage = (index: number) => {
+    const numImages = selectedImages.filter(url => url != '').length;
+    console.log(numImages);
+    if (index < numImages) {
+      setShowType((prevState) => ({
+        ...prevState,
+        showBig: true,
+        imageIndex: index+1,
+      }));
     }
   }
 
@@ -66,24 +105,51 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selected
           />
         </div>
       </div>
-      {showBig == false && selectedImage != '' ? (
+      {showType.showBig == false && selectedImages.filter(url => url != '').length > 0 ? (
         <div className={styles.imageSmallContainer}>
-          <img
-            className={styles.imageSmall}
-            onClick={() => changeImageSize('big')}
-            src={selectedImage}/>
+          {selectedImages.filter(url => url != '').map((url, index) => (
+            <div key={`${url}-${index}`}>
+              <img
+                className={styles.imageSmall}
+                onClick={() => changeImageSize('big', index)}
+                src={url}
+              />
+            </div>
+          ))}
         </div>
       ) : ('')}
-      {showBig == true && selectedImage != '' ? (
+      {showType.showBig == true && selectedImages.filter(url => url != '').length > 0 ? (
         <div className={styles.imageBigContainer}>
           <button
             className={styles.closeImageBigContainer}
-            onClick={() => changeImageSize('small')}>
+            onClick={() => changeImageSize('small', -1)}>
             x
           </button>
-           <img
+          <button
+            className={styles.previousImageButton}
+            onClick={() => previousImage(showType.imageIndex)}>
+            ←
+          </button>
+          <img
             className={styles.imageBig}
-            src={selectedImage}/>
+            src={selectedImages[showType.imageIndex]}
+          />
+          <button
+            className={styles.nextImageButton}
+            onClick={() => nextImage(showType.imageIndex)}>
+            →
+          </button>
+          <div className={styles.imagePreviewContainer}>
+            {selectedImages.filter(url => url != '').map((url, index) => (
+              <div key={`${url}-${index}`}>
+                <img
+                  className={styles.imageSmall}
+                  onClick={() => changeImageSize('big', index)}
+                  src={url}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       ) : ('')}
     </div>

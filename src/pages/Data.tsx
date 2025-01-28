@@ -4,11 +4,7 @@ import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } fro
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
-
-const MMDR_SIZE = 20;
-const PHOTOGRAPHS_SIZE = 10;
-const COMPONENTS_SIZE = 10;
-const DEFECTS_REPAIRED_SIZE = 10;
+import { MMDR_SIZE, PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../utils/constants/constants.ts';
 
 const Data = (): JSX.Element => {
 
