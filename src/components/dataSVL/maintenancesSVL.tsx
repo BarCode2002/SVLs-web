@@ -48,11 +48,11 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
           />
         </div>
         <div className={styles.addRemoveMaintenance}>
-          {maintenances[selectedOwner].group[groupIndex].numMaintenances-1 == maintenanceIndex ? (
+          {maintenances[selectedOwner].group[groupIndex].numMaintenances - 1 == maintenanceIndex &&
             <AddGroupTypeButton dataSVL={maintenances} setDataSVL={setMaintenances} 
               selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'numMaintenances'}
             />
-          ) : ('')}
+          }
           <RemoveGroupTypeButton dataSVL={maintenances} setDataSVL={setMaintenances} 
             selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'numMaintenances'}
           />
@@ -67,7 +67,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
     );
   };
   
-  const listGroupMaintenances = Array.from({length: 1}, (_, groupIndex) => (
+  const listGroupMaintenances = Array.from({length: maintenances[selectedOwner].numGroups}, (_, groupIndex) => (
     <div key={groupIndex}>
       <div className={styles.groupContainer}>
         <div className={styles.topPart}>
@@ -76,7 +76,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
               selectedOwner={selectedOwner} selectedGroup={groupIndex} 
             />
           </div>
-          {maintenances[selectedOwner].group[0].shrinked == false ? (
+          {maintenances[selectedOwner].group[groupIndex].shrinked == false ? (
             <div className={styles.topBottomPart}>
               <InputField fieldLabel={'Kilometers:'} placeholder={'Kilometers'} selectedOwner={selectedOwner} 
                 dataSVL={maintenances} value={maintenances[selectedOwner].group[0].kilometers} 
@@ -100,15 +100,17 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             </div>
           ) : ('')}
         </div>
-        {maintenances[selectedOwner].group[0].shrinked == false ? (
-          <div className={styles.bottomPart}>
+        {maintenances[selectedOwner].group[groupIndex].shrinked == false ? (
+          <div>
             {renderlistMaintenances(groupIndex)}
           </div>
         ) : ('')}
       </div>
       <div className={styles.addRemoveGroupButton}>
-        <AddGroupButton />
-        <RemoveGroupButton />
+        {maintenances[selectedOwner].numGroups - 1 == groupIndex &&
+          <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} />
+        }
+        <RemoveGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'maintenances'} />
       </div>
     </div>
   ));
@@ -119,6 +121,11 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
         Maintenances
       </div>
       {listGroupMaintenances}
+      <div className={styles.addRemoveGroupButton}>
+        {maintenances[selectedOwner].numGroups == 0 &&
+          <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} />
+        }
+      </div>
     </div>
   );
 }

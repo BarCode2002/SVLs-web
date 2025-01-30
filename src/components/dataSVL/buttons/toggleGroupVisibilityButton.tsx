@@ -12,7 +12,7 @@ const ToggleGroupVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selec
 
   const handleToggle = () => {
     const updateSVLdata = [...dataSVL];
-    if (dataSVL[selectedGroup].group[selectedGroup].shrinked == true) updateSVLdata[selectedOwner].group[selectedGroup].shrinked = false;
+    if (dataSVL[selectedOwner].group[selectedGroup].shrinked == true) updateSVLdata[selectedOwner].group[selectedGroup].shrinked = false;
     else updateSVLdata[selectedOwner].group[selectedGroup].shrinked = true;
     setDataSVL(updateSVLdata);
   }

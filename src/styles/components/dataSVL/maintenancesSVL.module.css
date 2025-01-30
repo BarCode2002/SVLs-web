@@ -21,23 +21,18 @@
   display: flex;
   flex-direction: column;
   border: solid 2px black;
-  margin-bottom: 10px;
 }
 
 .topPart {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding: 10px;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   border: none;
   border-bottom: solid 2px black;
 }
 
 .toggleGroupVisibilityButton {
-  padding-right: 10px;
   display: flex;
   flex-grow: 1;
   justify-content: flex-end;
@@ -49,20 +44,11 @@
   gap: 10px;
 }
 
-.bottomPart {
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
 .maintenancesContainer {
+  margin: 10px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+
   gap: 10px;
 }
 
@@ -78,7 +64,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 10px;
 }
 
 .addRemoveGroupButton {
