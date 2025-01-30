@@ -4,7 +4,7 @@ import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } fro
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
-import { MMDR_SIZE, PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../utils/constants/constants.ts';
+import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../utils/constants/constants.ts';
 
 const Data = (): JSX.Element => {
 
@@ -48,7 +48,7 @@ const Data = (): JSX.Element => {
         doneBy: [false, "", false, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        maintenance: Array.from({ length: MMDR_SIZE }, () => ({
+        maintenance: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -72,7 +72,7 @@ const Data = (): JSX.Element => {
         doneBy: [false, "", false, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        modification: Array.from({ length: MMDR_SIZE }, () => ({
+        modification: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -92,7 +92,7 @@ const Data = (): JSX.Element => {
       group: Array.from({ length: 1 }, () => ({
         date: "",
         kilometers: "",
-        defect: Array.from({ length: MMDR_SIZE }, () => ({
+        defect: Array.from({ length: 1 }, () => ({
           level: "",
           photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",
@@ -116,7 +116,7 @@ const Data = (): JSX.Element => {
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),
-        repair: Array.from({ length: MMDR_SIZE }, () => ({
+        repair: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),

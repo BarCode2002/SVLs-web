@@ -31,6 +31,14 @@
   gap: 10px;
 }
 
+.imageSmallContainerGroupType {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
 .imageSmall {
   height: 108px;
   width: 192px;

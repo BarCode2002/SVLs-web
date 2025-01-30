@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces/dataSVL';
-import { PHOTOGRAPHS_SIZE, MMDR_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../utils/constants/constants';
+import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../utils/constants/constants';
 
 type AddOwnerButtonProps = {
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
@@ -53,7 +53,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
           doneBy: [false, "", false, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          maintenance: Array.from({ length: MMDR_SIZE }, () => ({
+          maintenance: Array.from({ length: 1 }, () => ({
             name: "",
             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
             pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -80,7 +80,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
           doneBy: [false, "", false, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          modification: Array.from({ length: MMDR_SIZE }, () => ({
+          modification: Array.from({ length: 1 }, () => ({
             name: "",
             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
             pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -103,7 +103,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
         group: Array.from({ length: 1 }, () => ({
           date: "",
           kilometers: "",
-          defect: Array.from({ length: MMDR_SIZE }, () => ({
+          defect: Array.from({ length: 1 }, () => ({
             level: "",
             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
             photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -131,7 +131,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),
-          repair: Array.from({ length: MMDR_SIZE }, () => ({
+          repair: Array.from({ length: 1 }, () => ({
             name: "",
             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
             pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),

@@ -2,7 +2,7 @@ import styles from '../../styles/components/topNavBar/topNavBar.module.css';
 import GoBackButton from './goBackButton';
 import ViewTypeButton from './viewTypeButton';
 import EditModeButton from './editModeButton';
-import UploadJSONButton from './uploadJsonButton';
+import UploadJSONButton from './uploadJSONButton';
 import DownloadJSONButton from './downloadButtonJSON';
 import MintSVLButton from './mintSVLButton';
 import EditSVLButton from './editSVLButton';

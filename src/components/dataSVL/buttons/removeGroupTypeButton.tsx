@@ -1,23 +1,40 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
+import { Maintenances } from '../../../utils/interfaces/dataSVL';
 
 type RemoveGroupTypeButtonProps = {
-  dataSVL: any;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   selectedOwner: number;
   selectedGroup: number;
+  selectedGroupType: number;
   type: string;
 };
 
-const RemoveGroupTypeButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGroup, type }: RemoveGroupTypeButtonProps): JSX.Element => {
+const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selectedGroupType, type }: RemoveGroupTypeButtonProps): JSX.Element => {
+
+  const removeMaintenanceGroupType = () => {
+    setDataSVL((prevDataSVL: Maintenances[]) =>
+      prevDataSVL.map((item, index) =>
+        index === selectedOwner
+          ? {
+              ...item,
+              group: item.group.map((groupItem, gIndex) =>
+                gIndex === selectedGroup
+                  ? {
+                      ...groupItem,
+                      maintenance: groupItem.maintenance.filter((_, i) => i !== selectedGroupType), 
+                      numMaintenances: groupItem.numMaintenances - 1, 
+                    }
+                  : groupItem 
+              ),
+            }
+          : item 
+      )
+    );
+  }
 
   const handleRemoveGroupType = () => {
-    const numGroupTypes = dataSVL[selectedOwner].group[selectedGroup][type];
-    if (numGroupTypes > 1) {
-      const updateSVLdata = [...dataSVL];
-      updateSVLdata[selectedOwner].group[selectedGroup][type] = numGroupTypes - 1;
-      setDataSVL(updateSVLdata);
-    }
+    if (type == 'maintenance') removeMaintenanceGroupType();
   }
 
   return (

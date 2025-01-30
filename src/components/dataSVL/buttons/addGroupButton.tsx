@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
-import { PHOTOGRAPHS_SIZE, MMDR_SIZE, COMPONENTS_SIZE } from '../../../utils/constants/constants';
+import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE } from '../../../utils/constants/constants';
 import { Maintenances } from '../../../utils/interfaces/dataSVL';
 
 type AddGroupButtonProps = {
@@ -23,10 +23,10 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                   date: "",
                   kilometers: "",
                   name: "",
-                  doneBy: ["", "", false, ""],
+                  doneBy: [false, "", false, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-                  maintenance: Array.from({ length: MMDR_SIZE }, () => ({
+                  maintenance: Array.from({ length: 1 }, () => ({
                     name: "",
                     components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
                     pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),

@@ -10,6 +10,7 @@ import InputField from './fields/inputField.tsx';
 import ImagesField from './fields/imagesField.tsx';
 import DateField from './fields/dateField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
+import ResponsibleField from './fields/responsibleField.tsx';
 
 type MainteancesSVLProps = {
   selectedOwner: number;
@@ -47,13 +48,15 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
         </div>
         <div className={styles.addRemoveMaintenance}>
           {maintenances[selectedOwner].group[groupIndex].numMaintenances - 1 == maintenanceIndex &&
-            <AddGroupTypeButton dataSVL={maintenances} setDataSVL={setMaintenances} 
-              selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'numMaintenances'}
+            <AddGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
+              selectedGroup={groupIndex} type={'maintenance'}
             />
           }
-          <RemoveGroupTypeButton dataSVL={maintenances} setDataSVL={setMaintenances} 
-            selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'numMaintenances'}
-          />
+          {maintenances[selectedOwner].group[groupIndex].numMaintenances > 1 &&
+            <RemoveGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
+              selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} type={'maintenance'}
+            />
+          }
         </div>
       </div>
     ));
@@ -83,6 +86,10 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
               <InputField fieldLabel={'Name:'} placeholder={'Name'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={-1} dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].name} 
                 setDataSVL={setMaintenances} type={'name'} typeSVL={''}
+              />
+              <ResponsibleField fieldLabel={'Name:'} placeholder={'Name'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+                dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].doneBy} 
+                setDataSVL={setMaintenances} type={'doneBy'}
               />
               <DateField fieldLabel={'Date:'} placeholder={'Date'} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={maintenances} setDataSVL={setMaintenances} type={'date'}

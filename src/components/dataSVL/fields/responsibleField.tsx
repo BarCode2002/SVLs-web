@@ -5,22 +5,17 @@ type ResponsibleFieldProps = {
   fieldLabel: string;
   placeholder: string;
   selectedOwner: number;
+  selectedGroup: number;
   dataSVL: any;
-  value: string;
+  value: [boolean, string, boolean, string];
   setDataSVL: React.Dispatch<SetStateAction<any>>;
-  formType: string;
-  id: number;
+  type: string;
 }
 
-const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, value, setDataSVL, formType, id }: ResponsibleFieldProps) => {
+const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, value, setDataSVL, type }: ResponsibleFieldProps) => {
 
   const updateValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updateSVLdata = [...dataSVL];
-    if (id != -1) {
-      updateSVLdata[selectedOwner][formType][id] = e.target.value;
-    } else {
-      updateSVLdata[selectedOwner][formType] = e.target.value;
-    }
     setDataSVL(updateSVLdata);
   }
 

@@ -2,7 +2,6 @@ import styles from '../../../styles/components/dataSVL/fields/imagesField.module
 import { useState } from 'react';
 import { PHOTOGRAPHS_SIZE } from '../../../utils/constants/constants';
 
-
 type ImagesFieldProps = {
   fieldLabel: string;
   placeholder: string;
@@ -24,7 +23,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     if (type == 'mainPhotograph' ) imageInputId = `image-input${'-1'}`;
     else imageInputId = `image-input${'-2'}`;
   }
-  else imageInputId = `image-input${type}${selectedGroup}`;
+  else imageInputId = `image-input${type}${selectedGroup}${selectedGroupType}`;
 
   const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
 
@@ -144,11 +143,20 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
       }
     }
     else {
-      const draggedValue = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][indexDragged];
-      for (let i = indexDragged; i < index; i++) {
-        updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i+1];
+      if (indexDragged > index) {
+        const draggedValue = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][indexDragged];
+        for (let i = indexDragged; i > index; i--) {
+          updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i-1];
+        }
+        updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][index] = draggedValue;
       }
-      updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][index] = draggedValue;
+      else if (indexDragged < index) {
+        const draggedValue = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][indexDragged];
+        for (let i = indexDragged; i < index; i++) {
+          updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i+1];
+        }
+        updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][index] = draggedValue;
+      }
     }
     setDataSVL(updatedDataSVL);
   }
@@ -181,7 +189,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         </div>
       </div>
       {showType.showBig == false && selectedImages.filter(url => url != '').length > 0 ? (
-        <div className={styles.imageSmallContainer}>
+        <div className={fieldLabel ? styles.imageSmallContainer : styles.imageSmallContainerGroupType}>
           {selectedImages.filter(url => url != '').map((url, index) => (
             <div key={`${url}-${index}`}>
               <img
