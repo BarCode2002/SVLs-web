@@ -11,6 +11,7 @@ import ImagesField from './fields/imagesField.tsx';
 import DateField from './fields/dateField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
 import ResponsibleField from './fields/responsibleField.tsx';
+import ComponentsField from './fields/componentsField.tsx';
 
 type MainteancesSVLProps = {
   selectedOwner: number;
@@ -29,6 +30,11 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
             value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].name} 
             setDataSVL={setMaintenances} type={'name'} typeSVL={'maintenance'}
+          />
+          <ComponentsField placeholder={'Components'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+            selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
+            value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].components} 
+            setDataSVL={setMaintenances} type={'components'}
           />
           <ImagesField fieldLabel={''} placeholder={'Select pre images'} selectedOwner={selectedOwner} 
             selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
