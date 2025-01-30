@@ -46,47 +46,51 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
     </div>
   ));
 
+  const listGroupMaintenances = Array.from({length: 3}, (_, index) => (
+    <div key={index} className={styles.groupContainer}>
+      <div className={styles.topPart}>
+        <div className={styles.topLeftPart}>
+          <ToggleGroupVisibilityButton />
+        </div>
+        <div className={styles.topRightPart}>
+          <AddGroupTypeButton />
+          <RemoveGroupButton />
+        </div>
+        <div className={styles.topBottomPart}>
+          <InputField fieldLabel={'Kilometers:'} placeholder={'Kilometers'} selectedOwner={selectedOwner} 
+            dataSVL={maintenances} value={maintenances[selectedOwner].group[0].kilometers} 
+            setDataSVL={setMaintenances} formType={'kilometers'} id={-1}
+          />
+          <InputField fieldLabel={'Name:'} placeholder={'Name'} selectedOwner={selectedOwner} 
+            dataSVL={maintenances} value={maintenances[selectedOwner].group[0].name} 
+            setDataSVL={setMaintenances} formType={'name'} id={-1}
+          />
+          <DateField fieldLabel={'Date:'} placeholder={'Date'} selectedOwner={selectedOwner} 
+            dataSVL={maintenances} setDataSVL={setMaintenances} formType={'date'} id={0}
+          />
+          <ImagesField fieldLabel={'Pre images:'} placeholder={'Select pre images'} selectedOwner={selectedOwner} 
+            dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].pre} 
+            setDataSVL={setMaintenances} formType={'pre'} id={-1} allowMultipleImages={true}
+          />
+          <ImagesField fieldLabel={'Post images:'} placeholder={'Select post images'} selectedOwner={selectedOwner} 
+            dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
+            setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
+          />
+        </div>
+      </div>
+      <div className={styles.bottomPart}>
+        {listMaintenances}
+      </div>
+      <AddGroupButton />
+    </div>
+  ));
+
   return (
     <div className={styles.maintenancesSVLContainer}>
       <div className={styles.title}>
         Maintenances
       </div>
-      <div className={styles.groupContainer}>
-        <div className={styles.topPart}>
-          <div className={styles.topLeftPart}>
-            <ToggleGroupVisibilityButton />
-          </div>
-          <div className={styles.topRightPart}>
-            <AddGroupTypeButton />
-            <RemoveGroupButton />
-          </div>
-          <div className={styles.topBottomPart}>
-            <InputField fieldLabel={'Kilometers:'} placeholder={'Kilometers'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} value={maintenances[selectedOwner].group[0].kilometers} 
-              setDataSVL={setMaintenances} formType={'kilometers'} id={-1}
-            />
-            <InputField fieldLabel={'Name:'} placeholder={'Name'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} value={maintenances[selectedOwner].group[0].name} 
-              setDataSVL={setMaintenances} formType={'name'} id={-1}
-            />
-            <DateField fieldLabel={'Date:'} placeholder={'Date'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} setDataSVL={setMaintenances} formType={'date'} id={0}
-            />
-            <ImagesField fieldLabel={'Pre images:'} placeholder={'Select pre images'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].pre} 
-              setDataSVL={setMaintenances} formType={'pre'} id={-1} allowMultipleImages={true}
-            />
-            <ImagesField fieldLabel={'Post images:'} placeholder={'Select post images'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
-              setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
-            />
-          </div>
-        </div>
-        <div className={styles.bottomPart}>
-            {listMaintenances}
-        </div>
-      </div>
-      <AddGroupButton />
+      {listGroupMaintenances}
     </div>
   );
 }
