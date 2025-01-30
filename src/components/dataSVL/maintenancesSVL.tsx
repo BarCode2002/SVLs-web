@@ -21,6 +21,31 @@ type MainteancesSVLProps = {
 
 const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: MainteancesSVLProps): JSX.Element => {
 
+  const listMaintenances = Array.from({length: 10}, (_, index) => (
+    <div key={index} className={styles.groupType}>
+      <InputGroupTypeField placeholder={'Name'} selectedOwner={selectedOwner} 
+        dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].name} 
+        setDataSVL={setMaintenances} formType={'name'} id={-1}
+      />
+      <InputGroupTypeField placeholder={'Name'} selectedOwner={selectedOwner} 
+        dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].components[0]} 
+        setDataSVL={setMaintenances} formType={'components'} id={-1}
+      />
+      <ImagesGroupTypeField placeholder={'Select post images'} selectedOwner={selectedOwner} 
+        dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
+        setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
+      />
+      <ImagesGroupTypeField placeholder={'Select pre images'} selectedOwner={selectedOwner} 
+        dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
+        setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
+      />
+      <InputTextGroupTypeField placeholder={'Comments about the maintenance'} selectedOwner={selectedOwner} 
+        dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].comments} 
+        setDataSVL={setMaintenances} formType={'comments'} id={-1}
+      />
+    </div>
+  ));
+
   return (
     <div className={styles.maintenancesSVLContainer}>
       <div className={styles.title}>
@@ -58,28 +83,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
           </div>
         </div>
         <div className={styles.bottomPart}>
-          <div className={styles.groupType}>
-            <InputGroupTypeField placeholder={'Name'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].name} 
-              setDataSVL={setMaintenances} formType={'name'} id={-1}
-            />
-            <InputGroupTypeField placeholder={'Name'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].components[0]} 
-              setDataSVL={setMaintenances} formType={'components'} id={-1}
-            />
-            <ImagesGroupTypeField placeholder={'Select post images'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
-              setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
-            />
-            <ImagesGroupTypeField placeholder={'Select pre images'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
-              setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
-            />
-            <InputTextGroupTypeField placeholder={'Comments about the maintenance'} selectedOwner={selectedOwner} 
-              dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].comments} 
-              setDataSVL={setMaintenances} formType={'comments'} id={-1}
-            />
-          </div>
+            {listMaintenances}
         </div>
       </div>
       <AddGroupButton />

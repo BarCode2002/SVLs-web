@@ -17,7 +17,7 @@
 }
 
 .groupContainer {
-  height: 700px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   border: solid 2px black;
@@ -27,7 +27,6 @@
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
-  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -52,18 +51,23 @@
 }
 
 .bottomPart {
+
+  height: fit-content;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 10px;
+
+  justify-content: space-evenly;
 }
 
 .groupType {
-  margin: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 10px;
   width: fit-content;
   height: fit-content;
   border: solid 2px black;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
