@@ -5,37 +5,48 @@ type InputTextFieldProps = {
   fieldLabel: string;
   placeholder: string;
   selectedOwner: number;
+  selectedGroup: number;
+  selectedGroupType: number;
   dataSVL: any;
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
-  formType: string;
-  id: number;
+  type: string;
+  typeSVL: string;
 }
 
-const InputTextField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, value, setDataSVL, formType, id }: InputTextFieldProps) => {
+const InputTextField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, typeSVL }: InputTextFieldProps) => {
 
   const updateValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updateSVLdata = [...dataSVL];
-    if (id != -1) {
-      updateSVLdata[selectedOwner][formType][id] = e.target.value;
-    } else {
-      updateSVLdata[selectedOwner][formType] = e.target.value;
-    }
+    if (selectedGroup == -1 && selectedGroupType == -1) updateSVLdata[selectedOwner][type] = e.target.value;
+    else updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type] = e.target.value;
     setDataSVL(updateSVLdata);
   }
 
   return (
     <div className={styles.textFieldContainer}>
-      <div className={styles.fieldLabel}>
-        {fieldLabel}
-      </div>
+      {fieldLabel != '' ? (
+        <div className={styles.bigTextField}>
+          <div className={styles.fieldLabel}>
+            {fieldLabel}
+          </div>
+          <textarea
+            className={styles.textField} 
+            placeholder={placeholder}
+            rows={5}
+            value={value}
+            onChange={updateValue}
+          />
+        </div>
+    ) : (
       <textarea
-        className={styles.textField} 
+        className={styles.textFieldGroupType} 
         placeholder={placeholder}
         rows={5}
         value={value}
         onChange={updateValue}
       />
+    )}
     </div>
   );
 };

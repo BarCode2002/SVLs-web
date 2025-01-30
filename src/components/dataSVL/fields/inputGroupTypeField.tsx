@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react';
-import styles from '../../../styles/components/dataSVL/fields/inputGroupTypeField.module.css';
+import styles from '../../../styles/components/dataSVL/fields/inputField.module.css';
 
 type InputGroupTypeFieldProps  = {
   placeholder: string;

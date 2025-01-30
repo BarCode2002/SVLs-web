@@ -58,7 +58,7 @@ export interface Modifications {
     date: string;
     kilometers: string;
     name: string;
-    doneBy: [string, string, boolean, string];
+    doneBy: [boolean, string, boolean, string];
     pre: string[],
     post: string[],
     modification: Modification[];
@@ -101,7 +101,7 @@ export interface Repairs {
     date: string;
     kilometers: string;
     name: string;
-    doneBy: [string, string, boolean, string];
+    doneBy: [boolean, string, boolean, string];
     pre: string[],
     post: string[],
     defectsRepaired: [boolean, number, number, number][];

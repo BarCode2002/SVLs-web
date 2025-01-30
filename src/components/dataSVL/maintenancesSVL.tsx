@@ -11,6 +11,7 @@ import ImagesField from './fields/imagesField.tsx';
 import DateField from './fields/dateField.tsx';
 import InputGroupTypeField from './fields/inputGroupTypeField.tsx';
 import ImagesGroupTypeField from './fields/imagesGroupTypeField.tsx';
+import InputTextField from './fields/inputTextField.tsx';
 import InputTextGroupTypeField from './fields/inputTextGroupTypeField.tsx';
 
 type MainteancesSVLProps = {
@@ -26,25 +27,23 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
     const listMaintenances = Array.from({length: maintenances[selectedOwner].group[groupIndex].numMaintenances}, (_, maintenanceIndex) => (
       <div key={maintenanceIndex} className={styles.maintenanceContainer}>
         <div className={styles.groupType}>
-          <InputGroupTypeField placeholder={'Name'} selectedOwner={selectedOwner} 
-            dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].name} 
-            setDataSVL={setMaintenances} formType={'name'} id={-1}
-          />
-          <InputGroupTypeField placeholder={'Name'} selectedOwner={selectedOwner} 
-            dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].components[0]} 
-            setDataSVL={setMaintenances} formType={'components'} id={-1}
-          />
-          <ImagesGroupTypeField placeholder={'Select post images'} selectedOwner={selectedOwner} 
-            dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
-            setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
+          <InputField fieldLabel={''} placeholder={'Name'} selectedOwner={selectedOwner} 
+            selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
+            value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].name} 
+            setDataSVL={setMaintenances} type={'name'} typeSVL={'maintenance'}
           />
           <ImagesGroupTypeField placeholder={'Select pre images'} selectedOwner={selectedOwner} 
-            dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
+            dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].pre} 
             setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
           />
-          <InputTextGroupTypeField placeholder={'Comments about the maintenance'} selectedOwner={selectedOwner} 
-            dataSVL={maintenances} value={maintenances[selectedOwner].group[0].maintenance[0].comments} 
-            setDataSVL={setMaintenances} formType={'comments'} id={-1}
+          <ImagesGroupTypeField placeholder={'Select post images'} selectedOwner={selectedOwner} 
+            dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].post} 
+            setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
+          />
+          <InputTextField fieldLabel={''} placeholder={'General comments about the vehicle'} selectedOwner={selectedOwner} 
+            selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
+            value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].comments} 
+            setDataSVL={setMaintenances} type={'comments'} typeSVL={'maintenance'}
           />
         </div>
         <div className={styles.addRemoveMaintenance}>
@@ -78,24 +77,24 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
           </div>
           {maintenances[selectedOwner].group[groupIndex].shrinked == false ? (
             <div className={styles.topBottomPart}>
-              <InputField fieldLabel={'Kilometers:'} placeholder={'Kilometers'} selectedOwner={selectedOwner} 
-                dataSVL={maintenances} value={maintenances[selectedOwner].group[0].kilometers} 
-                setDataSVL={setMaintenances} formType={'kilometers'} id={-1}
+              <InputField fieldLabel={'Kilometers:'} placeholder={'Kilometers'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+                selectedGroupType={-1} dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].kilometers} 
+                setDataSVL={setMaintenances} type={'kilometers'} typeSVL={''}
               />
-              <InputField fieldLabel={'Name:'} placeholder={'Name'} selectedOwner={selectedOwner} 
-                dataSVL={maintenances} value={maintenances[selectedOwner].group[0].name} 
-                setDataSVL={setMaintenances} formType={'name'} id={-1}
+              <InputField fieldLabel={'Name:'} placeholder={'Name'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+                selectedGroupType={-1} dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].name} 
+                setDataSVL={setMaintenances} type={'name'} typeSVL={''}
               />
               <DateField fieldLabel={'Date:'} placeholder={'Date'} selectedOwner={selectedOwner} 
-                dataSVL={maintenances} setDataSVL={setMaintenances} formType={'date'} id={0}
+                selectedGroup={groupIndex} dataSVL={maintenances} setDataSVL={setMaintenances} type={'date'}
               />
               <ImagesField fieldLabel={'Pre images:'} placeholder={'Select pre images'} selectedOwner={selectedOwner} 
-                dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].pre} 
-                setDataSVL={setMaintenances} formType={'pre'} id={-1} allowMultipleImages={true}
+                selectedGroup={groupIndex} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].pre} 
+                setDataSVL={setMaintenances} type={'pre'} allowMultipleImages={true}
               />
               <ImagesField fieldLabel={'Post images:'} placeholder={'Select post images'} selectedOwner={selectedOwner} 
-                dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[0].post} 
-                setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
+                selectedGroup={groupIndex} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].post} 
+                setDataSVL={setMaintenances} type={'post'} allowMultipleImages={true}
               />
             </div>
           ) : ('')}

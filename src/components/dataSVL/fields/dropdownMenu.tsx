@@ -8,11 +8,10 @@ type DropdownMenuProps = {
   dataSVL: any;
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
-  formType: string;
-  id: number;
+  type: string;
 };
 
-const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, formType, id }: DropdownMenuProps) => {
+const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, type }: DropdownMenuProps) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,8 +27,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, f
 
   const updateValue = (value: string) => {
     const updateSVLdata = [...dataSVL];
-    if (id != -1) updateSVLdata[selectedOwner][formType][id] = value;
-    else updateSVLdata[selectedOwner][formType] = value;
+    updateSVLdata[selectedOwner][type] = value;
     setDataSVL(updateSVLdata);
     setIsOpen(false);
   }

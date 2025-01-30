@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react';
-import styles from '../../../styles/components/dataSVL/fields/inputTextGroupTypeField.module.css';
+import styles from '../../../styles/components/dataSVL/fields/inputTextField.module.css';
 
 type InputTextGroupTypeFieldProps = {
   placeholder: string;
@@ -26,7 +26,7 @@ const InputTextGroupTypeField = ({ placeholder, selectedOwner, dataSVL, value, s
   return (
     <div className={styles.textFieldContainer}>
       <textarea
-        className={styles.textField} 
+        className={styles.textFieldGroupType} 
         placeholder={placeholder}
         rows={5}
         value={value}

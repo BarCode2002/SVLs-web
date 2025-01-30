@@ -25,12 +25,15 @@ const RemoveOwnerButton = ({ setGeneralInformation, setMaintenances, setModifica
   }
 
   const removeModifications = async () => {
+    setModifications((prevModifications: Modifications[]) => prevModifications.filter((_, index) => index !== selectedOwner));
   }
 
   const removeDefects = async () => {
+    setDefects((prevDefects: Defects[]) => prevDefects.filter((_, index) => index !== selectedOwner));
   }
 
   const removeRepairs = async () => {
+    setRepairs((prevRepairs: Repairs[]) => prevRepairs.filter((_, index) => index !== selectedOwner));
   }
   
   const handleOwnerRemoval = async () => {

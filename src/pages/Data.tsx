@@ -69,7 +69,7 @@ const Data = (): JSX.Element => {
         date: "",
         kilometers: "",
         name: "",
-        doneBy: ["", "", false, ""],
+        doneBy: [false, "", false, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         modification: Array.from({ length: MMDR_SIZE }, () => ({
@@ -112,7 +112,7 @@ const Data = (): JSX.Element => {
         date: "",
         kilometers: "",
         name: "",
-        doneBy: ["", "", false, ""],
+        doneBy: [false, "", false, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),

@@ -1,4 +1,4 @@
-import styles from '../../../styles/components/dataSVL/fields/imagesGroupTypeField.module.css';
+import styles from '../../../styles/components/dataSVL/fields/imagesField.module.css';
 import { useState } from 'react';
 import { PHOTOGRAPHS_SIZE } from '../../../utils/constants/constants';
 

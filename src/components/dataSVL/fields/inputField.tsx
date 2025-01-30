@@ -5,21 +5,23 @@ type InputFieldProps = {
   fieldLabel: string;
   placeholder: string;
   selectedOwner: number;
+  selectedGroup: number;
+  selectedGroupType: number;
   dataSVL: any;
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
-  formType: string;
-  id: number;
+  type: string;
+  typeSVL: string;
 }
 
-const InputField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, value, setDataSVL, formType, id }: InputFieldProps) => {
+const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, typeSVL }: InputFieldProps) => {
   
   const validateInputAndUpdateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     let re: RegExp;
-    if (formType == 'year' || formType == 'kilometers' || formType == 'weight' || formType == 'horsepower') {
+    if (type == 'year' || type == 'kilometers' || type == 'weight' || type == 'horsepower' || type == 'autonomy') {
       re = /^\d*$/;
     } 
-    else if (formType == 'engine' || formType == 'VIN') {
+    else if (type == 'engine' || type == 'VIN') {
       re = /^/;
     }
     else {
@@ -27,17 +29,20 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, value, se
     }
     if (e.target.value == "" || re.test(e.target.value)) {
       const updateSVLdata = [...dataSVL];
-      if (id !== -1) updateSVLdata[selectedOwner][formType][id] = e.target.value;
-      else updateSVLdata[selectedOwner][formType] = e.target.value;
+      if (selectedGroup == -1 && selectedGroupType == -1) updateSVLdata[selectedOwner][type] = e.target.value;
+      else if (selectedGroup != -1 && selectedGroupType == -1) updateSVLdata[selectedOwner].group[selectedGroup][type] = e.target.value;
+      else updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type] = e.target.value;
       setDataSVL(updateSVLdata);
     }
   };
 
   return (
     <div className={styles.fieldContainer}>
-      <div className={styles.fieldLabel}>
-        {fieldLabel}
-      </div>
+      {fieldLabel != '' &&
+        <div className={styles.fieldLabel}>
+          {fieldLabel}
+        </div>
+      }
       <input
         className={styles.inputField} 
         placeholder={placeholder}

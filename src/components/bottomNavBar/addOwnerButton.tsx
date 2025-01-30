@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces/dataSVL';
-import { PHOTOGRAPHS_SIZE, MMDR_SIZE, COMPONENTS_SIZE } from '../../utils/constants/constants';
+import { PHOTOGRAPHS_SIZE, MMDR_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../utils/constants/constants';
 
 type AddOwnerButtonProps = {
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
@@ -70,15 +70,81 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
   }
 
   const addModifications = async () => {
-    
+    setModifications((prevModifications: Modifications[]) => [
+      ...prevModifications,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: "",
+          name: "",
+          doneBy: [false, "", false, ""],
+          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          modification: Array.from({ length: MMDR_SIZE }, () => ({
+            name: "",
+            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+            pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            comments: "",
+            shrinked: false,
+          })),
+          shrinked: false,
+          numModifications: 1,
+        })),
+        numGroups: 1,
+      },
+    ]);
   }
 
   const addDefects = async () => {
-    
+    setDefects((prevDefects: Defects[]) => [
+      ...prevDefects,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: "",
+          defect: Array.from({ length: MMDR_SIZE }, () => ({
+            level: "",
+            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+            photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            description: "",
+            cause: "",
+            shrinked: false,
+          })),
+          shrinked: false,
+          numDefects: 1,
+        })),
+        numGroups: 1,
+      },
+    ]);
   }
 
   const addRepairs = async () => {
-    
+    setRepairs((prevRepairs: Repairs[]) => [
+      ...prevRepairs,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: "",
+          name: "",
+          doneBy: [false, "", false, ""],
+          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),
+          repair: Array.from({ length: MMDR_SIZE }, () => ({
+            name: "",
+            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+            pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            comments: "",
+            shrinked: false,
+          })),
+          shrinked: false,
+          numRepairs: 1,
+        })),
+        numGroups: 1,
+      },
+    ]);
   }
   
   const handleOwnerAddition = async () => {

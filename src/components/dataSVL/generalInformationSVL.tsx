@@ -21,74 +21,72 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
       </div>
       <div className={styles.data}>
         <InputField fieldLabel={'VIN:'} placeholder={'VIN'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].VIN} 
-          setDataSVL={setGeneralInformation} formType={'VIN'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].VIN} 
+          setDataSVL={setGeneralInformation} type={'VIN'} typeSVL={''}
         />
         <DropdownMenu fieldLabel={'Brand:'} selectedOwner={selectedOwner} 
           dataSVL={generalInformation} value={generalInformation[selectedOwner].brand} 
-          setDataSVL={setGeneralInformation} formType={'brand'} id={-1}
+          setDataSVL={setGeneralInformation} type={'brand'}
         />
         <DropdownMenu fieldLabel={'Model:'} selectedOwner={selectedOwner} 
           dataSVL={generalInformation} value={generalInformation[selectedOwner].model} 
-          setDataSVL={setGeneralInformation} formType={'model'} id={-1}
+          setDataSVL={setGeneralInformation} type={'model'}
         />
         <InputField fieldLabel={'Year:'} placeholder={'Year'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].year} 
-          setDataSVL={setGeneralInformation} formType={'year'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].year} 
+          setDataSVL={setGeneralInformation} type={'year'} typeSVL={''}
         />       
         <InputField fieldLabel={'Kilometers:'} placeholder={'Kilometers'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 
-          setDataSVL={setGeneralInformation} formType={'kilometers'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 
+          setDataSVL={setGeneralInformation} type={'kilometers'} typeSVL={''}
         /> 
         <ImagesField fieldLabel={'Main image:'} placeholder={'Select main image'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} selectedImages={[generalInformation[selectedOwner].mainPhotograph]} 
-          setDataSVL={setGeneralInformation} formType={'mainPhotograph'} id={-1} 
-          allowMultipleImages={false}
+          selectedGroup={-1} dataSVL={generalInformation} selectedImages={[generalInformation[selectedOwner].mainPhotograph]} 
+          setDataSVL={setGeneralInformation} type={'mainPhotograph'} allowMultipleImages={false}
         />
         <ImagesField fieldLabel={'Images:'} placeholder={'Select general images'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].photographs} 
-          setDataSVL={setGeneralInformation} formType={'photographs'} id={-1} 
-          allowMultipleImages={true}
+          selectedGroup={-1} dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].photographs} 
+          setDataSVL={setGeneralInformation} type={'photographs'} allowMultipleImages={true}
         />        
         <DropdownMenu fieldLabel={'State:'} selectedOwner={selectedOwner} 
           dataSVL={generalInformation} value={generalInformation[selectedOwner].state} 
-          setDataSVL={setGeneralInformation} formType={'state'} id={-1}
+          setDataSVL={setGeneralInformation} type={'state'}
         />
         <InputField fieldLabel={'Weight:'} placeholder={'Weight'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].weight} 
-          setDataSVL={setGeneralInformation} formType={'weight'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].weight} 
+          setDataSVL={setGeneralInformation} type={'weight'} typeSVL={''}
         /> 
         <InputField fieldLabel={'Color:'} placeholder={'Color'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].color} 
-          setDataSVL={setGeneralInformation} formType={'color'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].color} 
+          setDataSVL={setGeneralInformation} type={'color'} typeSVL={''}
         /> 
         <InputField fieldLabel={'Engine:'} placeholder={'Engine'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].engine} 
-          setDataSVL={setGeneralInformation} formType={'engine'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].engine} 
+          setDataSVL={setGeneralInformation} type={'engine'} typeSVL={''}
         /> 
         <InputField fieldLabel={'Power:'} placeholder={'Power'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].power} 
-          setDataSVL={setGeneralInformation} formType={'power'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].power} 
+          setDataSVL={setGeneralInformation} type={'power'} typeSVL={''}
         /> 
         <InputField fieldLabel={'Autonomy:'} placeholder={'Autonomy'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].autonomy} 
-          setDataSVL={setGeneralInformation} formType={'autonomy'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].autonomy} 
+          setDataSVL={setGeneralInformation} type={'autonomy'} typeSVL={''}
         /> 
         <DropdownMenu fieldLabel={'Climate:'} selectedOwner={selectedOwner} 
           dataSVL={generalInformation} value={generalInformation[selectedOwner].climate} 
-          setDataSVL={setGeneralInformation} formType={'climate'} id={-1}
+          setDataSVL={setGeneralInformation} type={'climate'} 
         />
         <DropdownMenu fieldLabel={'Usage:'} selectedOwner={selectedOwner} 
           dataSVL={generalInformation} value={generalInformation[selectedOwner].usage} 
-          setDataSVL={setGeneralInformation} formType={'usage'} id={-1}
+          setDataSVL={setGeneralInformation} type={'usage'}
         />
         <DropdownMenu fieldLabel={'Storage:'} selectedOwner={selectedOwner} 
           dataSVL={generalInformation} value={generalInformation[selectedOwner].storage} 
-          setDataSVL={setGeneralInformation} formType={'storage'} id={-1}
+          setDataSVL={setGeneralInformation} type={'storage'}
         />
         <InputTextField fieldLabel={'Comments:'} placeholder={'General comments about the vehicle'} selectedOwner={selectedOwner} 
-          dataSVL={generalInformation} value={generalInformation[selectedOwner].comments} 
-          setDataSVL={setGeneralInformation} formType={'comments'} id={-1}
+          selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} 
+          value={generalInformation[selectedOwner].comments} setDataSVL={setGeneralInformation} type={'comments'} typeSVL={''}
         />
       </div>
     </div>

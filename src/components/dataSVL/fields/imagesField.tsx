@@ -7,37 +7,47 @@ type ImagesFieldProps = {
   fieldLabel: string;
   placeholder: string;
   selectedOwner: number;
+  selectedGroup: number;
   dataSVL: any;
   selectedImages: string[];
   setDataSVL: React.Dispatch<React.SetStateAction<any>>;
-  formType: string;
-  id: number;
+  type: string;
   allowMultipleImages: boolean;
 }
 
-const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selectedImages ,setDataSVL, formType, id, allowMultipleImages }: ImagesFieldProps) => {
+const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages }: ImagesFieldProps) => {
 
   let imageInputId;
-  if (id == -1) {
-    if (formType == 'mainPhotograph' ) imageInputId = `image-input${'-1'}`;
+  if (selectedGroup == -1) {
+    if (type == 'mainPhotograph' ) imageInputId = `image-input${'-1'}`;
     else imageInputId = `image-input${'-2'}`;
   }
-  else imageInputId = `image-input${id}`;
+  else imageInputId = `image-input${type}${selectedGroup}`;
 
   const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
 
   const handleImageField = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const updatedDataSVL = [...dataSVL];
-      if (formType == 'mainPhotograph') {
-        updatedDataSVL[selectedOwner][formType] = URL.createObjectURL(event.target.files[0]);    
+      if (selectedGroup == -1) {
+        if (type == 'mainPhotograph') {
+          updatedDataSVL[selectedOwner][type] = URL.createObjectURL(event.target.files[0]);    
+        }
+        else {
+          const numImages = selectedImages.filter(url => url != '').length;
+          let maxImages = event.target.files.length + numImages;
+          if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
+          for (let i = numImages; i < maxImages; i++) {
+            updatedDataSVL[selectedOwner][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
+          }
+        }
       }
       else {
         const numImages = selectedImages.filter(url => url != '').length;
         let maxImages = event.target.files.length + numImages;
         if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
         for (let i = numImages; i < maxImages; i++) {
-          updatedDataSVL[selectedOwner][formType][i] = URL.createObjectURL(event.target.files[i-numImages]);
+          updatedDataSVL[selectedOwner].group[selectedGroup][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
         }
       }
       setDataSVL(updatedDataSVL);
@@ -75,7 +85,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selected
   const nextImage = (index: number) => {
     const numImages = selectedImages.filter(url => url != '').length;
     console.log(numImages);
-    if (index < numImages) {
+    if (index < numImages-1) {
       setShowType((prevState) => ({
         ...prevState,
         showBig: true,
@@ -91,19 +101,37 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, selected
   const handleOnDrop = (e: React.DragEvent, index: number) => {
     const indexDragged = parseInt(e.dataTransfer.getData("index"));
     const updatedDataSVL = [...dataSVL];
-    if (indexDragged > index) {
-      const draggedValue = dataSVL[selectedOwner][formType][indexDragged];
-      for (let i = indexDragged; i > index; i--) {
-        updatedDataSVL[selectedOwner][formType][i] = dataSVL[selectedOwner][formType][i-1];
+    if (selectedGroup == -1) {
+      if (indexDragged > index) {
+        const draggedValue = dataSVL[selectedOwner][type][indexDragged];
+        for (let i = indexDragged; i > index; i--) {
+          updatedDataSVL[selectedOwner][type][i] = dataSVL[selectedOwner][type][i-1];
+        }
+        updatedDataSVL[selectedOwner][type][index] = draggedValue;
       }
-      updatedDataSVL[selectedOwner][formType][index] = draggedValue;
+      else if (indexDragged < index) {
+        const draggedValue = dataSVL[selectedOwner][type][indexDragged];
+        for (let i = indexDragged; i < index; i++) {
+          updatedDataSVL[selectedOwner][type][i] = dataSVL[selectedOwner][type][i+1];
+        }
+        updatedDataSVL[selectedOwner][type][index] = draggedValue;
+      }
     }
-    else if (indexDragged < index) {
-      const draggedValue = dataSVL[selectedOwner][formType][indexDragged];
-      for (let i = indexDragged; i < index; i++) {
-        updatedDataSVL[selectedOwner][formType][i] = dataSVL[selectedOwner][formType][i+1];
+    else {
+      if (indexDragged > index) {
+        const draggedValue = dataSVL[selectedOwner].group[selectedGroup][type][indexDragged];
+        for (let i = indexDragged; i > index; i--) {
+          updatedDataSVL[selectedOwner].group[selectedGroup][type][i] = dataSVL[selectedOwner].group[selectedGroup][type][i-1];
+        }
+        updatedDataSVL[selectedOwner].group[selectedGroup][type][index] = draggedValue;
       }
-      updatedDataSVL[selectedOwner][formType][index] = draggedValue;
+      else if (indexDragged < index) {
+        const draggedValue = dataSVL[selectedOwner].group[selectedGroup][type][indexDragged];
+        for (let i = indexDragged; i < index; i++) {
+          updatedDataSVL[selectedOwner].group[selectedGroup][type][i] = dataSVL[selectedOwner].group[selectedGroup][type][i+1];
+        }
+        updatedDataSVL[selectedOwner].group[selectedGroup][type][index] = draggedValue;
+      }
     }
     setDataSVL(updatedDataSVL);
   }

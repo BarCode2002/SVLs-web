@@ -7,18 +7,18 @@ type DateFieldProps = {
   fieldLabel: string;
   placeholder: string;
   selectedOwner: number;
+  selectedGroup: number;
   dataSVL: any;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
-  formType: string;
-  id: number;
+  type: string;
 }
 
-const DateField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, setDataSVL, formType, id }: DateFieldProps) => {
+const DateField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, setDataSVL, type }: DateFieldProps) => {
 
   const handleDateSelected = (date: any) => {
     if (date !== null) {
       const updateSVLdata = [...dataSVL];
-      updateSVLdata[selectedOwner][formType][id] = date;
+      updateSVLdata[selectedOwner].group[selectedGroup][type] = date;
       setDataSVL(updateSVLdata);
     }
   };
@@ -32,7 +32,7 @@ const DateField = ({ fieldLabel, placeholder, selectedOwner, dataSVL, setDataSVL
         <DatePicker 
           portalId="react-datepicker-popper"
           className={styles.date}
-          selected={dataSVL[selectedOwner].group[0][formType]} 
+          selected={dataSVL[selectedOwner].group[selectedGroup][type]} 
           onChange={handleDateSelected} 
           dateFormat="dd-MM-yyyy" 
           placeholderText={placeholder}
