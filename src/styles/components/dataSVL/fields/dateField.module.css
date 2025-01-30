@@ -1,4 +1,4 @@
-.textFieldContainer {
+.dateContainer {
   display: flex;
   align-items: center;
 }
@@ -8,24 +8,26 @@
   color: black;
 }
 
-.textField {
-  border-radius: 10px;
-  height: 100px;
-  width: 630px;
-  border: none;
+.date {
   padding-left: 10px;
+  z-index: 2;
+  border-radius: 10px;
+  height: 40px;
+  width: 300px;
+  border: none;
   font-size: 1rem;
   background-color: aliceblue;
-  border-radius: 10px;
   color: black;
-  padding-top: 5px;
 }
 
-.textField::placeholder {
+.date::placeholder {
   color: grey;
 }
 
-.textField:focus {
+.date:focus {
   outline: none;
-  background-color: aliceblue;
+}
+
+.react-datepicker-popper {
+  z-index: 2;
 }

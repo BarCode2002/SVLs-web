@@ -45,7 +45,7 @@ const Data = (): JSX.Element => {
         date: "",
         kilometers: "",
         name: "",
-        doneBy: ["", "", false, ""],
+        doneBy: [false, "", false, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         maintenance: Array.from({ length: MMDR_SIZE }, () => ({
@@ -130,6 +130,12 @@ const Data = (): JSX.Element => {
       numGroups: 1,
     }))
   );
+
+  const updateViewportHeight = () => {
+    const newHeight = window.innerHeight;
+    document.documentElement.style.setProperty('--vh', `${newHeight}px`);
+  }
+  window.addEventListener('resize', updateViewportHeight);
 
   return (
     <div className={styles.mainContainer}>

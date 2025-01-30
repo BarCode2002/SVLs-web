@@ -3,15 +3,10 @@
   align-items: center;
 }
 
-.fieldLabel {
-  width: 100px;
-  color: black;
-}
-
 .textField {
   border-radius: 10px;
   height: 100px;
-  width: 630px;
+  width: 300px;
   border: none;
   padding-left: 10px;
   font-size: 1rem;

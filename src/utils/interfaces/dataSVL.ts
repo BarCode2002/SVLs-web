@@ -34,7 +34,7 @@ export interface Maintenances {
     date: string;
     kilometers: string;
     name: string;
-    doneBy: [string, string, boolean, string];
+    doneBy: [boolean, string, boolean, string];
     pre: string[],
     post: string[],
     maintenance: Maintenance[];

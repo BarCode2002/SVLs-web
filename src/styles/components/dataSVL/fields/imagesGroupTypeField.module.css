@@ -1,12 +1,6 @@
 .imageFieldContainer {
   display: flex;
-  padding-left: 10px;
   align-items: center;
-}
-
-.fieldLabel {
-  width: 100px;
-  color: black;
 }
 
 .fileInput {

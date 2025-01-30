@@ -1,0 +1,12 @@
+.button {
+  font-size: 14px;
+  border: none;
+  color: black;
+  background-color: rgb(220, 220, 220);
+  font-size: 1rem;
+}
+
+.button:hover {
+  cursor: pointer;
+  color: blue;
+}

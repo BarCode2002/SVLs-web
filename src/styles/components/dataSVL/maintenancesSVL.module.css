@@ -1,6 +1,7 @@
 .maintenancesSVLContainer {
+  padding-left: 10px;
+  padding-right: 10px;
   min-height: 100%;
-  width: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -13,4 +14,56 @@
   display: flex;
   justify-content: center;
   font-size: 40px;
+}
+
+.groupContainer {
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  border: solid 2px black;
+}
+
+.topPart {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: none;
+  border-bottom: solid 2px black;
+}
+
+.topLeftPart {
+  display: flex;
+}
+
+.topRightPart {
+  display: flex;
+  gap: 10px;
+}
+
+.topBottomPart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bottomPart {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.groupType {
+  margin: 5px;
+  padding: 10px;
+  width: fit-content;
+  height: fit-content;
+  border: solid 2px black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
