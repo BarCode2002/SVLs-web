@@ -149,6 +149,8 @@ const Data = (): JSX.Element => {
         />
         <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
           selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} 
+          setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
+          setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
           totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
         />
     </div>
