@@ -87,7 +87,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
                 selectedGroupType={-1} dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].name} 
                 setDataSVL={setMaintenances} type={'name'} typeSVL={''}
               />
-              <ResponsibleField fieldLabel={'Name:'} placeholder={'Name'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+              <ResponsibleField fieldLabel={'Responsible:'} placeholder={'Name'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].doneBy} 
                 setDataSVL={setMaintenances} type={'doneBy'}
               />

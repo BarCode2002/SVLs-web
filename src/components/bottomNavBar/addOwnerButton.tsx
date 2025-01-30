@@ -9,11 +9,13 @@ type AddOwnerButtonProps = {
   setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  selectedOwner: number;
+  setSelectedOwner: React.Dispatch<React.SetStateAction<number>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, totalOwners, setTotalOwners }: AddOwnerButtonProps): JSX.Element => {
+const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, totalOwners, setTotalOwners }: AddOwnerButtonProps): JSX.Element => {
 
   const addGeneralInformation = async () => {
     setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
@@ -153,6 +155,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
     addModifications();
     addDefects();
     addRepairs();
+    setSelectedOwner(selectedOwner+1);
     setTotalOwners(totalOwners+1);
   }
 

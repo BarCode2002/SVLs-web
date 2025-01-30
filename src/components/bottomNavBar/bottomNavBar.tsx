@@ -46,7 +46,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
         <div className={styles.addOwnerButton}>
           <AddOwnerButton setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
             setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-            totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
+            selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
           />
         </div>
       </div>
