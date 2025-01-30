@@ -9,10 +9,7 @@ import ToggleGroupVisibilityButton from './buttons/toggleGroupVisibilityButton.t
 import InputField from './fields/inputField.tsx';
 import ImagesField from './fields/imagesField.tsx';
 import DateField from './fields/dateField.tsx';
-import InputGroupTypeField from './fields/inputGroupTypeField.tsx';
-import ImagesGroupTypeField from './fields/imagesGroupTypeField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
-import InputTextGroupTypeField from './fields/inputTextGroupTypeField.tsx';
 
 type MainteancesSVLProps = {
   selectedOwner: number;
@@ -32,13 +29,15 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].name} 
             setDataSVL={setMaintenances} type={'name'} typeSVL={'maintenance'}
           />
-          <ImagesGroupTypeField placeholder={'Select pre images'} selectedOwner={selectedOwner} 
-            dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].pre} 
-            setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
+          <ImagesField fieldLabel={''} placeholder={'Select pre images'} selectedOwner={selectedOwner} 
+            selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
+            selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].pre} 
+            setDataSVL={setMaintenances} type={'pre'} typeSVL={'maintenance'} allowMultipleImages={true}
           />
-          <ImagesGroupTypeField placeholder={'Select post images'} selectedOwner={selectedOwner} 
-            dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].post} 
-            setDataSVL={setMaintenances} formType={'post'} id={-1} allowMultipleImages={true}
+          <ImagesField fieldLabel={''} placeholder={'Select post images'} selectedOwner={selectedOwner} 
+            selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
+            selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].post} 
+            setDataSVL={setMaintenances} type={'post'} typeSVL={'maintenance'} allowMultipleImages={true}
           />
           <InputTextField fieldLabel={''} placeholder={'General comments about the vehicle'} selectedOwner={selectedOwner} 
             selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
@@ -89,12 +88,12 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
                 selectedGroup={groupIndex} dataSVL={maintenances} setDataSVL={setMaintenances} type={'date'}
               />
               <ImagesField fieldLabel={'Pre images:'} placeholder={'Select pre images'} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].pre} 
-                setDataSVL={setMaintenances} type={'pre'} allowMultipleImages={true}
+                selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].pre} 
+                setDataSVL={setMaintenances} type={'pre'} typeSVL={''} allowMultipleImages={true}
               />
               <ImagesField fieldLabel={'Post images:'} placeholder={'Select post images'} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].post} 
-                setDataSVL={setMaintenances} type={'post'} allowMultipleImages={true}
+                selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].post} 
+                setDataSVL={setMaintenances} type={'post'} typeSVL={''} allowMultipleImages={true}
               />
             </div>
           ) : ('')}

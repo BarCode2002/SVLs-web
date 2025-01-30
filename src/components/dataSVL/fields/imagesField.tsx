@@ -8,14 +8,16 @@ type ImagesFieldProps = {
   placeholder: string;
   selectedOwner: number;
   selectedGroup: number;
+  selectedGroupType: number;
   dataSVL: any;
   selectedImages: string[];
   setDataSVL: React.Dispatch<React.SetStateAction<any>>;
   type: string;
+  typeSVL: string;
   allowMultipleImages: boolean;
 }
 
-const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages }: ImagesFieldProps) => {
+const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, typeSVL, allowMultipleImages }: ImagesFieldProps) => {
 
   let imageInputId;
   if (selectedGroup == -1) {
@@ -29,7 +31,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, da
   const handleImageField = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const updatedDataSVL = [...dataSVL];
-      if (selectedGroup == -1) {
+      if (selectedGroup == -1 && selectedGroupType == -1) {
         if (type == 'mainPhotograph') {
           updatedDataSVL[selectedOwner][type] = URL.createObjectURL(event.target.files[0]);    
         }
@@ -42,12 +44,20 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, da
           }
         }
       }
-      else {
+      else if (selectedGroup != -1 && selectedGroupType == -1) {
         const numImages = selectedImages.filter(url => url != '').length;
         let maxImages = event.target.files.length + numImages;
         if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
         for (let i = numImages; i < maxImages; i++) {
           updatedDataSVL[selectedOwner].group[selectedGroup][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
+        }
+      }
+      else {
+        const numImages = selectedImages.filter(url => url != '').length;
+        let maxImages = event.target.files.length + numImages;
+        if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
+        for (let i = numImages; i < maxImages; i++) {
+          updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
         }
       }
       setDataSVL(updatedDataSVL);
@@ -101,7 +111,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, da
   const handleOnDrop = (e: React.DragEvent, index: number) => {
     const indexDragged = parseInt(e.dataTransfer.getData("index"));
     const updatedDataSVL = [...dataSVL];
-    if (selectedGroup == -1) {
+    if (selectedGroup == -1 && selectedGroupType == -1) {
       if (indexDragged > index) {
         const draggedValue = dataSVL[selectedOwner][type][indexDragged];
         for (let i = indexDragged; i > index; i--) {
@@ -117,7 +127,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, da
         updatedDataSVL[selectedOwner][type][index] = draggedValue;
       }
     }
-    else {
+    else if (selectedGroup != -1 && selectedGroupType == -1) {
       if (indexDragged > index) {
         const draggedValue = dataSVL[selectedOwner].group[selectedGroup][type][indexDragged];
         for (let i = indexDragged; i > index; i--) {
@@ -133,6 +143,13 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, da
         updatedDataSVL[selectedOwner].group[selectedGroup][type][index] = draggedValue;
       }
     }
+    else {
+      const draggedValue = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][indexDragged];
+      for (let i = indexDragged; i < index; i++) {
+        updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i+1];
+      }
+      updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][index] = draggedValue;
+    }
     setDataSVL(updatedDataSVL);
   }
 
@@ -143,9 +160,11 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, da
   return (
     <div>
       <div className={styles.imageFieldContainer}>
-        <div className={styles.fieldLabel}>
-          {fieldLabel}
-        </div>
+        {fieldLabel != '' &&
+          <div className={styles.fieldLabel}>
+            {fieldLabel}
+          </div>
+        }
         <div>
           <button 
             className={styles.fileInput}
