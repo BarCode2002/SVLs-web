@@ -46,7 +46,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].post} 
             setDataSVL={setMaintenances} type={'post'} typeSVL={'maintenance'} allowMultipleImages={true}
           />
-          <InputTextField fieldLabel={''} placeholder={'General comments about the vehicle'} selectedOwner={selectedOwner} 
+          <InputTextField fieldLabel={''} placeholder={'Comments about the maintenance'} selectedOwner={selectedOwner} 
             selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
             value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].comments} 
             setDataSVL={setMaintenances} type={'comments'} typeSVL={'maintenance'}

@@ -20,7 +20,7 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
 
   useEffect(() => {
     setSelectedComponentsLength(selectedComponents.filter(component => component != '').length +1);
-  }, []);
+  }, [selectedOwner]);
 
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const updateSVLdata = [...dataSVL];

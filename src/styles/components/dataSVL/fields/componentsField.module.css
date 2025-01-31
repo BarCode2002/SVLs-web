@@ -1,6 +1,7 @@
 .componentsFieldContainer {
   display: flex;
   flex-wrap: wrap;
+  gap: 5px;
   align-items: center;
 }
 
@@ -27,4 +28,20 @@
 .addRemoveComponent {
   display: flex;
   flex-direction: column;
+}
+
+.addComponentButton {
+
+}
+
+.addComponentButton:hover {
+  cursor: pointer;
+}
+
+.removeComponentButton {
+
+}
+
+.removeComponentButton:hover {
+  cursor: pointer;
 }

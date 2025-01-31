@@ -26,11 +26,13 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
 
   const handleMeResponsible = () => {
     setMechanic(false);
+    setProof(false);
     setStep(2);
   }
 
   const handleMechanicResponsible = () => {
     setMechanic(true);
+    setProof(false);
     setStep(1);
   }
 
