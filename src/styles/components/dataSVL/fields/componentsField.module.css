@@ -1,4 +1,30 @@
 .componentsFieldContainer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+}
+
+.inputField {
+  border-radius: 10px;
+  height: 35px;
+  width: 300px;
+  border: none;
+  padding-left: 10px;
+  font-size: 1rem;
+  color: black;
+  background-color: aliceblue;
+}
+
+.inputField::placeholder {
+  color: grey;
+}
+
+.inputField:focus {
+  outline: none;
+  background-color: aliceblue;
+}
+
+.addRemoveComponent {
+  display: flex;
+  flex-direction: column;
 }

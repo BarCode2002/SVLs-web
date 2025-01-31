@@ -1,5 +1,6 @@
-import { SetStateAction } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/componentsField.module.css';
+import { COMPONENTS_SIZE } from '../../../utils/constants/constants';
 
 type ComponentsFieldProps = {
   placeholder: string;
@@ -7,27 +8,62 @@ type ComponentsFieldProps = {
   selectedGroup: number;
   selectedGroupType: number;
   dataSVL: any;
-  value: [boolean, string, boolean, string];
+  selectedComponents: string[]
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
+  typeSVL: string;
 }
 
-const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type }: ComponentsFieldProps) => {
+const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedComponents, setDataSVL, type, typeSVL }: ComponentsFieldProps) => {
 
-  const updateValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const [selectedComponentsLength, setSelectedComponentsLength] = useState(1);
+
+  useEffect(() => {
+    setSelectedComponentsLength(selectedComponents.filter(component => component != '').length +1);
+  }, []);
+
+  const updateValue = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const updateSVLdata = [...dataSVL];
+    updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][index] = e.target.value;
     setDataSVL(updateSVLdata);
   }
 
+  const addComponent = () => {
+    if (selectedComponentsLength < COMPONENTS_SIZE) setSelectedComponentsLength(selectedComponentsLength+1);
+  }
+
+  const removeComponent = () => {
+    if (selectedComponentsLength > 1) setSelectedComponentsLength(selectedComponentsLength-1);
+  }
+
+  const listComponents = Array.from({length: selectedComponentsLength }, (_, index) => (
+    <div key={index} className={styles.componentsFieldContainer}>
+      <input
+        className={styles.inputField} 
+        placeholder={`${placeholder} #${index+1}`}
+        value={selectedComponents[index]}
+        onChange={(e) => updateValue(e, index)}
+      />
+      <div className={styles.addRemoveComponent}>
+        {index+1 == selectedComponentsLength &&
+          <button
+            className={styles.addComponentButton}
+            onClick={addComponent}>
+            +
+          </button>
+        }
+        <button
+          className={styles.removeComponentButton}
+          onClick={removeComponent}>
+          -
+        </button>
+      </div>
+    </div>
+  ));
+
   return (
     <div className={styles.componentsFieldContainer}>
-      <textarea
-        className={styles.textField} 
-        placeholder={placeholder}
-        rows={5}
-        value={value}
-        onChange={updateValue}
-      />
+      {listComponents}
     </div>
   );
 };

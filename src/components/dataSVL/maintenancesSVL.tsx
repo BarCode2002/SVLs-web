@@ -31,10 +31,10 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].name} 
             setDataSVL={setMaintenances} type={'name'} typeSVL={'maintenance'}
           />
-          <ComponentsField placeholder={'Components'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+          <ComponentsField placeholder={'Component'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
             selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
-            value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].components} 
-            setDataSVL={setMaintenances} type={'components'}
+            selectedComponents={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].components} 
+            setDataSVL={setMaintenances} type={'components'} typeSVL={'maintenance'}
           />
           <ImagesField fieldLabel={''} placeholder={'Select pre images'} selectedOwner={selectedOwner} 
             selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
@@ -95,7 +95,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
               />
               <ResponsibleField fieldLabel={'Responsible:'} placeholder={'Name'} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].doneBy} 
-                setDataSVL={setMaintenances} type={'doneBy'}
+                setDataSVL={setMaintenances}
               />
               <DateField fieldLabel={'Date:'} placeholder={'Date'} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={maintenances} setDataSVL={setMaintenances} type={'date'}
