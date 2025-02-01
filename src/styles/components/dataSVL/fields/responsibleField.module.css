@@ -10,6 +10,7 @@
 
 .dataContainer {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -18,14 +19,30 @@
 }
 
 .meButton:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.mechanichButton {
+.meButtonSelected {
+  background-color: green;
+}
+
+.meButtonSelected:hover {
+  cursor: pointer;
+}
+
+.mechanicButton {
 
 }
 
-.mechanichButton:hover {
+.mechanicButton:hover {
+  cursor: pointer;
+}
+
+.mechanicButtonSelected {
+  background-color: green;
+}
+
+.mechanicButtonSelected:hover {
   cursor: pointer;
 }
 
@@ -58,6 +75,11 @@
   cursor: pointer;
 }
 
+.proofUploadContainer {
+  display: flex;
+  align-items: center;
+}
+
 .fileInput {
   border: none;
   border-radius: 10px;
@@ -72,6 +94,10 @@
   cursor: pointer;
 }
 
+.imageSmallContainer {
+  display: flex;
+}
+
 .imageSmall {
   height: 108px;
   width: 192px;
@@ -79,6 +105,18 @@
 }
 
 .imageSmall:hover {
+  cursor: pointer;
+}
+
+.removeImageButton {
+  width: 20px;
+  position: absolute;
+  margin-left: 173px;
+  background-color: white;
+  border-top-right-radius: 10px;
+}
+
+.removeImageButton:hover {
   cursor: pointer;
 }
 

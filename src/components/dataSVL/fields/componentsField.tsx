@@ -32,8 +32,13 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
     if (selectedComponentsLength < COMPONENTS_SIZE) setSelectedComponentsLength(selectedComponentsLength+1);
   }
 
-  const removeComponent = () => {
+  const removeComponent = (indexComponent: number) => {
+    const updateSVLdata = [...dataSVL];
+    for (let i = indexComponent; i < selectedComponentsLength; i++) {
+      updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i+1];
+    }
     if (selectedComponentsLength > 1) setSelectedComponentsLength(selectedComponentsLength-1);
+    setDataSVL(updateSVLdata);
   }
 
   const listComponents = Array.from({length: selectedComponentsLength }, (_, index) => (
@@ -52,11 +57,13 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
             +
           </button>
         }
-        <button
-          className={styles.removeComponentButton}
-          onClick={removeComponent}>
-          -
-        </button>
+        {selectedComponentsLength > 1 &&
+          <button
+            className={styles.removeComponentButton}
+            onClick={() => removeComponent(index)}>
+            -
+          </button>
+        }
       </div>
     </div>
   ));

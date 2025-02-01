@@ -33,6 +33,7 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
   const handleMechanicResponsible = () => {
     setMechanic(true);
     setProof(false);
+    setSearchQuery('');
     setStep(1);
   }
 
@@ -54,6 +55,7 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
 
   const handleNoProof = () => {
     setProof(false);
+    removeUploadedImage();
   }
 
   const handleImageField = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +71,12 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
     else setShowBig(false);
   }
 
+  const removeUploadedImage = () => {
+    const updatedDataSVL = [...dataSVL];
+    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[3] = '';    
+    setDataSVL(updatedDataSVL);
+  }
+
   return (
     <div className={styles.responsibleFieldContainer}>
       <div className={styles.fieldLabel}>
@@ -78,12 +86,12 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
         {step >= 0 &&
           <div>
             <button
-              className={styles.meButton}
+              className={mechanic ? styles.meButton : styles.meButtonSelected}
               onClick={handleMeResponsible}>
               Me
             </button>
             <button
-              className={styles.mechanichButton}
+              className={mechanic ? styles.mechanicButtonSelected : styles.mechanicButton}
               onClick={handleMechanicResponsible}>
               Mechanic
             </button>
@@ -129,7 +137,7 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
           </div>
         }
         {step >= 3 && proof == true && 
-          <div>
+          <div className={styles.proofUploadContainer}>
             <button 
               className={styles.fileInput}
               onClick={() => document.getElementById(imageInputId)!.click()}>
@@ -145,11 +153,18 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
             {value[3] != '' &&
               <div>
                 {showBig == false ? (
-                  <img
-                    className={styles.imageSmall}
-                    onClick={() => changeImageSize('big')}
-                    src={value[3]}
-                  />
+                  <div className={styles.imageSmallContainer}>
+                    <img
+                      className={styles.imageSmall}
+                      onClick={() => changeImageSize('big')}
+                      src={value[3]}
+                    />
+                    <button
+                      className={styles.removeImageButton}
+                      onClick={removeUploadedImage}>
+                      x
+                    </button>
+                  </div>
                 ) : (
                   <div className={styles.imageBigContainer}>
                     <button
