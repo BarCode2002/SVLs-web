@@ -21,10 +21,45 @@ type MainteancesSVLProps = {
 
 const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: MainteancesSVLProps): JSX.Element => {
 
+  const handleOnDrag = (e: React.DragEvent, groupIndex: number, maintenanceIndex: number) => {
+    e.dataTransfer.setData("groupIndex", groupIndex.toString());
+    e.dataTransfer.setData("maintenanceIndex", maintenanceIndex.toString());
+  }
+
+  const handleOnDrop = (e: React.DragEvent, groupIndex: number, maintenanceIndex: number) => {
+    const groupIndexDragged = parseInt(e.dataTransfer.getData("groupIndex"));
+    const maintenanceIndexDragged = parseInt(e.dataTransfer.getData("maintenanceIndex"));
+    const updatedMainteances = [...maintenances];
+    if (groupIndex == groupIndexDragged) {
+      if (maintenanceIndexDragged > maintenanceIndex) {
+        const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndexDragged];
+        for (let i = maintenanceIndexDragged; i > maintenanceIndex; i--) {
+          updatedMainteances[selectedOwner].group[groupIndex].maintenance[i] = maintenances[selectedOwner].group[groupIndex].maintenance[i-1];
+        }
+        updatedMainteances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex] = draggedMaintenance;
+      }
+      else if (maintenanceIndexDragged < maintenanceIndex) {
+        const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndexDragged];
+        for (let i = maintenanceIndexDragged; i < maintenanceIndex ; i++) {
+          updatedMainteances[selectedOwner].group[groupIndex].maintenance[i] = maintenances[selectedOwner].group[groupIndex].maintenance[i+1];
+        }
+        updatedMainteances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex] = draggedMaintenance;
+      }
+    }
+    setMaintenances(updatedMainteances);
+  }
+
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  }
+
   const renderlistMaintenances = (groupIndex: number) => {
 
     const listMaintenances = Array.from({length: maintenances[selectedOwner].group[groupIndex].numMaintenances}, (_, maintenanceIndex) => (
-      <div key={maintenanceIndex} className={styles.maintenanceContainer}>
+      <div key={maintenanceIndex} className={styles.maintenanceContainer} 
+        draggable onDragStart={(e) => handleOnDrag(e, groupIndex, maintenanceIndex)} 
+        onDrop={(e) => handleOnDrop(e, groupIndex, maintenanceIndex)} onDragOver={(e) => handleDragOver(e)} >
         <div className={styles.groupType}>
           <InputField fieldLabel={''} placeholder={'Name'} selectedOwner={selectedOwner} 
             selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
