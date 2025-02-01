@@ -26,8 +26,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-  margin-left: 110px;
-  display: flex;
+  margin-left: 100px;
   gap: 10px;
 }
 
@@ -35,7 +34,6 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-  display: flex;
   gap: 10px;
 }
 
@@ -54,6 +52,22 @@
   width: 192px;
   border-radius: 10px;
   border: solid 4px green;
+}
+
+.removeImageButton {
+  border: none;
+  width: 20px;
+  position: absolute;
+  margin-left: -20px;
+  color: black;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.removeImageButton:hover {
+  cursor: pointer;
+  background-color: red;
 }
 
 .imageBigContainer {

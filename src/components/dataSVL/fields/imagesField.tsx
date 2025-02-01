@@ -27,7 +27,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
 
   const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
 
-  const handleImageField = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const updatedDataSVL = [...dataSVL];
       if (selectedGroup == -1 && selectedGroupType == -1) {
@@ -63,6 +63,23 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
       event.target.value = '';
     }
   };
+
+  const removeUploadedImage = (imamgeRemovedIndex: number) => {
+    const updatedDataSVL = [...dataSVL];
+    for (let i = imamgeRemovedIndex; i < selectedImages.filter(url => url != '').length; i++) {
+      if (selectedGroup == -1 && selectedGroupType == -1) {
+        if (type == 'mainPhotograph') updatedDataSVL[selectedOwner][type] = '';
+        else updatedDataSVL[selectedOwner][type][i] = updatedDataSVL[selectedOwner][type][i+1];
+      }
+      else if (selectedGroup != -1 && selectedGroupType == -1) {
+        updatedDataSVL[selectedOwner].group[selectedGroup][type][i] =  updatedDataSVL[selectedOwner].group[selectedGroup][type][i+1];
+      }
+      else {
+        updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i+1];
+      }
+    }
+    setDataSVL(updatedDataSVL);
+  }
 
   const changeImageSize = (size: string, index: number) => {
     if (size == 'big') {
@@ -182,7 +199,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
           <input 
             type="file" 
             multiple={allowMultipleImages}
-            onChange={handleImageField}
+            onChange={handleImageUpload}
             id={imageInputId}
             style={{ display: 'none' }}
           />
@@ -201,6 +218,11 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                 onDrop={(e) => handleOnDrop(e, index)}
                 onDragOver={(e) => handleDragOver(e)}
               />
+              <button
+                className={styles.removeImageButton}
+                onClick={() => removeUploadedImage(index)}>
+                x
+              </button>
             </div>
           ))}
         </div>
