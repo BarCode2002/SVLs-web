@@ -32,7 +32,7 @@ const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: R
   return (
     <div>
       <button
-        className={styles.button}
+        className={styles.addRemoveGroupButton}
         onClick={handleRemoveGroup}>
         -
       </button>

@@ -54,13 +54,17 @@
   border: solid 4px green;
 }
 
+.removeImageButtonWrapper {
+  position: relative;
+}
+
 .removeImageButton {
-  border: none;
-  width: 20px;
   position: absolute;
-  margin-left: -20px;
+  top: -112px; 
+  width: 20px;
   color: black;
   background-color: white;
+  border: none;
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }

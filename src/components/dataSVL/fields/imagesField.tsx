@@ -218,11 +218,13 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                 onDrop={(e) => handleOnDrop(e, index)}
                 onDragOver={(e) => handleDragOver(e)}
               />
-              <button
-                className={styles.removeImageButton}
-                onClick={() => removeUploadedImage(index)}>
-                x
-              </button>
+              <div className={styles.removeImageButtonWrapper}>
+                <button
+                  className={styles.removeImageButton}
+                  onClick={() => removeUploadedImage(index)}>
+                  x
+                </button>
+              </div>
             </div>
           ))}
         </div>

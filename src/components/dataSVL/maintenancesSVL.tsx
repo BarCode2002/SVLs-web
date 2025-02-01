@@ -61,11 +61,19 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
         draggable onDragStart={(e) => handleOnDrag(e, groupIndex, maintenanceIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, maintenanceIndex)} onDragOver={(e) => handleDragOver(e)} >
         <div className={styles.groupType}>
-          <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
-            selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} typeSVL={'maintenance'} 
-          />
+          <div className={styles.groupTypeTopPart}>
+            # {maintenanceIndex + 1}
+            <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
+              selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} typeSVL={'maintenance'} 
+            />
+            {maintenances[selectedOwner].group[groupIndex].numMaintenances > 1 &&
+              <RemoveGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
+                selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} type={'maintenance'}
+              />
+            }
+          </div>
           {maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].shrinked == false &&
-            <div className={styles.groupType}>
+            <div className={styles.groupTypeBottomPart}>
               <InputField fieldLabel={''} placeholder={'Name'} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} dataSVL={maintenances} 
                 value={maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex].name} 
@@ -93,18 +101,14 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
               />
             </div>
           }
-          <div className={styles.addRemoveMaintenance}>
-            {maintenances[selectedOwner].group[groupIndex].numMaintenances - 1 == maintenanceIndex &&
-              <AddGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} type={'maintenance'}
-              />
-            }
-            {maintenances[selectedOwner].group[groupIndex].numMaintenances > 1 &&
-              <RemoveGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} type={'maintenance'}
-              />
-            }
-          </div>
+        </div>
+        <div className={styles.addMaintenance}>
+          {maintenances[selectedOwner].group[groupIndex].numMaintenances - 1 == maintenanceIndex &&
+            <AddGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
+              selectedGroup={groupIndex} type={'maintenance'}
+            />
+          }
+          
         </div>
       </div>
     ));
@@ -120,10 +124,12 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
     <div key={groupIndex}>
       <div className={styles.groupContainer}>
         <div className={styles.topPart}>
-          <div className={styles.toggleGroupVisibilityButton}>
+          <div className={styles.toggleVisibilityRemoveGroup}>
+            # {groupIndex + 1}
             <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={-1} typeSVL={''} 
             />
+            <RemoveGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'maintenances'} />
           </div>
           {maintenances[selectedOwner].group[groupIndex].shrinked == false &&
             <div className={styles.topBottomPart}>
@@ -159,11 +165,10 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
           </div>
         }
       </div>
-      <div className={styles.addRemoveGroupButton}>
+      <div className={styles.addGroupButton}>
         {maintenances[selectedOwner].numGroups - 1 == groupIndex &&
           <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} />
         }
-        <RemoveGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'maintenances'} />
       </div>
     </div>
   ));
@@ -174,7 +179,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
         Maintenances
       </div>
       {listGroupMaintenances}
-      <div className={styles.addRemoveGroupButton}>
+      <div className={styles.addGroupButton}>
         {maintenances[selectedOwner].numGroups == 0 &&
           <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} />
         }

@@ -53,7 +53,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
   return (
     <div>
       <button
-        className={styles.button}
+        className={styles.addRemoveGroupButton}
         onClick={handleAddGroup}>
         +
       </button>
