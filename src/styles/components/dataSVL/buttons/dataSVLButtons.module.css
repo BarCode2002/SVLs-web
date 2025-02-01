@@ -62,3 +62,15 @@
   cursor: pointer;
   background-color: rgb(11, 11, 182);
 }
+
+.dragButton {
+  height: 30px;
+  background-color: red;
+  border: none;
+  border-radius: 10px;
+}
+
+.dragButton:hover {
+  cursor: pointer;
+  background-color: brown;
+}

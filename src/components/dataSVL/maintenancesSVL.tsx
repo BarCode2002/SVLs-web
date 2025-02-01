@@ -1,4 +1,4 @@
-import { SetStateAction } from 'react';
+import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/maintenancesSVL.module.css';
 import { Maintenances } from '../../utils/interfaces/dataSVL.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
@@ -12,6 +12,7 @@ import DateField from './fields/dateField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
 import ResponsibleField from './fields/responsibleField.tsx';
 import ComponentsField from './fields/componentsField.tsx';
+import DragGroupGroupTypeButton from './buttons/dragGroupGroupTypeButton.tsx';
 
 type MainteancesSVLProps = {
   selectedOwner: number;
@@ -20,6 +21,8 @@ type MainteancesSVLProps = {
 };
 
 const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: MainteancesSVLProps): JSX.Element => {
+
+  const [draggable, setDraggable] = useState(false);
 
   const handleOnDrag = (e: React.DragEvent, groupIndex: number, maintenanceIndex: number) => {
     e.dataTransfer.setData("groupIndex", groupIndex.toString());
@@ -49,7 +52,6 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
     setMaintenances(updatedMainteances);
   }
 
-
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
   }
@@ -58,13 +60,15 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
 
     const listMaintenances = Array.from({length: maintenances[selectedOwner].group[groupIndex].numMaintenances}, (_, maintenanceIndex) => (
       <div key={maintenanceIndex} className={styles.maintenanceContainer} 
-        draggable onDragStart={(e) => handleOnDrag(e, groupIndex, maintenanceIndex)} 
+        draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, maintenanceIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, maintenanceIndex)} onDragOver={(e) => handleDragOver(e)} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {maintenanceIndex + 1}
             <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={maintenanceIndex} typeSVL={'maintenance'} 
+            />
+            <DragGroupGroupTypeButton setDraggable={setDraggable}
             />
             {maintenances[selectedOwner].group[groupIndex].numMaintenances > 1 &&
               <RemoveGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
