@@ -51,6 +51,7 @@ const Data = (): JSX.Element => {
         maintenance: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+          numComponents: 1,
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",

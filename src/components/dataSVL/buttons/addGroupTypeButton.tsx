@@ -27,6 +27,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: 
                         {
                           name: "",
                           components: Array.from({ length: COMPONENTS_SIZE }, () => ""),
+                          numComponents: 1,
                           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ""),
                           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ""),
                           comments: "",

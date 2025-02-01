@@ -23,6 +23,7 @@ export interface GeneralInformation {
 interface Maintenance {
   name: string;
   components: string[];
+  numComponents: number;
   pre: string[],
   post: string[],
   comments: string;
