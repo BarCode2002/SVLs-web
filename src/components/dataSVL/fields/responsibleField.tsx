@@ -14,7 +14,7 @@ type ResponsibleFieldProps = {
 const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, value, setDataSVL }: ResponsibleFieldProps) => {
 
   const [step, setStep] = useState(0);
-  const [mechanic, setMechanic] = useState(false);
+  const [mechanic, setMechanic] = useState<boolean | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [proof, setProof] = useState(false);
@@ -87,12 +87,12 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
         {step >= 0 &&
           <div>
             <button
-              className={mechanic ? styles.meButton : styles.meButtonSelected}
+              className={mechanic != false ? styles.meButton : styles.meButtonSelected}
               onClick={handleMeResponsible}>
               Me
             </button>
             <button
-              className={mechanic ? styles.mechanicButtonSelected : styles.mechanicButton}
+              className={mechanic != true ? styles.mechanicButton : styles.mechanicButtonSelected}
               onClick={handleMechanicResponsible}>
               Mechanic
             </button>
