@@ -64,6 +64,7 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
       updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[3] = URL.createObjectURL(event.target.files[0]);    
       setDataSVL(updatedDataSVL);
     }
+    event.target.value = '';
   }
 
   const changeImageSize = (size: string) => {
