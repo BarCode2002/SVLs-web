@@ -213,7 +213,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                 className={styles.imageSmall}
                 onClick={() => changeImageSize('big', index)}
                 src={url}
-                draggable
+                draggable={true}
                 onDragStart={(e) => handleOnDrag(e, index)}
                 onDrop={(e) => handleOnDrop(e, index)}
                 onDragOver={(e) => handleDragOver(e)}
@@ -222,7 +222,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                 <button
                   className={styles.removeImageButton}
                   onClick={() => removeUploadedImage(index)}>
-                  x
+                  x 
                 </button>
               </div>
             </div>

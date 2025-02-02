@@ -30,26 +30,28 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
   }
 
   const handleOnDrop = (e: React.DragEvent, groupIndex: number, maintenanceIndex: number) => {
-    const groupIndexDragged = parseInt(e.dataTransfer.getData("groupIndex"));
-    const maintenanceIndexDragged = parseInt(e.dataTransfer.getData("maintenanceIndex"));
-    const updatedMainteances = [...maintenances];
-    if (groupIndex == groupIndexDragged) {
-      if (maintenanceIndexDragged > maintenanceIndex) {
-        const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndexDragged];
-        for (let i = maintenanceIndexDragged; i > maintenanceIndex; i--) {
-          updatedMainteances[selectedOwner].group[groupIndex].maintenance[i] = maintenances[selectedOwner].group[groupIndex].maintenance[i-1];
+    if (draggable) {
+      const groupIndexDragged = parseInt(e.dataTransfer.getData("groupIndex"));
+      const maintenanceIndexDragged = parseInt(e.dataTransfer.getData("maintenanceIndex"));
+      const updatedMainteances = [...maintenances];
+      if (groupIndex == groupIndexDragged) {
+        if (maintenanceIndexDragged > maintenanceIndex) {
+          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndexDragged];
+          for (let i = maintenanceIndexDragged; i > maintenanceIndex; i--) {
+            updatedMainteances[selectedOwner].group[groupIndex].maintenance[i] = maintenances[selectedOwner].group[groupIndex].maintenance[i-1];
+          }
+          updatedMainteances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex] = draggedMaintenance;
         }
-        updatedMainteances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex] = draggedMaintenance;
-      }
-      else if (maintenanceIndexDragged < maintenanceIndex) {
-        const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndexDragged];
-        for (let i = maintenanceIndexDragged; i < maintenanceIndex ; i++) {
-          updatedMainteances[selectedOwner].group[groupIndex].maintenance[i] = maintenances[selectedOwner].group[groupIndex].maintenance[i+1];
+        else if (maintenanceIndexDragged < maintenanceIndex) {
+          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].maintenance[maintenanceIndexDragged];
+          for (let i = maintenanceIndexDragged; i < maintenanceIndex ; i++) {
+            updatedMainteances[selectedOwner].group[groupIndex].maintenance[i] = maintenances[selectedOwner].group[groupIndex].maintenance[i+1];
+          }
+          updatedMainteances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex] = draggedMaintenance;
         }
-        updatedMainteances[selectedOwner].group[groupIndex].maintenance[maintenanceIndex] = draggedMaintenance;
       }
+      setMaintenances(updatedMainteances);
     }
-    setMaintenances(updatedMainteances);
   }
 
   const handleDragOver = (e: React.DragEvent) => {
