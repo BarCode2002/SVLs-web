@@ -52,22 +52,22 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
         value={selectedComponents[index]}
         onChange={(e) => updateValue(e, index)}
       />
-      <div className={styles.addRemoveComponent}>
-        {index+1 == dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents &&
-          <button
-            className={styles.addComponentButton}
-            onClick={addComponent}>
-            +
-          </button>
-        }
-        {dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents > 1 &&
+      {dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents > 1 &&
+        <div className={styles.removeComponentButtonWrapper}>
           <button
             className={styles.removeComponentButton}
             onClick={() => removeComponent(index)}>
             -
           </button>
-        }
-      </div>
+        </div>
+      }
+      {index+1 == dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents &&
+        <button
+          className={styles.addComponentButton}
+          onClick={addComponent}>
+          +
+        </button>
+      }
     </div>
   ));
 

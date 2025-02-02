@@ -1,14 +1,16 @@
 .componentsFieldContainer {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 5px;
+  column-gap: 3px;
+  row-gap: 10px;
   align-items: center;
 }
 
 .inputField {
   border-radius: 10px;
   height: 35px;
-  width: 300px;
+  width: 273px;
   border: none;
   padding-left: 10px;
   font-size: 1rem;
@@ -25,23 +27,37 @@
   background-color: #E1EBEE;
 }
 
-.addRemoveComponent {
-  display: flex;
-  flex-direction: column;
-}
-
 .addComponentButton {
-
+  width: 25px;
+  border: none;
+  border-radius: 10px;
+  background-color: #6daeea;
+  color: black;
+  font-size: 1rem;
 }
 
 .addComponentButton:hover {
   cursor: pointer;
+  background-color: #E1EBEE;
+}
+
+.removeComponentButtonWrapper {
+  position: relative;
 }
 
 .removeComponentButton {
-
+  position: absolute;
+  left: -28px;
+  top: -19px;
+  width: 25px;
+  border: none;
+  border-radius: 10px;
+  background-color: #E1EBEE;
+  color: black;
+  font-size: 1rem;
 }
 
 .removeComponentButton:hover {
   cursor: pointer;
+  background-color: #6daeea;
 }

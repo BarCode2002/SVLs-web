@@ -21,13 +21,13 @@
   padding-bottom: 8px;
   border: none;
   border-radius: 10px;
-  background-color: rgb(16, 108, 222);
+  background-color: white;
   color: black;
 }
 
 .addRemoveGroupButton:hover {
   cursor: pointer;
-  background-color: rgb(11, 11, 182);
+  background-color: #D9D9D9;
 }
 
 .addRemoveGroupTypeButton {
@@ -39,13 +39,13 @@
   font-size: 2rem;
   border: none;
   border-radius: 10px;
-  background-color: rgb(16, 108, 222);
+  background-color: #D9D9D9;
   color: black;
 }
 
 .addRemoveGroupTypeButton:hover {
   cursor: pointer;
-  background-color: rgb(11, 11, 182);
+  background-color: #6daeea;
 }
 
 .toogleButton {
