@@ -1,4 +1,5 @@
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
+import { useTranslation } from "react-i18next";
 
 type ViewTypeButtonProps = {
   viewType: number;
@@ -7,8 +8,9 @@ type ViewTypeButtonProps = {
 
 const ViewTypeButton = ({ viewType, setViewType }: ViewTypeButtonProps): JSX.Element => {
 
-  const ownerView = 'Owner view';
-  const summaryView = 'Summary view';
+  const { t } = useTranslation();
+  const ownerView = t('DataSVL.TopBar.ownerView');
+  const summaryView = t('DataSVL.TopBar.summaryView');
 
   const handleEditMode = async () => {
     if (viewType == 0) setViewType(1);

@@ -1,4 +1,5 @@
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
+import { useTranslation } from "react-i18next";
 
 type EditModeButtonProps = {
   editMode: boolean;
@@ -7,8 +8,9 @@ type EditModeButtonProps = {
 
 const EditModeButton = ({ editMode, setEditMode }: EditModeButtonProps): JSX.Element => {
 
-  const enabled = 'Enter edit mode';
-  const disabled = 'Exit edit mode';
+  const { t } = useTranslation();
+  const enabled = t('DataSVL.TopBar.enterEditMode');
+  const disabled = t('DataSVL.TopBar.exitEditMode');
 
   const handleEditMode = async () => {
     if (editMode == true) setEditMode(false);

@@ -2,6 +2,7 @@ import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces/dataSVL';
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../utils/constants/constants';
+import { useTranslation } from "react-i18next";
 
 type AddOwnerButtonProps = {
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
@@ -17,28 +18,30 @@ type AddOwnerButtonProps = {
 
 const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, totalOwners, setTotalOwners }: AddOwnerButtonProps): JSX.Element => {
 
+  const { t } = useTranslation();
+
   const addGeneralInformation = async () => {
     setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
       ...prevGeneralInformation,
       {
         VIN: '',
-        brand: 'Vehicle brand',
-        model: 'Model brand',
+        brand: t('DataSVL.Forms.brand'),
+        model: t('DataSVL.Forms.model'),
         year: '',
         kilometers: '',
         mainPhotograph: '',
-        state: 'State of the vehicle',
+        state: t('DataSVL.Forms.state'),
         photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         weight: '',
         color: '',
         engine: '',
         power: '',
-        shift: 'Shift of the vehicle',
-        fuel: 'Fuel of the vehicle',
+        shift: t('DataSVL.Forms.shift'),
+        fuel: t('DataSVL.Forms.fuel'),
         autonomy: '',
-        climate: 'Climate where the vehicle was used',
-        usage: 'Usage that was made to the vehicle',
-        storage: 'Storage of the vehicle',
+        climate: t('DataSVL.Forms.climate'),
+        usage: t('DataSVL.Forms.usage'),
+        storage: t('DataSVL.Forms.storage'),
         comments: '',
       },
     ]);

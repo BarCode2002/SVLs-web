@@ -1,4 +1,5 @@
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
+import { useTranslation } from "react-i18next";
 
 type OwnerButtonProps = {
   index: number;
@@ -9,7 +10,8 @@ type OwnerButtonProps = {
 
 const OwnerButton = ({ index, selectedOwner, setSelectedOwner, ownersContainerRef }: OwnerButtonProps): JSX.Element => {
 
-  const owner = `Owner ${index+1}`;
+  const { t } = useTranslation();
+  const owner = `${t('DataSVL.BottomBar.owner')} ${index+1}`;
 
   const handleOwnerChange = (event: any) => {
     const button = event.target;

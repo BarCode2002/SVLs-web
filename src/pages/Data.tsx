@@ -5,8 +5,11 @@ import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../utils/constants/constants.ts';
+import { useTranslation } from "react-i18next";
 
 const Data = (): JSX.Element => {
+
+  const { t } = useTranslation();
 
   const [selectedSVLData, setSelectedSVLData] = useState(0);
   const [selectedOwner, setSelectedOwner] = useState(0);
@@ -18,23 +21,23 @@ const Data = (): JSX.Element => {
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: 1 }, () => ({
       VIN: '',
-      brand: 'Vehicle brand',
-      model: 'Model brand',
+      brand: t('DataSVL.Forms.brand'),
+      model: t('DataSVL.Forms.model'),
       year: '',
       kilometers: '',
       mainPhotograph: '',
-      state: 'State of the vehicle',
+      state: t('DataSVL.Forms.state'),
       photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       weight: '',
       color: '',
       engine: '',
       power: '',
-      shift: 'Shift of the vehicle',
-      fuel: 'Fuel of the vehicle',
+      shift: t('DataSVL.Forms.shift'),
+      fuel: t('DataSVL.Forms.fuel'),
       autonomy: '',
-      climate: 'Climate where the vehicle was used',
-      usage: 'Usage that was made to the vehicle',
-      storage: 'Storage of the vehicle',
+      climate: t('DataSVL.Forms.climate'),
+      usage: t('DataSVL.Forms.usage'),
+      storage: t('DataSVL.Forms.storage'),
       comments: '',
     }))
   );

@@ -1,12 +1,15 @@
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
+import { useTranslation } from "react-i18next";
 
 const UploadJSONButton = (): JSX.Element => {
+
+  const { t } = useTranslation();
 
   return (
     <div>
       <button
         className={styles.button}>
-        Upload JSON
+        {t('DataSVL.TopBar.uploadJSON')}
       </button>
     </div>
   );

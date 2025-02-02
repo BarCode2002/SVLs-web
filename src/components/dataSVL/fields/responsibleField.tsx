@@ -1,9 +1,9 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/responsibleField.module.css';
+import { useTranslation } from "react-i18next";
 
 type ResponsibleFieldProps = {
   fieldLabel: string;
-  placeholder: string;
   selectedOwner: number;
   selectedGroup: number;
   dataSVL: any;
@@ -11,7 +11,9 @@ type ResponsibleFieldProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
 }
 
-const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, value, setDataSVL }: ResponsibleFieldProps) => {
+const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL }: ResponsibleFieldProps) => {
+
+  const { t } = useTranslation();
 
   const [step, setStep] = useState(0);
   const [mechanic, setMechanic] = useState<boolean | undefined>(undefined);
@@ -89,12 +91,12 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
             <button
               className={mechanic != false ? styles.meButton : styles.meButtonSelected}
               onClick={handleMeResponsible}>
-              Me
+              {t('DataSVL.Placeholders.me')}
             </button>
             <button
               className={mechanic != true ? styles.mechanicButton : styles.mechanicButtonSelected}
               onClick={handleMechanicResponsible}>
-              Mechanic
+              {t('DataSVL.Placeholders.mechanic')}
             </button>
           </div>
         }
@@ -102,7 +104,7 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
           <div>
             <input
               className={styles.inputField}
-              placeholder={placeholder}
+              placeholder={t('DataSVL.Placeholders.mechanicShop')}
               value={searchQuery}
               onChange={handleInputChange}
             />
@@ -128,13 +130,13 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
               <button
                 className={styles.noProofButton}
                 onClick={handleYesProof}>
-                Proof X
+                {t('DataSVL.Placeholders.proof')} {'x'}
               </button>
             ) : (
               <button
                 className={styles.yesProofButton}
                 onClick={handleNoProof}>
-                Proof ✔
+                {t('DataSVL.Placeholders.proof')} {'✔'}
               </button>
             )}
           </div>
@@ -144,7 +146,7 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
             <button 
               className={styles.fileInput}
               onClick={() => document.getElementById(imageInputId)!.click()}>
-              Upload proof
+              {t('DataSVL.Placeholders.uploadProof')}
             </button>
             <input 
               type="file" 

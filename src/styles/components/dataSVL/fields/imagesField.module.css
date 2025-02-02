@@ -4,7 +4,7 @@
 }
 
 .fieldLabel {
-  width: 100px;
+  width: 150px;
   color: black;
 }
 
@@ -26,7 +26,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-  margin-left: 100px;
+  margin-left: 150px;
   gap: 10px;
 }
 

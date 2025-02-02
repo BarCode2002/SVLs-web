@@ -31,13 +31,13 @@ const ToggleVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGr
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {dataSVL[selectedOwner].group[selectedGroup].shrinked == false ? 'Hide' : 'Show'}
+          {dataSVL[selectedOwner].group[selectedGroup].shrinked == false ? '⬆' : '⬇'}
         </button>
       ) : (
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].shrinked == false ? 'Hide' : 'Show'}
+          {dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].shrinked == false ? '⬆' : '⬇'}
         </button>
       )}
     </div>

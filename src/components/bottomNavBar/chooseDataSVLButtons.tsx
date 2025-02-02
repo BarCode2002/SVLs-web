@@ -1,5 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/chooseSVLDataButtons.module.css';
+import { useTranslation } from "react-i18next";
 
 type ChooseDataSVLButtonsProps = {
   selectedSVLData: number;
@@ -7,6 +8,8 @@ type ChooseDataSVLButtonsProps = {
 };
 
 const ChooseDataSVLButtons = ({ selectedSVLData, setSelectedSVLData }: ChooseDataSVLButtonsProps): JSX.Element => {
+
+  const { t } = useTranslation();
 
   const handleChooseSVLData = async (label: string) => {
     switch (label) {
@@ -33,27 +36,27 @@ const ChooseDataSVLButtons = ({ selectedSVLData, setSelectedSVLData }: ChooseDat
       <button
         className={selectedSVLData == 0 ? styles.butttonSelected : styles.button}
         onClick={() => handleChooseSVLData('General information')}>
-        General information
+        {t('DataSVL.BottomBar.generalInformation')}
       </button>
       <button
         className={selectedSVLData == 1 ? styles.butttonSelected : styles.button}
         onClick={() => handleChooseSVLData('Maintenances')}>
-        Maintenances
+        {t('DataSVL.BottomBar.maintenances')}
       </button>
       <button
         className={selectedSVLData == 2 ? styles.butttonSelected : styles.button}
         onClick={() => handleChooseSVLData('Modifications')}>
-        Modifications
+        {t('DataSVL.BottomBar.modifications')}
       </button>
       <button
         className={selectedSVLData == 3 ? styles.butttonSelected : styles.button}
         onClick={() => handleChooseSVLData('Defects')}>
-        Defects
+        {t('DataSVL.BottomBar.defects')}
       </button>
       <button
         className={selectedSVLData == 4 ? styles.butttonSelected : styles.button}
         onClick={() => handleChooseSVLData('Repairs')}>
-        Repairs
+        {t('DataSVL.BottomBar.repairs')}
       </button>
     </div>
   );
