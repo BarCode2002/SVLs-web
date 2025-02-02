@@ -1,10 +1,10 @@
 .generalInformationSVLContainer {
   min-height: 100%;
-  width: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
-
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .title {
@@ -16,9 +16,17 @@
   font-size: 3rem;
 }
 
+.dataWrapper {
+  background-color: #002244;
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .data {
   display: flex;
   flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
   gap: 10px;
-  padding-left: 10px;
+  background-color: #abb4be;
 }

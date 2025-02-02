@@ -1,0 +1,119 @@
+{ 
+  "language": "spanish",
+
+  "DataSVL": {
+    "TopBar": {
+      "dashboard": "Panel",
+      "exitEditMode": "Salir del modo edición",
+      "enterEditMode": "Entrar al modo edición",
+      "ownerView": "Vista del propietario",
+      "summaryView": "Vista resumen",
+      "uploadJSON": "Sube JSON",
+      "downloadJSON": "Descarga JSON",
+      "mintSVL": "Crea SVL",
+      "editSVL": "Edita SVL"
+    },
+    "BottomBar": {
+      "generalInformation": "Información general",
+      "maintenances": "Mantenimientos",
+      "modifications": "Modificaciones",
+      "defects": "Defectos",
+      "repairs": "Reparaciones",
+      "owner": "Propietario"
+    },
+    "Labels": {
+      "vin": "VIN:",
+      "brand": "Marca:",
+      "model": "Modelo:",
+      "year": "Año:",
+      "kilometers": "Kilometros:",
+      "mainPhotograph": "Imagen principal:",
+      "photographs": "Imágenes:",
+      "state": "Estado:",
+      "weight": "Peso:",
+      "color": "Color:",
+      "engine": "Motor:",
+      "horsepower": "Caballos:",
+      "autonomy": "Autonomia:",
+      "shiftType": "Cambio:",
+      "fuelType": "Combustible:",
+      "useType": "Uso:",
+      "climate": "Clima:",
+      "history": "Historia:",
+      "responsible": "Responsable:",
+      "date": "Fecha:",
+      "General Information": "Información General",
+      "Scheduled Maintenances": "Mantenimientos"
+    },
+    "Placeholders": {
+      "vin": "VIN",
+      "year": "Año de producción",
+      "kilometers": "Kilometros del vehiculo",
+      "mainPhotograph": "Elige una imagen",
+      "photographs": "Elige imagenes",
+      "weight": "Peso del vehiculo",
+      "color": "Color del vehiculo",
+      "engine": "Motor del vehiculo",
+      "horsepower": "Caballos del vehiculo",
+      "history": "Historia del vehiculo",
+      "dateMaintenance": "Selecciona la fecha del mantenimiento rutinario",
+      "search": "Busca..."
+    },
+    "Forms": {
+      "brand": "Selecciona la marca",
+      "model": "Selecciona el modelo",
+      "state": "Selecciona el estado del vehiculo",
+      "shift": "Selecciona el tipo de cambio",
+      "use": "Selecciona el tipo de uso",
+      "fuel": "Selecciona el tipo de combustible",
+      "climate": "Selecciona el clima",
+      "storage": "Selecciona el almacenamiento del vehiculo"
+    },
+    "DropDownMenus": {
+      "state": {
+        "new": "Nuevo",
+        "excellent": "Excelente",
+        "great": "Muy bueno",
+        "good": "Bueno",
+        "mediocre": "Mediocre",
+        "poor": "Malo",
+        "totalled": "Roto"
+      },
+      "shift": {
+        "manual": "Manual",
+        "automatic": "Automático"  
+      },
+      "use": {
+        "daily": "Diario",
+        "weekend": "Fin de semana", 
+        "business": "Empresa",  
+        "project": "Proyecto", 
+        "classic": "Clasico", 
+        "utility": "De trabajo", 
+        "seasonal": "De temporada" 
+      },
+      "fuel": {
+        "gasoline": "Gasolina",
+        "diesel": "Diesel", 
+        "hybrid": "Hibrido",  
+        "electric": "Electrico"
+      },
+      "climate": {
+        "tropical": "Tropical",
+        "desert": "Desierto", 
+        "mediterranean": "Mediterraneo",  
+        "temperate": "Templado",
+        "continental": "Continental",
+        "highland": "Tierras altas",
+        "subartic": "Subartico"
+      },
+      "defects": {
+        "cosmetic": "Cosmético",
+        "minor": "Menor",
+        "moderate": "Moderado",
+        "significant": "Importante",
+        "critical": "Crítico"
+      }
+    }
+  }
+}
