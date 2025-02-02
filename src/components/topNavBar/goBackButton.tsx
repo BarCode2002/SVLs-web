@@ -6,7 +6,7 @@ const GoBackButton = (): JSX.Element => {
     <div>
       <button
         className={styles.button}>
-        {'<'}
+        Dashboard
       </button>
     </div>
   );

@@ -156,14 +156,14 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
     addModifications();
     addDefects();
     addRepairs();
-    setSelectedOwner(selectedOwner+1);
+    setSelectedOwner(totalOwners);
     setTotalOwners(totalOwners+1);
   }
 
   return (
     <div>
       <button
-        className={styles.addOwnerButton}
+        className={styles.removeAddOwnerButton}
         onClick={handleOwnerAddition}>
         +
       </button>

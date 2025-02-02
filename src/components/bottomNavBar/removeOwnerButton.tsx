@@ -50,7 +50,7 @@ const RemoveOwnerButton = ({ setGeneralInformation, setMaintenances, setModifica
   return (
     <div>
       <button
-        className={styles.removeOwnerButton}
+        className={styles.removeAddOwnerButton}
         onClick={handleOwnerRemoval}>
         -
       </button>

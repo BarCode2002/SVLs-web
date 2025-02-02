@@ -1,52 +1,47 @@
-.removeOwnerButton {
-  width: 40px;
-  font-size: 14px;
-  background-color: rgb(220, 220, 220);
-  border: none;
-  color: black;
+.removeAddOwnerButton {
+  height: 35px;
   font-size: 1rem;
+  font-weight: 600;
+  background-color: #3B3C36;
+  border: none;
+  color: white;
   border-radius: 10px;
 }
 
-.removeOwnerButton:hover {
+.removeAddOwnerButton:hover {
   cursor: pointer;
-  color: blue;
+  height: 35px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: white;
+  color: #3B3C36;
 }
 
 .ownerButton {
-  font-size: 14px;
-  background-color: rgb(220, 220, 220);
-  border: none;
-  color: black;
+  height: 35px;
   font-size: 1rem;
+  font-weight: 600;
+  background-color: #3B3C36;
+  border: none;
+  color: white;
   border-radius: 10px;
 }
 
 .ownerButtonSelected {
-  font-size: 14px;
-  background-color: rgb(220, 220, 220);
-  border: none;
-  color: green;
+  height: 35px;
   font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  background-color: white;
+  color: #3B3C36;
   border-radius: 10px;
 }
 
 .ownerButton:hover {
   cursor: pointer;
-  color: blue;
-}
-
-.addOwnerButton {
-  width: 40px;
-  font-size: 14px;
-  background-color: rgb(220, 220, 220);
-  border: none;
-  color: black;
+  height: 35px;
   font-size: 1rem;
-  border-radius: 10px;
-}
-
-.addOwnerButton:hover {
-  cursor: pointer;
-  color: blue;
+  font-weight: 600;
+  background-color: white;
+  color: #3B3C36;
 }

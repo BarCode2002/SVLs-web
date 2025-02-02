@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgb(220, 220, 220);
+  background-color: #3B3C36;
 }
 
 .topPart {
-  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  gap: 10px;
   min-height: 50px;
   display: flex;
   flex-direction: column;
@@ -15,12 +17,14 @@
 }
 
 .separator {
-  min-height: 2px;
-  width: 100%;
-  background-color: black;
+  min-height: 1px;
+  background-color: white;
 }
 
 .bottomPart {
+  padding-left: 10px;
+  padding-right: 10px;
+  gap: 10px;
   min-height: 50px;
   display: flex;
   align-items: center;
@@ -29,6 +33,7 @@
 .ownersContainer {
   display: flex;
   flex-direction: row;
+  gap: 10px;
   align-items: center;
   white-space: nowrap;
   overflow-x: hidden;

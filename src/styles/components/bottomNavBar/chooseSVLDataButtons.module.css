@@ -1,26 +1,31 @@
 .chooseSVLContainer {
   display: flex;
+  justify-content: space-around;
 }
 
 .button {
-  width: 100%;
-  background-color: rgb(220, 220, 220);
-  border: none;
-  color: black;
+  height: 35px;
   font-size: 1rem;
-  border-radius: 10px;
-}
-
-.butttonSelected {
-  width: 100%;
-  background-color: rgb(220, 220, 220);
-  color: green;
+  font-weight: 600;
+  background-color: #3B3C36;
   border: none;
-  font-size: 1rem;
+  color: white;
   border-radius: 10px;
 }
 
 .button:hover {
+  background-color: white;
+  color: #3B3C36;
   cursor: pointer;
-  color: blue;
 }
+
+.butttonSelected {
+  height: 35px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: white;
+  color:#3B3C36;
+  border: none;
+  border-radius: 10px;
+}
+

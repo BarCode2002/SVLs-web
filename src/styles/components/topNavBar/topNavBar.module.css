@@ -4,13 +4,12 @@
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
-  flex-grow: 1;
   justify-content: space-between;
-  background-color: rgb(220, 220, 220);
+  background-color: #3B3C36;
 }
 
 .rightSideButtons {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 20px;
 }
