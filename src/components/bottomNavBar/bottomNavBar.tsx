@@ -1,4 +1,4 @@
-import { SetStateAction } from 'react';
+import { SetStateAction, useRef } from 'react';
 import styles from '../../styles/components/bottomNavBar/bottomNavBar.module.css';
 import ChooseDataSVLButtons from './chooseDataSVLButtons.tsx';
 import AddOwnerButton from './addOwnerButton.tsx';
@@ -22,9 +22,11 @@ type BottomNavBarProps = {
 
 const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners }: BottomNavBarProps): JSX.Element => {
 
+  const ownersContainerRef = useRef(null);
+
   const ownerSelector = Array.from({length: totalOwners}, (_, index) => (
     <div key={index}>
-      <OwnerButton index={index} selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} />
+      <OwnerButton index={index} selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} ownersContainerRef={ownersContainerRef.current} />
     </div>
   ));
 
@@ -40,7 +42,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
           selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner}
           totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
         />
-        <div className={styles.ownersContainer}>
+        <div ref={ownersContainerRef} className={styles.ownersContainer}>
           {ownerSelector}
         </div>
         <div className={styles.addOwnerButton}>

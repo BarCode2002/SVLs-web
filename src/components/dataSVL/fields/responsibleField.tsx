@@ -22,7 +22,7 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
 
   const imageInputId = `${selectedGroup}`;
   
-  const mechanicsList = ['Pepe', 'Jaja', 'ewfgew', 'Camion', 'avion', 'pepa'];
+  const mechanicsList = ['Pepe', 'Jaja', 'ewfgew', 'Camion', 'avion', 'pepa', 'pepo', 'pepin', 'pepapaa', 'pepeeee', 'pepitp'];
 
   const handleMeResponsible = () => {
     setMechanic(false);
@@ -107,15 +107,17 @@ const ResponsibleField = ({ fieldLabel, placeholder, selectedOwner, selectedGrou
               onChange={handleInputChange}
             />
             {isOpen && searchQuery != '' &&
-              <div className={styles.mechanicsList}>
-                {mechanicsList.filter(mechanic => mechanic.toLowerCase().includes(searchQuery.toLowerCase())).map((mechanic, index) => (
-                  <button
-                    key={index}
-                    className={styles.mechanic}
-                    onClick={() => handleMechanicSelected(mechanic)}>
-                    {mechanic}
-                  </button>
-                ))}
+              <div className={styles.mechanicsListWrapper}>
+                <div className={styles.mechanicsList}>
+                  {mechanicsList.filter(mechanic => mechanic.toLowerCase().includes(searchQuery.toLowerCase())).map((mechanic, index) => (
+                    <button
+                      key={index}
+                      className={styles.mechanic}
+                      onClick={() => handleMechanicSelected(mechanic)}>
+                      {mechanic}
+                    </button>
+                  ))}
+                </div>
               </div>
             }
           </div>
