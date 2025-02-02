@@ -20,7 +20,7 @@
   padding-left: 10px;
   padding-right: 10px;
   font-size: 1rem;
-  background-color: aliceblue;
+  background-color: #E1EBEE;
   border: none;
   border-radius: 10px;
   justify-content: space-between;
@@ -28,11 +28,11 @@
 }
 
 .selected:disabled {
-  background-color: aliceblue;
+  background-color: #E1EBEE;
 }
 
 .selected:hover {
-  background-color: aliceblue;
+  background-color: #E1EBEE;
   cursor: pointer;
 }
 
@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: aliceblue;
+  background-color: #E1EBEE;
   border-radius: 10px;
   z-index: 1;
 }
@@ -88,14 +88,14 @@
 }
 
 .dropdownItem {
-  background-color: aliceblue;
+  background-color: #E1EBEE;
   border: none;
   text-align: left;
   font-size: 1rem;
 }
 
 .dropdownItem:hover {
-  background-color: aliceblue;
+  background-color: white;
   border-radius: 10px;
   cursor: pointer;
 }

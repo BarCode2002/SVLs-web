@@ -7,7 +7,7 @@
   height: 35px;
   font-size: 1rem;
   font-weight: 600;
-  background-color: #3B3C36;
+  background-color: #002244;
   border: none;
   color: white;
   border-radius: 10px;
@@ -15,7 +15,7 @@
 
 .button:hover {
   background-color: white;
-  color: #3B3C36;
+  color: #002244;
   cursor: pointer;
 }
 
@@ -24,7 +24,7 @@
   font-size: 1rem;
   font-weight: 600;
   background-color: white;
-  color:#3B3C36;
+  color: #002244;
   border: none;
   border-radius: 10px;
 }

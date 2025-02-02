@@ -16,7 +16,7 @@
   padding-left: 10px;
   font-size: 1rem;
   color: black;
-  background-color: aliceblue;
+  background-color: #E1EBEE;
 }
 
 .inputField::placeholder {
@@ -25,5 +25,5 @@
 
 .inputField:focus {
   outline: none;
-  background-color: aliceblue;
+  background-color: #E1EBEE;
 }

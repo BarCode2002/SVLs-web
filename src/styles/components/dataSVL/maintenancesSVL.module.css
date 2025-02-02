@@ -5,7 +5,6 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-
 }
 
 .title {
@@ -21,12 +20,12 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  background-color: #89CFF0;
+  background-color: #7CB9E8;
   border-radius: 10px;
+  padding: 10px;
 }
 
 .topPart {
-  padding: 10px;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -39,7 +38,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #002244;
+  background-color: white;
   border-radius: 10px;
   padding: 10px;
 }
@@ -48,11 +47,14 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 5px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .maintenancesContainer {
-  margin: 10px;
+  pad: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -67,20 +69,17 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: #0047AB;
+  background-color: white;
 }
 
 .groupTypeTopPart {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
   padding: 10px;
 }
-
 
 .groupTypeBottomPart {
   padding: 10px;
@@ -91,17 +90,15 @@
   gap: 10px;
 }
 
-.addGroupButton {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
 .addMaintenance {
   display: flex;
   flex-direction: column;
   justify-content:  center;
-  gap: 10px;
   margin-left: 10px;
+}
+
+.addGroupButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }

@@ -2,7 +2,7 @@
   height: 35px;
   font-size: 1rem;
   font-weight: 600;
-  background-color: #3B3C36;
+  background-color: #002244;
   border: none;
   color: white;
   border-radius: 10px;
@@ -14,14 +14,14 @@
   font-size: 1rem;
   font-weight: 600;
   background-color: white;
-  color: #3B3C36;
+  color: #002244;
 }
 
 .ownerButton {
   height: 35px;
   font-size: 1rem;
   font-weight: 600;
-  background-color: #3B3C36;
+  background-color: #002244;
   border: none;
   color: white;
   border-radius: 10px;
@@ -33,7 +33,7 @@
   font-weight: 600;
   border: none;
   background-color: white;
-  color: #3B3C36;
+  color: #002244;
   border-radius: 10px;
 }
 
@@ -43,5 +43,5 @@
   font-size: 1rem;
   font-weight: 600;
   background-color: white;
-  color: #3B3C36;
+  color: #002244;
 }
