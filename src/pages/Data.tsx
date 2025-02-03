@@ -96,11 +96,11 @@ const Data = (): JSX.Element => {
       group: Array.from({ length: 1 }, () => ({
         date: "",
         kilometers: "",
+        cause: "",
         defect: Array.from({ length: 1 }, () => ({
-          level: "",
+          level: t('DataSVL.Forms.level'),
           photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",
-          cause: "",
           shrinked: false,
         })),
         shrinked: false,

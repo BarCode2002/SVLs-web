@@ -46,6 +46,7 @@
       "storage": "Almacenamiento:",
       "date": "Fecha:",
       "name": "Nombre:",
+      "cause": "Causa:",
       "generalInformation": "Información General",
       "maintenances": "Mantenimientos",
       "modifications": "Modificaciones",
@@ -59,7 +60,7 @@
       "name": "Name",
       "date": "Fecha",
       "mainImage": "Elige una imagen",
-      "images": "Elige imagenes",
+      "images": "Elige imágenes",
       "preImages": "Imágenes pre",
       "postImages": "Imágenes post",
       "weight": "Peso del vehiculo",
@@ -76,7 +77,9 @@
       "dateMaintenance": "Selecciona la fecha del mantenimiento rutinario",
       "search": "Busca...",
       "component": "Componente",
-      "commentsMaintenance": "Comentarios sobre el mantenimiento"
+      "commentsMaintenance": "Comentarios sobre el mantenimiento",
+      "causeDefect": "Causa del grupo de defectos",
+      "descriptionDefect": "Descripción del defecto"
     },
     "Forms": {
       "brand": "Selecciona la marca",
@@ -86,7 +89,8 @@
       "usage": "Selecciona el tipo de uso",
       "fuel": "Selecciona el tipo de combustible",
       "climate": "Selecciona el clima",
-      "storage": "Selecciona el almacenamiento del vehiculo"
+      "storage": "Selecciona el almacenamiento del vehiculo",
+      "level": "Selecciona nivel del defecto"
     },
     "DropDownMenus": {
       "state": {

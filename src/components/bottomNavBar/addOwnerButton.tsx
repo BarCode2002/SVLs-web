@@ -10,13 +10,12 @@ type AddOwnerButtonProps = {
   setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
-  selectedOwner: number;
   setSelectedOwner: React.Dispatch<React.SetStateAction<number>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, totalOwners, setTotalOwners }: AddOwnerButtonProps): JSX.Element => {
+const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, setSelectedOwner, totalOwners, setTotalOwners }: AddOwnerButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -109,12 +108,12 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
         group: Array.from({ length: 1 }, () => ({
           date: "",
           kilometers: "",
+          cause: "",
           defect: Array.from({ length: 1 }, () => ({
             level: "",
             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
             photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
             description: "",
-            cause: "",
             shrinked: false,
           })),
           shrinked: false,

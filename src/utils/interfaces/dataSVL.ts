@@ -73,7 +73,6 @@ interface Defect {
   level: string;
   photographs: string[],
   description: string;
-  cause: string;
   shrinked: boolean;
 }
 
@@ -81,6 +80,7 @@ export interface Defects {
   group: {
     date: string;
     kilometers: string;
+    cause: string;
     defect: Defect[];
     shrinked: boolean;
     numDefects: number;

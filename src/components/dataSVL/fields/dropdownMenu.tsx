@@ -5,13 +5,16 @@ import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComp
 type DropdownMenuProps = {
   fieldLabel: string;
   selectedOwner: number;
+  selectedGroup: number;
+  selectedGroupType: number;
   dataSVL: any;
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
+  typeSVL: string
 };
 
-const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, type }: DropdownMenuProps) => {
+const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, typeSVL }: DropdownMenuProps) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,7 +30,12 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, t
 
   const updateValue = (value: string) => {
     const updateSVLdata = [...dataSVL];
-    updateSVLdata[selectedOwner][type] = value;
+    if (selectedGroup == -1 && selectedGroupType == -1) {
+      updateSVLdata[selectedOwner][type] = value;
+    }
+    else {
+      updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type] = value;
+    }
     setDataSVL(updateSVLdata);
     setIsOpen(false);
   }
@@ -54,9 +62,11 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, dataSVL, value, setDataSVL, t
 
   return (
     <div ref={refClickOutside} className={styles.dropdownMenuContainer}>
-      <div className={styles.fieldLabel}>
-        {fieldLabel}
-      </div>
+      {fieldLabel != '' &&
+        <div className={styles.fieldLabel}>
+          {fieldLabel}
+        </div>
+      }
       <div className={styles.dropDownPosition}>
         <button
           className={styles.selected}
