@@ -38,9 +38,9 @@ export interface Maintenances {
     doneBy: [boolean, string, boolean, string];
     pre: string[],
     post: string[],
-    maintenance: Maintenance[];
+    type: Maintenance[];
     shrinked: boolean;
-    numMaintenances: number;
+    numTypes: number;
   }[];
   numGroups: number;
 }
@@ -62,9 +62,9 @@ export interface Modifications {
     doneBy: [boolean, string, boolean, string];
     pre: string[],
     post: string[],
-    modification: Modification[];
+    type: Modification[];
     shrinked: boolean;
-    numModifications: number;
+    numTypes: number;
   }[];
   numGroups: number;
 }
@@ -81,9 +81,9 @@ export interface Defects {
     date: string;
     kilometers: string;
     cause: string;
-    defect: Defect[];
+    type: Defect[];
     shrinked: boolean;
-    numDefects: number;
+    numTypes: number;
   }[];
   numGroups: number;
 }
@@ -106,9 +106,9 @@ export interface Repairs {
     pre: string[],
     post: string[],
     defectsRepaired: [boolean, number, number, number][];
-    repair: Repair[];
+    type: Repair[];
     shrinked: boolean;
-    numRepairs: number;
+    numTypes: number;
   }[];
   numGroups: number;
 }

@@ -11,40 +11,39 @@ type ComponentsFieldProps = {
   selectedComponents: string[]
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
-  typeSVL: string;
 }
 
-const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedComponents, setDataSVL, type, typeSVL }: ComponentsFieldProps) => {
+const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedComponents, setDataSVL, type }: ComponentsFieldProps) => {
 
 
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const updateSVLdata = [...dataSVL];
-    updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][index] = e.target.value;
+    updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type][index] = e.target.value;
     setDataSVL(updateSVLdata);
   }
 
   const addComponent = () => {
-    if (dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents < COMPONENTS_SIZE) {
+    if (dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents < COMPONENTS_SIZE) {
       const updateSVLdata = [...dataSVL];
-      updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents + 1;
+      updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents + 1;
       setDataSVL(updateSVLdata);
     }
   }
 
   const removeComponent = (indexComponent: number) => {
     const updateSVLdata = [...dataSVL];
-    for (let i = indexComponent; i < dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents; i++) {
-      updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i+1];
+    for (let i = indexComponent; i < dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents; i++) {
+      updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i+1];
     }
-    if (dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents > 1) {
+    if (dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents > 1) {
       const updateSVLdata = [...dataSVL];
-      updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents - 1;
+      updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents - 1;
       setDataSVL(updateSVLdata);
     }
     setDataSVL(updateSVLdata);
   }
 
-  const listComponents = Array.from({length: dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents }, (_, index) => (
+  const listComponents = Array.from({length: dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents }, (_, index) => (
     <div key={index} className={styles.componentsFieldContainer}>
       <input
         className={styles.inputField} 
@@ -52,7 +51,7 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
         value={selectedComponents[index]}
         onChange={(e) => updateValue(e, index)}
       />
-      {dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents > 1 &&
+      {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents > 1 &&
         <div className={styles.removeComponentButtonWrapper}>
           <button
             className={styles.removeComponentButton}
@@ -61,7 +60,7 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
           </button>
         </div>
       }
-      {index+1 == dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].numComponents &&
+      {index+1 == dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents &&
         <button
           className={styles.addComponentButton}
           onClick={addComponent}>

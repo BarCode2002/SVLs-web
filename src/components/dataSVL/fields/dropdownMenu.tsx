@@ -11,10 +11,9 @@ type DropdownMenuProps = {
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
-  typeSVL: string
 };
 
-const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, typeSVL }: DropdownMenuProps) => {
+const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type }: DropdownMenuProps) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,7 +33,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
       updateSVLdata[selectedOwner][type] = value;
     }
     else {
-      updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type] = value;
+      updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type] = value;
     }
     setDataSVL(updateSVLdata);
     setIsOpen(false);

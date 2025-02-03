@@ -11,10 +11,9 @@ type InputFieldProps = {
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
-  typeSVL: string;
 }
 
-const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, typeSVL }: InputFieldProps) => {
+const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type }: InputFieldProps) => {
   
   const validateInputAndUpdateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     let re: RegExp;
@@ -31,7 +30,7 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, sel
       const updateSVLdata = [...dataSVL];
       if (selectedGroup == -1 && selectedGroupType == -1) updateSVLdata[selectedOwner][type] = e.target.value;
       else if (selectedGroup != -1 && selectedGroupType == -1) updateSVLdata[selectedOwner].group[selectedGroup][type] = e.target.value;
-      else updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type] = e.target.value;
+      else updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type] = e.target.value;
       setDataSVL(updateSVLdata);
     }
   };

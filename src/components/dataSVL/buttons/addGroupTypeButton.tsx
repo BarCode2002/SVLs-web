@@ -22,8 +22,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: 
                 gIndex === selectedGroup 
                   ? {
                       ...groupItem,
-                      maintenance: [
-                        ...groupItem.maintenance,
+                      type: [
+                        ...groupItem.type,
                         {
                           name: "",
                           components: Array.from({ length: COMPONENTS_SIZE }, () => ""),
@@ -34,7 +34,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: 
                           shrinked: false,
                         },
                       ],
-                      numMaintenances: groupItem.numMaintenances + 1,
+                      numTypes: groupItem.numTypes + 1,
                     }
                   : groupItem 
               ),

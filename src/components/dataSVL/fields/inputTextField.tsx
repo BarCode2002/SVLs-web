@@ -11,15 +11,14 @@ type InputTextFieldProps = {
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
-  typeSVL: string;
 }
 
-const InputTextField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, typeSVL }: InputTextFieldProps) => {
+const InputTextField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type }: InputTextFieldProps) => {
 
   const updateValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updateSVLdata = [...dataSVL];
     if (selectedGroup == -1 && selectedGroupType == -1) updateSVLdata[selectedOwner][type] = e.target.value;
-    else updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type] = e.target.value;
+    else updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type] = e.target.value;
     setDataSVL(updateSVLdata);
   }
 

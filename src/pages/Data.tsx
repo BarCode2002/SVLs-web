@@ -51,7 +51,7 @@ const Data = (): JSX.Element => {
         doneBy: [false, "", false, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        maintenance: Array.from({ length: 1 }, () => ({
+        type: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           numComponents: 1,
@@ -61,7 +61,7 @@ const Data = (): JSX.Element => {
           shrinked: false,
         })),
         shrinked: false,
-        numMaintenances: 1,
+        numTypes: 1,
       })),
       numGroups: 1,
     }))
@@ -76,7 +76,7 @@ const Data = (): JSX.Element => {
         doneBy: [false, "", false, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        modification: Array.from({ length: 1 }, () => ({
+        type: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -85,7 +85,7 @@ const Data = (): JSX.Element => {
           shrinked: false,
         })),
         shrinked: false,
-        numModifications: 1,
+        numTypes: 1,
       })),
       numGroups: 1,
     }))
@@ -97,14 +97,14 @@ const Data = (): JSX.Element => {
         date: "",
         kilometers: "",
         cause: "",
-        defect: Array.from({ length: 1 }, () => ({
+        type: Array.from({ length: 1 }, () => ({
           level: t('DataSVL.Forms.level'),
           photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",
           shrinked: false,
         })),
         shrinked: false,
-        numDefects: 1,
+        numTypes: 1,
       })),
       numGroups: 1,
     }))
@@ -120,7 +120,7 @@ const Data = (): JSX.Element => {
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),
-        repair: Array.from({ length: 1 }, () => ({
+        type: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -129,7 +129,7 @@ const Data = (): JSX.Element => {
           shrinked: false,
         })),
         shrinked: false,
-        numRepairs: 1,
+        numTypes: 1,
       })),
       numGroups: 1,
     }))

@@ -38,18 +38,18 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
       const updatedDefects = [...defects];
       if (groupIndex == groupIndexDragged) {
         if (typeIndexDragged > typeIndex) {
-          const draggedMaintenance = defects[selectedOwner].group[groupIndex].defect[typeIndexDragged];
+          const draggedMaintenance = defects[selectedOwner].group[groupIndex].type[typeIndexDragged];
           for (let i = typeIndexDragged; i > typeIndex; i--) {
-            updatedDefects[selectedOwner].group[groupIndex].defect[i] = defects[selectedOwner].group[groupIndex].defect[i-1];
+            updatedDefects[selectedOwner].group[groupIndex].type[i] = defects[selectedOwner].group[groupIndex].type[i-1];
           }
-          updatedDefects[selectedOwner].group[groupIndex].defect[typeIndex] = draggedMaintenance;
+          updatedDefects[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
         }
         else if (typeIndexDragged < typeIndex) {
-          const draggedMaintenance = defects[selectedOwner].group[groupIndex].defect[typeIndexDragged];
+          const draggedMaintenance = defects[selectedOwner].group[groupIndex].type[typeIndexDragged];
           for (let i = typeIndexDragged; i < typeIndex ; i++) {
-            updatedDefects[selectedOwner].group[groupIndex].defect[i] = defects[selectedOwner].group[groupIndex].defect[i+1];
+            updatedDefects[selectedOwner].group[groupIndex].type[i] = defects[selectedOwner].group[groupIndex].type[i+1];
           }
-          updatedDefects[selectedOwner].group[groupIndex].defect[typeIndex] = draggedMaintenance;
+          updatedDefects[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
         }
       }
       setDefects(updatedDefects);
@@ -62,7 +62,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
 
   const renderlistDefects = (groupIndex: number) => {
 
-    const listDefects = Array.from({length: defects[selectedOwner].group[groupIndex].numDefects}, (_, typeIndex) => (
+    const listDefects = Array.from({length: defects[selectedOwner].group[groupIndex].numTypes}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} 
         draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, typeIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, typeIndex)} onDragOver={(e) => handleDragOver(e)} >
@@ -70,37 +70,37 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
             <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} selectedGroupType={typeIndex} typeSVL={'defect'} 
+              selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
             <DragGroupGroupTypeButton setDraggable={setDraggable}
             />
-            {defects[selectedOwner].group[groupIndex].numDefects > 1 &&
+            {defects[selectedOwner].group[groupIndex].numTypes > 1 &&
               <RemoveGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} type={'defect'}
               />
             }
           </div>
-          {defects[selectedOwner].group[groupIndex].defect[typeIndex].shrinked == false &&
+          {defects[selectedOwner].group[groupIndex].type[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
               <DropdownMenu fieldLabel={''} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
-                selectedGroupType={typeIndex} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].defect[typeIndex].level} 
-                setDataSVL={setDefects} type={'level'} typeSVL={'defect'}
+                selectedGroupType={typeIndex} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].type[typeIndex].level} 
+                setDataSVL={setDefects} type={'level'}
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
-                selectedImages={defects[selectedOwner].group[groupIndex].defect[typeIndex].photographs} 
-                setDataSVL={setDefects} type={'photographs'} typeSVL={'defect'} allowMultipleImages={true}
+                selectedImages={defects[selectedOwner].group[groupIndex].type[typeIndex].photographs} 
+                setDataSVL={setDefects} type={'photographs'} allowMultipleImages={true}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.descriptionDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={typeIndex} 
-                value={defects[selectedOwner].group[groupIndex].defect[typeIndex].description} 
-                setDataSVL={setDefects} type={'description'} typeSVL={'defect'}
+                value={defects[selectedOwner].group[groupIndex].type[typeIndex].description} 
+                setDataSVL={setDefects} type={'description'}
               />
             </div>
           }
         </div>
         <div className={styles.addType}>
-          {defects[selectedOwner].group[groupIndex].numDefects - 1 == typeIndex &&
+          {defects[selectedOwner].group[groupIndex].numTypes - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} type={'defect'}
             />
@@ -123,7 +123,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
           <div className={styles.toggleVisibilityRemoveGroup}>
             # {groupIndex + 1}
             <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} selectedGroupType={-1} typeSVL={''} 
+              selectedGroup={groupIndex} selectedGroupType={-1}
             />
             <RemoveGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'defects'} />
           </div>
@@ -134,11 +134,11 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
               />
               <InputField fieldLabel={t('DataSVL.Labels.kilometers')} placeholder={t('DataSVL.Placeholders.kilometers')} 
                 selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={defects} 
-                value={defects[selectedOwner].group[groupIndex].kilometers} setDataSVL={setDefects} type={'kilometers'} typeSVL={''}
+                value={defects[selectedOwner].group[groupIndex].kilometers} setDataSVL={setDefects} type={'kilometers'}
               />
               <InputTextField fieldLabel={t('DataSVL.Labels.cause')} placeholder={t('DataSVL.Placeholders.causeDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].cause} 
-                setDataSVL={setDefects} type={'cause'} typeSVL={''}
+                setDataSVL={setDefects} type={'cause'}
               />
             </div>
           }

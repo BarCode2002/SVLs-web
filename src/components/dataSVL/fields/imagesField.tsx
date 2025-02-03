@@ -12,11 +12,10 @@ type ImagesFieldProps = {
   selectedImages: string[];
   setDataSVL: React.Dispatch<React.SetStateAction<any>>;
   type: string;
-  typeSVL: string;
   allowMultipleImages: boolean;
 }
 
-const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, typeSVL, allowMultipleImages }: ImagesFieldProps) => {
+const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages }: ImagesFieldProps) => {
 
   let imageInputId;
   if (selectedGroup == -1) {
@@ -56,7 +55,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         let maxImages = event.target.files.length + numImages;
         if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
         for (let i = numImages; i < maxImages; i++) {
-          updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
+          updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
         }
       }
       setDataSVL(updatedDataSVL);
@@ -75,7 +74,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         updatedDataSVL[selectedOwner].group[selectedGroup][type][i] =  updatedDataSVL[selectedOwner].group[selectedGroup][type][i+1];
       }
       else {
-        updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i+1];
+        updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i+1];
       }
     }
     setDataSVL(updatedDataSVL);
@@ -161,18 +160,18 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     }
     else {
       if (indexDragged > index) {
-        const draggedValue = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][indexDragged];
+        const draggedValue = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][indexDragged];
         for (let i = indexDragged; i > index; i--) {
-          updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i-1];
+          updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i-1];
         }
-        updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][index] = draggedValue;
+        updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][index] = draggedValue;
       }
       else if (indexDragged < index) {
-        const draggedValue = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][indexDragged];
+        const draggedValue = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][indexDragged];
         for (let i = indexDragged; i < index; i++) {
-          updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][i+1];
+          updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i+1];
         }
-        updatedDataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType][type][index] = draggedValue;
+        updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][index] = draggedValue;
       }
     }
     setDataSVL(updatedDataSVL);

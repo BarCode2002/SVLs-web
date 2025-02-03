@@ -7,10 +7,9 @@ type ToggleVisibilityButtonProps = {
   selectedOwner: number;
   selectedGroup: number;
   selectedGroupType: number;
-  typeSVL: string;
 };
 
-const ToggleVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGroup, selectedGroupType, typeSVL}: ToggleVisibilityButtonProps): JSX.Element => {
+const ToggleVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGroup, selectedGroupType}: ToggleVisibilityButtonProps): JSX.Element => {
 
   const handleToggle = () => {
     const updateSVLdata = [...dataSVL];
@@ -19,8 +18,8 @@ const ToggleVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGr
       else updateSVLdata[selectedOwner].group[selectedGroup].shrinked = true;
     }
     else {
-      if (dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].shrinked == true) updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].shrinked = false;
-      else updateSVLdata[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].shrinked = true;
+      if (dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked == true) updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked = false;
+      else updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked = true;
     }
     setDataSVL(updateSVLdata);
   }
@@ -37,7 +36,7 @@ const ToggleVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGr
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {dataSVL[selectedOwner].group[selectedGroup][typeSVL][selectedGroupType].shrinked == false ? '⬆' : '⬇'}
+          {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked == false ? '⬆' : '⬇'}
         </button>
       )}
     </div>

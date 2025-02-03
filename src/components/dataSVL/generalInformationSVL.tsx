@@ -26,71 +26,71 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
         <div className={styles.data}>
           <InputField fieldLabel={t('DataSVL.Labels.vin')} placeholder={t('DataSVL.Placeholders.vin')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].VIN} 
-            setDataSVL={setGeneralInformation} type={'VIN'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'VIN'}
           />
           <DropdownMenu fieldLabel={t('DataSVL.Labels.brand')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].brand} 
-            setDataSVL={setGeneralInformation} type={'brand'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'brand'}
           />
           <DropdownMenu fieldLabel={t('DataSVL.Labels.model')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].model} 
-            setDataSVL={setGeneralInformation} type={'model'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'model'}
           />
           <InputField fieldLabel={t('DataSVL.Labels.year')} placeholder={t('DataSVL.Placeholders.year')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].year} 
-            setDataSVL={setGeneralInformation} type={'year'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'year'}
           />       
           <InputField fieldLabel={t('DataSVL.Labels.kilometers')} placeholder={t('DataSVL.Placeholders.kilometers')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 
-            setDataSVL={setGeneralInformation} type={'kilometers'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'kilometers'}
           /> 
           <ImagesField fieldLabel={t('DataSVL.Labels.mainImage')} placeholder={t('DataSVL.Placeholders.mainImage')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={[generalInformation[selectedOwner].mainPhotograph]} 
-            setDataSVL={setGeneralInformation} type={'mainPhotograph'} typeSVL={''} allowMultipleImages={false}
+            setDataSVL={setGeneralInformation} type={'mainPhotograph'} allowMultipleImages={false}
           />
           <ImagesField fieldLabel={t('DataSVL.Labels.images')} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].photographs} 
-            setDataSVL={setGeneralInformation} type={'photographs'} typeSVL={''} allowMultipleImages={true}
+            setDataSVL={setGeneralInformation} type={'photographs'} allowMultipleImages={true}
           />        
           <DropdownMenu fieldLabel={t('DataSVL.Labels.state')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].state} 
-            setDataSVL={setGeneralInformation} type={'state'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'state'}
           />
           <InputField fieldLabel={t('DataSVL.Labels.weight')} placeholder={t('DataSVL.Placeholders.weight')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].weight} 
-            setDataSVL={setGeneralInformation} type={'weight'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'weight'}
           /> 
           <InputField fieldLabel={t('DataSVL.Labels.color')} placeholder={t('DataSVL.Placeholders.color')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].color} 
-            setDataSVL={setGeneralInformation} type={'color'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'color'}
           /> 
           <InputField fieldLabel={t('DataSVL.Labels.engine')} placeholder={t('DataSVL.Placeholders.engine')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].engine} 
-            setDataSVL={setGeneralInformation} type={'engine'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'engine'}
           /> 
           <InputField fieldLabel={t('DataSVL.Labels.power')} placeholder={t('DataSVL.Placeholders.power')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].power} 
-            setDataSVL={setGeneralInformation} type={'power'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'power'}
           /> 
           <InputField fieldLabel={t('DataSVL.Labels.autonomy')} placeholder={t('DataSVL.Placeholders.autonomy')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].autonomy} 
-            setDataSVL={setGeneralInformation} type={'autonomy'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'autonomy'}
           /> 
           <DropdownMenu fieldLabel={t('DataSVL.Labels.climate')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].climate} 
-            setDataSVL={setGeneralInformation} type={'climate'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'climate'}
           />
           <DropdownMenu fieldLabel={t('DataSVL.Labels.usage')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].usage} 
-            setDataSVL={setGeneralInformation} type={'usage'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'usage'}
           />
           <DropdownMenu fieldLabel={t('DataSVL.Labels.storage')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].storage} 
-            setDataSVL={setGeneralInformation} type={'storage'} typeSVL={''}
+            setDataSVL={setGeneralInformation} type={'storage'}
           />
           <InputTextField fieldLabel={t('DataSVL.Labels.comments')} placeholder={t('DataSVL.Placeholders.comments')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} 
-            value={generalInformation[selectedOwner].comments} setDataSVL={setGeneralInformation} type={'comments'} typeSVL={''}
+            value={generalInformation[selectedOwner].comments} setDataSVL={setGeneralInformation} type={'comments'}
           />
         </div>
       </div>

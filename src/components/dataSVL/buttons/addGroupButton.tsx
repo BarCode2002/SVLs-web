@@ -26,7 +26,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                   doneBy: [false, "", false, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-                  maintenance: Array.from({ length: 1 }, () => ({
+                  type: Array.from({ length: 1 }, () => ({
                     name: "",
                     components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
                     numComponents: 1,
@@ -36,7 +36,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                     shrinked: false,
                   })),
                   shrinked: false,
-                  numMaintenances: 1,
+                  numTypes: 1,
                 },
               ],
               numGroups: item.numGroups + 1,

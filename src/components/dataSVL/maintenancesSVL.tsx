@@ -39,18 +39,18 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
       const updatedMainteances = [...maintenances];
       if (groupIndex == groupIndexDragged) {
         if (typeIndexDragged > typeIndex) {
-          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].maintenance[typeIndexDragged];
+          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
           for (let i = typeIndexDragged; i > typeIndex; i--) {
-            updatedMainteances[selectedOwner].group[groupIndex].maintenance[i] = maintenances[selectedOwner].group[groupIndex].maintenance[i-1];
+            updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i-1];
           }
-          updatedMainteances[selectedOwner].group[groupIndex].maintenance[typeIndex] = draggedMaintenance;
+          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
         }
         else if (typeIndexDragged < typeIndex) {
-          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].maintenance[typeIndexDragged];
+          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
           for (let i = typeIndexDragged; i < typeIndex ; i++) {
-            updatedMainteances[selectedOwner].group[groupIndex].maintenance[i] = maintenances[selectedOwner].group[groupIndex].maintenance[i+1];
+            updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i+1];
           }
-          updatedMainteances[selectedOwner].group[groupIndex].maintenance[typeIndex] = draggedMaintenance;
+          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
         }
       }
       setMaintenances(updatedMainteances);
@@ -63,7 +63,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
 
   const renderlistMaintenances = (groupIndex: number) => {
 
-    const listMaintenances = Array.from({length: maintenances[selectedOwner].group[groupIndex].numMaintenances}, (_, typeIndex) => (
+    const listMaintenances = Array.from({length: maintenances[selectedOwner].group[groupIndex].numTypes}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} 
         draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, typeIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, typeIndex)} onDragOver={(e) => handleDragOver(e)} >
@@ -71,48 +71,48 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
             <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} selectedGroupType={typeIndex} typeSVL={'maintenance'} 
+              selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
             <DragGroupGroupTypeButton setDraggable={setDraggable}
             />
-            {maintenances[selectedOwner].group[groupIndex].numMaintenances > 1 &&
+            {maintenances[selectedOwner].group[groupIndex].numTypes > 1 &&
               <RemoveGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} type={'maintenance'}
               />
             }
           </div>
-          {maintenances[selectedOwner].group[groupIndex].maintenance[typeIndex].shrinked == false &&
+          {maintenances[selectedOwner].group[groupIndex].type[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
               <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.name')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={maintenances} 
-                value={maintenances[selectedOwner].group[groupIndex].maintenance[typeIndex].name} 
-                setDataSVL={setMaintenances} type={'name'} typeSVL={'maintenance'}
+                value={maintenances[selectedOwner].group[groupIndex].type[typeIndex].name} 
+                setDataSVL={setMaintenances} type={'name'}
               />
               <ComponentsField placeholder={t('DataSVL.Placeholders.component')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={typeIndex} dataSVL={maintenances} 
-                selectedComponents={maintenances[selectedOwner].group[groupIndex].maintenance[typeIndex].components} 
-                setDataSVL={setMaintenances} type={'components'} typeSVL={'maintenance'}
+                selectedComponents={maintenances[selectedOwner].group[groupIndex].type[typeIndex].components} 
+                setDataSVL={setMaintenances} type={'components'}
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={maintenances} 
-                selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[typeIndex].pre} 
-                setDataSVL={setMaintenances} type={'pre'} typeSVL={'maintenance'} allowMultipleImages={true}
+                selectedImages={maintenances[selectedOwner].group[groupIndex].type[typeIndex].pre} 
+                setDataSVL={setMaintenances} type={'pre'} allowMultipleImages={true}
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={maintenances} 
-                selectedImages={maintenances[selectedOwner].group[groupIndex].maintenance[typeIndex].post} 
-                setDataSVL={setMaintenances} type={'post'} typeSVL={'maintenance'} allowMultipleImages={true}
+                selectedImages={maintenances[selectedOwner].group[groupIndex].type[typeIndex].post} 
+                setDataSVL={setMaintenances} type={'post'} allowMultipleImages={true}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsMaintenance')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={maintenances} 
-                value={maintenances[selectedOwner].group[groupIndex].maintenance[typeIndex].comments} 
-                setDataSVL={setMaintenances} type={'comments'} typeSVL={'maintenance'}
+                value={maintenances[selectedOwner].group[groupIndex].type[typeIndex].comments} 
+                setDataSVL={setMaintenances} type={'comments'}
               />
             </div>
           }
         </div>
         <div className={styles.addType}>
-          {maintenances[selectedOwner].group[groupIndex].numMaintenances - 1 == typeIndex &&
+          {maintenances[selectedOwner].group[groupIndex].numTypes - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} type={'maintenance'}
             />
@@ -135,7 +135,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
           <div className={styles.toggleVisibilityRemoveGroup}>
             # {groupIndex + 1}
             <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} selectedGroupType={-1} typeSVL={''} 
+              selectedGroup={groupIndex} selectedGroupType={-1}
             />
             <RemoveGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'maintenances'} />
           </div>
@@ -143,11 +143,11 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             <div className={styles.topBottomPart}>
               <InputField fieldLabel={t('DataSVL.Labels.kilometers')} placeholder={t('DataSVL.Placeholders.kilometers')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={-1} dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].kilometers} 
-                setDataSVL={setMaintenances} type={'kilometers'} typeSVL={''}
+                setDataSVL={setMaintenances} type={'kilometers'} 
               />
               <InputField fieldLabel={t('DataSVL.Labels.name')} placeholder={t('DataSVL.Placeholders.name')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={-1} dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].name} 
-                setDataSVL={setMaintenances} type={'name'} typeSVL={''}
+                setDataSVL={setMaintenances} type={'name'}
               />
               <ResponsibleField fieldLabel={t('DataSVL.Labels.responsible')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].doneBy} 
@@ -158,11 +158,11 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
               />
               <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].pre} 
-                setDataSVL={setMaintenances} type={'pre'} typeSVL={''} allowMultipleImages={true}
+                setDataSVL={setMaintenances} type={'pre'} allowMultipleImages={true}
               />
               <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].post} 
-                setDataSVL={setMaintenances} type={'post'} typeSVL={''} allowMultipleImages={true}
+                setDataSVL={setMaintenances} type={'post'} allowMultipleImages={true}
               />
             </div>
           }
