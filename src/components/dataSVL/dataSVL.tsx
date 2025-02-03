@@ -20,9 +20,10 @@ type DataSVLProps = {
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
   repairs: Repairs[];
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  totalOwners: number;
 };
 
-const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs }: DataSVLProps): JSX.Element => {
+const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, totalOwners }: DataSVLProps): JSX.Element => {
 
   return (
     <div className={styles.dataSVLContainer}>
@@ -30,7 +31,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
       {selectedSVLData == 1 && <MaintenancesSVL selectedOwner={selectedOwner} maintenances={maintenances} setMaintenances={setMaintenances} />}
       {selectedSVLData == 2 && <ModificationsSVL selectedOwner={selectedOwner} modifications={modifications} setModifications={setModifications} />}
       {selectedSVLData == 3 && <DefectsSVL selectedOwner={selectedOwner} defects={defects} setDefects={setDefects} />}
-      {selectedSVLData == 4 && <RepairsSVL selectedOwner={selectedOwner} repairs={repairs} setRepairs={setRepairs} />}
+      {selectedSVLData == 4 && <RepairsSVL selectedOwner={selectedOwner} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} />}
     </div>
   );
 }

@@ -77,7 +77,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             />
             {maintenances[selectedOwner].group[groupIndex].numTypes > 1 &&
               <RemoveGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex} type={'maintenance'}
+                selectedGroup={groupIndex} selectedGroupType={typeIndex}
               />
             }
           </div>
@@ -137,7 +137,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={-1}
             />
-            <RemoveGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'maintenances'} />
+            <RemoveGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} selectedGroup={groupIndex} />
           </div>
           {maintenances[selectedOwner].group[groupIndex].shrinked == false &&
             <div className={styles.topBottomPart}>

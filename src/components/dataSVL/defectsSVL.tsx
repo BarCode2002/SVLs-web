@@ -76,7 +76,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
             />
             {defects[selectedOwner].group[groupIndex].numTypes > 1 &&
               <RemoveGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex} type={'defect'}
+                selectedGroup={groupIndex} selectedGroupType={typeIndex}
               />
             }
           </div>
@@ -125,7 +125,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
             <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={-1}
             />
-            <RemoveGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} selectedGroup={groupIndex} type={'defects'} />
+            <RemoveGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} selectedGroup={groupIndex} />
           </div>
           {defects[selectedOwner].group[groupIndex].shrinked == false &&
             <div className={styles.topBottomPart}>
@@ -160,7 +160,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
   return (
     <div className={styles.typeSVLContainer}>
       <div className={styles.title}>
-        Defects
+        {t('DataSVL.Labels.defects')}
       </div>
       {listGroupDefects}
       <div className={styles.addGroupButton}>

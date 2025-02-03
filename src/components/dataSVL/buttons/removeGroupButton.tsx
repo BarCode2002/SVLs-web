@@ -1,18 +1,18 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
-import { Maintenances } from '../../../utils/interfaces/dataSVL';
+import { Maintenances, Modifications, Defects, Repairs } from '../../../utils/interfaces/dataSVL';
 
 type RemoveGroupButtonProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   selectedOwner: number;
   selectedGroup: number;
-  type: string;
 };
 
-const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: RemoveGroupButtonProps): JSX.Element => {
+const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup }: RemoveGroupButtonProps): JSX.Element => {
 
-  const removeMaintenanceGroup = () => {
-    setDataSVL((prevDataSVL: Maintenances[]) =>
+
+  const handleRemoveGroup = () => {
+    setDataSVL((prevDataSVL: Maintenances[] | Modifications[] | Defects[] | Repairs[]) =>
       prevDataSVL.map((item, index) =>
         index === selectedOwner
           ? {
@@ -23,10 +23,6 @@ const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: R
           : item
       )
     );
-  }
-
-  const handleRemoveGroup = () => {
-    if (type == 'maintenances') removeMaintenanceGroup();
   }
 
   return (

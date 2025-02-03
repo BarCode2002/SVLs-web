@@ -1,7 +1,8 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
-import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE } from '../../../utils/constants/constants';
-import { Maintenances } from '../../../utils/interfaces/dataSVL';
+import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../../utils/constants/constants';
+import { Maintenances, Modifications, Defects, Repairs } from '../../../utils/interfaces/dataSVL';
+import { useTranslation } from "react-i18next";
 
 type AddGroupButtonProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
@@ -10,6 +11,8 @@ type AddGroupButtonProps = {
 };
 
 const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps): JSX.Element => {
+
+  const { t } = useTranslation();
 
   const addMaintenanceGroup = () => {
     setDataSVL((prevDataSVL: Maintenances[]) =>
@@ -46,8 +49,112 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
     );
   }
 
+  const addModificationGroup = () => {
+    setDataSVL((prevDataSVL: Modifications[]) =>
+      prevDataSVL.map((item, index) =>
+        index == selectedOwner
+          ? {
+              ...item,
+              group: [
+                ...item.group,
+                {
+                  date: "",
+                  kilometers: "",
+                  name: "",
+                  doneBy: [false, "", false, ""],
+                  pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                  post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                  type: Array.from({ length: 1 }, () => ({
+                    name: "",
+                    components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+                    numComponents: 1,
+                    pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                    post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                    comments: "",
+                    shrinked: false,
+                  })),
+                  shrinked: false,
+                  numTypes: 1,
+                },
+              ],
+              numGroups: item.numGroups + 1,
+            }
+          : item
+      )
+    );
+  }
+
+  const addDefectGroup = () => {
+    setDataSVL((prevDataSVL: Defects[]) =>
+      prevDataSVL.map((item, index) =>
+        index == selectedOwner
+          ? {
+              ...item,
+              group: [
+                ...item.group,
+                {
+                  date: "",
+                  kilometers: "",
+                  cause: "",
+                  type: Array.from({ length: 1 }, () => ({
+                    level: t('DataSVL.Forms.level'),
+                    photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                    description: "",
+                    shrinked: false,
+                  })),
+                  shrinked: false,
+                  numTypes: 1,
+                },
+              ],
+              numGroups: item.numGroups + 1,
+            }
+          : item
+      )
+    );
+  }
+
+  const addRepairGroup = () => {
+    setDataSVL((prevDataSVL: Repairs[]) =>
+      prevDataSVL.map((item, index) =>
+        index == selectedOwner
+          ? {
+              ...item,
+              group: [
+                ...item.group,
+                {
+                  date: "",
+                  kilometers: "",
+                  name: "",
+                  doneBy: [false, "", false, ""],
+                  pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                  post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                  defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),
+                  numDefectsRepaired: 0,
+                  type: Array.from({ length: 1 }, () => ({
+                    name: "",
+                    components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+                    numComponents: 1,
+                    pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                    post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                    comments: "",
+                    shrinked: false,
+                  })),
+                  shrinked: false,
+                  numTypes: 1,
+                },
+              ],
+              numGroups: item.numGroups + 1,
+            }
+          : item
+      )
+    );
+  }
+
   const handleAddGroup = () => {
     if (type == 'maintenances') addMaintenanceGroup();
+    else if (type == 'modifications') addModificationGroup();
+    else if (type == 'defects') addDefectGroup();
+    else addRepairGroup();
   }
 
   return (

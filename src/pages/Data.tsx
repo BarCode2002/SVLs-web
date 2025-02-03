@@ -79,6 +79,7 @@ const Data = (): JSX.Element => {
         type: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+          numComponents: 1,
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",
@@ -120,9 +121,11 @@ const Data = (): JSX.Element => {
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),
+        numDefectsRepaired: 0,
         type: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+          numComponents: 1,
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",
@@ -150,6 +153,7 @@ const Data = (): JSX.Element => {
           modifications={modifications} setModifications={setModifications}
           defects={defects} setDefects={setDefects}
           repairs={repairs} setRepairs={setRepairs}
+          totalOwners={totalOwners}
         />
         <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
           selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} 

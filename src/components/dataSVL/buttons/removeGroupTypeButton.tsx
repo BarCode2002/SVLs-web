@@ -7,12 +7,11 @@ type RemoveGroupTypeButtonProps = {
   selectedOwner: number;
   selectedGroup: number;
   selectedGroupType: number;
-  type: string;
 };
 
-const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selectedGroupType, type }: RemoveGroupTypeButtonProps): JSX.Element => {
+const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selectedGroupType }: RemoveGroupTypeButtonProps): JSX.Element => {
 
-  const removeMaintenanceGroupType = () => {
+  const handleRemoveGroupType = () => {
     setDataSVL((prevDataSVL: Maintenances[]) =>
       prevDataSVL.map((item, index) =>
         index === selectedOwner
@@ -31,10 +30,6 @@ const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selec
           : item 
       )
     );
-  }
-
-  const handleRemoveGroupType = () => {
-    if (type == 'maintenance') removeMaintenanceGroupType();
   }
 
   return (

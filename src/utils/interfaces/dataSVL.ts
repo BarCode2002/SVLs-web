@@ -48,6 +48,7 @@ export interface Maintenances {
 interface Modification {
   name: string;
   components: string[];
+  numComponents: number;
   pre: string[],
   post: string[],
   comments: string;
@@ -91,6 +92,7 @@ export interface Defects {
 interface Repair {
   name: string;
   components: string[];
+  numComponents: number;
   pre: string[],
   post: string[],
   comments: string;
@@ -106,6 +108,7 @@ export interface Repairs {
     pre: string[],
     post: string[],
     defectsRepaired: [boolean, number, number, number][];
+    numDefectsRepaired: number;
     type: Repair[];
     shrinked: boolean;
     numTypes: number;

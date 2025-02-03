@@ -30,14 +30,14 @@
   width: 25px;
   border: none;
   border-radius: 10px;
-  background-color: #6daeea;
+  background-color: var(--dataBackgroundColor);
   color: black;
   font-size: 1rem;
 }
 
 .addComponentButton:hover {
   cursor: pointer;
-  background-color: #E1EBEE;
+  background-color: var(--fieldBackgroundColor);
 }
 
 .removeComponentButtonWrapper {
@@ -51,12 +51,12 @@
   width: 25px;
   border: none;
   border-radius: 10px;
-  background-color: #E1EBEE;
+  background-color: var(--fieldBackgroundColor);
   color: black;
   font-size: 1rem;
 }
 
 .removeComponentButton:hover {
   cursor: pointer;
-  background-color: #6daeea;
+  background-color: white;
 }

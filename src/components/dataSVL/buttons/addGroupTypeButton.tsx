@@ -2,6 +2,7 @@ import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE } from '../../../utils/constants/constants';
 import { Maintenances } from '../../../utils/interfaces/dataSVL';
+import { useTranslation } from "react-i18next";
 
 type AddGroupTypeButtonProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
@@ -11,6 +12,8 @@ type AddGroupTypeButtonProps = {
 };
 
 const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: AddGroupTypeButtonProps): JSX.Element => {
+
+  const { t } = useTranslation();
 
   const addMaintenanceGroupType = () => {
     setDataSVL((prevDataSVL: Maintenances[]) =>
@@ -44,8 +47,104 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: 
     );
   }
 
+  const addModificationGroupType = () => {
+    setDataSVL((prevDataSVL: Maintenances[]) =>
+      prevDataSVL.map((item, index) =>
+        index === selectedOwner 
+          ? {
+              ...item,
+              group: item.group.map((groupItem, gIndex) =>
+                gIndex === selectedGroup 
+                  ? {
+                      ...groupItem,
+                      type: [
+                        ...groupItem.type,
+                        {
+                          name: "",
+                          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+                          numComponents: 1,
+                          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                          comments: "",
+                          shrinked: false,
+                        },
+                      ],
+                      numTypes: groupItem.numTypes + 1,
+                    }
+                  : groupItem 
+              ),
+            }
+          : item 
+      )
+    );
+  }
+
+  const addDefectGroupType = () => {
+    setDataSVL((prevDataSVL: Maintenances[]) =>
+      prevDataSVL.map((item, index) =>
+        index === selectedOwner 
+          ? {
+              ...item,
+              group: item.group.map((groupItem, gIndex) =>
+                gIndex === selectedGroup 
+                  ? {
+                      ...groupItem,
+                      type: [
+                        ...groupItem.type,
+                        {
+                          level: t('DataSVL.Forms.level'),
+                          photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                          description: "",
+                          shrinked: false,
+                        },
+                      ],
+                      numTypes: groupItem.numTypes + 1,
+                    }
+                  : groupItem 
+              ),
+            }
+          : item 
+      )
+    );
+  }
+
+  const addRepairGroupType = () => {
+    setDataSVL((prevDataSVL: Maintenances[]) =>
+      prevDataSVL.map((item, index) =>
+        index === selectedOwner 
+          ? {
+              ...item,
+              group: item.group.map((groupItem, gIndex) =>
+                gIndex === selectedGroup 
+                  ? {
+                      ...groupItem,
+                      type: [
+                        ...groupItem.type,
+                        {
+                          name: "",
+                          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+                          numComponents: 1,
+                          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+                          comments: "",
+                          shrinked: false,
+                        },
+                      ],
+                      numTypes: groupItem.numTypes + 1,
+                    }
+                  : groupItem 
+              ),
+            }
+          : item 
+      )
+    );
+  }
+
   const handleAddGroupType = () => {
     if (type == 'maintenance') addMaintenanceGroupType();
+    else if (type == 'modification') addModificationGroupType();
+    else if (type == 'defect') addDefectGroupType();
+    else addRepairGroupType();
   }
 
   return (

@@ -1,0 +1,102 @@
+.defectRepairedContainer {
+  display: flex;
+  align-items: center;
+}
+
+.fieldLabel {
+  width: 150px;
+  color: var(--fieldLabelColor);
+}
+
+.dataContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.addDefectsRepairedButton {
+  font-size: medium;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--fieldBackgroundColor);
+  color: var(--fieldDataColor);
+}
+
+.addDefectsRepairedButton:hover {
+  cursor: pointer;
+  background-color: white;
+}
+
+.newDefectRepairedButton {
+  font-size: medium;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--fieldBackgroundColor);
+  color: var(--fieldDataColor);
+}
+
+.newDefectRepairedButton:hover {
+  cursor: pointer;
+  background-color: white;
+}
+
+.infoDefectRepairedContainer {
+  display: flex;
+}
+
+.inputField {
+  border-radius: 10px;
+  height: 35px;
+  width: 200px;
+  border: none;
+  padding-left: 10px;
+  font-size: 1rem;
+  color: var(--fieldDataColor);
+  background-color: var(--fieldBackgroundColor);
+}
+
+.inputField::placeholder {
+  color: var(--fieldPlaceholderColor);
+}
+
+.inputField:focus {
+  outline: none;
+  background-color: red;
+}
+
+.ownersDefectsListWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.ownersDefectsList {
+  position: absolute;
+  background-color: white;
+  height: 120px;
+  width: 195px;
+  z-index: 1;
+  right: 10px;
+  top: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.ownerDefect {
+  cursor: pointer;
+  border: none;
+  width: 180px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+}
+
+.ownerDefect:hover {
+  cursor: pointer;
+  background-color: var(--fieldBackgroundColor);
+}

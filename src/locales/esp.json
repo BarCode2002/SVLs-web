@@ -47,6 +47,7 @@
       "date": "Fecha:",
       "name": "Nombre:",
       "cause": "Causa:",
+      "defectsRepaired": "Defectos Reparados:",
       "generalInformation": "Información General",
       "maintenances": "Mantenimientos",
       "modifications": "Modificaciones",
