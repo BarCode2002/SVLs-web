@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react';
-import styles from '../../styles/components/dataSVL/modificationsSVL.module.css';
+import styles from '../../styles/components/dataSVL/typeSVL.module.css';
 import { Modifications } from '../../utils/interfaces/dataSVL.ts';
 
 type ModificationsSVLProps = {
@@ -11,7 +11,7 @@ type ModificationsSVLProps = {
 const ModificationsSVL = ({ selectedOwner, modifications, setModifications }: ModificationsSVLProps): JSX.Element => {
 
   return (
-    <div className={styles.modificationsSVLContainer}>
+    <div className={styles.typeSVLContainer}>
       <div className={styles.title}>
         Modifications
       </div>

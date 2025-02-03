@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react';
-import styles from '../../styles/components/dataSVL/defectsSVL.module.css';
+import styles from '../../styles/components/dataSVL/typeSVL.module.css';
 import { Defects } from '../../utils/interfaces/dataSVL.ts';
 
 type DefectsSVLProps = {
@@ -11,7 +11,7 @@ type DefectsSVLProps = {
 const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JSX.Element => {
 
   return (
-    <div className={styles.defectsSVLContainer}>
+    <div className={styles.typeSVLContainer}>
       <div className={styles.title}>
         Defects
       </div>

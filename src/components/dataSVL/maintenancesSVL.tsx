@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from 'react';
-import styles from '../../styles/components/dataSVL/maintenancesSVL.module.css';
+import styles from '../../styles/components/dataSVL/typeSVL.module.css';
 import { Maintenances } from '../../utils/interfaces/dataSVL.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
@@ -64,7 +64,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
   const renderlistMaintenances = (groupIndex: number) => {
 
     const listMaintenances = Array.from({length: maintenances[selectedOwner].group[groupIndex].numMaintenances}, (_, maintenanceIndex) => (
-      <div key={maintenanceIndex} className={styles.maintenanceContainer} 
+      <div key={maintenanceIndex} className={styles.typeContainer} 
         draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, maintenanceIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, maintenanceIndex)} onDragOver={(e) => handleDragOver(e)} >
         <div className={styles.groupType}>
@@ -111,7 +111,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
             </div>
           }
         </div>
-        <div className={styles.addMaintenance}>
+        <div className={styles.addType}>
           {maintenances[selectedOwner].group[groupIndex].numMaintenances - 1 == maintenanceIndex &&
             <AddGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} type={'maintenance'}
@@ -123,7 +123,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
     ));
 
     return (
-      <div className={styles.maintenancesContainer}>
+      <div className={styles.typesContainer}>
         {listMaintenances}
       </div> 
     );
@@ -183,7 +183,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
   ));
 
   return (
-    <div className={styles.maintenancesSVLContainer}>
+    <div className={styles.typeSVLContainer}>
       <div className={styles.title}>
         {t('DataSVL.Labels.maintenances')}
       </div>
