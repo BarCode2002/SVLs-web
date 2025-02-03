@@ -4,6 +4,21 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --backgroundColor: white;
+  --dataPanelBackgroundColor: #002244;
+  --dataBackgroundColor: #abb4be;
+
+  --fieldBackgroundColor: #E1EBEE;
+  --fieldLabelColor: black;
+  --fieldPlaceholderColor: grey;
+  --fieldDataColor: black;
+
+  --buttonBackgroundColor: #abb4be;
+  --buttonTextColor: black;
+
+  --navBarsPrimaryColor: #002244;
+  --navBarsSecondaryColor: white;
 }
 
 body {

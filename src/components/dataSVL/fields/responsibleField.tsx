@@ -40,8 +40,14 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsOpen(true);
-    setSearchQuery(event.target.value);
+    if (event.target.value != '') {
+      setIsOpen(true);
+      setSearchQuery(event.target.value);
+    }
+    else {
+      setStep(1);
+      setSearchQuery('');
+    }
   }
 
   const handleMechanicSelected = (mechanic: string) => {

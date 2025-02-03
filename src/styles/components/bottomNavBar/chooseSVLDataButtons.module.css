@@ -7,15 +7,15 @@
   height: 35px;
   font-size: 1rem;
   font-weight: 600;
-  background-color: #002244;
+  background-color: var(--navBarsPrimaryColor);
   border: none;
-  color: white;
+  color: var(--navBarsSecondaryColor);
   border-radius: 10px;
 }
 
 .button:hover {
-  background-color: white;
-  color: #002244;
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
   cursor: pointer;
 }
 
@@ -23,8 +23,8 @@
   height: 35px;
   font-size: 1rem;
   font-weight: 600;
-  background-color: white;
-  color: #002244;
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
   border: none;
   border-radius: 10px;
 }

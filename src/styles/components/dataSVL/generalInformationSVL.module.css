@@ -1,6 +1,4 @@
 .generalInformationSVLContainer {
-  min-height: 100%;
-  background-color: white;
   display: flex;
   flex-direction: column;
   padding-left: 10px;
@@ -17,7 +15,7 @@
 }
 
 .dataWrapper {
-  background-color: #002244;
+  background-color: var(--dataPanelBackgroundColor);
   padding: 10px;
   border-radius: 10px;
 }
@@ -28,5 +26,5 @@
   padding: 10px;
   border-radius: 10px;
   gap: 10px;
-  background-color: #abb4be;
+  background-color: var(--dataBackgroundColor);
 }

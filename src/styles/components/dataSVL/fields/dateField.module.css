@@ -5,7 +5,7 @@
 
 .fieldLabel {
   width: 150px;
-  color: black;
+  color: var(--fieldLabelColor);
 }
 
 .date {
@@ -16,12 +16,12 @@
   width: 300px;
   border: none;
   font-size: 1rem;
-  background-color: #E1EBEE;
-  color: black;
+  background-color: var(--fieldBackgroundColor);
+  color: var(--fieldDataColor);
 }
 
 .date::placeholder {
-  color: grey;
+  color: var(--fieldPlaceholderColor);
 }
 
 .date:focus {

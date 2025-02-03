@@ -5,7 +5,7 @@
 
 .fieldLabel {
   width: 150px;
-  color: black;
+  color: var(--fieldLabelColor);
 }
 
 .bigTextField {
@@ -20,19 +20,18 @@
   border: none;
   padding-left: 10px;
   font-size: 1rem;
-  background-color: #E1EBEE;
+  background-color: var(--fieldBackgroundColor);
   border-radius: 10px;
-  color: black;
+  color: var(--fieldDataColor);
   padding-top: 5px;
 }
 
 .textField::placeholder {
-  color: grey;
+  color: var(--fieldPlaceholderColor);
 }
 
 .textField:focus {
   outline: none;
-  background-color: #E1EBEE;
 }
 
 .textFieldGroupType {
@@ -42,18 +41,17 @@
   border: none;
   padding-left: 10px;
   font-size: 1rem;
-  background-color: #E1EBEE;
+  background-color: var(--fieldBackgroundColor);
   border-radius: 10px;
   color: black;
   padding-top: 5px;
 }
 
 .textFieldGroupType::placeholder {
-  color: grey;
+  color: var(--fieldPlaceholderColor);
 }
 
 .textFieldGroupType:focus {
   outline: none;
-  background-color: #E1EBEE;
 }
 

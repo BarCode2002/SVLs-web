@@ -40,7 +40,7 @@ const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selec
   return (
     <div>
       <button
-        className={styles.addRemoveGroupTypeButton}
+        className={styles.removeGroupTypeButton}
         onClick={handleRemoveGroupType}>
         -
       </button>

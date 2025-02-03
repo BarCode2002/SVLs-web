@@ -14,17 +14,16 @@
   border: none;
   padding-left: 10px;
   font-size: 1rem;
-  color: black;
-  background-color: #E1EBEE;
+  color: var(--fieldDataColor);
+  background-color: var(--fieldBackgroundColor);
 }
 
 .inputField::placeholder {
-  color: grey;
+  color: var(--fieldPlaceholderColor);
 }
 
 .inputField:focus {
   outline: none;
-  background-color: #E1EBEE;
 }
 
 .addComponentButton {

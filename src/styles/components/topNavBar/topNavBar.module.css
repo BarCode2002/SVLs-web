@@ -5,7 +5,7 @@
   padding-left: 10px;
   padding-right: 10px;
   justify-content: space-between;
-  background-color: #002244;
+  background-color: var(--navBarsPrimaryColor);
 }
 
 .rightSideButtons {
