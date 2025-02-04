@@ -146,7 +146,14 @@ const Data = (): JSX.Element => {
 
   return (
     <div className={styles.mainContainer}>
-        <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} setViewType={setViewType} />
+        <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
+          setViewType={setViewType} selectedOwner={selectedOwner} 
+          generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
+          maintenances={maintenances} setMaintenances={setMaintenances}
+          modifications={modifications} setModifications={setModifications}
+          defects={defects} setDefects={setDefects}
+          repairs={repairs} setRepairs={setRepairs}
+        />
         <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
           generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
           maintenances={maintenances} setMaintenances={setMaintenances}

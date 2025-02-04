@@ -27,12 +27,18 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   const mechanicsList = ['Pepe', 'Jaja', 'ewfgew', 'Camion', 'avion', 'pepa', 'pepo', 'pepin', 'pepapaa', 'pepeeee', 'pepitp'];
 
   const handleMeResponsible = () => {
+    const updatedDataSVL = [...dataSVL];
+    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[0] = true;    
+    setDataSVL(updatedDataSVL);
     setMechanic(false);
     setProof(false);
     setStep(2);
   }
 
   const handleMechanicResponsible = () => {
+    const updatedDataSVL = [...dataSVL];
+    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[0] = false;    
+    setDataSVL(updatedDataSVL);
     setMechanic(true);
     setProof(false);
     setSearchQuery('');
@@ -51,17 +57,26 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   }
 
   const handleMechanicSelected = (mechanic: string) => {
+    const updatedDataSVL = [...dataSVL];
+    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[1] = mechanic;    
+    setDataSVL(updatedDataSVL);
     setSearchQuery(mechanic);
     setIsOpen(false);
     setStep(2);
   }
 
   const handleYesProof = () => {
+    const updatedDataSVL = [...dataSVL];
+    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[2] = true;    
+    setDataSVL(updatedDataSVL);
     setProof(true);
     setStep(3);
   }
 
   const handleNoProof = () => {
+    const updatedDataSVL = [...dataSVL];
+    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[2] = false;    
+    setDataSVL(updatedDataSVL);
     setProof(false);
     removeUploadedImage();
   }
