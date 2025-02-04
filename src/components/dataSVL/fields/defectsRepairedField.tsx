@@ -46,11 +46,16 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
       }
       updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired = 0;
       setCommonStep(0);
-      const updatedSearchQuery = Array(DEFECTS_REPAIRED_SIZE).fill(["", "", ""]);
+      const updatedSearchQuery = [...searchQuery];
+      const updatedIsOpen = [...isOpen];
+      const updatedStep = [...step];
+      for (let i = 0; i < DEFECTS_REPAIRED_SIZE; i++) {
+        updatedSearchQuery[i] = ['','',''];
+        updatedIsOpen[i] = [false, false, false];
+        updatedStep[i] = 1;
+      }
       setSearchQuery(updatedSearchQuery);
-      const updatedisOpen = Array(DEFECTS_REPAIRED_SIZE).fill([false, false, false])
-      setIsOpen(updatedisOpen);
-      const updatedStep = Array(DEFECTS_REPAIRED_SIZE).fill(1)
+      setIsOpen(updatedIsOpen);
       setStep(updatedStep);
     }
     setRepairs(updatedRepairs);
@@ -230,8 +235,11 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
   }
 
   const ref = DetectClickOutsideComponent(() => { 
-    const updatedisOpen = Array(DEFECTS_REPAIRED_SIZE).fill([false, false, false]);
-    setIsOpen(updatedisOpen);
+    const updatedIsOpen = [...isOpen];
+    for (let i = 0; i < DEFECTS_REPAIRED_SIZE; i++) {
+      updatedIsOpen[i] = [false, false, false];
+    }
+    setIsOpen(updatedIsOpen);
   });
 
   const renderInputFieldAndList = (i: number, j: number, placeholder: string, list: string[]) => {
@@ -245,8 +253,8 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
           onChange={(e) => handleInputChange(e, i, j)}
         />
         {isOpen[i][j] && searchQuery[i][j] != '' &&
-          <div className={styles.listWrapper}>
-            <div ref={ref} className={styles.list}>
+          <div ref={ref} className={styles.listWrapper}>
+            <div className={styles.list}>
               {list.filter(itemList => itemList.toLowerCase().includes(searchQuery[i][j].toLowerCase())).map((itemList, index) => (
                 <button
                   key={index}

@@ -8,7 +8,7 @@
   color: var(--fieldLabelColor);
 }
 
-.strucutureContainer {
+.structureContainer {
   display: flex;
   flex-direction: column;
 }
@@ -34,8 +34,7 @@
 
 .selectedDefectRepairedContainer {
   width: 700px;
-  max-height: 200px;
-  overflow-y: auto;
+
 }
 
 .selectedDefectRepaired {
@@ -73,7 +72,7 @@
 .list {
   position: absolute;
   background-color: white;
-  height: 120px;
+  max-height: 120px;
   width: 195px;
   z-index: 1;
   right: 8px;
