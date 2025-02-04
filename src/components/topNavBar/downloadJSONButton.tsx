@@ -22,7 +22,7 @@ const DownloadJSONButton = ({ selectedOwner, generalInformation, maintenances, m
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "myJSON.json";
+    link.download = `${t('DataSVL.Placeholders.owner')}_${selectedOwner+1}.json`;
     link.click();
     URL.revokeObjectURL(url);
   };
