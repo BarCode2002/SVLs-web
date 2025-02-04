@@ -1,6 +1,13 @@
 { 
   "language": "spanish",
 
+  "Dashboard": {
+    "TopBar": {
+      "createSVL": "Crea SVL",
+      "disconnectWallet": "Desconecta la cartera",
+      "connectWallet": "Conecta la cartera"
+    }
+  },
   "DataSVL": {
     "TopBar": {
       "dashboard": "Panel",
@@ -11,10 +18,7 @@
       "uploadJSON": "Sube JSON",
       "downloadJSON": "Descarga JSON",
       "mintSVL": "Crea SVL",
-      "editSVL": "Edita SVL",
-      "createSVL": "Crea SVL",
-      "disconnectWallet": "Desconecta la cartera",
-      "connectWallet": "Conecta la cartera"
+      "editSVL": "Edita SVL"
     },
     "BottomBar": {
       "generalInformation": "Información general",
@@ -157,4 +161,5 @@
       }
     }
   }
+
 }

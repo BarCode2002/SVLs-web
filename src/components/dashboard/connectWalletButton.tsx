@@ -1,12 +1,13 @@
-import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
+import styles from '../../styles/components/dashboard/connectWalletButton.module.css';
 import { getWallet, connectWallet } from '../../utils/wallet';
 import { useTranslation } from "react-i18next";
 
 type ConnectWalletButtonProps = {
+  myAddress: string | undefined;
   setMyAddress: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-const ConnectWalletButton = ({ setMyAddress }: ConnectWalletButtonProps): JSX.Element => {
+const ConnectWalletButton = ({ myAddress, setMyAddress }: ConnectWalletButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -20,7 +21,7 @@ const ConnectWalletButton = ({ setMyAddress }: ConnectWalletButtonProps): JSX.El
       <button
         className={styles.button}
         onClick={handleConnectWallet}>
-        {localStorage.getItem('address') == '' ?  t('DataSVL.TopBar.connectWallet') : localStorage.getItem('address')}
+        {myAddress == undefined ?  t('Dashboard.TopBar.connectWallet') : myAddress}
       </button>
     </div>
   );

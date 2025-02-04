@@ -1,12 +1,13 @@
 import styles from '../styles/pages/Dashboard.module.css';
 import { useEffect, useState } from 'react';
-import TopNavBar from '../components/topNavBar/topNavBar';
 import { getWallet, setWalletConnection } from '../utils/wallet';
 import { BeaconWallet } from '@taquito/beacon-wallet';
+import TopNavBar from '../components/topNavBar/topNavBar';
+import Welcome from '../components/dashboard/welcome';
 
 const Dashboard = (): JSX.Element => {
 
-  const [, setMyAddress] = useState<string | undefined>(undefined);
+  const [myAddress, setMyAddress] = useState<string | undefined>(undefined);
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
 
   useEffect(() => {
@@ -26,7 +27,11 @@ const Dashboard = (): JSX.Element => {
 
   return (
     <div className={styles.mainContainer}>
-      <TopNavBar page={'Dashboard'} setMyAddress={setMyAddress} />
+      {myAddress == undefined ? (
+        <Welcome myAddress={myAddress} setMyAddress={setMyAddress} />
+      ) : (
+        <TopNavBar page={'Dashboard'} myAddress={myAddress} setMyAddress={setMyAddress} />
+      )}   
     </div>
   );
 }

@@ -53,7 +53,6 @@ export const connectWallet = async (wallet: BeaconWallet, setMyAddress: React.Di
         return;
       }
     try {
-      console.log("bbb");
       const pkh = await wallet.getPKH();
       setMyAddress(pkh);
       localStorage.setItem('address', pkh);

@@ -1,0 +1,7 @@
+.mainContainer {
+  height: var(--vh, 100vh);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--backgroundColor);
+  justify-content: space-between;
+}

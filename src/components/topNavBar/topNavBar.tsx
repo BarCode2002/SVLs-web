@@ -6,7 +6,6 @@ import UploadJSONButton from './uploadJSONButton';
 import DownloadJSONButton from './downloadButtonJSON';
 import MintSVLButton from './mintSVLButton';
 import EditSVLButton from './editSVLButton';
-import ConnectWalletButton from './connectWalletButton';
 import DisconnectWalletButton from './disconnectWalletButton';
 import CreateSVLButton from './createSVLButton';
 
@@ -17,17 +16,17 @@ type TopNavBarProps = {
   setEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
   viewType?: number;
   setViewType?: React.Dispatch<React.SetStateAction<number>>;
+  myAddress: string | undefined;
   setMyAddress?: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, setMyAddress }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress }: TopNavBarProps): JSX.Element => {
 
   return (
     <div>
         {page == 'Dashboard' ? (
           <div className={styles.topNavBarDashboardContainer}>
-            <ConnectWalletButton setMyAddress={setMyAddress!} />
-            {localStorage.getItem('address') != '' &&
+            {myAddress != undefined &&
               <DisconnectWalletButton setMyAddress={setMyAddress!} />
             }
             <div className={styles.rightSideButtons}>

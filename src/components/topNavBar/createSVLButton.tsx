@@ -16,7 +16,7 @@ const CreateSVLButton = (): JSX.Element => {
       <button
         className={styles.button}
         onClick={handleRouteSVLData}>
-        {t('DataSVL.TopBar.createSVL')}
+        {t('Dashboard.TopBar.createSVL')}
       </button>
     </div>
   );

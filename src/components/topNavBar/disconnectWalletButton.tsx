@@ -20,7 +20,7 @@ const DisconnectWalletButton = ({ setMyAddress }: DisconnectWalletButtonProps): 
       <button
         className={styles.button}
         onClick={handleDisconnectWallet}>
-        {t('DataSVL.TopBar.disconnectWallet')}
+        {t('Dashboard.TopBar.disconnectWallet')}
       </button>
     </div>
   );
