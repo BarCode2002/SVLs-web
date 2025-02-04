@@ -1,4 +1,15 @@
-.topNavBarContainer {
+.topNavBarDashboardContainer {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: flex-start;
+  background-color: var(--navBarsPrimaryColor);
+}
+
+.topNavBarDataContainer {
   min-height: 50px;
   display: flex;
   align-items: center;
@@ -10,6 +21,7 @@
 
 .rightSideButtons {
   display: flex;
-  flex-direction: row;
+  flex-grow: 1;
+  justify-content: flex-end;
   gap: 20px;
 }

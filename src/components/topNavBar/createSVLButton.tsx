@@ -2,24 +2,24 @@ import styles from '../../styles/components/topNavBar/topNavBarButtons.module.cs
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
-const GoBackButton = (): JSX.Element => {
+const CreateSVLButton = (): JSX.Element => {
 
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useTranslation(); 
 
-  const handleRouteDashboard = async () => {
-    navigate('/'); 
+  const handleRouteSVLData = async () => {
+    navigate('/data'); 
   };
 
   return (
     <div>
       <button
         className={styles.button}
-        onClick={handleRouteDashboard}>
-        {t('DataSVL.TopBar.dashboard')}
+        onClick={handleRouteSVLData}>
+        {t('DataSVL.TopBar.createSVL')}
       </button>
     </div>
   );
 }
 
-export default GoBackButton;
+export default CreateSVLButton;

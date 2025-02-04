@@ -11,7 +11,10 @@
       "uploadJSON": "Sube JSON",
       "downloadJSON": "Descarga JSON",
       "mintSVL": "Crea SVL",
-      "editSVL": "Edita SVL"
+      "editSVL": "Edita SVL",
+      "createSVL": "Crea SVL",
+      "disconnectWallet": "Desconecta la cartera",
+      "connectWallet": "Conecta la cartera"
     },
     "BottomBar": {
       "generalInformation": "Información general",

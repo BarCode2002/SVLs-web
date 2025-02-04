@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/dataSVL/generalInformationSVL.module.css';
-import { GeneralInformation } from '../../utils/interfaces/dataSVL.ts';
+import { GeneralInformation } from '../../utils/dataSVL.ts';
 import InputField from './fields/inputField.tsx';
 import DropdownMenu from './fields/dropdownMenu.tsx';
 import ImagesField from './fields/imagesField.tsx';

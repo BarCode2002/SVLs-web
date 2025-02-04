@@ -1,5 +1,5 @@
 import styles from '../../../styles/components/dataSVL/fields/defectsRepairedField.module.css';
-import { DEFECTS_REPAIRED_SIZE } from '../../../utils/constants/constants';
+import { DEFECTS_REPAIRED_SIZE } from '../../../utils/constants';
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 import { SetStateAction, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';

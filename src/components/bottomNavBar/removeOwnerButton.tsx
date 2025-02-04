@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces/dataSVL';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/dataSVL';
 
 type RemoveOwnerButtonProps = {
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;

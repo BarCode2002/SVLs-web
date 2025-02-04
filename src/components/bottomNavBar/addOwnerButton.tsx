@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces/dataSVL';
-import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../utils/constants/constants';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/dataSVL';
+import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../utils/constants';
 import { useTranslation } from "react-i18next";
 
 type AddOwnerButtonProps = {

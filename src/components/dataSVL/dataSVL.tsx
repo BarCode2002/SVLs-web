@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/dataSVL/dataSVL.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces/dataSVL.ts';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/dataSVL.ts';
 import GeneralInformationSVL from './generalInformationSVL.tsx';
 import MaintenancesSVL from './maintenancesSVL.tsx';
 import ModificationsSVL from './modificationsSVL.tsx';

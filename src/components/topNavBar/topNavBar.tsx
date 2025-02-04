@@ -6,35 +6,54 @@ import UploadJSONButton from './uploadJSONButton';
 import DownloadJSONButton from './downloadButtonJSON';
 import MintSVLButton from './mintSVLButton';
 import EditSVLButton from './editSVLButton';
+import ConnectWalletButton from './connectWalletButton';
+import DisconnectWalletButton from './disconnectWalletButton';
+import CreateSVLButton from './createSVLButton';
 
 type TopNavBarProps = {
-  newSVL: boolean;
-  editMode: boolean;
-  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
-  viewType: number;
-  setViewType: React.Dispatch<React.SetStateAction<number>>;
+  page: string;
+  newSVL?: boolean;
+  editMode?: boolean;
+  setEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
+  viewType?: number;
+  setViewType?: React.Dispatch<React.SetStateAction<number>>;
+  setMyAddress?: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-const TopNavBar = ({ newSVL, editMode, setEditMode, viewType, setViewType }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, setMyAddress }: TopNavBarProps): JSX.Element => {
 
   return (
-    <div className={styles.topNavBarContainer}>
-      <GoBackButton />
-      {editMode == false ? (
-        <EditModeButton editMode={editMode} setEditMode={setEditMode} />
-      ) : (
-        <div className={styles.rightSideButtons}>
-          <EditModeButton editMode={editMode} setEditMode={setEditMode} />
-          <ViewTypeButton viewType={viewType} setViewType={setViewType} />
-          <UploadJSONButton />
-          <DownloadJSONButton />
-          {newSVL == true ? (
-            <MintSVLButton />
-          ) : (
-            <EditSVLButton />
-          )}
-        </div>
-      )}
+    <div>
+        {page == 'Dashboard' ? (
+          <div className={styles.topNavBarDashboardContainer}>
+            <ConnectWalletButton setMyAddress={setMyAddress!} />
+            {localStorage.getItem('address') != '' &&
+              <DisconnectWalletButton setMyAddress={setMyAddress!} />
+            }
+            <div className={styles.rightSideButtons}>
+              <CreateSVLButton />
+            </div>
+          </div>
+        ) : (
+          <div className={styles.topNavBarDataContainer}>
+            <GoBackButton />
+            {editMode == false ? (
+              <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
+            ) : (
+              <div className={styles.rightSideButtons}>
+                <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />
+                <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
+                <UploadJSONButton />
+                <DownloadJSONButton />
+                {newSVL == true ? (
+                  <MintSVLButton />
+                ) : (
+                  <EditSVLButton />
+                )}
+              </div>
+            )}
+          </div>
+        )}
     </div>
   );
 }
