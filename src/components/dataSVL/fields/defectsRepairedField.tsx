@@ -257,7 +257,6 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
             <div className={styles.list}>
               {list.filter(itemList => itemList.toLowerCase().includes(searchQuery[i][j].toLowerCase())).map((itemList, index) => (
                 <button
-                  key={index}
                   className={styles.itemList}
                   onClick={() => handleSelected(itemList, i, j)}>
                   {itemList}
