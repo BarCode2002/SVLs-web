@@ -8,41 +8,41 @@
   color: var(--fieldLabelColor);
 }
 
-.dataContainer {
+.strucutureContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.manangeDefectRepairedsOrNot {
   display: flex;
   gap: 10px;
 }
 
-.addDefectsRepairedButton {
+.button {
   font-size: medium;
-  height: 35px;
+  height: 37px;
   border: none;
   border-radius: 10px;
   background-color: var(--fieldBackgroundColor);
   color: var(--fieldDataColor);
 }
 
-.addDefectsRepairedButton:hover {
+.button:hover {
   cursor: pointer;
   background-color: white;
 }
 
-.newDefectRepairedButton {
-  font-size: medium;
-  height: 35px;
-  border: none;
-  border-radius: 10px;
-  background-color: var(--fieldBackgroundColor);
-  color: var(--fieldDataColor);
+.selectedDefectRepairedContainer {
+  width: 700px;
+
+  overflow-y: auto;
 }
 
-.newDefectRepairedButton:hover {
-  cursor: pointer;
-  background-color: white;
-}
-
-.infoDefectRepairedContainer {
+.selectedDefectRepaired {
   display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
 }
 
 .inputField {
@@ -62,23 +62,21 @@
 
 .inputField:focus {
   outline: none;
-  background-color: red;
 }
 
-.ownersDefectsListWrapper {
+.listWrapper {
   position: relative;
   display: flex;
   justify-content: center;
 }
 
-.ownersDefectsList {
+.list {
   position: absolute;
   background-color: white;
   height: 120px;
   width: 195px;
   z-index: 1;
-  right: 10px;
-  top: 35px;
+  right: 8px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -87,7 +85,7 @@
   border-bottom-right-radius: 10px;
 }
 
-.ownerDefect {
+.itemList {
   cursor: pointer;
   border: none;
   width: 180px;
@@ -96,7 +94,7 @@
   font-size: 16px;
 }
 
-.ownerDefect:hover {
+.itemList:hover {
   cursor: pointer;
   background-color: var(--fieldBackgroundColor);
 }

@@ -1,4 +1,6 @@
 import styles from '../../../styles/components/dataSVL/fields/defectsRepairedField.module.css';
+import { DEFECTS_REPAIRED_SIZE } from '../../../utils/constants/constants';
+import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 import { SetStateAction, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 
@@ -16,9 +18,10 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
   
   const { t } = useTranslation();
 
-  const [step, setStep] = useState(0);
-  const [isOpen, setIsOpen] = useState<boolean[]>([false, false, false]);
-  const [searchQuery, setSearchQuery] = useState<string[]>(["", "", ""]);
+  const [commonStep, setCommonStep] = useState(0);
+  const [step, setStep] = useState<number[]>(Array(DEFECTS_REPAIRED_SIZE).fill(1));
+  const [isOpen, setIsOpen] = useState<boolean[][]>( Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => [false, false, false]));
+  const [searchQuery, setSearchQuery] = useState<string[][]>( Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ["", "", ""]));
   const [ownersWithDefects, setOwnersWithDefects] = useState<string[]>([]);
   const [defectGroupsOwner, setDefectGroupsOwner] = useState<string[]>([]);
   const [defectGroupTypesOwner, setDefectGroupTypesOwner] = useState<string[]>([]);
@@ -31,84 +34,97 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
     setOwnersWithDefects(updatedOwnersWithDefects);
   }, [selectedOwner]);
 
-  const handleRepairDefect = async () => { 
-    const updatedDataSVL = [...repairs];
-    if (updatedDataSVL[selectedOwner].group[selectedGroup].defectsRepaired[0][0] == false) {
-      updatedDataSVL[selectedOwner].group[selectedGroup].defectsRepaired[0][0] = true;
-      updatedDataSVL[selectedOwner].group[selectedGroup].numDefectsRepaired = 1;
-      setStep(1);
+  const handleRepairDefect = () => { 
+    const updatedRepairs = [...repairs];
+    if (updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired == 0) {
+      updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired = 1;
+      setCommonStep(1)
     }
     else {
-      for (let i = 0; i < updatedDataSVL[selectedOwner].group[selectedGroup].numDefectsRepaired; i++) {
-        updatedDataSVL[selectedOwner].group[selectedGroup].defectsRepaired[i] = [false, -1, -1, -1];
+      for (let i = 0; i < updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired; i++) {
+        updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i] = [-1, -1, -1];
       }
-      updatedDataSVL[selectedOwner].group[selectedGroup].numDefectsRepaired = 0;
-      setStep(0);
-      setSearchQuery(['', '', '']);
+      updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired = 0;
+      setCommonStep(0);
+      const updatedSearchQuery = Array(DEFECTS_REPAIRED_SIZE).fill(["", "", ""]);
+      setSearchQuery(updatedSearchQuery);
+      const updatedisOpen = Array(DEFECTS_REPAIRED_SIZE).fill([false, false, false])
+      setIsOpen(updatedisOpen);
+      const updatedStep = Array(DEFECTS_REPAIRED_SIZE).fill(1)
+      setStep(updatedStep);
     }
-    setRepairs(updatedDataSVL);
+    setRepairs(updatedRepairs);
   };
 
-  const handleNewRepairedDefect = async () => { 
-    const updatedDataSVL = [...repairs];
-    updatedDataSVL[selectedOwner].group[selectedGroup].numDefectsRepaired += 1;  
-    setRepairs(updatedDataSVL);
+  const handleNewRepairedDefect = () => { 
+    const updatedRepairs = [...repairs];
+    updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired += 1;  
+    setRepairs(updatedRepairs);
   }
 
-  const handleOwnerInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOwnerInputChange = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
     const updatedIsOpen = [...isOpen];
     const updatedSearchQuery = [...searchQuery];
     if (event.target.value != '') {
-      updatedIsOpen[0] = true;
-      updatedSearchQuery[0] = event.target.value;
+      updatedIsOpen[i][0] = true;
+      updatedSearchQuery[i][0] = event.target.value;
       setIsOpen(updatedIsOpen);
       setSearchQuery(updatedSearchQuery);
     }
     else {
-      updatedSearchQuery[0] = '';
-      updatedSearchQuery[1] = '';
-      updatedSearchQuery[2] = '';
-      setStep(1);
+      updatedSearchQuery[i][0] = '';
+      updatedSearchQuery[i][1] = '';
+      updatedSearchQuery[i][2] = '';
+      const updatedStep = [...step];
+      updatedStep[i] = 1;
+      setStep(updatedStep);
       setSearchQuery(updatedSearchQuery);
     }
   }
 
-  const handleGroupInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGroupInputChange = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
     const updatedIsOpen = [...isOpen];
     const updatedSearchQuery = [...searchQuery];
     if (event.target.value != '') {
-      updatedIsOpen[1] = true;
-      updatedSearchQuery[1] = event.target.value;
+      updatedIsOpen[i][1] = true;
+      updatedSearchQuery[i][1] = event.target.value;
       setIsOpen(updatedIsOpen);
       setSearchQuery(updatedSearchQuery);
     }
     else {
-      updatedSearchQuery[1] = '';
-      updatedSearchQuery[2] = '';
-      setStep(2);
+      updatedSearchQuery[i][1] = '';
+      updatedSearchQuery[i][2] = '';
+      const updatedStep = [...step];
+      updatedStep[i] = 2;
+      setStep(updatedStep);
       setSearchQuery(updatedSearchQuery);
     }
   }
 
-  const handleTypeInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTypeInputChange = (event: React.ChangeEvent<HTMLInputElement>, i: number) => {
     const updatedIsOpen = [...isOpen];
     const updatedSearchQuery = [...searchQuery];
     if (event.target.value != '') {
-      updatedIsOpen[2] = true;
-      updatedSearchQuery[2] = event.target.value;
+      updatedIsOpen[i][2] = true;
+      updatedSearchQuery[i][2] = event.target.value;
       setIsOpen(updatedIsOpen);
       setSearchQuery(updatedSearchQuery);
     }
     else {
-      updatedSearchQuery[2] = '';
-      setStep(3);
+      updatedSearchQuery[i][2] = '';
+      const updatedStep = [...step];
+      updatedStep[i] = 3;
+      setStep(updatedStep);
       setSearchQuery(updatedSearchQuery);
     }
   }
 
-  const handleOwnerSelected = (owner: string) => {
+  const handleOwnerSelected = (owner: string, i: number) => {
     const ownerNum = owner.match(/\d+/);
     const ownerNumber = parseInt(ownerNum![0]);
+    const updatedRepairs = [...repairs];
+    updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0] = ownerNumber-1;
+    setRepairs(updatedRepairs);
     const updatedDefectGroupsOwner = [];
     for (let i = 0; i < defects[ownerNumber-1].numGroups; ++i) {
       updatedDefectGroupsOwner.push(`Group ${i+1}`); 
@@ -116,15 +132,17 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
     setDefectGroupsOwner(updatedDefectGroupsOwner);
     const updatedIsOpen = [...isOpen];
     const updatedSearchQuery = [...searchQuery];
-    updatedIsOpen[0] = false;
-    updatedSearchQuery[0] = owner;
+    updatedIsOpen[i][0] = false;
+    updatedSearchQuery[i][0] = owner;
     setSearchQuery(updatedSearchQuery);
     setIsOpen(updatedIsOpen);
-    setStep(2);
+    const updatedStep = [...step];
+    updatedStep[i] = 2;
+    setStep(updatedStep);
   }
 
-  const handleGroupSelected = (group: string) => {
-    const ownerNum = searchQuery[0].match(/\d+/);
+  const handleGroupSelected = (group: string, i: number) => {
+    const ownerNum = searchQuery[i][0].match(/\d+/);
     const ownerNumber = parseInt(ownerNum![0]);
     const groupNum = group.match(/\d+/);
     const groupNumber = parseInt(groupNum![0]);
@@ -134,130 +152,152 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
       updatedDefectGroupTypesOwner.push(`Type ${i+1}`); 
     }
     setDefectGroupTypesOwner(updatedDefectGroupTypesOwner);
-    const updatedIsOpen = [...isOpen];
-    const updatedSearchQuery = [...searchQuery];
-    updatedIsOpen[1] = false;
-    updatedSearchQuery[1] = group;
-    setSearchQuery(updatedSearchQuery);
-    setIsOpen(updatedIsOpen);
-    setStep(3);
-  }
-
-  const handleTypeSelected = (type: string) => {
-    const ownerNum = searchQuery[0].match(/\d+/);
-    const ownerNumber = parseInt(ownerNum![0]);
-    const groupNum = searchQuery[1].match(/\d+/);
-    const groupNumber = parseInt(groupNum![0]);
-    const typeNum = type.match(/\d+/);
-    const typeNumber = parseInt(typeNum![0]);
-
     const updatedRepairs = [...repairs];
-    //const numDefectsRepaired = repairs[selectedOwner].group[selectedGroup].numDefectsRepaired;
-    updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[0] = [true, ownerNumber-1, groupNumber-1, typeNumber-1]
+    updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1] = groupNumber-1;
+    setRepairs(updatedRepairs);
     const updatedIsOpen = [...isOpen];
-
     const updatedSearchQuery = [...searchQuery];
-    updatedIsOpen[2] = false;
-    updatedSearchQuery[2] = type;
+    updatedIsOpen[i][1] = false;
+    updatedSearchQuery[i][1] = group;
     setSearchQuery(updatedSearchQuery);
     setIsOpen(updatedIsOpen);
-    setStep(4);
+    const updatedStep = [...step];
+    updatedStep[i] = 3;
+    setStep(updatedStep);
   }
-  
+
+  const handleTypeSelected = (type: string, i: number) => {
+    const updatedRepairs = [...repairs];
+    if (type != 'All types') {
+      const typeNum = type.match(/\d+/);
+      const typeNumber = parseInt(typeNum![0]);
+      updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i][2] = typeNumber-1;
+    }
+    else updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i] = -2;
+    setRepairs(updatedRepairs);
+    const updatedIsOpen = [...isOpen];
+    const updatedSearchQuery = [...searchQuery];
+    updatedIsOpen[i][2] = false;
+    updatedSearchQuery[i][2] = type;
+    setSearchQuery(updatedSearchQuery);
+    setIsOpen(updatedIsOpen);
+    const updatedStep = [...step];
+    updatedStep[i] = 4;
+    setStep(updatedStep);
+  }
+
+  const handleSelected = (itemList: string, i: number, j: number) => {
+    if (j == 0) handleOwnerSelected(itemList, i);
+    else if (j == 1) handleGroupSelected(itemList, i);
+    else handleTypeSelected(itemList, i);
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, i: number, j: number) => {
+    if (j == 0) handleOwnerInputChange(e, i);
+    else if (j == 1) handleGroupInputChange(e, i);
+    else handleTypeInputChange(e, i);
+  }
+
+  const handleRemoveRepairedDefect = (defectRepairedIndex: number) => { 
+    const updatedRepairs = [...repairs];
+    const updatedSearchQuery = [...searchQuery];
+    const updatedIsOpen = [...isOpen];
+    const updatedStep = [...step];
+    const numDefectsRepaired = updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired;
+    if (numDefectsRepaired == 1) {
+      updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[defectRepairedIndex] = [-1, -1, -1];
+      updatedSearchQuery[defectRepairedIndex] = ['', '', ''];
+      updatedIsOpen[defectRepairedIndex] = [false, false, false];
+      updatedStep[defectRepairedIndex] = 1;
+    }
+    else {
+      for (let i = defectRepairedIndex; i < numDefectsRepaired-1; i++) {
+        updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i] = updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i+1];
+        updatedSearchQuery[i] = updatedSearchQuery[i+1];
+        updatedIsOpen[i] = updatedIsOpen[i+1];
+        updatedStep[i] = updatedStep[i+1];
+      }
+      updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[numDefectsRepaired-1] = [-1, -1, -1];
+      updatedSearchQuery[numDefectsRepaired-1] = ['', '', ''];
+      updatedIsOpen[numDefectsRepaired-1] = [false, false, false];
+      updatedStep[numDefectsRepaired-1] = 1;
+    }
+    updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired -= 1;  
+    setRepairs(updatedRepairs);
+    setSearchQuery(updatedSearchQuery);
+    setIsOpen(updatedIsOpen);
+    setStep(updatedStep);
+  }
+
+  const ref = DetectClickOutsideComponent(() => { 
+    const updatedisOpen = Array(DEFECTS_REPAIRED_SIZE).fill([false, false, false]);
+    setIsOpen(updatedisOpen);
+  });
+
+  const renderInputFieldAndList = (i: number, j: number, placeholder: string, list: string[]) => {
+
+    return (
+      <div>
+        <input
+          className={styles.inputField}
+          placeholder={placeholder}
+          value={searchQuery[i][j]}
+          onChange={(e) => handleInputChange(e, i, j)}
+        />
+        {isOpen[i][j] && searchQuery[i][j] != '' &&
+          <div className={styles.listWrapper}>
+            <div ref={ref} className={styles.list}>
+              {list.filter(itemList => itemList.toLowerCase().includes(searchQuery[i][j].toLowerCase())).map((itemList, index) => (
+                <button
+                  key={index}
+                  className={styles.itemList}
+                  onClick={() => handleSelected(itemList, i, j)}>
+                  {itemList}
+                </button>
+              ))}
+            </div>
+          </div>
+        }
+      </div>
+    );
+  };
+
   return (
     <div className={styles.defectRepairedContainer}>
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>   
-      <div className={styles.dataContainer}>
-        <button
-          className={styles.addDefectsRepairedButton} 
-          onClick={handleRepairDefect}>
-          {step == 0 ? "Add" : "Erase all"}
-        </button>
-        {step >= 1 &&
-          <div>
+      <div className={styles.strucutureContainer}>
+        <div className={styles.manangeDefectRepairedsOrNot}>
+          <button
+            className={styles.button} 
+            onClick={handleRepairDefect}>
+            {commonStep == 0 ? "Add" : "Erase all"}
+          </button>
+          {commonStep >= 1 &&  
             <button
-              className={styles.newDefectRepairedButton} 
+              className={styles.button} 
               onClick={handleNewRepairedDefect}>
               +
             </button>
-            <div className={styles.infoDefectRepairedContainer}>
-              <input
-                className={styles.inputField}
-                placeholder={'Owner'}
-                value={searchQuery[0]}
-                onChange={handleOwnerInputChange}
-              />
-              {isOpen[0] && searchQuery[0] != '' &&
-                <div className={styles.ownersDefectsListWrapper}>
-                  <div className={styles.ownersDefectsList}>
-                    {ownersWithDefects.filter(ownerDefect => ownerDefect.toLowerCase().includes(searchQuery[0].toLowerCase())).map((ownerDefect, index) => (
-                      <button
-                        key={index}
-                        className={styles.ownerDefect}
-                        onClick={() => handleOwnerSelected(ownerDefect)}>
-                        {ownerDefect}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+          }
+        </div>
+        <div className={styles.selectedDefectRepairedContainer}>
+          {Array.from({ length: repairs[selectedOwner].group[selectedGroup].numDefectsRepaired }).map((_, defectRepairedIndex) => (
+            <div key={defectRepairedIndex} className={styles.selectedDefectRepaired} >
+              {step[defectRepairedIndex] >= 1 && renderInputFieldAndList(defectRepairedIndex, 0, 'Owner', ownersWithDefects)}
+              {step[defectRepairedIndex] >= 2 && renderInputFieldAndList(defectRepairedIndex, 1, 'Group', defectGroupsOwner)} 
+              {step[defectRepairedIndex] >= 3 && renderInputFieldAndList(defectRepairedIndex, 2, 'Type', defectGroupTypesOwner)}
+              {step[defectRepairedIndex] >= 1 && 
+                <button
+                  className={styles.button} 
+                  onClick={() => handleRemoveRepairedDefect(defectRepairedIndex)}>
+                  -
+                </button>
               }
             </div>
-          </div>
-        }
-        {step >= 2 &&
-          <div>
-            <div className={styles.infoDefectRepairedContainer}>
-              <input
-                className={styles.inputField}
-                placeholder={'Group'}
-                value={searchQuery[1]}
-                onChange={handleGroupInputChange}
-              />
-              {isOpen[1] && searchQuery[1] != '' &&
-                <div className={styles.ownersDefectsListWrapper}>
-                  <div className={styles.ownersDefectsList}>
-                    {defectGroupsOwner.filter(groupDefect => groupDefect.toLowerCase().includes(searchQuery[1].toLowerCase())).map((groupDefect, index) => (
-                      <button
-                        key={index}
-                        className={styles.ownerDefect}
-                        onClick={() => handleGroupSelected(groupDefect)}>
-                        {groupDefect}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              }
-            </div>
-          </div>
-        }
-        {step >= 3 &&
-          <div>
-            <div className={styles.infoDefectRepairedContainer}>
-              <input
-                className={styles.inputField}
-                placeholder={'Type'}
-                value={searchQuery[2]}
-                onChange={handleTypeInputChange}
-              />
-              {isOpen[2] && searchQuery[2] != '' &&
-                <div className={styles.ownersDefectsListWrapper}>
-                  <div className={styles.ownersDefectsList}>
-                    {defectGroupTypesOwner.filter(typeDefect => typeDefect.toLowerCase().includes(searchQuery[2].toLowerCase())).map((typeDefect, index) => (
-                      <button
-                        key={index}
-                        className={styles.ownerDefect}
-                        onClick={() => handleTypeSelected(typeDefect)}>
-                        {typeDefect}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              }
-            </div>
-          </div>
-        }
+          ))}
+        </div>
       </div>
     </div>
   );

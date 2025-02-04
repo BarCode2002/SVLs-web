@@ -120,7 +120,7 @@ const Data = (): JSX.Element => {
         doneBy: [false, "", false, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([false, -1, -1, -1 ])),
+        defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
         numDefectsRepaired: 0,
         type: Array.from({ length: 1 }, () => ({
           name: "",

@@ -159,9 +159,11 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={repairs} setDataSVL={setRepairs} type={'date'}
               />
-              <DefectsRepairedField totalOwners={totalOwners} fieldLabel={t('DataSVL.Labels.defectsRepaired')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} repairs={repairs} setRepairs={setRepairs} defects={defects}
-              />
+              {selectedOwner != 0 &&
+                <DefectsRepairedField totalOwners={totalOwners} fieldLabel={t('DataSVL.Labels.defectsRepaired')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} repairs={repairs} setRepairs={setRepairs} defects={defects}
+                />
+              }
               <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].pre} 
                 setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true}

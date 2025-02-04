@@ -107,7 +107,7 @@ export interface Repairs {
     doneBy: [boolean, string, boolean, string];
     pre: string[],
     post: string[],
-    defectsRepaired: [boolean, number, number, number][];
+    defectsRepaired: [number, number, number][];
     numDefectsRepaired: number;
     type: Repair[];
     shrinked: boolean;
