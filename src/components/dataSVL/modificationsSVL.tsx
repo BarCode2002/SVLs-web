@@ -83,7 +83,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications }: Mo
           </div>
           {modifications[selectedOwner].group[groupIndex].type[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
-              <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.name')} selectedOwner={selectedOwner} 
+              <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.nameModification')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
                 value={modifications[selectedOwner].group[groupIndex].type[typeIndex].name} 
                 setDataSVL={setModifications} type={'name'}
@@ -103,7 +103,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications }: Mo
                 selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].post} 
                 setDataSVL={setModifications} type={'post'} allowMultipleImages={true}
               />
-              <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsMaintenance')} selectedOwner={selectedOwner} 
+              <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsModifications')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
                 value={modifications[selectedOwner].group[groupIndex].type[typeIndex].comments} 
                 setDataSVL={setModifications} type={'comments'}
@@ -145,7 +145,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications }: Mo
                 selectedGroupType={-1} dataSVL={modifications} value={modifications[selectedOwner].group[groupIndex].kilometers} 
                 setDataSVL={setModifications} type={'kilometers'} 
               />
-              <InputField fieldLabel={t('DataSVL.Labels.name')} placeholder={t('DataSVL.Placeholders.name')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+              <InputField fieldLabel={t('DataSVL.Labels.name')} placeholder={t('DataSVL.Placeholders.nameGroupModifications')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={-1} dataSVL={modifications} value={modifications[selectedOwner].group[groupIndex].name} 
                 setDataSVL={setModifications} type={'name'}
               />

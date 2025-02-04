@@ -83,7 +83,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
           </div>
           {maintenances[selectedOwner].group[groupIndex].type[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
-              <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.name')} selectedOwner={selectedOwner} 
+              <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.nameMaintenance')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={maintenances} 
                 value={maintenances[selectedOwner].group[groupIndex].type[typeIndex].name} 
                 setDataSVL={setMaintenances} type={'name'}
@@ -145,7 +145,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances }: Maint
                 selectedGroupType={-1} dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].kilometers} 
                 setDataSVL={setMaintenances} type={'kilometers'} 
               />
-              <InputField fieldLabel={t('DataSVL.Labels.name')} placeholder={t('DataSVL.Placeholders.name')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+              <InputField fieldLabel={t('DataSVL.Labels.name')} placeholder={t('DataSVL.Placeholders.nameGroupMaintenance')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={-1} dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].name} 
                 setDataSVL={setMaintenances} type={'name'}
               />

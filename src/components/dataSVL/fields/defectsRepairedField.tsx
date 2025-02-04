@@ -29,7 +29,7 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
   useEffect(() => {
     const updatedOwnersWithDefects = [];
     for (let i = 0; i < totalOwners; i++) {
-      if (i < selectedOwner && defects[i].numGroups > 0) updatedOwnersWithDefects.push(`Owner ${i+1}`); 
+      if (i < selectedOwner && defects[i].numGroups > 0) updatedOwnersWithDefects.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`); 
     }
     setOwnersWithDefects(updatedOwnersWithDefects);
   }, [selectedOwner]);
@@ -127,7 +127,7 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
     setRepairs(updatedRepairs);
     const updatedDefectGroupsOwner = [];
     for (let i = 0; i < defects[ownerNumber-1].numGroups; ++i) {
-      updatedDefectGroupsOwner.push(`Group ${i+1}`); 
+      updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
     }
     setDefectGroupsOwner(updatedDefectGroupsOwner);
     const updatedIsOpen = [...isOpen];
@@ -147,9 +147,9 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
     const groupNum = group.match(/\d+/);
     const groupNumber = parseInt(groupNum![0]);
     const updatedDefectGroupTypesOwner = [];
-    updatedDefectGroupTypesOwner.push('All types'); 
+    updatedDefectGroupTypesOwner.push(t('DataSVL.Placeholders.allDefects')); 
     for (let i = 0; i < defects[ownerNumber-1].group[groupNumber-1].numTypes; ++i) {
-      updatedDefectGroupTypesOwner.push(`Type ${i+1}`); 
+      updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
     }
     setDefectGroupTypesOwner(updatedDefectGroupTypesOwner);
     const updatedRepairs = [...repairs];
@@ -168,7 +168,7 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
 
   const handleTypeSelected = (type: string, i: number) => {
     const updatedRepairs = [...repairs];
-    if (type != 'All types') {
+    if (type != t('DataSVL.Placeholders.allDefects')) {
       const typeNum = type.match(/\d+/);
       const typeNumber = parseInt(typeNum![0]);
       updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i][2] = typeNumber-1;
@@ -272,7 +272,7 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
           <button
             className={styles.button} 
             onClick={handleRepairDefect}>
-            {commonStep == 0 ? "Add" : "Erase all"}
+            {commonStep == 0 ? t('DataSVL.Labels.add') : t('DataSVL.Labels.eraseAll')}
           </button>
           {commonStep >= 1 &&  
             <button
@@ -285,9 +285,9 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
         <div className={styles.selectedDefectRepairedContainer}>
           {Array.from({ length: repairs[selectedOwner].group[selectedGroup].numDefectsRepaired }).map((_, defectRepairedIndex) => (
             <div key={defectRepairedIndex} className={styles.selectedDefectRepaired} >
-              {step[defectRepairedIndex] >= 1 && renderInputFieldAndList(defectRepairedIndex, 0, 'Owner', ownersWithDefects)}
-              {step[defectRepairedIndex] >= 2 && renderInputFieldAndList(defectRepairedIndex, 1, 'Group', defectGroupsOwner)} 
-              {step[defectRepairedIndex] >= 3 && renderInputFieldAndList(defectRepairedIndex, 2, 'Type', defectGroupTypesOwner)}
+              {step[defectRepairedIndex] >= 1 && renderInputFieldAndList(defectRepairedIndex, 0, t('DataSVL.Placeholders.owner'), ownersWithDefects)}
+              {step[defectRepairedIndex] >= 2 && renderInputFieldAndList(defectRepairedIndex, 1, t('DataSVL.Placeholders.groupDefect'), defectGroupsOwner)} 
+              {step[defectRepairedIndex] >= 3 && renderInputFieldAndList(defectRepairedIndex, 2, t('DataSVL.Placeholders.defect'), defectGroupTypesOwner)}
               {step[defectRepairedIndex] >= 1 && 
                 <button
                   className={styles.button} 

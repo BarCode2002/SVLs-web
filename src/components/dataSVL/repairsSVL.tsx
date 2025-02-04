@@ -86,7 +86,7 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
           </div>
           {repairs[selectedOwner].group[groupIndex].type[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
-              <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.name')} selectedOwner={selectedOwner} 
+              <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.nameRepair')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
                 value={repairs[selectedOwner].group[groupIndex].type[typeIndex].name} 
                 setDataSVL={setRepairs} type={'name'}
@@ -106,7 +106,7 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
                 selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].post} 
                 setDataSVL={setRepairs} type={'post'} allowMultipleImages={true}
               />
-              <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsMaintenance')} selectedOwner={selectedOwner} 
+              <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsRepair')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
                 value={repairs[selectedOwner].group[groupIndex].type[typeIndex].comments} 
                 setDataSVL={setRepairs} type={'comments'}
@@ -148,7 +148,7 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
                 selectedGroupType={-1} dataSVL={repairs} value={repairs[selectedOwner].group[groupIndex].kilometers} 
                 setDataSVL={setRepairs} type={'kilometers'} 
               />
-              <InputField fieldLabel={t('DataSVL.Labels.name')} placeholder={t('DataSVL.Placeholders.name')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+              <InputField fieldLabel={t('DataSVL.Labels.name')} placeholder={t('DataSVL.Placeholders.nameGroupRepair')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={-1} dataSVL={repairs} value={repairs[selectedOwner].group[groupIndex].name} 
                 setDataSVL={setRepairs} type={'name'}
               />
