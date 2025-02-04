@@ -3,9 +3,6 @@ import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } fro
 export const createJSON = (selectedOwner: number, generalInformation: GeneralInformation[], maintenances: Maintenances[], modifications: Modifications[], defects: Defects[], repairs: Repairs[]): any => {
 
   const dataSVL = [ 
-    {
-      totalOwners: '1', 
-    },
     ...generalInformation.slice(selectedOwner, selectedOwner+1).map((item) => ({
       VIN: item.VIN,
       brand: item.brand,

@@ -147,7 +147,7 @@ const Data = (): JSX.Element => {
   return (
     <div className={styles.mainContainer}>
         <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
-          setViewType={setViewType} selectedOwner={selectedOwner} 
+          setViewType={setViewType} selectedOwner={selectedOwner}
           generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
           maintenances={maintenances} setMaintenances={setMaintenances}
           modifications={modifications} setModifications={setModifications}

@@ -55,7 +55,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
               <div className={styles.rightSideButtons}>
                 <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
-                <UploadJSONButton selectedOwner={selectedOwner!}
+                <UploadJSONButton selectedOwner={selectedOwner!} 
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
                   maintenances={maintenances!} setMaintenances={setMaintenances!}
                   modifications={modifications!} setModifications={setModifications!}

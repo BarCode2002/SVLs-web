@@ -15,8 +15,8 @@
       "enterEditMode": "Entrar al modo edición",
       "ownerView": "Vista del propietario",
       "summaryView": "Vista resumen",
-      "uploadJSON": "Sube JSON",
-      "downloadJSON": "Descarga JSON",
+      "uploadJSON": "Sube propietario",
+      "downloadJSON": "Descarga propietario",
       "mintSVL": "Crea SVL",
       "editSVL": "Edita SVL"
     },
