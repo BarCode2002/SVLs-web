@@ -30,6 +30,11 @@
   background-color: green;
 }
 
+.meButton:disabled {
+  cursor: default;
+  background-color: var(--fieldBackgroundColor);
+}
+
 .meButtonSelected {
   height: 37px;
   border: none;
@@ -43,6 +48,10 @@
 
 .meButtonSelected:hover {
   cursor: pointer;
+}
+
+.meButtonSelected:disabled {
+  cursor: default;
 }
 
 .mechanicButton {
@@ -61,6 +70,11 @@
   background-color: green;
 }
 
+.mechanicButton:disabled {
+  cursor: default;
+  background-color: var(--fieldBackgroundColor);
+}
+
 .mechanicButtonSelected {
   height: 37px;
   border: none;
@@ -76,6 +90,10 @@
   cursor: pointer;
 }
 
+.mechanicButtonSelected:disabled {
+  cursor: default;
+}
+
 .inputField {
   border-radius: 10px;
   height: 35px;
@@ -89,6 +107,10 @@
 
 .inputField::placeholder {
   color: var(--fieldPlaceholderColor);
+}
+
+.inputField:disabled {
+  cursor: default;
 }
 
 .inputField:focus {
@@ -129,7 +151,7 @@
 }
 
 .noProofButton {
-  height: 35px;
+  height: 37px;
   border: none;
   border-radius: 10px;
   font-size: medium;
@@ -141,8 +163,12 @@
   cursor: pointer;
 }
 
+.noProofButton:disabled {
+  cursor: default;
+}
+
 .yesProofButton {
-  height: 35px;
+  height: 37px;
   border: none;
   border-radius: 10px;
   font-size: medium;
@@ -152,6 +178,10 @@
 
 .yesProofButton:hover {
   cursor: pointer;
+}
+
+.yesProofButton:disabled {
+  cursor: default;
 }
 
 .proofUploadContainer {
@@ -172,6 +202,10 @@
 
 .fileInput:hover {
   cursor: pointer;
+}
+
+.fileInput:disabled {
+  cursor: default;
 }
 
 .imageSmallContainer {
@@ -201,6 +235,11 @@
 .removeImageButton:hover {
   cursor: pointer;
   background-color: red;
+}
+
+.removeImageButton:disabled {
+  cursor: default;
+  background-color: white;
 }
 
 .imageBigContainer {

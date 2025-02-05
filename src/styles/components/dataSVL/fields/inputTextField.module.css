@@ -30,6 +30,10 @@
   color: var(--fieldPlaceholderColor);
 }
 
+.textField:disabled {
+  cursor: default;
+}
+
 .textField:focus {
   outline: none;
 }

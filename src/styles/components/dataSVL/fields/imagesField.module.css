@@ -22,6 +22,10 @@
   cursor: pointer;
 }
 
+.fileInput:disabled {
+  cursor: default;
+}
+
 .imageSmallContainer {
   display: flex;
   flex-wrap: wrap;
@@ -72,6 +76,11 @@
 .removeImageButton:hover {
   cursor: pointer;
   background-color: red;
+}
+
+.removeImageButton:disabled {
+  cursor: default;
+  background-color: white;
 }
 
 .imageBigContainer {

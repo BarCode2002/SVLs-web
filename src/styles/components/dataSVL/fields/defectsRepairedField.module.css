@@ -32,9 +32,13 @@
   background-color: white;
 }
 
+.button:disabled {
+  cursor: default;
+  background-color: var(--fieldBackgroundColor);
+}
+
 .selectedDefectRepairedContainer {
   width: 700px;
-
 }
 
 .selectedDefectRepaired {

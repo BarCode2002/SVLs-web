@@ -1,5 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/responsibleField.module.css';
+import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 import { useTranslation } from "react-i18next";
 
 type ResponsibleFieldProps = {
@@ -117,6 +118,11 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
     setDataSVL(updatedDataSVL);
   }
 
+  const refClickOutside = DetectClickOutsideComponent(() => { 
+    if (isOpen) setIsOpen(false); 
+  });
+
+
   return (
     <div className={styles.responsibleFieldContainer}>
       <div className={styles.fieldLabel}>
@@ -150,7 +156,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
             />
             {isOpen && searchQuery != '' &&
               <div className={styles.mechanicsListWrapper}>
-                <div className={styles.mechanicsList}>
+                <div ref={refClickOutside} className={styles.mechanicsList}>
                   {mechanicsList.filter(mechanic => mechanic.toLowerCase().includes(searchQuery.toLowerCase())).map((mechanic, index) => (
                     <button
                       key={index}

@@ -17,6 +17,12 @@
   background-color: var(--dataPanelBackgroundColor);
 }
 
+.addGroupButton:disabled {
+  cursor: default;
+  color: var(--dataPanelBackgroundColor);
+  background-color: var(--backgroundColor);
+}
+
 .removeGroupButton {
   display: flex;
   align-items: center;
@@ -35,6 +41,12 @@
   cursor: pointer;
   color: white;
   background-color: var(--dataPanelBackgroundColor);
+}
+
+.removeGroupButton:disabled {
+  cursor: default;
+  color: var(--dataPanelBackgroundColor);
+  background-color: var(--dataBackgroundColor);
 }
 
 .addGroupTypeButton {
@@ -56,6 +68,12 @@
   background-color: var(--buttonBackgroundColor);
 }
 
+.addGroupTypeButton:disabled {
+  cursor: default;
+  color: white;
+  background-color: var(--dataPanelBackgroundColor);
+}
+
 .removeGroupTypeButton {
   display: flex;
   align-items: center;
@@ -72,6 +90,11 @@
 .removeGroupTypeButton:hover {
   cursor: pointer;
   background-color: white;
+}
+
+.removeGroupTypeButton:disabled {
+  cursor: default;
+  background-color: var(--dataBackgroundColor);
 }
 
 .toogleButton {
@@ -93,10 +116,16 @@
   height: 30px;
   background-color: var(--buttonBackgroundColor);
   border: none;
+  color: var(--buttonTextColor);
   border-radius: 10px;
 }
 
 .dragButton:hover {
   cursor: pointer;
   background-color: white;
+}
+
+.dragButton:disabled {
+  cursor: default;
+  background-color: var(--dataBackgroundColor);
 }

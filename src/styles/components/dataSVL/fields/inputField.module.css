@@ -23,6 +23,10 @@
   color: var(--fieldPlaceholderColor);
 }
 
+.inputField:disabled {
+  cursor: default;
+}
+
 .inputField:focus {
   outline: none;
 }

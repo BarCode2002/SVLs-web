@@ -24,6 +24,10 @@
   color: var(--fieldPlaceholderColor);
 }
 
+data:disabled {
+  cursor: default;
+}
+
 .date:focus {
   outline: none;
 }

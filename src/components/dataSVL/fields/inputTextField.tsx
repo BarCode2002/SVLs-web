@@ -36,6 +36,7 @@ const InputTextField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup,
             rows={5}
             value={value}
             onChange={updateValue}
+            disabled={!editMode}
           />
         </div>
     ) : (

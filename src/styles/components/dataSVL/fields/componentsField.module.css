@@ -18,6 +18,10 @@
   background-color: var(--fieldBackgroundColor);
 }
 
+.inputField:disabled {
+  cursor: default;
+}
+
 .inputField::placeholder {
   color: var(--fieldPlaceholderColor);
 }
@@ -30,13 +34,18 @@
   width: 25px;
   border: none;
   border-radius: 10px;
-  background-color: var(--dataBackgroundColor);
+  background-color: var(--fieldBackgroundColor);
   color: black;
   font-size: 1rem;
 }
 
 .addComponentButton:hover {
   cursor: pointer;
+  background-color: white;
+}
+
+.addComponentButton:disabled {
+  cursor: default;
   background-color: var(--fieldBackgroundColor);
 }
 
@@ -59,4 +68,9 @@
 .removeComponentButton:hover {
   cursor: pointer;
   background-color: white;
+}
+
+.removeComponentButton:disabled {
+  cursor: default;
+  background-color: var(--fieldBackgroundColor);
 }
