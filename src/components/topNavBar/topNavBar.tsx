@@ -40,7 +40,10 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
         {page == 'Dashboard' ? (
           <div className={styles.topNavBarDashboardContainer}>
             {myAddress != undefined &&
-              <DisconnectWalletButton setMyAddress={setMyAddress!} />
+              <div className={styles.leftSideButton}>
+                <div className={styles.myAddress}>{myAddress}</div>
+                <DisconnectWalletButton setMyAddress={setMyAddress!} />
+              </div>
             }
             <div className={styles.rightSideButtons}>
               <CreateSVLButton />

@@ -1,6 +1,6 @@
 import { useState, useEffect, SetStateAction, useRef } from 'react';
-import styles from '../../../styles/components/dataSVL/fields/dropdownMenu.module.css';
-import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
+import styles from '../../styles/components/fields/dropdownMenu.module.css';
+import { DetectClickOutsideComponent } from '../varied/detectClickOutsideComponent';
 
 type DropdownMenuProps = {
   fieldLabel: string;

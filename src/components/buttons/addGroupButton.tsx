@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react';
-import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
-import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../../utils/constants';
-import { Maintenances, Modifications, Defects, Repairs } from '../../../utils/dataSVL';
+import styles from '../../styles/components/buttons/dataSVLButtons.module.css';
+import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../utils/constants';
+import { Maintenances, Modifications, Defects, Repairs } from '../../utils/dataSVL';
 import { useTranslation } from "react-i18next";
 
 type AddGroupButtonProps = {

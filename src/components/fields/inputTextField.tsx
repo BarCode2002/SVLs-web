@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react';
-import styles from '../../../styles/components/dataSVL/fields/inputTextField.module.css';
+import styles from '../../styles/components/fields/inputTextField.module.css';
 
 type InputTextFieldProps = {
   fieldLabel: string;

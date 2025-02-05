@@ -1,6 +1,6 @@
-import styles from '../../../styles/components/dataSVL/fields/imagesField.module.css';
+import styles from '../../styles/components/fields/imagesField.module.css';
 import { useState } from 'react';
-import { PHOTOGRAPHS_SIZE } from '../../../utils/constants';
+import { PHOTOGRAPHS_SIZE } from '../../utils/constants';
 
 type ImagesFieldProps = {
   fieldLabel: string;

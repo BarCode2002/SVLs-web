@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import styles from '../../../styles/components/dataSVL/fields/responsibleField.module.css';
-import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
+import styles from '../../styles/components/fields/responsibleField.module.css';
+import { DetectClickOutsideComponent } from '../varied/detectClickOutsideComponent';
 import { useTranslation } from "react-i18next";
 
 type ResponsibleFieldProps = {

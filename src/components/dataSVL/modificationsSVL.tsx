@@ -1,18 +1,18 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
 import { Modifications } from '../../utils/dataSVL.ts';
-import AddGroupButton from './buttons/addGroupButton.tsx';
-import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
-import RemoveGroupButton from './buttons/removeGroupButton.tsx';
-import RemoveGroupTypeButton from './buttons/removeGroupTypeButton.tsx';
-import ToggleVisibilityButton from './buttons/toggleVisibilityButton.tsx';
-import InputField from './fields/inputField.tsx';
-import ImagesField from './fields/imagesField.tsx';
-import DateField from './fields/dateField.tsx';
-import InputTextField from './fields/inputTextField.tsx';
-import ResponsibleField from './fields/responsibleField.tsx';
-import ComponentsField from './fields/componentsField.tsx';
-import DragGroupGroupTypeButton from './buttons/dragGroupGroupTypeButton.tsx';
+import AddGroupButton from '../buttons/addGroupButton.tsx';
+import AddGroupTypeButton from '../buttons/addGroupTypeButton.tsx';
+import RemoveGroupButton from '../buttons/removeGroupButton.tsx';
+import RemoveGroupTypeButton from '../buttons/removeGroupTypeButton.tsx';
+import ToggleVisibilityButton from '../buttons/toggleVisibilityButton.tsx';
+import InputField from '../fields/inputField.tsx';
+import ImagesField from '../fields/imagesField.tsx';
+import DateField from '../fields/dateField.tsx';
+import InputTextField from '../fields/inputTextField.tsx';
+import ResponsibleField from '../fields/responsibleField.tsx';
+import ComponentsField from '../fields/componentsField.tsx';
+import DragGroupGroupTypeButton from '../buttons/dragGroupGroupTypeButton.tsx';
 import { useTranslation } from "react-i18next";
 
 type ModificationsSVLProps = {

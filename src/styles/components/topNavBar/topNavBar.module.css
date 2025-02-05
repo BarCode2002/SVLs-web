@@ -19,6 +19,18 @@
   background-color: var(--navBarsPrimaryColor);
 }
 
+.leftSideButton {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.myAddress {
+  color: var(--navBarsSecondaryColor);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .rightSideButtons {
   display: flex;
   flex-grow: 1;

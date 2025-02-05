@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react';
-import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
+import styles from '../../styles/components/buttons/dataSVLButtons.module.css';
 
 type DragGroupGroupTypeButtonProps = {
   setDraggable: React.Dispatch<SetStateAction<boolean>>;
