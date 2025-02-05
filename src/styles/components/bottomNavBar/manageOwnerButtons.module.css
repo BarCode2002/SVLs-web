@@ -1,6 +1,6 @@
 .removeAddOwnerButton {
-  height: 35px;
-  font-size: 1rem;
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
   font-weight: 600;
   background-color: var(--navBarsPrimaryColor);
   border: none;
@@ -10,9 +10,9 @@
 
 .removeAddOwnerButton:hover {
   cursor: pointer;
-  height: 35px;
-  font-size: 1rem;
-  font-weight: 600;
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsMainColor);
 }
@@ -24,9 +24,9 @@
 }
 
 .ownerButton {
-  height: 35px;
-  font-size: 1rem;
-  font-weight: 600;
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
   background-color: var(--navBarsPrimaryColor);
   border: none;
   color: var(--navBarsSecondaryColor);
@@ -34,9 +34,9 @@
 }
 
 .ownerButtonSelected {
-  height: 35px;
-  font-size: 1rem;
-  font-weight: 600;
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
   border: none;
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
@@ -46,8 +46,8 @@
 .ownerButton:hover {
   cursor: pointer;
   height: 35px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
 }

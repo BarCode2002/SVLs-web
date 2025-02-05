@@ -4,9 +4,9 @@
 }
 
 .button {
-  height: 35px;
-  font-size: 1rem;
-  font-weight: 600;
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
   background-color: var(--navBarsPrimaryColor);
   border: none;
   color: var(--navBarsSecondaryColor);
@@ -20,9 +20,9 @@
 }
 
 .butttonSelected {
-  height: 35px;
-  font-size: 1rem;
-  font-weight: 600;
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
   border: none;

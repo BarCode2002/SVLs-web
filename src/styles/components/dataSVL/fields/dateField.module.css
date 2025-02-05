@@ -12,10 +12,10 @@
   padding-left: 10px;
   z-index: 2;
   border-radius: 10px;
-  height: 40px;
+  height: var(--fieldHeight);
   width: 300px;
   border: none;
-  font-size: 1rem;
+  font-size: var(--fieldFontSize);
   background-color: var(--fieldBackgroundColor);
   color: var(--fieldDataColor);
 }

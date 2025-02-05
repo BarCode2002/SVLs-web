@@ -13,12 +13,18 @@
   --fieldLabelColor: black;
   --fieldPlaceholderColor: grey;
   --fieldDataColor: black;
+  --fieldHeight: 37px;
+  --fielFontSize: 1rem;
 
   --buttonBackgroundColor: #abb4be;
   --buttonTextColor: black;
+  --buttonHeight: 37px;
+  --buttonFontWeight: 600;
+  --buttonFontSize: 1rem;
 
   --navBarsPrimaryColor: #002244;
   --navBarsSecondaryColor: white;
+
 }
 
 body {

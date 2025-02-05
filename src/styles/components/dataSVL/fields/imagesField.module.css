@@ -12,10 +12,10 @@
   border: none;
   border-radius: 10px;
   width: 310px;
-  height: 40px;
+  height: var(--fieldHeight);
   background-color: var(--fieldBackgroundColor);
   color: var(--fieldDataColor);
-  font-size: 14px;
+  font-size: var(--fieldFontSize);
 }
 
 .fileInput:hover {

@@ -19,8 +19,8 @@
 }
 
 .button {
-  font-size: medium;
-  height: 37px;
+  font-size: var(--buttonFontSize);
+  height: var(--buttonHeight);
   border: none;
   border-radius: 10px;
   background-color: var(--fieldBackgroundColor);
@@ -50,11 +50,11 @@
 
 .inputField {
   border-radius: 10px;
-  height: 35px;
+  height: var(--fieldHeight);
   width: 200px;
   border: none;
   padding-left: 10px;
-  font-size: 1rem;
+  font-size: var(--fieldFontSize);
   color: var(--fieldDataColor);
   background-color: var(--fieldBackgroundColor);
 }

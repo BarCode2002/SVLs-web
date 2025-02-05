@@ -16,10 +16,10 @@
   display: flex;
   align-items: center;
   width: 310px;
-  height: 40px;
+  height: var(--fieldHeight);
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 1rem;
+  font-size: var(--fieldFontSize);
   background-color: var(--fieldBackgroundColor);
   border: none;
   border-radius: 10px;
@@ -104,13 +104,13 @@
 
 .cancelButton {
   color: black;
-  height: 40px;
+  height: var(--buttonHeight);
   background-color: white;
   border-radius: 10px;
   align-self: end;
   margin-right: 10px;
   margin-bottom: 7px;
-  font-size: 1rem;
+  font-size: var(--buttonFontSize);
   border: none;
   transition: background-color 0.3s ease, color 0.3s ease;
 }

@@ -9,11 +9,11 @@
 
 .inputField {
   border-radius: 10px;
-  height: 35px;
+  height: var(--fieldHeight);
   width: 273px;
   border: none;
   padding-left: 10px;
-  font-size: 1rem;
+  font-size: var(--fieldFontSize);
   color: var(--fieldDataColor);
   background-color: var(--fieldBackgroundColor);
 }
@@ -35,8 +35,8 @@
   border: none;
   border-radius: 10px;
   background-color: var(--fieldBackgroundColor);
-  color: black;
-  font-size: 1rem;
+  color: var(--buttonTextColor);
+  font-size: var(--buttonFontSize);
 }
 
 .addComponentButton:hover {
@@ -61,8 +61,8 @@
   border: none;
   border-radius: 10px;
   background-color: var(--fieldBackgroundColor);
-  color: black;
-  font-size: 1rem;
+  color: var(--buttonTextColor);
+  font-size: var(--buttonFontSize);
 }
 
 .removeComponentButton:hover {
