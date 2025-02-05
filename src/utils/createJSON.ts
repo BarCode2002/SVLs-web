@@ -9,7 +9,7 @@ export const createJSON = (selectedOwner: number, generalInformation: GeneralInf
       modelType: item.model,
       year: item.year,
       kilometers: item.kilometers,
-      mainPhoto: item.mainPhotograph,
+      mainPhotograph: item.mainPhotograph,
       state: item.state,
       photographs: item.photographs,
       weight: item.weight,
