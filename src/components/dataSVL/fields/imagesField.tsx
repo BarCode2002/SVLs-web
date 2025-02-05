@@ -1,5 +1,5 @@
 import styles from '../../../styles/components/dataSVL/fields/imagesField.module.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { PHOTOGRAPHS_SIZE } from '../../../utils/constants';
 
 type ImagesFieldProps = {
@@ -88,6 +88,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         showBig: true,
         imageIndex: index,
       }));
+      updateScrollPosition(imagePreviewContainer);
     }
     else {
       setShowType((prevState) => ({
@@ -98,6 +99,13 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     }
   }
 
+  const updateScrollPosition = (scrollContainerRef: any) => {
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.scrollLeft = scrollContainer.scrollWidth * (showType.imageIndex / selectedImages.length);
+    }
+  }
+
   const previousImage = (index: number) => {
     if (index > 0) {
       setShowType((prevState) => ({
@@ -105,6 +113,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         showBig: true,
         imageIndex: index-1,
       }));
+      updateScrollPosition(imagePreviewContainer);
     }
   }
 
@@ -117,6 +126,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         showBig: true,
         imageIndex: index+1,
       }));
+      updateScrollPosition(imagePreviewContainer);
     }
   }
 
@@ -182,6 +192,8 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     e.preventDefault();
   }
 
+  const imagePreviewContainer = useRef(null);
+
   return (
     <div>
       <div className={styles.imageFieldContainer}>
@@ -206,7 +218,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
           />
         </div>
       </div>
-      {showType.showBig == false && selectedImages.filter(url => url != '').length > 0 ? (
+      {showType.showBig == false && selectedImages.filter(url => url != '').length > 0 &&
         <div className={fieldLabel ? styles.imageSmallContainer : styles.imageSmallContainerGroupType}>
           {selectedImages.filter(url => url != '').map((url, index) => (
             <div key={`${url}-${index}`}>
@@ -230,8 +242,8 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             </div>
           ))}
         </div>
-      ) : ('')}
-      {showType.showBig == true && selectedImages.filter(url => url != '').length > 0 ? (
+      }
+      {showType.showBig == true && selectedImages.filter(url => url != '').length > 0 &&
         <div className={styles.imageBigContainer}>
           <button
             className={styles.closeImageBigContainer}
@@ -252,7 +264,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             onClick={() => nextImage(showType.imageIndex)}>
             →
           </button>
-          <div className={styles.imagePreviewContainer}>
+          <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
             {selectedImages.filter(url => url != '').map((url, index) => (
               <div key={`${url}-${index}`}>
                 {showType.imageIndex == index ? (
@@ -272,7 +284,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             ))}
           </div>
         </div>
-      ) : ('')}
+      }
     </div>
   );
 };
