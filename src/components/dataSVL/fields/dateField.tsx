@@ -1,6 +1,6 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import styles from '../../styles/components/fields/dateField.module.css';
+import styles from '../../../styles/components/dataSVL/fields/dateField.module.css';
 import { SetStateAction } from 'react';
 
 type DateFieldProps = {

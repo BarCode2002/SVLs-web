@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
-import styles from '../../styles/components/fields/componentsField.module.css';
-import { COMPONENTS_SIZE } from '../../utils/constants';
+import styles from '../../../styles/components/dataSVL/fields/componentsField.module.css';
+import { COMPONENTS_SIZE } from '../../../utils/constants';
 
 type ComponentsFieldProps = {
   placeholder: string;

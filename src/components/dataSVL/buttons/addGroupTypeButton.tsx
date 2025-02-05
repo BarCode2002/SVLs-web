@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react';
-import styles from '../../styles/components/buttons/dataSVLButtons.module.css';
-import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE } from '../../utils/constants';
-import { Maintenances } from '../../utils/dataSVL';
+import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
+import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE } from '../../../utils/constants';
+import { Maintenances } from '../../../utils/dataSVL';
 import { useTranslation } from "react-i18next";
 
 type AddGroupTypeButtonProps = {
