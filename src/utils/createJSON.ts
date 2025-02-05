@@ -26,15 +26,19 @@ export const createJSON = (selectedOwner: number, generalInformation: GeneralInf
     })),
     ...maintenances.slice(selectedOwner, selectedOwner+1).map((item) => ({
       maintenances: item.group,
+      numGroups: item.numGroups
     })),
     ...modifications.slice(selectedOwner, selectedOwner+1).map((item) => ({
       modifications: item.group,
+      numGroups: item.numGroups
     })),
     ...defects.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      defects: item.group
+      defects: item.group,
+      numGroups: item.numGroups
     })),
     ...repairs.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      repairs: item.group
+      repairs: item.group,
+      numGroups: item.numGroups
     })),
   ];
   return JSON.stringify(dataSVL, null, 2);  

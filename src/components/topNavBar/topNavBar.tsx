@@ -57,10 +57,8 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
                 <UploadJSONButton selectedOwner={selectedOwner!} 
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
-                  maintenances={maintenances!} setMaintenances={setMaintenances!}
-                  modifications={modifications!} setModifications={setModifications!}
-                  defects={defects!} setDefects={setDefects!}
-                  repairs={repairs!} setRepairs={setRepairs!}
+                  setMaintenances={setMaintenances!} setModifications={setModifications!}
+                  setDefects={setDefects!} setRepairs={setRepairs!}
                 />
                 <DownloadJSONButton selectedOwner={selectedOwner!} generalInformation={generalInformation!} 
                   maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}

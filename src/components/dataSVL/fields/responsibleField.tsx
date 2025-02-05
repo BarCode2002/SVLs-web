@@ -11,6 +11,7 @@ type ResponsibleFieldProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
 }
 
+//falta que cuando se cargue el componente cargue el valor the value
 const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL }: ResponsibleFieldProps) => {
 
   const { t } = useTranslation();
