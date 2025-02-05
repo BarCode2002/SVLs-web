@@ -3,9 +3,10 @@ import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.mo
 
 type DragGroupGroupTypeButtonProps = {
   setDraggable: React.Dispatch<SetStateAction<boolean>>;
+  editMode: boolean;
 };
 
-const DragGroupGroupTypeButton = ({ setDraggable}: DragGroupGroupTypeButtonProps): JSX.Element => {
+const DragGroupGroupTypeButton = ({ setDraggable, editMode }: DragGroupGroupTypeButtonProps): JSX.Element => {
 
   const makeDraggable = () => {
     setDraggable(true);
@@ -21,7 +22,8 @@ const DragGroupGroupTypeButton = ({ setDraggable}: DragGroupGroupTypeButtonProps
         className={styles.dragButton}
         onMouseDown={makeDraggable}
         onMouseUp={unmakeDraggable}
-        onMouseLeave={unmakeDraggable}>
+        onMouseLeave={unmakeDraggable}
+        disabled={!editMode}>
         {'<->'}
       </button>
     </div>

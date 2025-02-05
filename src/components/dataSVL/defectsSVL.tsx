@@ -18,9 +18,10 @@ type DefectsSVLProps = {
   selectedOwner: number;
   defects: Defects[];
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
+  editMode: boolean;
 };
 
-const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JSX.Element => {
+const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -72,11 +73,10 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
             <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            <DragGroupGroupTypeButton setDraggable={setDraggable}
-            />
+            <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
             {defects[selectedOwner].group[groupIndex].numTypes > 1 &&
               <RemoveGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex}
+                selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
               />
             }
           </div>
@@ -84,17 +84,17 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
             <div className={styles.groupTypeBottomPart}>
               <DropdownMenu fieldLabel={''} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={typeIndex} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].type[typeIndex].level} 
-                setDataSVL={setDefects} type={'level'}
+                setDataSVL={setDefects} type={'level'} editMode={editMode}
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
                 selectedImages={defects[selectedOwner].group[groupIndex].type[typeIndex].photographs} 
-                setDataSVL={setDefects} type={'photographs'} allowMultipleImages={true}
+                setDataSVL={setDefects} type={'photographs'} allowMultipleImages={true} editMode={editMode}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.descriptionDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={typeIndex} 
                 value={defects[selectedOwner].group[groupIndex].type[typeIndex].description} 
-                setDataSVL={setDefects} type={'description'}
+                setDataSVL={setDefects} type={'description'} editMode={editMode}
               />
             </div>
           }
@@ -102,7 +102,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
         <div className={styles.addType}>
           {defects[selectedOwner].group[groupIndex].numTypes - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'defect'}
+              selectedGroup={groupIndex} type={'defect'} editMode={editMode}
             />
           }
         </div>
@@ -125,20 +125,20 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
             <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={-1}
             />
-            <RemoveGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} selectedGroup={groupIndex} />
+            <RemoveGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} selectedGroup={groupIndex} editMode={editMode} />
           </div>
           {defects[selectedOwner].group[groupIndex].shrinked == false &&
             <div className={styles.topBottomPart}>
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} dataSVL={defects} setDataSVL={setDefects} type={'date'}
+                selectedGroup={groupIndex} dataSVL={defects} setDataSVL={setDefects} type={'date'} editMode={editMode}
               />
               <InputField fieldLabel={t('DataSVL.Labels.kilometers')} placeholder={t('DataSVL.Placeholders.kilometers')} 
                 selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={defects} 
-                value={defects[selectedOwner].group[groupIndex].kilometers} setDataSVL={setDefects} type={'kilometers'}
+                value={defects[selectedOwner].group[groupIndex].kilometers} setDataSVL={setDefects} type={'kilometers'} editMode={editMode}
               />
               <InputTextField fieldLabel={t('DataSVL.Labels.cause')} placeholder={t('DataSVL.Placeholders.causeDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].cause} 
-                setDataSVL={setDefects} type={'cause'}
+                setDataSVL={setDefects} type={'cause'} editMode={editMode}
               />
             </div>
           }
@@ -151,7 +151,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
       </div>
       <div className={styles.addGroupButton}>
         {defects[selectedOwner].numGroups - 1 == groupIndex &&
-          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} />
+          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} />
         }
       </div>
     </div>
@@ -165,7 +165,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects }: DefectsSVLProps): JS
       {listGroupDefects}
       <div className={styles.addGroupButton}>
         {defects[selectedOwner].numGroups == 0 &&
-          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} />
+          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} />
         }
       </div>
     </div>

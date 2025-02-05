@@ -21,17 +21,18 @@ type DataSVLProps = {
   repairs: Repairs[];
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
   totalOwners: number;
+  editMode: boolean;
 };
 
-const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, totalOwners }: DataSVLProps): JSX.Element => {
+const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, totalOwners, editMode }: DataSVLProps): JSX.Element => {
 
   return (
     <div className={styles.dataSVLContainer}>
-      {selectedSVLData == 0 && <GeneralInformationSVL selectedOwner={selectedOwner} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} />}
-      {selectedSVLData == 1 && <MaintenancesSVL selectedOwner={selectedOwner} maintenances={maintenances} setMaintenances={setMaintenances} />}
-      {selectedSVLData == 2 && <ModificationsSVL selectedOwner={selectedOwner} modifications={modifications} setModifications={setModifications} />}
-      {selectedSVLData == 3 && <DefectsSVL selectedOwner={selectedOwner} defects={defects} setDefects={setDefects} />}
-      {selectedSVLData == 4 && <RepairsSVL selectedOwner={selectedOwner} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} />}
+      {selectedSVLData == 0 && <GeneralInformationSVL selectedOwner={selectedOwner} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} editMode={editMode} />}
+      {selectedSVLData == 1 && <MaintenancesSVL selectedOwner={selectedOwner} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} />}
+      {selectedSVLData == 2 && <ModificationsSVL selectedOwner={selectedOwner} modifications={modifications} setModifications={setModifications} editMode={editMode} />}
+      {selectedSVLData == 3 && <DefectsSVL selectedOwner={selectedOwner} defects={defects} setDefects={setDefects} editMode={editMode} />}
+      {selectedSVLData == 4 && <RepairsSVL selectedOwner={selectedOwner} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} editMode={editMode} />}
     </div>
   );
 }

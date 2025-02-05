@@ -48,7 +48,7 @@ const Data = (): JSX.Element => {
         date: "",
         kilometers: "",
         name: "",
-        doneBy: [undefined, "", undefined, ""],
+        responsible: [null, "", null, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         type: Array.from({ length: 1 }, () => ({
@@ -73,7 +73,7 @@ const Data = (): JSX.Element => {
         date: "",
         kilometers: "",
         name: "",
-        doneBy: [undefined, "", undefined, ""],
+        responsible: [null, "", null, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         type: Array.from({ length: 1 }, () => ({
@@ -117,7 +117,7 @@ const Data = (): JSX.Element => {
         date: "",
         kilometers: "",
         name: "",
-        doneBy: [undefined, "", undefined, ""],
+        responsible: [null, "", null, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
         defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
@@ -160,13 +160,13 @@ const Data = (): JSX.Element => {
           modifications={modifications} setModifications={setModifications}
           defects={defects} setDefects={setDefects}
           repairs={repairs} setRepairs={setRepairs}
-          totalOwners={totalOwners}
+          totalOwners={totalOwners} editMode={editMode}
         />
         <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
           selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} 
           setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
           setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-          totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
+          totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
         />
     </div>
   );

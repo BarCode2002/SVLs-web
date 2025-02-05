@@ -6,9 +6,10 @@ type RemoveGroupButtonProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   selectedOwner: number;
   selectedGroup: number;
+  editMode: boolean;
 };
 
-const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup }: RemoveGroupButtonProps): JSX.Element => {
+const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup, editMode }: RemoveGroupButtonProps): JSX.Element => {
 
 
   const handleRemoveGroup = () => {
@@ -29,7 +30,8 @@ const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup }: RemoveG
     <div>
       <button
         className={styles.removeGroupButton}
-        onClick={handleRemoveGroup}>
+        onClick={handleRemoveGroup}
+        disabled={!editMode}>
         -
       </button>
     </div>

@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 import { Maintenances, Modifications, Defects, Repairs } from "./dataSVL";
 
-export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, date: string, kilometers: string, name: string, doneBy: any, pre: string[], post: string[], nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
+export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, date: string, kilometers: string, name: string, responsible: any, pre: string[], post: string[], nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
   setMaintenances((prevMaintenances: Maintenances[]) =>
     prevMaintenances.map((item, index) =>
       index == selectedOwner
@@ -13,7 +13,7 @@ export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetSta
                 date: date,
                 kilometers: kilometers,
                 name: name,
-                doneBy: doneBy,
+                responsible: responsible,
                 pre: pre,
                 post: post,
                 type: Array.from({ length: 1 }, () => ({
@@ -68,7 +68,7 @@ export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<Se
   );
 }
 
-export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetStateAction<Modifications[]>>, selectedOwner: number, date: string, kilometers: string, name: string, doneBy: any, pre: string[], post: string[], nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
+export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetStateAction<Modifications[]>>, selectedOwner: number, date: string, kilometers: string, name: string, responsible: any, pre: string[], post: string[], nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
   setModifications((prevModifications: Modifications[]) =>
     prevModifications.map((item, index) =>
       index == selectedOwner
@@ -80,7 +80,7 @@ export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetS
                 date: date,
                 kilometers: kilometers,
                 name: name,
-                doneBy: doneBy,
+                responsible: responsible,
                 pre: pre,
                 post: post,
                 type: Array.from({ length: 1 }, () => ({
@@ -193,7 +193,7 @@ export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateActi
   );
 }
 
-export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<Repairs[]>>, selectedOwner: number, date: string, kilometers: string, name: string, doneBy: any, pre: string[], post: string[], defectsRepaired: [], numDefectsRepaired: number , nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
+export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<Repairs[]>>, selectedOwner: number, date: string, kilometers: string, name: string, responsible: any, pre: string[], post: string[], defectsRepaired: [], numDefectsRepaired: number , nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
   setRepairs((prevRepairs: Repairs[]) =>
     prevRepairs.map((item, index) =>
       index == selectedOwner
@@ -205,7 +205,7 @@ export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<R
                 date: date,
                 kilometers: kilometers,
                 name: name,
-                doneBy: doneBy,
+                responsible: responsible,
                 pre: pre,
                 post: post,
                 defectsRepaired: defectsRepaired,

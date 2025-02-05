@@ -7,19 +7,20 @@ type ResponsibleFieldProps = {
   selectedOwner: number;
   selectedGroup: number;
   dataSVL: any;
-  value: [boolean, string, boolean, string];
+  value: [boolean | null, string, boolean | null, string];
   setDataSVL: React.Dispatch<SetStateAction<any>>;
+  editMode: boolean;
 }
 
-const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL }: ResponsibleFieldProps) => {
+const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL, editMode }: ResponsibleFieldProps) => {
 
   const { t } = useTranslation();
 
   const [step, setStep] = useState(0);
-  const [mechanic, setMechanic] = useState<boolean | undefined>(undefined);
+  const [mechanic, setMechanic] = useState<boolean | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [proof, setProof] = useState(false);
+  const [proof, setProof] = useState<boolean | null>(null);
   const [showBig, setShowBig] = useState(false);
 
   const imageInputId = `${selectedGroup}`;
@@ -27,14 +28,14 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   const mechanicsList = ['Pepe', 'Jaja', 'ewfgew', 'Camion', 'avion', 'pepa', 'pepo', 'pepin', 'pepapaa', 'pepeeee', 'pepitp'];
 
   useEffect(() => {
-    if (value[0] != undefined) {
+    if (value[0] != null) {
       setStep(1);
       setMechanic(value[0]);
       if (value[0] == true && value[1] != '') {
         setStep(2);
         setSearchQuery(value[1]);
       }
-      if (value[2] != undefined) {
+      if (value[2] != null) {
         setStep(3);
         setProof(value[2]);
       }
@@ -43,19 +44,19 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const handleMeResponsible = () => {
     const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[0] = true;    
+    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = true;    
     setDataSVL(updatedDataSVL);
     setMechanic(false);
-    setProof(false);
+    setProof(null);
     setStep(2);
   }
 
   const handleMechanicResponsible = () => {
     const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[0] = false;    
+    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = false;    
     setDataSVL(updatedDataSVL);
     setMechanic(true);
-    setProof(false);
+    setProof(null);
     setSearchQuery('');
     setStep(1);
   }
@@ -73,7 +74,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const handleMechanicSelected = (mechanic: string) => {
     const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[1] = mechanic;    
+    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[1] = mechanic;    
     setDataSVL(updatedDataSVL);
     setSearchQuery(mechanic);
     setIsOpen(false);
@@ -82,7 +83,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const handleYesProof = () => {
     const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[2] = true;    
+    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[2] = true;    
     setDataSVL(updatedDataSVL);
     setProof(true);
     setStep(3);
@@ -90,7 +91,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const handleNoProof = () => {
     const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[2] = false;    
+    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[2] = false;    
     setDataSVL(updatedDataSVL);
     setProof(false);
     removeUploadedImage();
@@ -99,7 +100,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   const handleImageField = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const updatedDataSVL = [...dataSVL];
-      updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[3] = URL.createObjectURL(event.target.files[0]);    
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = URL.createObjectURL(event.target.files[0]);    
       setDataSVL(updatedDataSVL);
     }
     event.target.value = '';
@@ -112,7 +113,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const removeUploadedImage = () => {
     const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].doneBy[3] = '';    
+    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = '';    
     setDataSVL(updatedDataSVL);
   }
 
@@ -126,12 +127,14 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
           <div>
             <button
               className={mechanic != false ? styles.meButton : styles.meButtonSelected}
-              onClick={handleMeResponsible}>
+              onClick={handleMeResponsible}
+              disabled={!editMode}>
               {t('DataSVL.Placeholders.me')}
             </button>
             <button
               className={mechanic != true ? styles.mechanicButton : styles.mechanicButtonSelected}
-              onClick={handleMechanicResponsible}>
+              onClick={handleMechanicResponsible}
+              disabled={!editMode}>
               {t('DataSVL.Placeholders.mechanic')}
             </button>
           </div>
@@ -143,6 +146,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
               placeholder={t('DataSVL.Placeholders.mechanicShop')}
               value={searchQuery}
               onChange={handleInputChange}
+              disabled={!editMode}
             />
             {isOpen && searchQuery != '' &&
               <div className={styles.mechanicsListWrapper}>
@@ -151,7 +155,8 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                     <button
                       key={index}
                       className={styles.mechanic}
-                      onClick={() => handleMechanicSelected(mechanic)}>
+                      onClick={() => handleMechanicSelected(mechanic)}
+                      disabled={!editMode}>
                       {mechanic}
                     </button>
                   ))}
@@ -162,16 +167,18 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
         }
         {step >= 2 &&
           <div>
-            {proof == false ? (
+            {proof == false || proof == null ? (
               <button
                 className={styles.noProofButton}
-                onClick={handleYesProof}>
+                onClick={handleYesProof}
+                disabled={!editMode}>
                 {t('DataSVL.Placeholders.proof')} {'x'}
               </button>
             ) : (
               <button
                 className={styles.yesProofButton}
-                onClick={handleNoProof}>
+                onClick={handleNoProof}
+                disabled={!editMode}>
                 {t('DataSVL.Placeholders.proof')} {'✔'}
               </button>
             )}
@@ -181,7 +188,8 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
           <div className={styles.proofUploadContainer}>
             <button 
               className={styles.fileInput}
-              onClick={() => document.getElementById(imageInputId)!.click()}>
+              onClick={() => document.getElementById(imageInputId)!.click()}
+              disabled={!editMode}>
               {t('DataSVL.Placeholders.uploadProof')}
             </button>
             <input 
@@ -202,7 +210,8 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                     />
                     <button
                       className={styles.removeImageButton}
-                      onClick={removeUploadedImage}>
+                      onClick={removeUploadedImage}
+                      disabled={!editMode}>
                       x
                     </button>
                   </div>

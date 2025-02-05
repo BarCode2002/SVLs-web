@@ -11,9 +11,10 @@ type InputFieldProps = {
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
+  editMode: boolean;
 }
 
-const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type }: InputFieldProps) => {
+const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode }: InputFieldProps) => {
   
   const validateInputAndUpdateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     let re: RegExp;
@@ -47,6 +48,7 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, sel
         placeholder={placeholder}
         value={value}
         onChange={validateInputAndUpdateValue}
+        disabled={!editMode}
       />
     </div>
   );

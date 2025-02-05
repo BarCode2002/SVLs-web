@@ -12,9 +12,10 @@ type DefectsRepairedFieldProps = {
   repairs: any;
   setRepairs: React.Dispatch<SetStateAction<any>>;
   defects: any;
+  editMode: boolean;
 };
 
-const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selectedGroup, repairs, setRepairs, defects }: DefectsRepairedFieldProps): JSX.Element => {
+const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selectedGroup, repairs, setRepairs, defects, editMode }: DefectsRepairedFieldProps): JSX.Element => {
   
   const { t } = useTranslation();
 
@@ -247,18 +248,22 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
     return (
       <div>
         <input
+          key={`${i}${j}`}
           className={styles.inputField}
           placeholder={placeholder}
           value={searchQuery[i][j]}
           onChange={(e) => handleInputChange(e, i, j)}
+          disabled={!editMode}
         />
         {isOpen[i][j] && searchQuery[i][j] != '' &&
           <div ref={ref} className={styles.listWrapper}>
             <div className={styles.list}>
               {list.filter(itemList => itemList.toLowerCase().includes(searchQuery[i][j].toLowerCase())).map((itemList, index) => (
                 <button
+                  key={`${i}${j}${index}`}
                   className={styles.itemList}
-                  onClick={() => handleSelected(itemList, i, j)}>
+                  onClick={() => handleSelected(itemList, i, j)}
+                  disabled={!editMode}>
                   {itemList}
                 </button>
               ))}
@@ -278,13 +283,15 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
         <div className={styles.manangeDefectRepairedsOrNot}>
           <button
             className={styles.button} 
-            onClick={handleRepairDefect}>
+            onClick={handleRepairDefect}
+            disabled={!editMode}>
             {commonStep == 0 ? t('DataSVL.Labels.add') : t('DataSVL.Labels.eraseAll')}
           </button>
           {commonStep >= 1 &&  
             <button
               className={styles.button} 
-              onClick={handleNewRepairedDefect}>
+              onClick={handleNewRepairedDefect}
+              disabled={!editMode}>
               +
             </button>
           }
@@ -298,7 +305,8 @@ const DefectsRepairedField = ({ fieldLabel, totalOwners, selectedOwner, selected
               {step[defectRepairedIndex] >= 1 && 
                 <button
                   className={styles.button} 
-                  onClick={() => handleRemoveRepairedDefect(defectRepairedIndex)}>
+                  onClick={() => handleRemoveRepairedDefect(defectRepairedIndex)}
+                  disabled={!editMode}>
                   -
                 </button>
               }

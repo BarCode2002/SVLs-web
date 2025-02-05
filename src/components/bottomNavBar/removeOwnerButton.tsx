@@ -12,9 +12,10 @@ type RemoveOwnerButtonProps = {
   setSelectedOwner: React.Dispatch<SetStateAction<number>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<React.SetStateAction<number>>;
+  editMode: boolean;
 };
 
-const RemoveOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, totalOwners, setTotalOwners }: RemoveOwnerButtonProps): JSX.Element => {
+const RemoveOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, totalOwners, setTotalOwners, editMode }: RemoveOwnerButtonProps): JSX.Element => {
 
   const removeGeneralInformation = async () => {
     setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => prevGeneralInformation.filter((_, index) => index !== selectedOwner));
@@ -51,7 +52,8 @@ const RemoveOwnerButton = ({ setGeneralInformation, setMaintenances, setModifica
     <div>
       <button
         className={styles.removeAddOwnerButton}
-        onClick={handleOwnerRemoval}>
+        onClick={handleOwnerRemoval}
+        disabled={!editMode}>
         -
       </button>
     </div>

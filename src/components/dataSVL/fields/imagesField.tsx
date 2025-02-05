@@ -13,9 +13,10 @@ type ImagesFieldProps = {
   setDataSVL: React.Dispatch<React.SetStateAction<any>>;
   type: string;
   allowMultipleImages: boolean;
+  editMode: boolean;
 }
 
-const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages }: ImagesFieldProps) => {
+const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages, editMode }: ImagesFieldProps) => {
 
   let imageInputId;
   if (selectedGroup == -1) {
@@ -192,7 +193,8 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         <div>
           <button 
             className={styles.fileInput}
-            onClick={() => document.getElementById(imageInputId)!.click()}>
+            onClick={() => document.getElementById(imageInputId)!.click()}
+            disabled={!editMode}>
             {placeholder}
           </button>
           <input 
@@ -212,7 +214,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                 className={styles.imageSmall}
                 onClick={() => changeImageSize('big', index)}
                 src={url}
-                draggable={true}
+                draggable={editMode}
                 onDragStart={(e) => handleOnDrag(e, index)}
                 onDrop={(e) => handleOnDrop(e, index)}
                 onDragOver={(e) => handleDragOver(e)}
@@ -220,7 +222,8 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
               <div className={styles.removeImageButtonWrapper}>
                 <button
                   className={styles.removeImageButton}
-                  onClick={() => removeUploadedImage(index)}>
+                  onClick={() => removeUploadedImage(index)}
+                  disabled={!editMode}>
                   x 
                 </button>
               </div>

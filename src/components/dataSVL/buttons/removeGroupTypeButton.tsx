@@ -7,9 +7,10 @@ type RemoveGroupTypeButtonProps = {
   selectedOwner: number;
   selectedGroup: number;
   selectedGroupType: number;
+  editMode: boolean;
 };
 
-const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selectedGroupType }: RemoveGroupTypeButtonProps): JSX.Element => {
+const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selectedGroupType, editMode }: RemoveGroupTypeButtonProps): JSX.Element => {
 
   const handleRemoveGroupType = () => {
     setDataSVL((prevDataSVL: Maintenances[]) =>
@@ -36,7 +37,8 @@ const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selec
     <div>
       <button
         className={styles.removeGroupTypeButton}
-        onClick={handleRemoveGroupType}>
+        onClick={handleRemoveGroupType}
+        disabled={!editMode}>
         -
       </button>
     </div>

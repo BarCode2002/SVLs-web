@@ -11,9 +11,10 @@ type DropdownMenuProps = {
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
+  editMode: boolean;
 };
 
-const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type }: DropdownMenuProps) => {
+const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode }: DropdownMenuProps) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -69,7 +70,8 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
       <div className={styles.dropDownPosition}>
         <button
           className={styles.selected}
-          onClick={hadleOpenDropdownMenu}>
+          onClick={hadleOpenDropdownMenu}
+          disabled={!editMode}>
           <span>{value}</span>
           <span>{(isOpen) ? '<' : '>'}</span>
         </button>

@@ -18,9 +18,10 @@ type BottomNavBarProps = {
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<SetStateAction<number>>
+  editMode: boolean;
 };
 
-const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners }: BottomNavBarProps): JSX.Element => {
+const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode }: BottomNavBarProps): JSX.Element => {
 
   const ownersContainerRef = useRef(null);
 
@@ -40,7 +41,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
         <RemoveOwnerButton  setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
           setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs} 
           selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner}
-          totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
+          totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
         />
         <div ref={ownersContainerRef} className={styles.ownersContainer}>
           {ownerSelector}
@@ -49,6 +50,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
           <AddOwnerButton setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
             setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
             setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
+            editMode={editMode}
           />
         </div>
       </div>

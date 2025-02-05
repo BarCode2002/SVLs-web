@@ -8,9 +8,10 @@ type AddGroupButtonProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   selectedOwner: number;
   type: string;
+  editMode: boolean;
 };
 
-const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps): JSX.Element => {
+const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -26,7 +27,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                   date: "",
                   kilometers: "",
                   name: "",
-                  doneBy: [undefined, "", undefined, ""],
+                  responsible: [null, "", null, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   type: Array.from({ length: 1 }, () => ({
@@ -61,7 +62,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                   date: "",
                   kilometers: "",
                   name: "",
-                  doneBy: [undefined, "", undefined, ""],
+                  responsible: [null, "", null, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   type: Array.from({ length: 1 }, () => ({
@@ -125,7 +126,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                   date: "",
                   kilometers: "",
                   name: "",
-                  doneBy: [undefined, "", undefined, ""],
+                  responsible: [null, "", null, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
@@ -161,7 +162,8 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
     <div>
       <button
         className={styles.addGroupButton}
-        onClick={handleAddGroup}>
+        onClick={handleAddGroup}
+        disabled={!editMode}>
         +
       </button>
     </div>

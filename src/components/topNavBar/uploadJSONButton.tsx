@@ -37,7 +37,7 @@ const UploadJSONButton = ({ selectedOwner, generalInformation, setGeneralInforma
             setOwnerSVLDataToEmpty(selectedOwner, setMaintenances);
             for (let i = 0; i < ownerSVLData[1].numGroups; i++) {
               addAndSetMaintenanceGroup(setMaintenances, selectedOwner, ownerSVLData[1].maintenances[i].date, ownerSVLData[1].maintenances[i].kilometers, ownerSVLData[1].maintenances[i].name,
-                ownerSVLData[1].maintenances[i].doneBy, ownerSVLData[1].maintenances[i].pre, ownerSVLData[1].maintenances[i].post, 
+                ownerSVLData[1].maintenances[i].responsible, ownerSVLData[1].maintenances[i].pre, ownerSVLData[1].maintenances[i].post, 
                 ownerSVLData[1].maintenances[i].type[0].name, ownerSVLData[1].maintenances[i].type[0].components, ownerSVLData[1].maintenances[i].type[0].numComponents,
                 ownerSVLData[1].maintenances[i].type[0].pre, ownerSVLData[1].maintenances[i].type[0].post, ownerSVLData[1].maintenances[i].type[0].comments,
                 ownerSVLData[1].maintenances[i].type[0].shrinked, ownerSVLData[1].maintenances[i].shrinked
@@ -52,8 +52,8 @@ const UploadJSONButton = ({ selectedOwner, generalInformation, setGeneralInforma
 
             setOwnerSVLDataToEmpty(selectedOwner, setModifications);
             for (let i = 0; i < ownerSVLData[2].numGroups; i++) {
-              addAndSetModificationGroup(setModifications, selectedOwner, ownerSVLData[2].modifications[2].date, ownerSVLData[2].modifications[i].kilometers, ownerSVLData[2].modifications[i].name,
-                ownerSVLData[2].modifications[i].doneBy, ownerSVLData[2].modifications[i].pre, ownerSVLData[2].modifications[i].post, 
+              addAndSetModificationGroup(setModifications, selectedOwner, ownerSVLData[2].modifications[i].date, ownerSVLData[2].modifications[i].kilometers, ownerSVLData[2].modifications[i].name,
+                ownerSVLData[2].modifications[i].responsible, ownerSVLData[2].modifications[i].pre, ownerSVLData[2].modifications[i].post, 
                 ownerSVLData[2].modifications[i].type[0].name, ownerSVLData[2].modifications[i].type[0].components, ownerSVLData[2].modifications[i].type[0].numComponents,
                 ownerSVLData[2].modifications[i].type[0].pre, ownerSVLData[2].modifications[i].type[0].post, ownerSVLData[2].modifications[i].type[0].comments,
                 ownerSVLData[2].modifications[i].type[0].shrinked, ownerSVLData[2].modifications[i].shrinked
@@ -82,7 +82,7 @@ const UploadJSONButton = ({ selectedOwner, generalInformation, setGeneralInforma
             setOwnerSVLDataToEmpty(selectedOwner, setRepairs);
             for (let i = 0; i < ownerSVLData[4].numGroups; i++) {
               addAndSetRepairGroup(setRepairs, selectedOwner, ownerSVLData[4].repairs[i].date, ownerSVLData[4].repairs[i].kilometers, ownerSVLData[4].repairs[i].name,
-                ownerSVLData[4].repairs[i].doneBy, ownerSVLData[4].repairs[i].pre, ownerSVLData[4].repairs[i].post, ownerSVLData[4].repairs[i].defectsRepaired, 
+                ownerSVLData[4].repairs[i].responsible, ownerSVLData[4].repairs[i].pre, ownerSVLData[4].repairs[i].post, ownerSVLData[4].repairs[i].defectsRepaired, 
                 ownerSVLData[4].repairs[i].numDefectsRepaired, ownerSVLData[4].repairs[i].type[0].name, ownerSVLData[4].repairs[i].type[0].components, 
                 ownerSVLData[4].repairs[i].type[0].numComponents, ownerSVLData[4].repairs[i].type[0].pre, ownerSVLData[4].repairs[i].type[0].post, 
                 ownerSVLData[4].repairs[i].type[0].comments, ownerSVLData[4].repairs[i].type[0].shrinked, ownerSVLData[4].repairs[i].shrinked

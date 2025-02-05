@@ -11,9 +11,10 @@ type InputTextFieldProps = {
   value: string;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
+  editMode: boolean;
 }
 
-const InputTextField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type }: InputTextFieldProps) => {
+const InputTextField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode }: InputTextFieldProps) => {
 
   const updateValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updateSVLdata = [...dataSVL];
@@ -44,6 +45,7 @@ const InputTextField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup,
         rows={5}
         value={value}
         onChange={updateValue}
+        disabled={!editMode}
       />
     )}
     </div>

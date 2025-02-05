@@ -9,9 +9,10 @@ type AddGroupTypeButtonProps = {
   selectedOwner: number;
   selectedGroup: number;
   type: string;
+  editMode: boolean;
 };
 
-const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: AddGroupTypeButtonProps): JSX.Element => {
+const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, editMode }: AddGroupTypeButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -151,7 +152,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type }: 
     <div>
       <button
         className={styles.addGroupTypeButton}
-        onClick={handleAddGroupType}>
+        onClick={handleAddGroupType}
+        disabled={!editMode}>
         +
       </button>
     </div>

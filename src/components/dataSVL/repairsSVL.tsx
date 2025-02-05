@@ -22,9 +22,10 @@ type RepairsSVLProps = {
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
   totalOwners: number;
   defects: Defects[];
+  editMode: boolean;
 };
 
-const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }: RepairsSVLProps): JSX.Element => {
+const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects, editMode }: RepairsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -76,11 +77,10 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
             <ToggleVisibilityButton dataSVL={repairs} setDataSVL={setRepairs} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            <DragGroupGroupTypeButton setDraggable={setDraggable}
-            />
+            <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
             {repairs[selectedOwner].group[groupIndex].numTypes > 1 &&
               <RemoveGroupTypeButton setDataSVL={setRepairs} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex}
+                selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
               />
             }
           </div>
@@ -89,27 +89,27 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
               <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.nameRepair')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
                 value={repairs[selectedOwner].group[groupIndex].type[typeIndex].name} 
-                setDataSVL={setRepairs} type={'name'}
+                setDataSVL={setRepairs} type={'name'} editMode={editMode}
               />
               <ComponentsField placeholder={t('DataSVL.Placeholders.component')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={typeIndex} dataSVL={repairs} 
                 selectedComponents={repairs[selectedOwner].group[groupIndex].type[typeIndex].components} 
-                setDataSVL={setRepairs} type={'components'}
+                setDataSVL={setRepairs} type={'components'} editMode={editMode}
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
                 selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].pre} 
-                setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true}
+                setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true} editMode={editMode}
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
                 selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].post} 
-                setDataSVL={setRepairs} type={'post'} allowMultipleImages={true}
+                setDataSVL={setRepairs} type={'post'} allowMultipleImages={true} editMode={editMode}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsRepair')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
                 value={repairs[selectedOwner].group[groupIndex].type[typeIndex].comments} 
-                setDataSVL={setRepairs} type={'comments'}
+                setDataSVL={setRepairs} type={'comments'} editMode={editMode}
               />
             </div>
           }
@@ -117,7 +117,7 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
         <div className={styles.addType}>
           {repairs[selectedOwner].group[groupIndex].numTypes - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setRepairs} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'repairs'}
+              selectedGroup={groupIndex} type={'repairs'} editMode={editMode}
             />
           }
         </div>
@@ -140,37 +140,37 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
             <ToggleVisibilityButton dataSVL={repairs} setDataSVL={setRepairs} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={-1}
             />
-            <RemoveGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} selectedGroup={groupIndex} />
+            <RemoveGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} selectedGroup={groupIndex} editMode={editMode} />
           </div>
           {repairs[selectedOwner].group[groupIndex].shrinked == false &&
             <div className={styles.topBottomPart}>
               <InputField fieldLabel={t('DataSVL.Labels.kilometers')} placeholder={t('DataSVL.Placeholders.kilometers')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={-1} dataSVL={repairs} value={repairs[selectedOwner].group[groupIndex].kilometers} 
-                setDataSVL={setRepairs} type={'kilometers'} 
+                setDataSVL={setRepairs} type={'kilometers'} editMode={editMode}
               />
               <InputField fieldLabel={t('DataSVL.Labels.name')} placeholder={t('DataSVL.Placeholders.nameGroupRepair')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={-1} dataSVL={repairs} value={repairs[selectedOwner].group[groupIndex].name} 
-                setDataSVL={setRepairs} type={'name'}
+                setDataSVL={setRepairs} type={'name'} editMode={editMode}
               />
               <ResponsibleField fieldLabel={t('DataSVL.Labels.responsible')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
-                dataSVL={repairs} value={repairs[selectedOwner].group[groupIndex].doneBy} 
-                setDataSVL={setRepairs}
+                dataSVL={repairs} value={repairs[selectedOwner].group[groupIndex].responsible} 
+                setDataSVL={setRepairs} editMode={editMode}
               />
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} dataSVL={repairs} setDataSVL={setRepairs} type={'date'}
+                selectedGroup={groupIndex} dataSVL={repairs} setDataSVL={setRepairs} type={'date'} editMode={editMode}
               />
               {selectedOwner != 0 &&
                 <DefectsRepairedField totalOwners={totalOwners} fieldLabel={t('DataSVL.Labels.defectsRepaired')} selectedOwner={selectedOwner} 
-                  selectedGroup={groupIndex} repairs={repairs} setRepairs={setRepairs} defects={defects}
+                  selectedGroup={groupIndex} repairs={repairs} setRepairs={setRepairs} defects={defects} editMode={editMode}
                 />
               }
               <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].pre} 
-                setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true}
+                setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true} editMode={editMode}
               />
               <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].post} 
-                setDataSVL={setRepairs} type={'post'} allowMultipleImages={true}
+                setDataSVL={setRepairs} type={'post'} allowMultipleImages={true} editMode={editMode}
               />
             </div>
           }
@@ -183,7 +183,7 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
       </div>
       <div className={styles.addGroupButton}>
         {repairs[selectedOwner].numGroups - 1 == groupIndex &&
-          <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} />
+          <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} editMode={editMode} />
         }
       </div>
     </div>
@@ -197,7 +197,7 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects }
       {listGroupRepairs}
       <div className={styles.addGroupButton}>
         {repairs[selectedOwner].numGroups == 0 &&
-          <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} />
+          <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} editMode={editMode} />
         }
       </div>
     </div>

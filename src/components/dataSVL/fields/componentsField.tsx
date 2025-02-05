@@ -11,9 +11,10 @@ type ComponentsFieldProps = {
   selectedComponents: string[]
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
+  editMode: boolean;
 }
 
-const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedComponents, setDataSVL, type }: ComponentsFieldProps) => {
+const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedComponents, setDataSVL, type, editMode }: ComponentsFieldProps) => {
 
 
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -50,12 +51,14 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
         placeholder={`${placeholder} #${index+1}`}
         value={selectedComponents[index]}
         onChange={(e) => updateValue(e, index)}
+        disabled={!editMode}
       />
       {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents > 1 &&
         <div className={styles.removeComponentButtonWrapper}>
           <button
             className={styles.removeComponentButton}
-            onClick={() => removeComponent(index)}>
+            onClick={() => removeComponent(index)}
+            disabled={!editMode}>
             -
           </button>
         </div>
@@ -63,7 +66,8 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
       {index+1 == dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents &&
         <button
           className={styles.addComponentButton}
-          onClick={addComponent}>
+          onClick={addComponent}
+          disabled={!editMode}>
           +
         </button>
       }

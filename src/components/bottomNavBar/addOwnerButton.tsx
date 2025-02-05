@@ -13,9 +13,10 @@ type AddOwnerButtonProps = {
   setSelectedOwner: React.Dispatch<React.SetStateAction<number>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<React.SetStateAction<number>>;
+  editMode: boolean;
 };
 
-const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, setSelectedOwner, totalOwners, setTotalOwners }: AddOwnerButtonProps): JSX.Element => {
+const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, setSelectedOwner, totalOwners, setTotalOwners, editMode }: AddOwnerButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -54,7 +55,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
           date: "",
           kilometers: "",
           name: "",
-          doneBy: [false, "", false, ""],
+          responsible: [null, "", null, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           type: Array.from({ length: 1 }, () => ({
@@ -82,7 +83,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
           date: "",
           kilometers: "",
           name: "",
-          doneBy: [false, "", false, ""],
+          responsible: [null, "", null, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           type: Array.from({ length: 1 }, () => ({
@@ -133,7 +134,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
           date: "",
           kilometers: "",
           name: "",
-          doneBy: [false, "", false, ""],
+          responsible: [null, "", null, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
@@ -169,7 +170,8 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
     <div>
       <button
         className={styles.removeAddOwnerButton}
-        onClick={handleOwnerAddition}>
+        onClick={handleOwnerAddition}
+        disabled={!editMode}>
         +
       </button>
     </div>

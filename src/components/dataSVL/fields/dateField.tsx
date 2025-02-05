@@ -11,9 +11,10 @@ type DateFieldProps = {
   dataSVL: any;
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
+  editMode: boolean;
 }
 
-const DateField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, setDataSVL, type }: DateFieldProps) => {
+const DateField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, setDataSVL, type, editMode }: DateFieldProps) => {
 
   const handleDateSelected = (date: any) => {
     if (date !== null) {
@@ -36,6 +37,7 @@ const DateField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, data
           onChange={handleDateSelected} 
           dateFormat="dd-MM-yyyy" 
           placeholderText={placeholder}
+          disabled={!editMode}
         />
       </div>
     </div>
