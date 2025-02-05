@@ -6,6 +6,10 @@
       "createSVL": "Crea SVL",
       "disconnectWallet": "Desconecta la cartera",
       "connectWallet": "Conecta la cartera"
+    },
+    "Labels": {
+      "mySVLs": "Mis SVLs",
+      "requestedSVLs": "SVLs solicitados" 
     }
   },
   "DataSVL": {

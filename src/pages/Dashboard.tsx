@@ -4,6 +4,8 @@ import { getWallet, setWalletConnection } from '../utils/wallet';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import TopNavBar from '../components/topNavBar/topNavBar';
 import Welcome from '../components/dashboard/welcome';
+import MySVLsButton from '../components/dashboard/mySVLsButton';
+import RequestedSVLsButton from '../components/dashboard/requestedSVLsButton';
 import FilterSVLs from '../components/dashboard/filterSVLs';
 
 const Dashboard = (): JSX.Element => {
@@ -38,8 +40,8 @@ const Dashboard = (): JSX.Element => {
         <div className={styles.mainContainer}>
           <TopNavBar page={'Dashboard'} myAddress={myAddress} setMyAddress={setMyAddress} />
           <div className={styles.filterContainer}>
-            <FilterSVLs setFilterSVLs={setFilterSVLs} VIN={VIN} setVIN={setVIN} placeholder={'VIN'} />
-            <FilterSVLs setFilterSVLs={setFilterSVLs} VIN={VIN} setVIN={setVIN} placeholder={'VIN'} />
+            <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
+            <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
             <FilterSVLs setFilterSVLs={setFilterSVLs} VIN={VIN} setVIN={setVIN} placeholder={'VIN'} />
           </div>
         </div>

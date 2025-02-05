@@ -14,7 +14,7 @@ const Data = (): JSX.Element => {
   const [selectedSVLData, setSelectedSVLData] = useState(0);
   const [selectedOwner, setSelectedOwner] = useState(0);
   const [totalOwners, setTotalOwners] = useState(1);
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(true);
   const [viewType, setViewType] = useState(0);
   const [newSVL, setNewSVL] = useState(true);
 

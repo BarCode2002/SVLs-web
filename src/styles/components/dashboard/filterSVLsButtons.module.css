@@ -3,13 +3,24 @@
   font-size: 1rem;
   font-weight: 600;
   border: none;
+  border-radius: 10px;
   color: var(--navBarsSecondaryColor);
   background-color: var(--navBarsPrimaryColor);
 }
 
 .button:hover {
   background-color: var(--navBarsSecondaryColor);
-  border-radius: 10px;
   color: var(--navBarsPrimaryColor);
   cursor: pointer;
 }
+
+.buttonSelected {
+  height: 33px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  color:  var(--navBarsPrimaryColor);
+  background-color: var(--navBarsSecondaryColor);
+}
+
