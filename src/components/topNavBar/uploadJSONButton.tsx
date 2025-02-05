@@ -34,10 +34,6 @@ const UploadJSONButton = ({ selectedOwner, generalInformation, setGeneralInforma
             updatedGeneralInformation[selectedOwner] = ownerSVLData[0];
             setGeneralInformation(updatedGeneralInformation);
 
-            console.log(ownerSVLData[2])
-            console.log(ownerSVLData[3])
-            console.log(ownerSVLData[4])
-
             setOwnerSVLDataToEmpty(selectedOwner, setMaintenances);
             for (let i = 0; i < ownerSVLData[1].numGroups; i++) {
               addAndSetMaintenanceGroup(setMaintenances, selectedOwner, ownerSVLData[1].maintenances[i].date, ownerSVLData[1].maintenances[i].kilometers, ownerSVLData[1].maintenances[i].name,

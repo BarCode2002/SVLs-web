@@ -35,7 +35,7 @@ export interface Maintenances {
     date: string;
     kilometers: string;
     name: string;
-    doneBy: [boolean, string, boolean, string];
+    doneBy: [boolean | undefined, string, boolean | undefined, string];
     pre: string[],
     post: string[],
     type: Maintenance[];
@@ -60,7 +60,7 @@ export interface Modifications {
     date: string;
     kilometers: string;
     name: string;
-    doneBy: [boolean, string, boolean, string];
+    doneBy: [boolean | undefined, string, boolean | undefined, string];
     pre: string[],
     post: string[],
     type: Modification[];
@@ -104,7 +104,7 @@ export interface Repairs {
     date: string;
     kilometers: string;
     name: string;
-    doneBy: [boolean, string, boolean, string];
+    doneBy: [boolean | undefined, string, boolean | undefined, string];
     pre: string[],
     post: string[],
     defectsRepaired: [number, number, number][];

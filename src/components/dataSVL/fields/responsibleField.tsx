@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/responsibleField.module.css';
 import { useTranslation } from "react-i18next";
 
@@ -11,7 +11,6 @@ type ResponsibleFieldProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
 }
 
-//falta que cuando se cargue el componente cargue el valor the value
 const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL }: ResponsibleFieldProps) => {
 
   const { t } = useTranslation();
@@ -26,6 +25,21 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   const imageInputId = `${selectedGroup}`;
   
   const mechanicsList = ['Pepe', 'Jaja', 'ewfgew', 'Camion', 'avion', 'pepa', 'pepo', 'pepin', 'pepapaa', 'pepeeee', 'pepitp'];
+
+  useEffect(() => {
+    if (value[0] != undefined) {
+      setStep(1);
+      setMechanic(value[0]);
+      if (value[0] == true && value[1] != '') {
+        setStep(2);
+        setSearchQuery(value[1]);
+      }
+      if (value[2] != undefined) {
+        setStep(3);
+        setProof(value[2]);
+      }
+    }
+  }, [selectedOwner]);
 
   const handleMeResponsible = () => {
     const updatedDataSVL = [...dataSVL];

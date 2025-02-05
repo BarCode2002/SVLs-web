@@ -26,7 +26,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                   date: "",
                   kilometers: "",
                   name: "",
-                  doneBy: [false, "", false, ""],
+                  doneBy: [undefined, "", undefined, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   type: Array.from({ length: 1 }, () => ({
@@ -61,7 +61,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                   date: "",
                   kilometers: "",
                   name: "",
-                  doneBy: [false, "", false, ""],
+                  doneBy: [undefined, "", undefined, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   type: Array.from({ length: 1 }, () => ({
@@ -125,7 +125,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type }: AddGroupButtonProps
                   date: "",
                   kilometers: "",
                   name: "",
-                  doneBy: [false, "", false, ""],
+                  doneBy: [undefined, "", undefined, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                   defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
