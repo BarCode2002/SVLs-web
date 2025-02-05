@@ -12,6 +12,7 @@
   border: none;
   border-radius: 10px;
   width: 310px;
+  
   height: var(--fieldHeight);
   background-color: var(--fieldBackgroundColor);
   color: var(--fieldDataColor);
