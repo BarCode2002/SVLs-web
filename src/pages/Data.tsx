@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/pages/Data.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../utils/interfaces.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
@@ -17,6 +17,16 @@ const Data = (): JSX.Element => {
   const [editMode, setEditMode] = useState(true);
   const [viewType, setViewType] = useState(0);
   const [newSVL, setNewSVL] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false); 
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
 
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: 1 }, () => ({
@@ -145,29 +155,42 @@ const Data = (): JSX.Element => {
   window.addEventListener('resize', updateViewportHeight);
 
   return (
-    <div className={styles.mainContainer}>
-        <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
-          setViewType={setViewType} selectedOwner={selectedOwner}
-          generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
-          maintenances={maintenances} setMaintenances={setMaintenances}
-          modifications={modifications} setModifications={setModifications}
-          defects={defects} setDefects={setDefects}
-          repairs={repairs} setRepairs={setRepairs}
-        />
-        <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
-          generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
-          maintenances={maintenances} setMaintenances={setMaintenances}
-          modifications={modifications} setModifications={setModifications}
-          defects={defects} setDefects={setDefects}
-          repairs={repairs} setRepairs={setRepairs}
-          totalOwners={totalOwners} editMode={editMode}
-        />
-        <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
-          selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} 
-          setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
-          setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-          totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
-        />
+    <div>
+      {isLoading == true ? (
+        <div className={styles.mainContainer}>
+          <div className={styles.dotContainer}>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+          </div>
+        </div>
+      ) :
+        <div className={styles.mainContainer}>
+          <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
+            setViewType={setViewType} selectedOwner={selectedOwner}
+            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
+            maintenances={maintenances} setMaintenances={setMaintenances}
+            modifications={modifications} setModifications={setModifications}
+            defects={defects} setDefects={setDefects}
+            repairs={repairs} setRepairs={setRepairs}
+          />
+          <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
+            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
+            maintenances={maintenances} setMaintenances={setMaintenances}
+            modifications={modifications} setModifications={setModifications}
+            defects={defects} setDefects={setDefects}
+            repairs={repairs} setRepairs={setRepairs}
+            totalOwners={totalOwners} editMode={editMode}
+          />
+          <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
+            selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} 
+            setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
+            setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
+            totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
+          />
+        </div>
+      }
     </div>
   );
 }

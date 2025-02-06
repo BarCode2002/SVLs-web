@@ -5,3 +5,46 @@
   background-color: var(--backgroundColor);
   justify-content: space-between;
 }
+
+.dotContainer {
+  height: 100vh;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border-radius: 50%;
+  opacity: 0;
+  animation: dot-animation 2s linear infinite;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.dot:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.dot:nth-child(4) {
+  animation-delay: 0.75s;
+}
+
+@keyframes dot-animation {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

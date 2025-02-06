@@ -159,39 +159,39 @@ const PreviewSVLs = ({ myAddress, filterSVL }: PreviewSVLsProps): JSX.Element =>
             {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == true &&
               <div className={styles.ownerOrRequesterContentWrapper}>
                 <div className={styles.ownerOrRequesterContent}>
-                  <div>{requesterAddresLabel}</div>
+                  {dataPreviewSVL.stateMySVL[1]}
                   <div className={styles.separator}>
                     <div className={styles.leftSepartor}></div>
                     <div className={styles.middleSepartor}></div>
                     <div className={styles.rightSepartor}></div>
                   </div>
-                  {dataPreviewSVL.stateMySVL[1]}
+                  <div>{requesterAddresLabel}</div>
                 </div>
               </div>
             }
             {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == false &&
               <div className={styles.ownerOrRequesterContentWrapper}>
                 <div className={styles.ownerOrRequesterContent}>
-                  <div>{ownerMeLabel}</div>
+                  {myAddress}
                   <div className={styles.separator}>
                     <div className={styles.leftSepartor}></div>
                     <div className={styles.middleSepartor}></div>
                     <div className={styles.rightSepartor}></div>
                   </div>
-                  {myAddress}
+                  <div>{ownerMeLabel}</div>
                 </div>
               </div>
             }
             {dataPreviewSVL.mySVL == false &&
               <div className={styles.ownerOrRequesterContentWrapper}>
                 <div className={styles.ownerOrRequesterContent}>
-                  <div>{ownerAddressLabel}</div>
+                  {dataPreviewSVL.stateNotMySVL[1]}
                   <div className={styles.separator}>
                     <div className={styles.leftSepartor}></div>
                     <div className={styles.middleSepartor}></div>
                     <div className={styles.rightSepartor}></div>
                   </div>
-                  {dataPreviewSVL.stateNotMySVL[1]}
+                  <div>{ownerAddressLabel}</div>
                 </div>
               </div>
             }
