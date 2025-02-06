@@ -85,7 +85,7 @@
   background-color: white;
 }
 
-.imageBigContainer {
+.mainImageBigContainer {
   position: absolute;
   top: 0;
   left: 0;
@@ -99,10 +99,15 @@
   align-items: center;   
 }
 
+.imageBigContainer {
+  width: 100%;
+  height: min(56.25vw, calc(100vh - 150px));
+}
+
 .imageBig {
-  max-width: 100%;
-  max-height: calc(100vh - 150px);
-  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .closeImageBigContainer {
@@ -112,8 +117,8 @@
   border: none;
   top: 0;
   right: 0;
-  margin-top: 10px;
-  margin-right: 10px;
+
+
   font-size: 3rem;
 }
 

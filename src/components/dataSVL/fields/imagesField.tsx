@@ -244,26 +244,28 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         </div>
       }
       {showType.showBig == true && selectedImages.filter(url => url != '').length > 0 &&
-        <div className={styles.imageBigContainer}>
-          <button
-            className={styles.closeImageBigContainer}
-            onClick={() => changeImageSize('small', -1)}>
-            x
-          </button>
-          <button
-            className={styles.previousImageButton}
-            onClick={() => previousImage(showType.imageIndex)}>
-            ←
-          </button>
-          <img
-            className={styles.imageBig}
-            src={selectedImages[showType.imageIndex]}
-          />
-          <button
-            className={styles.nextImageButton}
-            onClick={() => nextImage(showType.imageIndex)}>
-            →
-          </button>
+        <div className={styles.mainImageBigContainer}>
+          <div className={styles.imageBigContainer}>
+            <button
+              className={styles.closeImageBigContainer}
+              onClick={() => changeImageSize('small', -1)}>
+              x
+            </button>
+            <button
+              className={styles.previousImageButton}
+              onClick={() => previousImage(showType.imageIndex)}>
+              ←
+            </button>
+            <img
+              className={styles.imageBig}
+              src={selectedImages[showType.imageIndex]}
+            />
+            <button
+              className={styles.nextImageButton}
+              onClick={() => nextImage(showType.imageIndex)}>
+              →
+            </button>
+          </div>
           <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
             {selectedImages.filter(url => url != '').map((url, index) => (
               <div key={`${url}-${index}`}>
