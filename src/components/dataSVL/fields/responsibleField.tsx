@@ -1,6 +1,7 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/responsibleField.module.css';
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
+import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { useTranslation } from "react-i18next";
 
 type ResponsibleFieldProps = {
@@ -222,16 +223,18 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                     </button>
                   </div>
                 ) : (
-                  <div className={styles.imageBigContainer}>
-                    <button
-                      className={styles.closeImageBigContainer}
-                      onClick={() => changeImageSize('small')}>
-                      x
-                    </button>
-                    <img
-                      className={styles.imageBig}
-                      src={value[3]}
-                    />
+                  <div className={styles.mainImageBigContainer}>
+                    <div className={styles.imageBigContainer}>
+                      <button
+                        className={styles.closeImageBigContainer}
+                        onClick={() => changeImageSize('small')}>
+                        <GoBackArrowIcon />
+                      </button>
+                      <img
+                        className={styles.imageBig}
+                        src={value[3]}
+                      />
+                    </div>
                   </div>
                 )}
               </div>
