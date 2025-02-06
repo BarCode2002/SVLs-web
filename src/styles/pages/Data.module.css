@@ -17,7 +17,7 @@
 .dot {
   width: 50px;
   height: 50px;
-  background-color: black;
+  background-color: var(--dataPanelBackgroundColor);
   border-radius: 50%;
   opacity: 0;
   animation: dot-animation 2s linear infinite;

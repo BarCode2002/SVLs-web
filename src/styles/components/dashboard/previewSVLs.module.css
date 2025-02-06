@@ -91,7 +91,6 @@
 .requestSVLtransfer {
   display: flex;
   justify-content: center;
-  background-color: black;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -118,7 +117,6 @@
 .SVLRequested {
   display: flex;
   justify-content: center;
-  background-color: black;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -160,7 +158,7 @@
 .dot {
   width: 50px;
   height: 50px;
-  background-color: black;
+  background-color: var(--dataPanelBackgroundColor);
   border-radius: 50%;
   opacity: 0;
   animation: dot-animation 2s linear infinite;
