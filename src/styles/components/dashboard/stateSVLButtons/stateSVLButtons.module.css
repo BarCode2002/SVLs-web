@@ -1,5 +1,5 @@
 .buttonLeft {
-  height: 41px;
+  height: var(--buttonHeight);
   width: 192px;
   border: none;
   border-top-right-radius: 0px;
@@ -19,7 +19,7 @@
 }
 
 .buttonRight {
-  height: 41px;
+  height: var(--buttonHeight);
   width: 192px;
   border: none;
   border-top-right-radius: 0px;
@@ -39,7 +39,7 @@
 }
 
 .buttonFull {
-  height: 41px;
+  height: var(--buttonHeight);
   width: 384px;
   border: none;
   border-top-right-radius: 0px;

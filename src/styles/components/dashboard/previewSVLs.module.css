@@ -4,6 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-content: flex-start;
   gap: 30px;
   margin-left: 20px;
   padding-right: 20px;
@@ -24,12 +25,14 @@
 }
 
 .ownerOrRequesterContent {
+  height: 60px;
   width: 384px;
-  font-size: var(--previewSVLFontSize);
   display: flex;
   flex-direction: column;
+  gap: 5px;
   align-items: center;
-  position: relative;
+  justify-content: center;
+  font-size: var(--previewSVLFontSize);
   background-color: var(--navBarsPrimaryColor);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -42,8 +45,10 @@
 }
 
 .infoPreviewSVL {
+  height: 30px;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   color: var(--navBarsSecondaryColor);
   background-color: var(--navBarsPrimaryColor);
   font-size: var(--previewSVLFontSize);
@@ -51,27 +56,27 @@
 
 .separator {
   display: flex;
-  padding-top: 8px;
   background-color: var(--navBarsPrimaryColor);
 }
 
+
 .leftSepartor {
-  width: 40px;
+  width: 60px;
   border: solid 1px var(--navBarsPrimaryColor);
 }
 
 .middleSepartor {
-  width: 298px;
+  width: 258px;
   border: solid 1px var(--navBarsSecondaryColor);
 }
 
 .rightSepartor {
-  width: 40px;
+  width: 60px;
   border: solid 1px var(--navBarsPrimaryColor);
 }
 
 .blockedSVL {
-  height: 41px;
+  height: var(--buttonHeight);
   width: 384px;
   display: flex;
   align-items: center;
@@ -99,7 +104,7 @@
 
 .SVLNotRequested {
   display: flex;
-  height: 41px;
+  height: var(--buttonHeight);
   font-weight: 450;
   justify-content: center;
   align-items: center;
@@ -118,13 +123,13 @@
 }
 
 .SVLPendingBuy {
-  height: 41px;
+  height: var(--buttonHeight);
   display: flex;
   align-items: center;
 }
 
 .SVLRequestAcceptedPendingBuy {
-  height: 41px;
+  height: var(--buttonHeight);
   width: 192px;
   display: flex;
   align-items: center;

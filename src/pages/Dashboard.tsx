@@ -46,7 +46,7 @@ const Dashboard = (): JSX.Element => {
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
               <FilterSVLs setFilterSVLs={setFilterSVLs} VIN={VIN} setVIN={setVIN} placeholder={'VIN'} />
             </div>
-            <PreviewSVLs myAddress={myAddress} />
+            <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} />
           </div>
         </div>
       )}   
