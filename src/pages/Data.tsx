@@ -27,7 +27,6 @@ const Data = (): JSX.Element => {
     return () => clearTimeout(timer);
   }, []);
 
-
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: 1 }, () => ({
       VIN: '',

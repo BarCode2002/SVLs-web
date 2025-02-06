@@ -1,11 +1,10 @@
 { 
   "language": "spanish",
-
+  
   "Dashboard": {
     "TopBar": {
       "createSVL": "Crea SVL",
-      "disconnectWallet": "Desconecta la cartera",
-      "connectWallet": "Conecta la cartera"
+      "disconnectWallet": "Desconecta la cartera"
     },
     "Labels": {
       "mySVLs": "Mis SVLs",
@@ -23,7 +22,8 @@
       "denyRequest": "Denegar",
       "request": "Solicita",
       "unrequest": "Quitar solicitación",
-      "buy": "Compra"
+      "buy": "Compra",
+      "connectWallet": "Conecta la cartera"
     }
   },
   "DataSVL": {

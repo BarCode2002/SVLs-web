@@ -1,8 +1,28 @@
 .welcomeContainer {
   height: 100%;
   overflow-y: auto;
-  background-color: #002244;
+  background-color: var(--dataPanelBackgroundColor);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  justify-content: space-around;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.title {
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--backgroundColor);
+}
+
+.introduction {
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--backgroundColor);
+  display: flex;
+  flex-direction: column;
+  gap: 75px;
+  text-align: center;
 }

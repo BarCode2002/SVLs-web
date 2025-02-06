@@ -1,6 +1,6 @@
 .button {
-  font-size: 4rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 500;
   border: none;
   color: var(--navBarsSecondaryColor);
   background-color: var(--navBarsPrimaryColor);

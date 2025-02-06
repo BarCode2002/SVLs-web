@@ -21,7 +21,7 @@ const ConnectWalletButton = ({ myAddress, setMyAddress }: ConnectWalletButtonPro
       <button
         className={styles.button}
         onClick={handleConnectWallet}>
-        {myAddress == undefined ?  t('Dashboard.TopBar.connectWallet') : myAddress}
+        {myAddress == undefined ?  t('Dashboard.Labels.connectWallet') : myAddress}
       </button>
     </div>
   );
