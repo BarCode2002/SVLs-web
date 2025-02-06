@@ -19,10 +19,11 @@
       "requesterAddress": "Clave del solicitante:",
       "ownerAddress": "Clave del propietario:",
       "ownerMe": "Mi clave:",
-      "accept": "acepta",
-      "deny": "deniega",
+      "acceptRequest": "Acceptar",
+      "denyRequest": "Denegar",
       "request": "Solicita",
-      "unrequest": "Quitar solicitación"
+      "unrequest": "Quitar solicitación",
+      "buy": "Compra"
     }
   },
   "DataSVL": {

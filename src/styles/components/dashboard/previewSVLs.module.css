@@ -5,7 +5,6 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-
   margin-left: 20px;
   padding-right: 20px;
 }
@@ -26,24 +25,113 @@
 
 .ownerOrRequesterContent {
   width: 384px;
+  font-size: var(--previewSVLFontSize);
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  background-color: black;
+  background-color: var(--navBarsPrimaryColor);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  color: white;
+  color: var(--navBarsSecondaryColor);
 }
 
-.svl {
+.previewSVL {
   height: 216px;
   width: 384px;
 }
 
-.infoSVL {
+.infoPreviewSVL {
   display: flex;
   justify-content: space-evenly;
-  color: white;
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
+  font-size: var(--previewSVLFontSize);
+}
+
+.separator {
+  display: flex;
+  padding-top: 8px;
+  background-color: var(--navBarsPrimaryColor);
+}
+
+.leftSepartor {
+  width: 40px;
+  border: solid 1px var(--navBarsPrimaryColor);
+}
+
+.middleSepartor {
+  width: 298px;
+  border: solid 1px var(--navBarsSecondaryColor);
+}
+
+.rightSepartor {
+  width: 40px;
+  border: solid 1px var(--navBarsPrimaryColor);
+}
+
+.blockedSVL {
+  height: 41px;
+  width: 384px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.requestSVLtransfer {
+  display: flex;
+  justify-content: center;
   background-color: black;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.buySVL {
+  display: flex;
+  justify-content: center;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.SVLNotRequested {
+  display: flex;
+  height: 41px;
+  font-weight: 450;
+  justify-content: center;
+  align-items: center;
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.SVLRequested {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.SVLPendingBuy {
+  height: 41px;
+  display: flex;
+  align-items: center;
+}
+
+.SVLRequestAcceptedPendingBuy {
+  height: 41px;
+  width: 192px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 450;
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 10px;
 }

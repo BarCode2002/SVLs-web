@@ -39,18 +39,14 @@ const Dashboard = (): JSX.Element => {
         </div>
       ) : (
         <div className={styles.mainContainer}>
-          
-            <TopNavBar page={'Dashboard'} myAddress={myAddress} setMyAddress={setMyAddress} />
-
+          <TopNavBar page={'Dashboard'} myAddress={myAddress} setMyAddress={setMyAddress} />
           <div className={styles.dashboardInformation}>
             <div className={styles.filterContainer}>
               <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
               <FilterSVLs setFilterSVLs={setFilterSVLs} VIN={VIN} setVIN={setVIN} placeholder={'VIN'} />
             </div>
-            
-              <PreviewSVLs />
-            
+            <PreviewSVLs myAddress={myAddress} />
           </div>
         </div>
       )}   

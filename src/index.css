@@ -14,7 +14,7 @@
   --fieldPlaceholderColor: grey;
   --fieldDataColor: black;
   --fieldHeight: 37px;
-  --fielFontSize: 1rem;
+  --fieldFontSize: 1rem;
 
   --buttonBackgroundColor: #abb4be;
   --buttonTextColor: black;
@@ -24,6 +24,8 @@
 
   --navBarsPrimaryColor: #002244;
   --navBarsSecondaryColor: white;
+
+  --previewSVLFontSize: 1.05rem;
 
 }
 

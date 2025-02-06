@@ -1,0 +1,59 @@
+.buttonLeft {
+  height: 41px;
+  width: 192px;
+  border: none;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 0px;
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: var(--buttonFontSize);
+}
+
+.buttonLeft:hover {
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
+  cursor: pointer;
+}
+
+.buttonRight {
+  height: 41px;
+  width: 192px;
+  border: none;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 10px;
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: var(--buttonFontSize);
+}
+
+.buttonRight:hover {
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
+  cursor: pointer;
+}
+
+.buttonFull {
+  height: 41px;
+  width: 384px;
+  border: none;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: var(--buttonFontSize);
+}
+
+.buttonFull:hover {
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
+  cursor: pointer;
+}
