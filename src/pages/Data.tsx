@@ -75,7 +75,7 @@ const Data = (): JSX.Element => {
       numGroups: 1,
     }))
   );
-
+  
   const [modifications, setModifications] = useState<Modifications[]>(
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
@@ -146,6 +146,12 @@ const Data = (): JSX.Element => {
       numGroups: 1,
     }))
   );
+
+  const prevOwnersGeneralInformation: GeneralInformation[] = [];
+  const prevOwnersMaintenances: Maintenances[] = [];
+  const prevOwnersModifications: Modifications[] = [];
+  const prevOwnersDefects: Defects[] = [];
+  const prevOwnerRepairs: Repairs[] = [];
 
   const updateViewportHeight = () => {
     const newHeight = window.innerHeight;
