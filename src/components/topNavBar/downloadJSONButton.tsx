@@ -1,5 +1,5 @@
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/dataSVL';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { createJSON } from '../../utils/createJSON';
 import { useTranslation } from "react-i18next";
 

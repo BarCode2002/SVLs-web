@@ -8,7 +8,7 @@ import MintSVLButton from './mintSVLButton';
 import EditSVLButton from './editSVLButton';
 import DisconnectWalletButton from './disconnectWalletButton';
 import CreateSVLButton from './createSVLButton';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/dataSVL';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { SetStateAction } from 'react';
 
 type TopNavBarProps = {

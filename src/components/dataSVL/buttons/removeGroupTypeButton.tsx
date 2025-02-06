@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
-import { Maintenances } from '../../../utils/dataSVL';
+import { Maintenances } from '../../../utils/interfaces';
 
 type RemoveGroupTypeButtonProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;

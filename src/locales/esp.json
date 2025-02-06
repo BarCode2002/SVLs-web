@@ -9,7 +9,20 @@
     },
     "Labels": {
       "mySVLs": "Mis SVLs",
-      "requestedSVLs": "SVLs solicitados" 
+      "requestedSVLs": "SVLs solicitados",
+      "brand": "Marca:",
+      "model": "Modelo:",
+      "year": "Año:",
+      "notRequested": "No solicitado",
+      "pendingBuy": "Pendiente de compra",
+      "blocked": "Bloqueado",
+      "requesterAddress": "Clave del solicitante:",
+      "ownerAddress": "Clave del propietario:",
+      "ownerMe": "Mi clave:",
+      "accept": "acepta",
+      "deny": "deniega",
+      "request": "Solicita",
+      "unrequest": "Quitar solicitación"
     }
   },
   "DataSVL": {

@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/dataSVL';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { addAndSetMaintenanceGroup, addAndSetMaintenanceGroupType, setOwnerSVLDataToEmpty } from '../../utils/uploadJSON';
 import { addAndSetModificationGroup, addAndSetModificationGroupType } from '../../utils/uploadJSON';
 import { addAndSetDefectGroup, addAndSetDefectGroupType } from '../../utils/uploadJSON';

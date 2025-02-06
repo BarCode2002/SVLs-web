@@ -4,7 +4,7 @@ import ChooseDataSVLButtons from './chooseDataSVLButtons.tsx';
 import AddOwnerButton from './addOwnerButton.tsx';
 import OwnerButton from './ownerButton.tsx';
 import RemoveOwnerButton from './removeOwnerButton.tsx';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/dataSVL.ts';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
 
 type BottomNavBarProps = {
   selectedSVLData: number;

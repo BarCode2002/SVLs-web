@@ -115,3 +115,16 @@ export interface Repairs {
   }[];
   numGroups: number;
 }
+
+export interface PreviewSVLsInfo {
+  pk: string;
+  mySVL: boolean | null;
+  mainPhotograph: string;
+  brand: string;
+  model: string;
+  year: string;
+  stateMySVL: [boolean | null, string, boolean | null];
+  //requested or not / requester address / request accepted or not
+  stateNotMySVL: [string, string, boolean | null];
+  //owner address / requester address / request accepted or not
+}

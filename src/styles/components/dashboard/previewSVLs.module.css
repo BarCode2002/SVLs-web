@@ -1,0 +1,49 @@
+.previewSVLsContainer {
+  height: calc(100vh - 130px);
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+
+  margin-left: 20px;
+  padding-right: 20px;
+}
+
+.previewSVLContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.previewSVLContainer:hover {
+  cursor: pointer;
+  transform: scale(1.01); 
+}
+
+.ownerOrRequesterContentWrapper {
+  position: relative;
+}
+
+.ownerOrRequesterContent {
+  width: 384px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background-color: black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+}
+
+.svl {
+  height: 216px;
+  width: 384px;
+}
+
+.infoSVL {
+  display: flex;
+  justify-content: space-evenly;
+  color: white;
+  background-color: black;
+}

@@ -1,5 +1,5 @@
 import { SetStateAction } from "react";
-import { Maintenances, Modifications, Defects, Repairs } from "./dataSVL";
+import { Maintenances, Modifications, Defects, Repairs } from "./interfaces";
 
 export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, date: string, kilometers: string, name: string, responsible: any, pre: string[], post: string[], nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
   setMaintenances((prevMaintenances: Maintenances[]) =>

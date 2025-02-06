@@ -1,4 +1,4 @@
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./dataSVL";
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
 
 export const createJSON = (selectedOwner: number, generalInformation: GeneralInformation[], maintenances: Maintenances[], modifications: Modifications[], defects: Defects[], repairs: Repairs[]): any => {
 

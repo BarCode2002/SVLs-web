@@ -4,6 +4,15 @@
   flex-direction: column;
   gap: 50px;
   background-color: var(--backgroundColor);
+  overflow-y: hidden;
+}
+
+.topNavBar {
+  position: relative;
+}
+
+.dashboardInformation {
+  display: flex;
 }
 
 .filterContainer {
@@ -17,5 +26,6 @@
   gap: 10px;
   border-radius: 10px;
   background-color: var(--dataPanelBackgroundColor);
+
 }
 

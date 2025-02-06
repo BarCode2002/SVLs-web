@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from '../styles/pages/Data.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../utils/dataSVL.ts';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../utils/interfaces.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
