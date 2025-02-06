@@ -117,18 +117,23 @@
   border: none;
   top: 0;
   right: 0;
-
-
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-right: 20px;
   font-size: 3rem;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
 }
 
 .closeImageBigContainer:hover {
   cursor: pointer;
+  opacity: 1;
 }
 
 .previousImageButton {
   position: absolute;
-  top: 44%;
+  top: 42%;
   left: 0%;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -136,20 +141,22 @@
   border-bottom-right-radius: 10px;
   color: black;
   background-color: white;
-  height: 50px;
-  width: 20px;
+  font-size: 2rem;
+  height: 60px;
+  width: fit-content;
   outline: none;
   border: none;
+  opacity: 0.5;
 }
 
 .previousImageButton:hover {
-  opacity: 0.7;
   cursor: pointer;
+  opacity: 1;
 }
 
 .nextImageButton {
   position: absolute;
-  top: 44%;
+  top: 42%;
   right: 0%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -157,14 +164,17 @@
   border-bottom-right-radius: 0px;
   color: black;
   background-color: white;
-  height: 50px;
-  width: 20px;
+  font-size: 2rem;
+  height: 60px;
+  width: fit-content;
   outline: none;
   border: none;
+  opacity: 0.5;
+
 }
 
 .nextImageButton:hover {
-  opacity: 0.7;
+  opacity: 1;
   cursor: pointer;
 }
 

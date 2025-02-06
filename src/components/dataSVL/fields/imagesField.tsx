@@ -1,6 +1,7 @@
 import styles from '../../../styles/components/dataSVL/fields/imagesField.module.css';
 import { useRef, useState } from 'react';
 import { PHOTOGRAPHS_SIZE } from '../../../utils/constants';
+import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 
 type ImagesFieldProps = {
   fieldLabel: string;
@@ -249,7 +250,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             <button
               className={styles.closeImageBigContainer}
               onClick={() => changeImageSize('small', -1)}>
-              x
+              <GoBackArrowIcon />
             </button>
             <button
               className={styles.previousImageButton}
