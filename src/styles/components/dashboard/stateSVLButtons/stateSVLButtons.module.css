@@ -16,6 +16,7 @@
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
   cursor: pointer;
+  border: solid 2px var(--navBarsPrimaryColor);
 }
 
 .buttonRight {
@@ -36,6 +37,7 @@
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
   cursor: pointer;
+  border: solid 2px var(--navBarsPrimaryColor);
 }
 
 .buttonFull {
@@ -56,4 +58,5 @@
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
   cursor: pointer;
+  border: solid 2px var(--navBarsPrimaryColor);
 }
