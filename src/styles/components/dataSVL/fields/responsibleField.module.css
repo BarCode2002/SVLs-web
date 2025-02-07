@@ -210,6 +210,25 @@
   cursor: default;
 }
 
+.saveImagesButton {
+  border: none;
+  border-radius: 10px;
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  background-color: var(--fieldBackgroundColor);
+  color: var(--buttonTextColor);
+  margin-left: 5px;
+}
+
+.saveImagesButton:hover {
+  cursor: pointer;
+}
+
+.saveImagesButton:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
 .imageSmallContainer {
   display: flex;
 }
@@ -224,12 +243,17 @@
   cursor: pointer;
 }
 
+.removeImageButtonWrapper {
+  position: relative;
+}
+
 .removeImageButton {
-  border: none;
-  width: 20px;
   position: absolute;
+  right: 172px;
+  width: 20px;
   color: black;
   background-color: white;
+  border: none;
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }

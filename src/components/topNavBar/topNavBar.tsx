@@ -67,7 +67,8 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
                 />
                 {newSVL == true ? (
-                  <MintSVLButton />
+                  <MintSVLButton selectedOwner={selectedOwner!} generalInformation={generalInformation!} 
+                    maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} />
                 ) : (
                   <EditSVLButton />
                 )}

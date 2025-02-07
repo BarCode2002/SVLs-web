@@ -3,6 +3,7 @@ import styles from '../../../styles/components/dataSVL/fields/responsibleField.m
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 type ResponsibleFieldProps = {
   fieldLabel: string;
@@ -24,6 +25,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   const [searchQuery, setSearchQuery] = useState('');
   const [proof, setProof] = useState<boolean | null>(null);
   const [showBig, setShowBig] = useState(false);
+  const [imagesSaved, setImagesSaved] = useState(false);
 
   const imageInputId = `${selectedGroup}`;
   
@@ -104,6 +106,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
       const updatedDataSVL = [...dataSVL];
       updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = URL.createObjectURL(event.target.files[0]);    
       setDataSVL(updatedDataSVL);
+      setImagesSaved(false);
     }
     event.target.value = '';
   }
@@ -123,6 +126,26 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
     if (isOpen) setIsOpen(false); 
   });
 
+  const handleUploadImagesToIPFS = async () => {
+    try {
+      const formData = new FormData();
+      const response = await fetch(value[3]);
+      const blob = await response.blob();     
+      const fileExtension = value[3].split('.').pop()?.toLowerCase();
+      formData.append("file", blob, `image/${fileExtension}`);
+      const uploadResponse = await axios.post("http://127.0.0.1:3000/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const updatedDataSVL = [...dataSVL];
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = `http://127.0.0.1:8080/ipfs/${uploadResponse.data.cids[0]}`;    
+      setDataSVL(updatedDataSVL);
+      setImagesSaved(true);
+    } catch (error) {
+      console.error("Upload failed:", error);
+    }
+  }
 
   return (
     <div className={styles.responsibleFieldContainer}>
@@ -206,6 +229,12 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
               id={imageInputId}
               style={{ display: 'none' }}
             />
+            <button
+              className={styles.saveImagesButton}
+              onClick={() => handleUploadImagesToIPFS()}
+              disabled={value[3] == '' || editMode == false || imagesSaved == true}>
+              Save
+            </button>
             {value[3] != '' &&
               <div>
                 {showBig == false ? (
@@ -215,12 +244,14 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                       onClick={() => changeImageSize('big')}
                       src={value[3]}
                     />
-                    <button
-                      className={styles.removeImageButton}
-                      onClick={removeUploadedImage}
-                      disabled={!editMode}>
-                      x
-                    </button>
+                    <div className={styles.removeImageButtonWrapper}>
+                      <button
+                        className={styles.removeImageButton}
+                        onClick={removeUploadedImage}
+                        disabled={!editMode}>
+                        x
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <div className={styles.mainImageBigContainer}>

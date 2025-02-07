@@ -2,6 +2,7 @@ import styles from '../../../styles/components/dataSVL/fields/imagesField.module
 import { useRef, useState } from 'react';
 import { PHOTOGRAPHS_SIZE } from '../../../utils/constants';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
+import axios from "axios";
 
 type ImagesFieldProps = {
   fieldLabel: string;
@@ -27,6 +28,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
   else imageInputId = `image-input${type}${selectedGroup}${selectedGroupType}`;
 
   const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
+  const [imagesSaved, setImagesSaved] = useState(false);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -61,6 +63,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         }
       }
       setDataSVL(updatedDataSVL);
+      setImagesSaved(false);
       event.target.value = '';
     }
   };
@@ -193,6 +196,36 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     e.preventDefault();
   }
 
+  const handleUploadImagesToIPFS = async () => {
+    try {
+      const formData = new FormData();
+      for (let i = 0; i < selectedImages.filter(url => url != '').length; i++) {
+        const response = await fetch(selectedImages[i]);
+        const blob = await response.blob();     
+        const fileExtension = selectedImages[i].split('.').pop()?.toLowerCase();
+        formData.append("file", blob, `image/${fileExtension}`);
+      }
+      const uploadResponse = await axios.post("http://127.0.0.1:3000/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const updatedDataSVL = [...dataSVL];
+      if (type == 'mainPhotograph') {
+        updatedDataSVL[selectedOwner][type] = `http://127.0.0.1:8080/ipfs/${uploadResponse.data.cids[0]}`;    
+      }
+      else {
+        for (let i = 0; i < uploadResponse.data.cids.length; i++) {
+          updatedDataSVL[selectedOwner][type][i] = `http://127.0.0.1:8080/ipfs/${uploadResponse.data.cids[i]}`;
+        }
+      }
+      setDataSVL(updatedDataSVL);
+      setImagesSaved(true);
+    } catch (error) {
+      console.error("Upload failed:", error);
+    }
+  }
+
   const imagePreviewContainer = useRef(null);
 
   return (
@@ -217,6 +250,12 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             id={imageInputId}
             style={{ display: 'none' }}
           />
+          <button
+            className={styles.saveImagesButton}
+            onClick={() => handleUploadImagesToIPFS()}
+            disabled={selectedImages.filter(url => url != '').length == 0 || editMode == false || imagesSaved == true}>
+            Save
+          </button>
         </div>
       </div>
       {showType.showBig == false && selectedImages.filter(url => url != '').length > 0 &&
