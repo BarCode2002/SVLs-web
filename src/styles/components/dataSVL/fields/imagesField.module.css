@@ -8,10 +8,16 @@
   color: var(--fieldLabelColor);
 }
 
+.fieldContainer {
+  width: 310px;
+  display: flex;
+  justify-content: space-around;
+}
+
 .fileInput {
+  width: 230px;
   border: none;
   border-radius: 10px;
-  width: 260px;
   height: var(--fieldHeight);
   background-color: var(--fieldBackgroundColor);
   color: var(--fieldDataColor);
@@ -27,6 +33,7 @@
 }
 
 .saveImagesButton {
+  width: 80px;
   border: none;
   border-radius: 10px;
   height: var(--buttonHeight);

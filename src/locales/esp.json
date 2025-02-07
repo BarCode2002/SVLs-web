@@ -79,7 +79,8 @@
       "defects": "Defectos",
       "repairs": "Reparaciones",
       "add": "Añade",
-      "eraseAll": "Elimina todos"
+      "eraseAll": "Elimina todos",
+      "save": "Guarda"
     },
     "Placeholders": {
       "vin": "VIN",

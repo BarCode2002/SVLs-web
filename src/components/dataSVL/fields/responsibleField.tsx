@@ -233,7 +233,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
               className={styles.saveImagesButton}
               onClick={() => handleUploadImagesToIPFS()}
               disabled={value[3] == '' || editMode == false || imagesSaved == true}>
-              Save
+              {t('DataSVL.Labels.save')}
             </button>
             {value[3] != '' &&
               <div>

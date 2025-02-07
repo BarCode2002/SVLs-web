@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { PHOTOGRAPHS_SIZE } from '../../../utils/constants';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 
 type ImagesFieldProps = {
   fieldLabel: string;
@@ -19,6 +20,8 @@ type ImagesFieldProps = {
 }
 
 const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages, editMode }: ImagesFieldProps) => {
+
+  const { t } = useTranslation();
 
   let imageInputId;
   if (selectedGroup == -1) {
@@ -236,7 +239,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             {fieldLabel}
           </div>
         }
-        <div>
+        <div className={styles.fieldContainer}>
           <button 
             className={styles.fileInput}
             onClick={() => document.getElementById(imageInputId)!.click()}
@@ -254,7 +257,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             className={styles.saveImagesButton}
             onClick={() => handleUploadImagesToIPFS()}
             disabled={selectedImages.filter(url => url != '').length == 0 || editMode == false || imagesSaved == true}>
-            Save
+            {t('DataSVL.Labels.save')}
           </button>
         </div>
       </div>
