@@ -22,6 +22,8 @@ type ImagesFieldProps = {
 const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages, editMode }: ImagesFieldProps) => {
 
   const { t } = useTranslation();
+  
+  const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
 
   let imageInputId;
   if (selectedGroup == -1) {
@@ -202,11 +204,15 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
   const handleUploadImagesToIPFS = async () => {
     try {
       const formData = new FormData();
+      const indexImagesToSave = [];
       for (let i = 0; i < selectedImages.filter(url => url != '').length; i++) {
-        const response = await fetch(selectedImages[i]);
-        const blob = await response.blob();     
-        const fileExtension = selectedImages[i].split('.').pop()?.toLowerCase();
-        formData.append("file", blob, `image/${fileExtension}`);
+        if (selectedImages[i][4] == ':') {
+          indexImagesToSave.push(i);
+          const response = await fetch(selectedImages[i]);
+          const blob = await response.blob();     
+          const fileExtension = selectedImages[i].split('.').pop()?.toLowerCase();
+          formData.append("file", blob, `image/${fileExtension}`);
+        }
       }
       const uploadResponse = await axios.post("http://127.0.0.1:3000/upload", formData, {
         headers: {
@@ -215,11 +221,11 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
       });
       const updatedDataSVL = [...dataSVL];
       if (type == 'mainPhotograph') {
-        updatedDataSVL[selectedOwner][type] = `http://127.0.0.1:8080/ipfs/${uploadResponse.data.cids[0]}`;    
+        updatedDataSVL[selectedOwner][type] = uploadResponse.data.cids[0];   
       }
       else {
-        for (let i = 0; i < uploadResponse.data.cids.length; i++) {
-          updatedDataSVL[selectedOwner][type][i] = `http://127.0.0.1:8080/ipfs/${uploadResponse.data.cids[i]}`;
+        for (let i = 0; i < indexImagesToSave.length; i++) {
+          updatedDataSVL[selectedOwner][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
         }
       }
       setDataSVL(updatedDataSVL);
@@ -268,7 +274,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
               <img
                 className={styles.imageSmall}
                 onClick={() => changeImageSize('big', index)}
-                src={url}
+                src={url[4] != ':' ? `${urlIPFS}${url}` : url}
                 draggable={editMode}
                 onDragStart={(e) => handleOnDrag(e, index)}
                 onDrop={(e) => handleOnDrop(e, index)}
@@ -301,7 +307,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             </button>
             <img
               className={styles.imageBig}
-              src={selectedImages[showType.imageIndex]}
+              src={selectedImages[showType.imageIndex][4] != ':' ? `${urlIPFS}${selectedImages[showType.imageIndex]}` : selectedImages[showType.imageIndex]}
             />
             <button
               className={styles.nextImageButton}
@@ -316,13 +322,13 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                   <img
                     className={styles.imageSmallSelected}
                     onClick={() => changeImageSize('big', index)}
-                    src={url}
+                    src={url[4] != ':' ? `${urlIPFS}${url}` : url}
                   />
                 ) : (
                   <img
                     className={styles.imageSmall}
                     onClick={() => changeImageSize('big', index)}
-                    src={url}
+                    src={url[4] != ':' ? `${urlIPFS}${url}` : url}
                   />
                 )}
               </div>

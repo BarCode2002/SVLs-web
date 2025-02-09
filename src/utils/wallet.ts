@@ -2,6 +2,12 @@ import { TezosToolkit } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import { BeaconEvent, NetworkType } from '@airgap/beacon-dapp';
 
+const smartContractAddress = "KT1PudLHMw5SKAL5W2sjYpdG3iD1JeNj27AN";
+
+export const getsmartContractAddress = () => {
+  return smartContractAddress;
+}
+
 const rpcUrl = "https://ghostnet.tezos.ecadinfra.com";
 const netType = NetworkType.GHOSTNET;
 

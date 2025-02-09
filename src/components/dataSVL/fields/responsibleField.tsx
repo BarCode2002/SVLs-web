@@ -19,6 +19,8 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const { t } = useTranslation();
 
+  const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
+
   const [step, setStep] = useState(0);
   const [mechanic, setMechanic] = useState<boolean | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -139,7 +141,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
         },
       });
       const updatedDataSVL = [...dataSVL];
-      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = `http://127.0.0.1:8080/ipfs/${uploadResponse.data.cids[0]}`;    
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = uploadResponse.data.cids[0];    
       setDataSVL(updatedDataSVL);
       setImagesSaved(true);
     } catch (error) {
@@ -242,7 +244,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                     <img
                       className={styles.imageSmall}
                       onClick={() => changeImageSize('big')}
-                      src={value[3]}
+                      src={value[3][4] != ':' ? `${urlIPFS}${value[3]}` : value[3]}
                     />
                     <div className={styles.removeImageButtonWrapper}>
                       <button
@@ -263,7 +265,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                       </button>
                       <img
                         className={styles.imageBig}
-                        src={value[3]}
+                        src={value[3][4] != ':' ? `${urlIPFS}${value[3]}` : value[3]}
                       />
                     </div>
                   </div>
