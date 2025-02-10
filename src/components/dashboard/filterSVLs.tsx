@@ -6,16 +6,19 @@ type FilterSVLsProps = {
   VIN: string;
   setVIN: React.Dispatch<string>;
   placeholder: string
+  search: boolean;
+  setSearch: React.Dispatch<boolean>;
 };
 
-const FilterSVLs = ({ setFilterSVLs, VIN, setVIN, placeholder }: FilterSVLsProps): JSX.Element => {
+const FilterSVLs = ({ setFilterSVLs, VIN, setVIN, placeholder, search, setSearch }: FilterSVLsProps): JSX.Element => {
 
   const { t } = useTranslation();
 
   const handleBrowseSVLByVIN = (event: { key: string; }) => {
     if (event.key === "Enter") {
       setFilterSVLs(2);
-      console.log("hola");
+      if (search == true) setSearch(false);
+      else setSearch(true);
     }
   }
 

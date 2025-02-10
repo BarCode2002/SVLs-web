@@ -27,7 +27,7 @@ const UploadJSONButton = ({ selectedOwner, generalInformation, setGeneralInforma
       reader.onload = (e) => {
         try {
           const result = e.target?.result;
-          if (typeof result === "string") {
+          if (typeof result == "string") {
             const ownerSVLData = JSON.parse(result);
 
             const updatedGeneralInformation = [...generalInformation];

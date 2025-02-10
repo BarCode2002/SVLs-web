@@ -7,7 +7,7 @@ const App = (): JSX.Element => {
     <Router>
       <Routes>
         <Route path='/' element={<Dashboard />} />
-        <Route path='/data' element={<Data />} />
+        <Route path='/data/:svl_pk?' element={<Data />} />
       </Routes>
     </Router>
   );

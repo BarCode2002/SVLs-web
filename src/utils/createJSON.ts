@@ -6,7 +6,7 @@ export const createJSON = (selectedOwner: number, generalInformation: GeneralInf
     ...generalInformation.slice(selectedOwner, selectedOwner+1).map((item) => ({
       VIN: item.VIN,
       brand: item.brand,
-      modelType: item.model,
+      model: item.model,
       year: item.year,
       kilometers: item.kilometers,
       mainPhotograph: item.mainPhotograph,

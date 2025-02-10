@@ -6,14 +6,23 @@ import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../utils/constants.ts';
 import { useTranslation } from "react-i18next";
+import { useParams } from 'react-router-dom';
+import axios, { AxiosError } from "axios";
+import { addAndSetMaintenanceGroup, addAndSetMaintenanceGroupType, setOwnerSVLDataToEmpty } from '../utils/uploadJSON.ts';
+import { addAndSetModificationGroup, addAndSetModificationGroupType } from '../utils/uploadJSON.ts';
+import { addAndSetDefectGroup, addAndSetDefectGroupType } from '../utils/uploadJSON.ts';
+import { addAndSetRepairGroup, addAndSetRepairGroupType } from '../utils/uploadJSON.ts';
 
 const Data = (): JSX.Element => {
 
   const { t } = useTranslation();
 
+  const { svl_pk } = useParams();
+
   const [selectedSVLData, setSelectedSVLData] = useState(0);
   const [selectedOwner, setSelectedOwner] = useState(0);
   const [totalOwners, setTotalOwners] = useState(1);
+  const [numPreviousOwners, setNumPreviousOwners] = useState(0);
   const [editMode, setEditMode] = useState(true);
   const [viewType, setViewType] = useState(0);
   const [newSVL, setNewSVL] = useState(true);
@@ -152,6 +161,40 @@ const Data = (): JSX.Element => {
   const prevOwnersModifications: Modifications[] = [];
   const prevOwnersDefects: Defects[] = [];
   const prevOwnerRepairs: Repairs[] = [];
+
+   const fillOneRealOwnerSVLData = () => {
+
+  }
+
+  useEffect(() => {
+    const getSVLFull = async () => {
+      if (svl_pk) {
+        try {
+          const responseIndexer = await axios.get(`http://127.0.0.1:3000/indexer/holder/pk/${svl_pk}`);
+          //console.log(responseIndexer.data);
+          if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') {
+            try {
+              for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
+                const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`);
+                console.log(responseIPFS.data);
+              }
+            } catch (error: any | AxiosError) {
+              console.error("Unexpected error:", error);
+            }
+            setSelectedOwner(0);
+            setTotalOwners(1);
+            setNumPreviousOwners(0);
+          }
+        } catch (error: any | AxiosError) {
+          console.error("Unexpected error:", error);
+        }
+      }
+      else setNewSVL(true);
+    };
+    getSVLFull();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   const updateViewportHeight = () => {
     const newHeight = window.innerHeight;

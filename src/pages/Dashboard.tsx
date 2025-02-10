@@ -13,6 +13,7 @@ const Dashboard = (): JSX.Element => {
 
   const [myAddress, setMyAddress] = useState<string | undefined>(undefined);
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
+  const [search, setSearch] = useState(false);
   const [filterSVLs, setFilterSVLs] = useState(0);
   const [VIN, setVIN] = useState('');
 
@@ -44,9 +45,9 @@ const Dashboard = (): JSX.Element => {
             <div className={styles.filterContainer}>
               <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
-              <FilterSVLs setFilterSVLs={setFilterSVLs} VIN={VIN} setVIN={setVIN} placeholder={'VIN'} />
+              <FilterSVLs setFilterSVLs={setFilterSVLs} VIN={VIN} setVIN={setVIN} placeholder={'VIN'} search={search} setSearch={setSearch} />
             </div>
-            <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} />
+            <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} VIN={VIN} search={search} />
           </div>
         </div>
       )}   

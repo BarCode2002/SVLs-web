@@ -73,12 +73,14 @@ const MintSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
           if (maintenances[i].group[j].pre[k][4] == ':') {
             console.log(`Owner ${i+1} has not saved the previous images field for group ${j+1} in Maintenances`);
             return false;
-          } else if (maintenances[i].group[k].post[k][4] == ':') {
+          } 
+          if (maintenances[i].group[j].post[k][4] == ':') {
             console.log(`Owner ${i+1} has not saved the posterior images field for group ${j+1} in Maintenances`);
             return false;
           }
         }
-        for (let l = 0; l < maintenances[i].group[j].type.length; j++) {
+
+        for (let l = 0; l < maintenances[i].group[j].type.length; l++) {
           for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
             if (maintenances[i].group[j].type[l].pre[z][4] == ':') {
               console.log(`Owner ${i+1} has not saved the previous images field for group ${j+1} and type ${l} in Maintenances`);
@@ -183,15 +185,16 @@ const MintSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
         const time = format(new Date(), 'dd MM yyyy HH:mm:ss');
         const svl_key = `${time} ${localStorage.getItem('address')}`;
         const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
-        const op = await contract.methodsObject.mintSVL({
+        const op = await contract.methodsObject.mint({
           svl_key: svl_key, 
+          svl_price: 30, //se envia como mutez
           VIN: generalInformation[0].VIN,
           brand: generalInformation[0].brand,
           model: generalInformation[0].model,
           year: generalInformation[0].year,
-          curr_owner_info: cids
-        }).send();
-        await op.confirmation();
+          curr_owner_info: cids,
+        }).send({amount: 10});
+        await op.confirmation();   
       } catch (error) {
         console.log('error:', error);
       }

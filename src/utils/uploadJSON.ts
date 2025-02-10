@@ -1,5 +1,32 @@
 import { SetStateAction } from "react";
-import { Maintenances, Modifications, Defects, Repairs } from "./interfaces";
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
+
+export const addAndSetGeneralInformation = async (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, generalInformation: GeneralInformation) => {
+    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
+      ...prevGeneralInformation,
+      {
+        VIN: generalInformation.VIN,
+        brand: generalInformation.brand,
+        model: generalInformation.model,
+        year: generalInformation.year,
+        kilometers: generalInformation.kilometers,
+        mainPhotograph: generalInformation.mainPhotograph,
+        state: generalInformation.state,
+        photographs: generalInformation.photographs,
+        weight: generalInformation.weight,
+        color: generalInformation.color,
+        engine: generalInformation.engine,
+        power: generalInformation.power,
+        shift: generalInformation.shift,
+        fuel: generalInformation.fuel,
+        autonomy: generalInformation.autonomy,
+        climate: generalInformation.climate,
+        usage: generalInformation.usage,
+        storage: generalInformation.storage,
+        comments: generalInformation.comments,
+      },
+    ]);
+  }
 
 export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, date: string, kilometers: string, name: string, responsible: any, pre: string[], post: string[], nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
   setMaintenances((prevMaintenances: Maintenances[]) =>

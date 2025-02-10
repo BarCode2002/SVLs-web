@@ -6,16 +6,19 @@ import AcceptSVLRequestButton from './buttons/stateSVLsButtons/acceptSVLRequestB
 import DenySVLRequestButton from './buttons/stateSVLsButtons/denySVLRequestButton';
 import RequestSVLButton from './buttons/stateSVLsButtons/requestSVLButton';
 import BuySVLButton from './buttons/stateSVLsButtons/buySVLButton';
-//import { useNavigate } from 'react-router-dom'; 
+import axios, { AxiosError } from "axios";
+import { useNavigate } from 'react-router-dom'; 
 
 type PreviewSVLsProps = {
   myAddress: string;
   filterSVL: number;
+  VIN: string;
+  search: boolean;
 };
 
-const PreviewSVLs = ({ myAddress, filterSVL }: PreviewSVLsProps): JSX.Element => {
+const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): JSX.Element => {
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const brandLabel = t('Dashboard.Labels.brand');
@@ -31,13 +34,15 @@ const PreviewSVLs = ({ myAddress, filterSVL }: PreviewSVLsProps): JSX.Element =>
   const [numPreviewSVLs, setNumPreviewSVLs] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
+  const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false); 
     }, 1000);
     setIsLoading(true);
     return () => clearTimeout(timer);
-  }, [filterSVL]);
+  }, [filterSVL, search]);
 
   const [previewSVLsInfo, setPreviewSVLsInfo] = useState<PreviewSVLsInfo[]>(
     Array.from({ length: 20 }, () => ({
@@ -52,7 +57,196 @@ const PreviewSVLs = ({ myAddress, filterSVL }: PreviewSVLsProps): JSX.Element =>
     }))
   );
 
-  const getSVLPreview = () => {
+  const getSVLPreview = async () => {
+    let url;
+    if (filterSVL == 0) url = `http://127.0.0.1:3000/indexer/holder/owner_address/${myAddress}`;
+    else if (filterSVL == 1) url = `http://127.0.0.1:3000/indexer/holder/requested_svls?requester_address=${myAddress}`;
+    else url = `http://127.0.0.1:3000/indexer/holder/by_vin?vin=${VIN}&owner_address=${myAddress}`;
+    try {
+      const responseIndexer = await axios.get(url);
+      //console.log(responseIndexer.data);
+      const updatedPreviewSVLsInfo = [...previewSVLsInfo];
+      for (let i = 0; i < responseIndexer.data.length; i++) {
+        const latestCid = responseIndexer.data[i].current_owner_info[responseIndexer.data[i].current_owner_info.length-1];
+        try {
+          const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${latestCid}`);
+          //console.log(responseIPFS.data);
+          updatedPreviewSVLsInfo[i].pk = responseIndexer.data[i].svl_key;
+          updatedPreviewSVLsInfo[i].mainPhotograph = responseIPFS.data[i].mainPhotograph;
+          updatedPreviewSVLsInfo[i].brand = responseIndexer.data[i].brand;
+          updatedPreviewSVLsInfo[i].model = responseIndexer.data[i].model;
+          updatedPreviewSVLsInfo[i].year = responseIndexer.data[i].year;
+          if (myAddress == responseIndexer.data[i].owner_address) {
+            if (myAddress == responseIndexer.data[i].requester_address) updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; 
+            else updatedPreviewSVLsInfo[i].stateMySVL = [true, responseIndexer.data[i].requester_address, responseIndexer.data[i].request_accepted]; 
+            updatedPreviewSVLsInfo[i].stateNotMySVL = [false, '', '', false]; 
+            updatedPreviewSVLsInfo[i].mySVL = true;
+          }
+          else {
+            if (responseIndexer.data[i].owner_address != responseIndexer.data[i].requester_address) {
+              updatedPreviewSVLsInfo[i].stateNotMySVL = [true, responseIndexer.data[i].owner_address, responseIndexer.data[i].requester_address, responseIndexer.data[i].request_accepted]; 
+            }
+            else updatedPreviewSVLsInfo[i].stateNotMySVL = [false, responseIndexer.data[i].owner_address, '', false]; 
+            updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; 
+            updatedPreviewSVLsInfo[i].mySVL = false;
+          }
+        } catch (error) {
+          console.log("Error retriving JSON:", error);
+        }
+      }
+      setPreviewSVLsInfo(updatedPreviewSVLsInfo);
+      setNumPreviewSVLs(responseIndexer.data.length);
+    } catch (error: any | AxiosError) {
+      if (axios.isAxiosError(error)) {
+        if (error.status == 404) setNumPreviewSVLs(0);
+      }
+      console.error("Unexpected error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getSVLPreview();
+  }, [filterSVL, search]);
+
+  const viewSVLInDetail = (svl_pk: string) => {
+    navigate(`/data/${svl_pk}`); 
+  }
+
+  return (
+    <div>
+      {isLoading == true ? (
+        <div className={styles.previewSVLsContainerLoading}>
+          <div className={styles.dotContainer}>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+          </div>
+        </div>
+      ) :
+        <div className={styles.previewSVLsContainer}>
+          {previewSVLsInfo.slice(0, numPreviewSVLs).map((dataPreviewSVL, index) => (
+            <div key={`${index}`}>
+              <div className={styles.previewSVLContainer}>
+                {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == true &&
+                  <div className={styles.ownerOrRequesterContentWrapper}>
+                    <div className={styles.ownerOrRequesterContent}>
+                      {dataPreviewSVL.stateMySVL[1]}
+                      <div className={styles.separator}>
+                        <div className={styles.leftSepartor}></div>
+                        <div className={styles.middleSepartor}></div>
+                        <div className={styles.rightSepartor}></div>
+                      </div>
+                      <div>{requesterAddresLabel}</div>
+                    </div>
+                  </div>
+                }
+                {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == false &&
+                  <div className={styles.ownerOrRequesterContentWrapper}>
+                    <div className={styles.ownerOrRequesterContent}>
+                      {myAddress}
+                      <div className={styles.separator}>
+                        <div className={styles.leftSepartor}></div>
+                        <div className={styles.middleSepartor}></div>
+                        <div className={styles.rightSepartor}></div>
+                      </div>
+                      <div>{ownerMeLabel}</div>
+                    </div>
+                  </div>
+                }
+                {dataPreviewSVL.mySVL == false &&
+                  <div className={styles.ownerOrRequesterContentWrapper}>
+                    <div className={styles.ownerOrRequesterContent}>
+                      {dataPreviewSVL.stateNotMySVL[1]}
+                      <div className={styles.separator}>
+                        <div className={styles.leftSepartor}></div>
+                        <div className={styles.middleSepartor}></div>
+                        <div className={styles.rightSepartor}></div>
+                      </div>
+                      <div>{ownerAddressLabel}</div>
+                    </div>
+                  </div>
+                }
+                <img
+                  className={styles.previewSVL}
+                  src={`${urlIPFS}${dataPreviewSVL.mainPhotograph}`}
+                  onClick={() => viewSVLInDetail(dataPreviewSVL.pk)}
+                />
+                <div className={styles.infoPreviewSVL}>
+                  <div>
+                    {brandLabel} {dataPreviewSVL.brand}
+                  </div>
+                  <div>
+                    {modelLabel} {dataPreviewSVL.model}
+                  </div>
+                  <div>
+                    {yearLabel} {dataPreviewSVL.year}  
+                  </div>
+                </div>
+                <div className={styles.separator}>
+                  <div className={styles.leftSepartor}></div>
+                  <div className={styles.middleSepartor}></div>
+                  <div className={styles.rightSepartor}></div>
+                </div>
+                {(dataPreviewSVL.mySVL == false) ? (
+                  dataPreviewSVL.stateNotMySVL[0] == true && dataPreviewSVL.stateNotMySVL[2] != '' && dataPreviewSVL.stateNotMySVL[2] != myAddress ? (
+                    <div className={styles.blockedSVL}>
+                      {blockedLabel}
+                    </div>
+                  ) : (
+                    <div>
+                      {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == '' &&
+                        <div className={styles.requestSVLtransfer}>
+                          <RequestSVLButton requested={false} />
+                        </div>
+                      }
+                      {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
+                        <div className={styles.requestSVLtransfer}>
+                          <RequestSVLButton requested={true} />
+                        </div>
+                      }
+                      {dataPreviewSVL.stateNotMySVL[3] == true && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
+                        <div className={styles.buySVL}>
+                          <BuySVLButton />
+                        </div>
+                      }
+                    </div>
+                  )
+                ) : (
+                  dataPreviewSVL.stateMySVL[0] == false ? (
+                    <div className={styles.SVLNotRequested}>
+                      {notRequestedLabel}
+                    </div>
+                  ) : (
+                    dataPreviewSVL.stateMySVL[2] == false ? (
+                      <div className={styles.SVLRequested}>
+                        <AcceptSVLRequestButton />
+                        <DenySVLRequestButton />
+                      </div>
+                    ) : (
+                      <div className={styles.SVLPendingBuy}>
+                        <div className={styles.SVLRequestAcceptedPendingBuy}>
+                          {pendingBuyLabel}
+                        </div>
+                        <DenySVLRequestButton />
+                      </div>
+                    )
+                  )
+                )}  
+              </div>
+            </div>
+          ))}
+        </div>
+      }
+    </div>
+  );
+}
+
+export default PreviewSVLs;
+
+
+
+    /*
     const updatedPreviewSVLsInfo = [...previewSVLsInfo];
     if (filterSVL == 0) {
       updatedPreviewSVLsInfo[0].mySVL = true;
@@ -149,143 +343,4 @@ const PreviewSVLs = ({ myAddress, filterSVL }: PreviewSVLsProps): JSX.Element =>
       setNumPreviewSVLs(7);
     }
     setPreviewSVLsInfo(updatedPreviewSVLsInfo);
-  };
-
-  useEffect(() => {
-    getSVLPreview();
-  }, [filterSVL]);
-
-  /*const inDetail = async (id_bigMap: string) => {
-    console.log("view the SVL in detail:", id_bigMap);
-    navigate(`/SVL/${id_bigMap}`); 
-  }*/
-
-  return (
-    <div>
-      {isLoading == true ? (
-        <div className={styles.previewSVLsContainerLoading}>
-          <div className={styles.dotContainer}>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-          </div>
-        </div>
-      ) :
-        <div className={styles.previewSVLsContainer}>
-          {previewSVLsInfo.slice(0, numPreviewSVLs).map((dataPreviewSVL, index) => (
-            <div key={`${index}`}>
-              <div className={styles.previewSVLContainer}>
-                {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == true &&
-                  <div className={styles.ownerOrRequesterContentWrapper}>
-                    <div className={styles.ownerOrRequesterContent}>
-                      {dataPreviewSVL.stateMySVL[1]}
-                      <div className={styles.separator}>
-                        <div className={styles.leftSepartor}></div>
-                        <div className={styles.middleSepartor}></div>
-                        <div className={styles.rightSepartor}></div>
-                      </div>
-                      <div>{requesterAddresLabel}</div>
-                    </div>
-                  </div>
-                }
-                {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == false &&
-                  <div className={styles.ownerOrRequesterContentWrapper}>
-                    <div className={styles.ownerOrRequesterContent}>
-                      {myAddress}
-                      <div className={styles.separator}>
-                        <div className={styles.leftSepartor}></div>
-                        <div className={styles.middleSepartor}></div>
-                        <div className={styles.rightSepartor}></div>
-                      </div>
-                      <div>{ownerMeLabel}</div>
-                    </div>
-                  </div>
-                }
-                {dataPreviewSVL.mySVL == false &&
-                  <div className={styles.ownerOrRequesterContentWrapper}>
-                    <div className={styles.ownerOrRequesterContent}>
-                      {dataPreviewSVL.stateNotMySVL[1]}
-                      <div className={styles.separator}>
-                        <div className={styles.leftSepartor}></div>
-                        <div className={styles.middleSepartor}></div>
-                        <div className={styles.rightSepartor}></div>
-                      </div>
-                      <div>{ownerAddressLabel}</div>
-                    </div>
-                  </div>
-                }
-                <img
-                  className={styles.previewSVL}
-                  src={dataPreviewSVL.mainPhotograph}/>
-                <div className={styles.infoPreviewSVL}>
-                  <div>
-                    {brandLabel} {dataPreviewSVL.brand}
-                  </div>
-                  <div>
-                    {modelLabel} {dataPreviewSVL.model}
-                  </div>
-                  <div>
-                    {yearLabel} {dataPreviewSVL.year}  
-                  </div>
-                </div>
-                <div className={styles.separator}>
-                  <div className={styles.leftSepartor}></div>
-                  <div className={styles.middleSepartor}></div>
-                  <div className={styles.rightSepartor}></div>
-                </div>
-                {(dataPreviewSVL.mySVL == false) ? (
-                  dataPreviewSVL.stateNotMySVL[0] == true && dataPreviewSVL.stateNotMySVL[2] != '' && dataPreviewSVL.stateNotMySVL[2] != myAddress ? (
-                    <div className={styles.blockedSVL}>
-                      {blockedLabel}
-                    </div>
-                  ) : (
-                    <div>
-                      {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == '' &&
-                        <div className={styles.requestSVLtransfer}>
-                          <RequestSVLButton requested={false} />
-                        </div>
-                      }
-                      {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
-                        <div className={styles.requestSVLtransfer}>
-                          <RequestSVLButton requested={true} />
-                        </div>
-                      }
-                      {dataPreviewSVL.stateNotMySVL[3] == true && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
-                        <div className={styles.buySVL}>
-                          <BuySVLButton />
-                        </div>
-                      }
-                    </div>
-                  )
-                ) : (
-                  dataPreviewSVL.stateMySVL[0] == false ? (
-                    <div className={styles.SVLNotRequested}>
-                      {notRequestedLabel}
-                    </div>
-                  ) : (
-                    dataPreviewSVL.stateMySVL[2] == false ? (
-                      <div className={styles.SVLRequested}>
-                        <AcceptSVLRequestButton />
-                        <DenySVLRequestButton />
-                      </div>
-                    ) : (
-                      <div className={styles.SVLPendingBuy}>
-                        <div className={styles.SVLRequestAcceptedPendingBuy}>
-                          {pendingBuyLabel}
-                        </div>
-                        <DenySVLRequestButton />
-                      </div>
-                    )
-                  )
-                )}  
-              </div>
-            </div>
-          ))}
-        </div>
-      }
-    </div>
-  );
-}
-
-export default PreviewSVLs;
+    */
