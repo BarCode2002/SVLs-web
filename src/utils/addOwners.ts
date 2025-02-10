@@ -2,29 +2,29 @@ import { SetStateAction } from "react";
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from "./constants";
 
-export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, brand: string, model: string, state: string, shift: string, fuel: string, climate: string, usage: string, storage: string) => {
+export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>) => {
   setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
     ...prevGeneralInformation,
     {
-      VIN: '',
-      brand: brand,
-      model: model,
-      year: '',
-      kilometers: '',
-      mainPhotograph: '',
-      state: state,
-      photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-      weight: '',
-      color: '',
-      engine: '',
-      power: '',
-      shift: shift,
-      fuel: fuel,
-      autonomy: '',
-      climate: climate,
-      usage: usage,
-      storage: storage,
-      comments: '',
+      VIN: prevGeneralInformation[prevGeneralInformation.length-1].VIN,
+      brand: prevGeneralInformation[prevGeneralInformation.length-1].brand,
+      model: prevGeneralInformation[prevGeneralInformation.length-1].model,
+      year: prevGeneralInformation[prevGeneralInformation.length-1].year,
+      kilometers: prevGeneralInformation[prevGeneralInformation.length-1].kilometers,
+      mainPhotograph: prevGeneralInformation[prevGeneralInformation.length-1].mainPhotograph,
+      state: prevGeneralInformation[prevGeneralInformation.length-1].state,
+      photographs: prevGeneralInformation[prevGeneralInformation.length-1].photographs,
+      weight: prevGeneralInformation[prevGeneralInformation.length-1].weight,
+      color: prevGeneralInformation[prevGeneralInformation.length-1].color,
+      engine: prevGeneralInformation[prevGeneralInformation.length-1].engine,
+      power: prevGeneralInformation[prevGeneralInformation.length-1].power,
+      shift: prevGeneralInformation[prevGeneralInformation.length-1].shift,
+      fuel: prevGeneralInformation[prevGeneralInformation.length-1].fuel,
+      autonomy: prevGeneralInformation[prevGeneralInformation.length-1].autonomy,
+      climate: prevGeneralInformation[prevGeneralInformation.length-1].climate,
+      usage: prevGeneralInformation[prevGeneralInformation.length-1].usage,
+      storage: prevGeneralInformation[prevGeneralInformation.length-1].storage,
+      comments: prevGeneralInformation[prevGeneralInformation.length-1].comments,
     },
   ]);
 }

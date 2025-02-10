@@ -21,10 +21,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
   const { t } = useTranslation();
 
   const handleOwnerAddition = () => {
-    addGeneralInformation(setGeneralInformation, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'), 
-        t('DataSVL.Forms.state'), t('DataSVL.Forms.shift'), t('DataSVL.Forms.fuel'), t('DataSVL.Forms.climate'),
-        t('DataSVL.Forms.usage'), t('DataSVL.Forms.storage')
-      );
+    addGeneralInformation(setGeneralInformation);
     addMaintenances(setMaintenances);
     addModifications(setModifications);
     addDefects(setDefects);
