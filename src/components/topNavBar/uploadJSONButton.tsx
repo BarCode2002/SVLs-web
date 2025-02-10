@@ -35,63 +35,34 @@ const UploadJSONButton = ({ selectedOwner, generalInformation, setGeneralInforma
             setGeneralInformation(updatedGeneralInformation);
 
             setOwnerSVLDataToEmpty(selectedOwner, setMaintenances);
-            for (let i = 0; i < ownerSVLData[1].numGroups; i++) {
-              addAndSetMaintenanceGroup(setMaintenances, selectedOwner, ownerSVLData[1].maintenances[i].date, ownerSVLData[1].maintenances[i].kilometers, ownerSVLData[1].maintenances[i].name,
-                ownerSVLData[1].maintenances[i].responsible, ownerSVLData[1].maintenances[i].pre, ownerSVLData[1].maintenances[i].post, 
-                ownerSVLData[1].maintenances[i].type[0].name, ownerSVLData[1].maintenances[i].type[0].components, ownerSVLData[1].maintenances[i].type[0].numComponents,
-                ownerSVLData[1].maintenances[i].type[0].pre, ownerSVLData[1].maintenances[i].type[0].post, ownerSVLData[1].maintenances[i].type[0].comments,
-                ownerSVLData[1].maintenances[i].type[0].shrinked, ownerSVLData[1].maintenances[i].shrinked
-              );
-              for (let j = 1; j < ownerSVLData[1].maintenances[i].numTypes; j++) {
-                addAndSetMaintenanceGroupType(setMaintenances, selectedOwner, i, ownerSVLData[1].maintenances[i].type[j].name, ownerSVLData[1].maintenances[i].type[j].components, 
-                  ownerSVLData[1].maintenances[i].type[j].numComponents, ownerSVLData[1].maintenances[i].type[j].pre, ownerSVLData[1].maintenances[i].type[j].post, 
-                  ownerSVLData[1].maintenances[i].type[j].comments, ownerSVLData[1].maintenances[i].type[j].shrinked
-                );
+            for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
+              addAndSetMaintenanceGroup(setMaintenances, selectedOwner, ownerSVLData[1].maintenances[i]);
+              for (let j = 1; j < ownerSVLData[1].maintenances[i].type.length; j++) {
+                addAndSetMaintenanceGroupType(setMaintenances, selectedOwner, i, ownerSVLData[1].maintenances[i].type[j]);
               }
             }
 
             setOwnerSVLDataToEmpty(selectedOwner, setModifications);
-            for (let i = 0; i < ownerSVLData[2].numGroups; i++) {
-              addAndSetModificationGroup(setModifications, selectedOwner, ownerSVLData[2].modifications[i].date, ownerSVLData[2].modifications[i].kilometers, ownerSVLData[2].modifications[i].name,
-                ownerSVLData[2].modifications[i].responsible, ownerSVLData[2].modifications[i].pre, ownerSVLData[2].modifications[i].post, 
-                ownerSVLData[2].modifications[i].type[0].name, ownerSVLData[2].modifications[i].type[0].components, ownerSVLData[2].modifications[i].type[0].numComponents,
-                ownerSVLData[2].modifications[i].type[0].pre, ownerSVLData[2].modifications[i].type[0].post, ownerSVLData[2].modifications[i].type[0].comments,
-                ownerSVLData[2].modifications[i].type[0].shrinked, ownerSVLData[2].modifications[i].shrinked
-              );
-              for (let j = 1; j < ownerSVLData[2].modifications[i].numTypes; j++) {
-                addAndSetModificationGroupType(setModifications, selectedOwner, i, ownerSVLData[2].modifications[i].type[j].name, ownerSVLData[2].modifications[i].type[j].components, 
-                  ownerSVLData[2].modifications[i].type[j].numComponents, ownerSVLData[2].modifications[i].type[j].pre, ownerSVLData[2].modifications[i].type[j].post, 
-                  ownerSVLData[2].modifications[i].type[j].comments, ownerSVLData[2].modifications[i].type[j].shrinked
-                );
+            for (let i = 0; i < ownerSVLData[2].modifications.length; i++) {
+              addAndSetModificationGroup(setModifications, selectedOwner, ownerSVLData[2].modifications[i]);
+              for (let j = 1; j < ownerSVLData[2].modifications[i].type.length; j++) {
+                addAndSetModificationGroupType(setModifications, selectedOwner, i, ownerSVLData[2].modifications[i].type[j]);
               }
             }
             
             setOwnerSVLDataToEmpty(selectedOwner, setDefects);
-            for (let i = 0; i < ownerSVLData[3].numGroups; i++) {
-              addAndSetDefectGroup(setDefects, selectedOwner, ownerSVLData[3].defects[i].date, ownerSVLData[3].defects[i].kilometers,
-                ownerSVLData[3].defects[i].cause, ownerSVLData[3].defects[i].type[0].level, ownerSVLData[3].defects[i].type[0].photographs,
-                ownerSVLData[3].defects[i].type[0].description, ownerSVLData[3].defects[i].type[0].shrinked, ownerSVLData[3].defects[i].shrinked
-              );
-              for (let j = 1; j < ownerSVLData[3].defects[i].numTypes; ++j) {
-                addAndSetDefectGroupType(setDefects, selectedOwner, i,ownerSVLData[3].defects[i].type[0].level, ownerSVLData[3].defects[i].type[0].photographs,
-                  ownerSVLData[3].defects[i].type[0].description, ownerSVLData[3].defects[i].type[0].shrinked,
-                );
+            for (let i = 0; i < ownerSVLData[3].defects.length; i++) {
+              addAndSetDefectGroup(setDefects, selectedOwner, ownerSVLData[3].defects[i]);
+              for (let j = 1; j < ownerSVLData[3].defects[i].type.length; ++j) {
+                addAndSetDefectGroupType(setDefects, selectedOwner, i, ownerSVLData[3].defects[i].type[j]);
               }
             }
 
             setOwnerSVLDataToEmpty(selectedOwner, setRepairs);
-            for (let i = 0; i < ownerSVLData[4].numGroups; i++) {
-              addAndSetRepairGroup(setRepairs, selectedOwner, ownerSVLData[4].repairs[i].date, ownerSVLData[4].repairs[i].kilometers, ownerSVLData[4].repairs[i].name,
-                ownerSVLData[4].repairs[i].responsible, ownerSVLData[4].repairs[i].pre, ownerSVLData[4].repairs[i].post, ownerSVLData[4].repairs[i].defectsRepaired, 
-                ownerSVLData[4].repairs[i].numDefectsRepaired, ownerSVLData[4].repairs[i].type[0].name, ownerSVLData[4].repairs[i].type[0].components, 
-                ownerSVLData[4].repairs[i].type[0].numComponents, ownerSVLData[4].repairs[i].type[0].pre, ownerSVLData[4].repairs[i].type[0].post, 
-                ownerSVLData[4].repairs[i].type[0].comments, ownerSVLData[4].repairs[i].type[0].shrinked, ownerSVLData[4].repairs[i].shrinked
-              );
-              for (let j = 1; j < ownerSVLData[4].repairs[i].numTypes; j++) {
-                addAndSetRepairGroupType(setRepairs, selectedOwner, i, ownerSVLData[4].repairs[i].type[j].name, ownerSVLData[4].repairs[i].type[j].components, 
-                  ownerSVLData[4].repairs[i].type[j].numComponents, ownerSVLData[4].repairs[i].type[j].pre, ownerSVLData[4].repairs[i].type[j].post, 
-                  ownerSVLData[4].repairs[i].type[j].comments, ownerSVLData[4].repairs[i].type[j].shrinked
-                );
+            for (let i = 0; i < ownerSVLData[4].repairs.length; i++) {
+              addAndSetRepairGroup(setRepairs, selectedOwner, ownerSVLData[4].repairs[i]);
+              for (let j = 1; j < ownerSVLData[4].repairs[i].type.length; j++) {
+                addAndSetRepairGroupType(setRepairs, selectedOwner, i, ownerSVLData[4].repairs[i].type[j]);
               }
             }
   

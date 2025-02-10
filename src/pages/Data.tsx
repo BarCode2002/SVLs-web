@@ -12,6 +12,7 @@ import { addAndSetMaintenanceGroup, addAndSetMaintenanceGroupType, setOwnerSVLDa
 import { addAndSetModificationGroup, addAndSetModificationGroupType } from '../utils/uploadJSON.ts';
 import { addAndSetDefectGroup, addAndSetDefectGroupType } from '../utils/uploadJSON.ts';
 import { addAndSetRepairGroup, addAndSetRepairGroupType } from '../utils/uploadJSON.ts';
+import { addGeneralInformation, addMaintenances, addModifications, addDefects, addRepairs } from '../utils/addOwners.ts';
 
 const Data = (): JSX.Element => {
 
@@ -79,9 +80,7 @@ const Data = (): JSX.Element => {
           shrinked: false,
         })),
         shrinked: false,
-        numTypes: 1,
-      })),
-      numGroups: 1,
+      }))
     }))
   );
   
@@ -104,9 +103,7 @@ const Data = (): JSX.Element => {
           shrinked: false,
         })),
         shrinked: false,
-        numTypes: 1,
-      })),
-      numGroups: 1,
+      }))
     }))
   );
 
@@ -123,9 +120,7 @@ const Data = (): JSX.Element => {
           shrinked: false,
         })),
         shrinked: false,
-        numTypes: 1,
-      })),
-      numGroups: 1,
+      }))
     }))
   );
 
@@ -150,9 +145,7 @@ const Data = (): JSX.Element => {
           shrinked: false,
         })),
         shrinked: false,
-        numTypes: 1,
-      })),
-      numGroups: 1,
+      }))
     }))
   );
 
@@ -162,7 +155,52 @@ const Data = (): JSX.Element => {
   const prevOwnersDefects: Defects[] = [];
   const prevOwnerRepairs: Repairs[] = [];
 
-   const fillOneRealOwnerSVLData = () => {
+  const fillOwnerSVLData = (selectedOwner: number, ownerSVLData: any) => {
+    if (selectedOwner > 0) {
+      addGeneralInformation(setGeneralInformation, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'), 
+        t('DataSVL.Forms.state'), t('DataSVL.Forms.shift'), t('DataSVL.Forms.fuel'), t('DataSVL.Forms.climate'),
+        t('DataSVL.Forms.usage'), t('DataSVL.Forms.storage')
+      );
+      addMaintenances(setMaintenances);
+      addModifications(setModifications);
+      addDefects(setDefects);
+      addRepairs(setRepairs);
+    }
+    const updatedGeneralInformation = [...generalInformation];
+    updatedGeneralInformation[selectedOwner] = ownerSVLData[0];
+    setGeneralInformation(updatedGeneralInformation);
+
+    setOwnerSVLDataToEmpty(selectedOwner, setMaintenances);
+    for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
+      addAndSetMaintenanceGroup(setMaintenances, selectedOwner, ownerSVLData[1].maintenances[i]);
+      for (let j = 1; j < ownerSVLData[1].maintenances[i].type.length; j++) {
+        addAndSetMaintenanceGroupType(setMaintenances, selectedOwner, i, ownerSVLData[1].maintenances[i].type[j]);
+      }
+    }
+
+    setOwnerSVLDataToEmpty(selectedOwner, setModifications);
+    for (let i = 0; i < ownerSVLData[2].modifications.length; i++) {
+      addAndSetModificationGroup(setModifications, selectedOwner, ownerSVLData[2].modifications[i]);
+      for (let j = 1; j < ownerSVLData[2].modifications[i].type.length; j++) {
+        addAndSetModificationGroupType(setModifications, selectedOwner, i, ownerSVLData[2].modifications[i].type[j]);
+      }
+    }
+
+    setOwnerSVLDataToEmpty(selectedOwner, setDefects);
+    for (let i = 0; i < ownerSVLData[3].defects.length; i++) {
+      addAndSetDefectGroup(setDefects, selectedOwner, ownerSVLData[3].defects[i]);
+      for (let j = 1; j < ownerSVLData[3].defects[i].type.length; ++j) {
+        addAndSetDefectGroupType(setDefects, selectedOwner, i, ownerSVLData[3].defects[i].type[j]);
+      }
+    }
+
+    setOwnerSVLDataToEmpty(selectedOwner, setRepairs);
+    for (let i = 0; i < ownerSVLData[4].repairs.length; i++) {
+      addAndSetRepairGroup(setRepairs, selectedOwner, ownerSVLData[4].repairs[i]);
+      for (let j = 1; j < ownerSVLData[4].repairs[i].type.length; j++) {
+        addAndSetRepairGroupType(setRepairs, selectedOwner, i, ownerSVLData[4].repairs[i].type[j]);
+      }
+    }
 
   }
 
@@ -177,6 +215,7 @@ const Data = (): JSX.Element => {
               for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`);
                 console.log(responseIPFS.data);
+                fillOwnerSVLData(i, responseIPFS.data);
               }
             } catch (error: any | AxiosError) {
               console.error("Unexpected error:", error);

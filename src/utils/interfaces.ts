@@ -40,9 +40,7 @@ export interface Maintenances {
     post: string[],
     type: Maintenance[];
     shrinked: boolean;
-    numTypes: number;
   }[];
-  numGroups: number;
 }
 
 interface Modification {
@@ -65,9 +63,7 @@ export interface Modifications {
     post: string[],
     type: Modification[];
     shrinked: boolean;
-    numTypes: number;
   }[];
-  numGroups: number;
 }
 
 interface Defect {
@@ -84,9 +80,7 @@ export interface Defects {
     cause: string;
     type: Defect[];
     shrinked: boolean;
-    numTypes: number;
   }[];
-  numGroups: number;
 }
 
 interface Repair {
@@ -111,9 +105,7 @@ export interface Repairs {
     numDefectsRepaired: number;
     type: Repair[];
     shrinked: boolean;
-    numTypes: number;
   }[];
-  numGroups: number;
 }
 
 export interface PreviewSVLsInfo {

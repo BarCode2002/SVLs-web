@@ -23,7 +23,6 @@ const RemoveGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, selec
                   ? {
                       ...groupItem,
                       type: groupItem.type.filter((_, i) => i !== selectedGroupType), 
-                      numTypes: groupItem.numTypes - 1, 
                     }
                   : groupItem 
               ),

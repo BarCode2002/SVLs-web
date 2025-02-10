@@ -64,7 +64,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
 
   const renderlistMaintenances = (groupIndex: number) => {
 
-    const listMaintenances = Array.from({length: maintenances[selectedOwner].group[groupIndex].numTypes}, (_, typeIndex) => (
+    const listMaintenances = Array.from({length: maintenances[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} 
         draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, typeIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, typeIndex)} onDragOver={(e) => handleDragOver(e)} >
@@ -75,7 +75,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
             <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
-            {maintenances[selectedOwner].group[groupIndex].numTypes > 1 &&
+            {maintenances[selectedOwner].group[groupIndex].type.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
               />
@@ -112,7 +112,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
           }
         </div>
         <div className={styles.addType}>
-          {maintenances[selectedOwner].group[groupIndex].numTypes - 1 == typeIndex &&
+          {maintenances[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} type={'maintenance'} editMode={editMode}
             />
@@ -128,7 +128,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
     );
   };
   
-  const listGroupMaintenances = Array.from({length: maintenances[selectedOwner].numGroups}, (_, groupIndex) => (
+  const listGroupMaintenances = Array.from({length: maintenances[selectedOwner].group.length}, (_, groupIndex) => (
     <div key={groupIndex}>
       <div className={styles.groupContainer}>
         <div className={styles.topPart}>
@@ -174,7 +174,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
         }
       </div>
       <div className={styles.addGroupButton}>
-        {maintenances[selectedOwner].numGroups - 1 == groupIndex &&
+        {maintenances[selectedOwner].group.length - 1 == groupIndex &&
           <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} editMode={editMode} />
         }
       </div>
@@ -188,7 +188,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
       </div>
       {listGroupMaintenances}
       <div className={styles.addGroupButton}>
-        {maintenances[selectedOwner].numGroups == 0 &&
+        {maintenances[selectedOwner].group.length == 0 &&
           <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} editMode={editMode} />
         }
       </div>

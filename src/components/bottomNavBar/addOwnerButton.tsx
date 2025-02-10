@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
-import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../utils/constants';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
+import { addGeneralInformation, addMaintenances, addModifications, addDefects, addRepairs } from '../../utils/addOwners.ts';
 import { useTranslation } from "react-i18next";
 
 type AddOwnerButtonProps = {
@@ -20,148 +20,15 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
 
   const { t } = useTranslation();
 
-  const addGeneralInformation = async () => {
-    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
-      ...prevGeneralInformation,
-      {
-        VIN: '',
-        brand: t('DataSVL.Forms.brand'),
-        model: t('DataSVL.Forms.model'),
-        year: '',
-        kilometers: '',
-        mainPhotograph: '',
-        state: t('DataSVL.Forms.state'),
-        photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        weight: '',
-        color: '',
-        engine: '',
-        power: '',
-        shift: t('DataSVL.Forms.shift'),
-        fuel: t('DataSVL.Forms.fuel'),
-        autonomy: '',
-        climate: t('DataSVL.Forms.climate'),
-        usage: t('DataSVL.Forms.usage'),
-        storage: t('DataSVL.Forms.storage'),
-        comments: '',
-      },
-    ]);
-  }
-
-  const addMaintenances = async () => {
-    setMaintenances((prevMaintenances: Maintenances[]) => [
-      ...prevMaintenances,
-      {
-        group: Array.from({ length: 1 }, () => ({
-          date: "",
-          kilometers: "",
-          name: "",
-          responsible: [null, "", null, ""],
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          type: Array.from({ length: 1 }, () => ({
-            name: "",
-            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-            numComponents: 1,
-            pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-            post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-            comments: "",
-            shrinked: false,
-          })),
-          shrinked: false,
-          numTypes: 1,
-        })),
-        numGroups: 1,
-      },
-    ]);
-  }
-
-  const addModifications = async () => {
-    setModifications((prevModifications: Modifications[]) => [
-      ...prevModifications,
-      {
-        group: Array.from({ length: 1 }, () => ({
-          date: "",
-          kilometers: "",
-          name: "",
-          responsible: [null, "", null, ""],
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          type: Array.from({ length: 1 }, () => ({
-            name: "",
-            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-            numComponents: 1,
-            pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-            post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-            comments: "",
-            shrinked: false,
-          })),
-          shrinked: false,
-          numTypes: 1,
-        })),
-        numGroups: 1,
-      },
-    ]);
-  }
-
-  const addDefects = async () => {
-    setDefects((prevDefects: Defects[]) => [
-      ...prevDefects,
-      {
-        group: Array.from({ length: 1 }, () => ({
-          date: "",
-          kilometers: "",
-          cause: "",
-          type: Array.from({ length: 1 }, () => ({
-            level: "",
-            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-            photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-            description: "",
-            shrinked: false,
-          })),
-          shrinked: false,
-          numTypes: 1,
-        })),
-        numGroups: 1,
-      },
-    ]);
-  }
-
-  const addRepairs = async () => {
-    setRepairs((prevRepairs: Repairs[]) => [
-      ...prevRepairs,
-      {
-        group: Array.from({ length: 1 }, () => ({
-          date: "",
-          kilometers: "",
-          name: "",
-          responsible: [null, "", null, ""],
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
-          numDefectsRepaired: 0,
-          type: Array.from({ length: 1 }, () => ({
-            name: "",
-            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-            numComponents: 1,
-            pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-            post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-            comments: "",
-            shrinked: false,
-          })),
-          shrinked: false,
-          numTypes: 1,
-        })),
-        numGroups: 1,
-      },
-    ]);
-  }
-  
-  const handleOwnerAddition = async () => {
-    addGeneralInformation();
-    addMaintenances();
-    addModifications();
-    addDefects();
-    addRepairs();
+  const handleOwnerAddition = () => {
+    addGeneralInformation(setGeneralInformation, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'), 
+        t('DataSVL.Forms.state'), t('DataSVL.Forms.shift'), t('DataSVL.Forms.fuel'), t('DataSVL.Forms.climate'),
+        t('DataSVL.Forms.usage'), t('DataSVL.Forms.storage')
+      );
+    addMaintenances(setMaintenances);
+    addModifications(setModifications);
+    addDefects(setDefects);
+    addRepairs(setRepairs);
     setSelectedOwner(totalOwners);
     setTotalOwners(totalOwners+1);
   }

@@ -23,7 +23,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
           ? {
               ...item,
               group: item.group.map((groupItem, gIndex) =>
-                gIndex === selectedGroup 
+                gIndex == selectedGroup 
                   ? {
                       ...groupItem,
                       type: [
@@ -38,7 +38,6 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                           shrinked: false,
                         },
                       ],
-                      numTypes: groupItem.numTypes + 1,
                     }
                   : groupItem 
               ),
@@ -51,7 +50,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
   const addModificationGroupType = () => {
     setDataSVL((prevDataSVL: Maintenances[]) =>
       prevDataSVL.map((item, index) =>
-        index === selectedOwner 
+        index == selectedOwner 
           ? {
               ...item,
               group: item.group.map((groupItem, gIndex) =>
@@ -70,7 +69,6 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                           shrinked: false,
                         },
                       ],
-                      numTypes: groupItem.numTypes + 1,
                     }
                   : groupItem 
               ),
@@ -83,7 +81,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
   const addDefectGroupType = () => {
     setDataSVL((prevDataSVL: Maintenances[]) =>
       prevDataSVL.map((item, index) =>
-        index === selectedOwner 
+        index == selectedOwner 
           ? {
               ...item,
               group: item.group.map((groupItem, gIndex) =>
@@ -99,7 +97,6 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                           shrinked: false,
                         },
                       ],
-                      numTypes: groupItem.numTypes + 1,
                     }
                   : groupItem 
               ),
@@ -112,7 +109,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
   const addRepairGroupType = () => {
     setDataSVL((prevDataSVL: Maintenances[]) =>
       prevDataSVL.map((item, index) =>
-        index === selectedOwner 
+        index == selectedOwner 
           ? {
               ...item,
               group: item.group.map((groupItem, gIndex) =>
@@ -131,7 +128,6 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                           shrinked: false,
                         },
                       ],
-                      numTypes: groupItem.numTypes + 1,
                     }
                   : groupItem 
               ),

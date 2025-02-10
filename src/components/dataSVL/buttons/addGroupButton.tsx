@@ -40,10 +40,8 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                     shrinked: false,
                   })),
                   shrinked: false,
-                  numTypes: 1,
                 },
               ],
-              numGroups: item.numGroups + 1,
             }
           : item
       )
@@ -75,10 +73,8 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                     shrinked: false,
                   })),
                   shrinked: false,
-                  numTypes: 1,
                 },
               ],
-              numGroups: item.numGroups + 1,
             }
           : item
       )
@@ -104,10 +100,8 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                     shrinked: false,
                   })),
                   shrinked: false,
-                  numTypes: 1,
                 },
               ],
-              numGroups: item.numGroups + 1,
             }
           : item
       )
@@ -141,10 +135,8 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                     shrinked: false,
                   })),
                   shrinked: false,
-                  numTypes: 1,
                 },
               ],
-              numGroups: item.numGroups + 1,
             }
           : item
       )

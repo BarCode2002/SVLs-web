@@ -19,7 +19,6 @@ const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup, editMode 
           ? {
               ...item,
               group: item.group.filter((_, i) => i !== selectedGroup),
-              numGroups: item.numGroups - 1,
             }
           : item
       )

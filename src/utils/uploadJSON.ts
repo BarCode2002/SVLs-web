@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
 
-export const addAndSetGeneralInformation = async (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, generalInformation: GeneralInformation) => {
+export const addAndSetGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, generalInformation: GeneralInformation) => {
     setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
       ...prevGeneralInformation,
       {
@@ -28,7 +28,7 @@ export const addAndSetGeneralInformation = async (setGeneralInformation: React.D
     ]);
   }
 
-export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, date: string, kilometers: string, name: string, responsible: any, pre: string[], post: string[], nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
+export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, maintenanceGroup: any) => {
   setMaintenances((prevMaintenances: Maintenances[]) =>
     prevMaintenances.map((item, index) =>
       index == selectedOwner
@@ -37,55 +37,52 @@ export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetSta
             group: [
               ...item.group,
               {
-                date: date,
-                kilometers: kilometers,
-                name: name,
-                responsible: responsible,
-                pre: pre,
-                post: post,
+                date: maintenanceGroup.date,
+                kilometers: maintenanceGroup.kilometers,
+                name: maintenanceGroup.name,
+                responsible: maintenanceGroup.responsible,
+                pre: maintenanceGroup.pre,
+                post: maintenanceGroup.post,
                 type: Array.from({ length: 1 }, () => ({
-                  name: nameType,
-                  components: components,
-                  numComponents: numComponents,
-                  pre: preType,
-                  post: postType,
-                  comments: comments,
-                  shrinked: shrinkedType,
+                  name: maintenanceGroup.type[0].name,
+                  components: maintenanceGroup.type[0].components,
+                  numComponents: maintenanceGroup.type[0].numComponents,
+                  pre: maintenanceGroup.type[0].pre,
+                  post: maintenanceGroup.type[0].post,
+                  comments: maintenanceGroup.type[0].comments,
+                  shrinked: maintenanceGroup.type[0].shrinked,
                 })),
-                shrinked: shrinked,
-                numTypes: 1,
+                shrinked: maintenanceGroup.shrinked,
               },
             ],
-            numGroups: item.numGroups + 1,
           }
         : item
     )
   );
 }
 
-export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, selectedGroup: number, name: string, components: string[], numComponents: number, pre: string[], post: string[], comments: string, shrinked: boolean) => {
+export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, selectedGroup: number, maintenanceType: any) => {
   setMaintenances((prevMaintenances: Maintenances[]) =>
     prevMaintenances.map((item, index) =>
-      index === selectedOwner 
+      index == selectedOwner 
         ? {
             ...item,
             group: item.group.map((groupItem, gIndex) =>
-              gIndex === selectedGroup 
+              gIndex == selectedGroup 
                 ? {
                     ...groupItem,
                     type: [
                       ...groupItem.type,
                       {
-                        name: name,
-                        components: components,
-                        numComponents: numComponents,
-                        pre: pre,
-                        post: post,
-                        comments: comments,
-                        shrinked: shrinked,
+                        name: maintenanceType.name,
+                        components: maintenanceType.components,
+                        numComponents: maintenanceType.numComponents,
+                        pre: maintenanceType.pre,
+                        post: maintenanceType.post,
+                        comments: maintenanceType.comments,
+                        shrinked: maintenanceType.shrinked,
                       },
                     ],
-                    numTypes: groupItem.numTypes + 1,
                   }
                 : groupItem 
             ),
@@ -95,7 +92,7 @@ export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<Se
   );
 }
 
-export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetStateAction<Modifications[]>>, selectedOwner: number, date: string, kilometers: string, name: string, responsible: any, pre: string[], post: string[], nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
+export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetStateAction<Modifications[]>>, selectedOwner: number, modificationGroup: any) => {
   setModifications((prevModifications: Modifications[]) =>
     prevModifications.map((item, index) =>
       index == selectedOwner
@@ -104,55 +101,52 @@ export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetS
             group: [
               ...item.group,
               {
-                date: date,
-                kilometers: kilometers,
-                name: name,
-                responsible: responsible,
-                pre: pre,
-                post: post,
+                date: modificationGroup.date,
+                kilometers: modificationGroup.kilometers,
+                name: modificationGroup.name,
+                responsible: modificationGroup.responsible,
+                pre: modificationGroup.pre,
+                post: modificationGroup.post,
                 type: Array.from({ length: 1 }, () => ({
-                  name: nameType,
-                  components: components,
-                  numComponents: numComponents,
-                  pre: preType,
-                  post: postType,
-                  comments: comments,
-                  shrinked: shrinkedType,
+                  name: modificationGroup.type[0].name,
+                  components: modificationGroup.type[0].components,
+                  numComponents: modificationGroup.type[0].numComponents,
+                  pre: modificationGroup.type[0].pre,
+                  post: modificationGroup.type[0].post,
+                  comments: modificationGroup.type[0].comments,
+                  shrinked: modificationGroup.type[0].shrinked,
                 })),
-                shrinked: shrinked,
-                numTypes: 1,
+                shrinked: modificationGroup.shrinked,
               },
             ],
-            numGroups: item.numGroups + 1,
           }
         : item
     )
   );
 }
 
-export const addAndSetModificationGroupType = (setModifications: React.Dispatch<SetStateAction<Modifications[]>>, selectedOwner: number, selectedGroup: number, name: string, components: string[], numComponents: number, pre: string[], post: string[], comments: string, shrinked: boolean) => {
+export const addAndSetModificationGroupType = (setModifications: React.Dispatch<SetStateAction<Modifications[]>>, selectedOwner: number, selectedGroup: number, modificationType: any) => {
   setModifications((prevModifications: Modifications[]) =>
     prevModifications.map((item, index) =>
-      index === selectedOwner 
+      index == selectedOwner 
         ? {
             ...item,
             group: item.group.map((groupItem, gIndex) =>
-              gIndex === selectedGroup 
+              gIndex == selectedGroup 
                 ? {
                     ...groupItem,
                     type: [
                       ...groupItem.type,
                       {
-                        name: name,
-                        components: components,
-                        numComponents: numComponents,
-                        pre: pre,
-                        post: post,
-                        comments: comments,
-                        shrinked: shrinked,
+                        name: modificationType.name,
+                        components: modificationType.components,
+                        numComponents: modificationType.numComponents,
+                        pre: modificationType.pre,
+                        post: modificationType.post,
+                        comments: modificationType.comments,
+                        shrinked: modificationType.shrinked,
                       },
                     ],
-                    numTypes: groupItem.numTypes + 1,
                   }
                 : groupItem 
             ),
@@ -162,7 +156,7 @@ export const addAndSetModificationGroupType = (setModifications: React.Dispatch<
   );
 }
 
-export const addAndSetDefectGroup = (setDefects: React.Dispatch<SetStateAction<Defects[]>>, selectedOwner: number, date: string, kilometers: string, cause: string, level: string, photographs: string[], description: string, shrinkedType: boolean, shrinked: boolean) => {
+export const addAndSetDefectGroup = (setDefects: React.Dispatch<SetStateAction<Defects[]>>, selectedOwner: number, defectGroup: any) => {
   setDefects((prevDefects: Defects[]) =>
     prevDefects.map((item, index) =>
       index == selectedOwner
@@ -171,46 +165,43 @@ export const addAndSetDefectGroup = (setDefects: React.Dispatch<SetStateAction<D
             group: [
               ...item.group,
               {
-                date: date,
-                kilometers: kilometers,
-                cause: cause,
+                date: defectGroup.date,
+                kilometers: defectGroup.kilometers,
+                cause: defectGroup.cause,
                 type: Array.from({ length: 1 }, () => ({
-                  level: level,
-                  photographs: photographs,
-                  description: description,
-                  shrinked: shrinkedType,
+                  level: defectGroup.type[0].level,
+                  photographs: defectGroup.type[0].photographs,
+                  description: defectGroup.type[0].description,
+                  shrinked: defectGroup.type[0].shrinked,
                 })),
-                shrinked: shrinked,
-                numTypes: 1,
+                shrinked: defectGroup.shrinked,
               },
             ],
-            numGroups: item.numGroups + 1,
           }
         : item
     )
   );
 }
 
-export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateAction<Defects[]>>, selectedOwner: number, selectedGroup: number, level: string, photographs: string[], description: string, shrinked: boolean,) => {
+export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateAction<Defects[]>>, selectedOwner: number, selectedGroup: number, defectType: any) => {
   setDefects((prevDefects: Defects[]) =>
     prevDefects.map((item, index) =>
-      index === selectedOwner 
+      index == selectedOwner 
         ? {
             ...item,
             group: item.group.map((groupItem, gIndex) =>
-              gIndex === selectedGroup 
+              gIndex == selectedGroup 
                 ? {
                     ...groupItem,
                     type: [
                       ...groupItem.type,
                       {
-                        level: level,
-                        photographs: photographs,
-                        description: description,
-                        shrinked: shrinked,
+                        level: defectType.level,
+                        photographs: defectType.photographs,
+                        description: defectType.description,
+                        shrinked: defectType.shrinked,
                       },
                     ],
-                    numTypes: groupItem.numTypes + 1,
                   }
                 : groupItem 
             ),
@@ -220,7 +211,7 @@ export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateActi
   );
 }
 
-export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<Repairs[]>>, selectedOwner: number, date: string, kilometers: string, name: string, responsible: any, pre: string[], post: string[], defectsRepaired: [], numDefectsRepaired: number , nameType: string, components: string[], numComponents: number, preType: string[], postType: string[], comments: string, shrinkedType: boolean, shrinked: boolean) => {
+export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<Repairs[]>>, selectedOwner: number, repairGroup: any) => {
   setRepairs((prevRepairs: Repairs[]) =>
     prevRepairs.map((item, index) =>
       index == selectedOwner
@@ -229,57 +220,54 @@ export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<R
             group: [
               ...item.group,
               {
-                date: date,
-                kilometers: kilometers,
-                name: name,
-                responsible: responsible,
-                pre: pre,
-                post: post,
-                defectsRepaired: defectsRepaired,
-                numDefectsRepaired: numDefectsRepaired,
+                date: repairGroup.date,
+                kilometers: repairGroup.kilometers,
+                name: repairGroup.name,
+                responsible: repairGroup.responsible,
+                pre: repairGroup.pre,
+                post: repairGroup.post,
+                defectsRepaired: repairGroup.defectsRepaired,
+                numDefectsRepaired: repairGroup.numDefectsRepaired,
                 type: Array.from({ length: 1 }, () => ({
-                  name: nameType,
-                  components: components,
-                  numComponents: numComponents,
-                  pre: preType,
-                  post: postType,
-                  comments: comments,
-                  shrinked: shrinkedType,
+                  name: repairGroup.type[0].name,
+                  components: repairGroup.type[0].components,
+                  numComponents: repairGroup.type[0].numComponents,
+                  pre: repairGroup.type[0].pre,
+                  post: repairGroup.type[0].post,
+                  comments: repairGroup.type[0].comments,
+                  shrinked: repairGroup.type[0].shrinked,
                 })),
-                shrinked: shrinked,
-                numTypes: 1,
+                shrinked: repairGroup.shrinked,
               },
             ],
-            numGroups: item.numGroups + 1,
           }
         : item
     )
   );
 }
 
-export const addAndSetRepairGroupType = (setRepairs: React.Dispatch<SetStateAction<Repairs[]>>, selectedOwner: number, selectedGroup: number, name: string, components: string[], numComponents: number, pre: string[], post: string[], comments: string, shrinked: boolean) => {
+export const addAndSetRepairGroupType = (setRepairs: React.Dispatch<SetStateAction<Repairs[]>>, selectedOwner: number, selectedGroup: number, repairType: any) => {
   setRepairs((prevRepairs: Repairs[]) =>
     prevRepairs.map((item, index) =>
-      index === selectedOwner 
+      index == selectedOwner 
         ? {
             ...item,
             group: item.group.map((groupItem, gIndex) =>
-              gIndex === selectedGroup 
+              gIndex == selectedGroup 
                 ? {
                     ...groupItem,
                     type: [
                       ...groupItem.type,
                       {
-                        name: name,
-                        components: components,
-                        numComponents: numComponents,
-                        pre: pre,
-                        post: post,
-                        comments: comments,
-                        shrinked: shrinked,
+                        name: repairType.name,
+                        components: repairType.components,
+                        numComponents: repairType.numComponents,
+                        pre: repairType.pre,
+                        post: repairType.post,
+                        comments: repairType.comments,
+                        shrinked: repairType.shrinked,
                       },
                     ],
-                    numTypes: groupItem.numTypes + 1,
                   }
                 : groupItem 
             ),
@@ -292,10 +280,9 @@ export const addAndSetRepairGroupType = (setRepairs: React.Dispatch<SetStateActi
 export const setOwnerSVLDataToEmpty = (selectedOwner: number, setDataSVL: any) => {
   setDataSVL((prevDataSVL: any[]) => 
     prevDataSVL.map((item, index) =>
-      index === selectedOwner
+      index == selectedOwner
         ? {
             group: [],
-            numGroups: 0,
           }
         : item
     )

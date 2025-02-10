@@ -50,7 +50,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const handleMeResponsible = () => {
     const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = true;    
+    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = false;    
     setDataSVL(updatedDataSVL);
     setMechanic(false);
     setProof(null);
@@ -59,7 +59,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const handleMechanicResponsible = () => {
     const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = false;    
+    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = true;    
     setDataSVL(updatedDataSVL);
     setMechanic(true);
     setProof(null);

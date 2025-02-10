@@ -17,27 +17,27 @@ type RemoveOwnerButtonProps = {
 
 const RemoveOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, totalOwners, setTotalOwners, editMode }: RemoveOwnerButtonProps): JSX.Element => {
 
-  const removeGeneralInformation = async () => {
-    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => prevGeneralInformation.filter((_, index) => index !== selectedOwner));
+  const removeGeneralInformation = () => {
+    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => prevGeneralInformation.filter((_, index) => index != selectedOwner));
   }
 
-  const removeMaintenances = async () => {
-    setMaintenances((prevMaintenances: Maintenances[]) => prevMaintenances.filter((_, index) => index !== selectedOwner));
+  const removeMaintenances = () => {
+    setMaintenances((prevMaintenances: Maintenances[]) => prevMaintenances.filter((_, index) => index != selectedOwner));
   }
 
-  const removeModifications = async () => {
-    setModifications((prevModifications: Modifications[]) => prevModifications.filter((_, index) => index !== selectedOwner));
+  const removeModifications = () => {
+    setModifications((prevModifications: Modifications[]) => prevModifications.filter((_, index) => index != selectedOwner));
   }
 
-  const removeDefects = async () => {
-    setDefects((prevDefects: Defects[]) => prevDefects.filter((_, index) => index !== selectedOwner));
+  const removeDefects = () => {
+    setDefects((prevDefects: Defects[]) => prevDefects.filter((_, index) => index != selectedOwner));
   }
 
-  const removeRepairs = async () => {
-    setRepairs((prevRepairs: Repairs[]) => prevRepairs.filter((_, index) => index !== selectedOwner));
+  const removeRepairs = () => {
+    setRepairs((prevRepairs: Repairs[]) => prevRepairs.filter((_, index) => index != selectedOwner));
   }
   
-  const handleOwnerRemoval = async () => {
+  const handleOwnerRemoval = () => {
 
     removeGeneralInformation();
     removeMaintenances();
