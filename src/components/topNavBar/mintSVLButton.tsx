@@ -102,12 +102,13 @@ const MintSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
           if (modifications[i].group[j].pre[k][4] == ':') {
             console.log(`Owner ${i+1} has not saved the previous images field for group ${j+1} in Modifications`);
             return false;
-          } else if (modifications[i].group[k].post[k][4] == ':') {
+          }
+          if (modifications[i].group[j].post[k][4] == ':') {
             console.log(`Owner ${i+1} has not saved the posterior images field for group ${j+1} in Modifications`);
             return false;
           }
         }
-        for (let l = 0; l < modifications[i].group[j].type.length; j++) {
+        for (let l = 0; l < modifications[i].group[j].type.length; l++) {
           for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
             if (modifications[i].group[j].type[l].pre[z][4] == ':') {
               console.log(`Owner ${i+1} has not saved the previous images field for group ${j+1} and type ${l} in Modifications`);
@@ -121,7 +122,7 @@ const MintSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
         }
       }
       for (let j = 0; j < defects[i].group.length; j++) {
-        for (let l = 0; l < defects[i].group[j].type.length; j++) {
+        for (let l = 0; l < defects[i].group[j].type.length; l++) {
           for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
             if (defects[i].group[j].type[l].photographs[z][4] == ':') {
               console.log(`Owner ${i+1} has not saved the images field for group ${j+1} and type ${l} in Defects`);
@@ -139,12 +140,12 @@ const MintSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
           if (repairs[i].group[j].pre[k][4] == ':') {
             console.log(`Owner ${i+1} has not saved the previous images field for group ${j+1} in Repairs`);
             return false;
-          } else if (repairs[i].group[k].post[k][4] == ':') {
+          } else if (repairs[i].group[j].post[k][4] == ':') {
             console.log(`Owner ${i+1} has not saved the posterior images field for group ${j+1} in Repairs`);
             return false;
           }
         }
-        for (let l = 0; l < repairs[i].group[j].type.length; j++) {
+        for (let l = 0; l < repairs[i].group[j].type.length; l++) {
           for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
             if (repairs[i].group[j].type[l].pre[z][4] == ':') {
               console.log(`Owner ${i+1} has not saved the previous images field for group ${j+1} and type ${l} in Repairs`);
@@ -176,7 +177,7 @@ const MintSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log("Upload successful:", response.data.cids);
+        //console.log("Upload successful:", response.data.cids);
         cids = response.data.cids;
       } catch (error) {
         console.error("Upload failed:", error);

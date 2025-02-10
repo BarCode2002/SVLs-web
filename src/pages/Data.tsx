@@ -163,6 +163,7 @@ const Data = (): JSX.Element => {
       addDefects(setDefects, t('DataSVL.Forms.level'));
       addRepairs(setRepairs);
     }
+
     const updatedGeneralInformation = [...generalInformation];
     updatedGeneralInformation[selectedOwner] = ownerSVLData[0];
     setGeneralInformation(updatedGeneralInformation);
@@ -198,7 +199,6 @@ const Data = (): JSX.Element => {
         addAndSetRepairGroupType(setRepairs, selectedOwner, i, ownerSVLData[4].repairs[i].type[j]);
       }
     }
-
   }
 
   useEffect(() => {
@@ -218,7 +218,7 @@ const Data = (): JSX.Element => {
               console.error("Unexpected error:", error);
             }
             setSelectedOwner(0);
-            setTotalOwners(1);
+            setTotalOwners(responseIndexer.data[0].current_owner_info.length);
             setNumPreviousOwners(0);
           }
         } catch (error: any | AxiosError) {

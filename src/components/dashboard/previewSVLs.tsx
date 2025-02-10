@@ -66,10 +66,12 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
       const responseIndexer = await axios.get(url);
       //console.log(responseIndexer.data);
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
+      console.log(responseIndexer.data.length);
       for (let i = 0; i < responseIndexer.data.length; i++) {
         const latestCid = responseIndexer.data[i].current_owner_info[responseIndexer.data[i].current_owner_info.length-1];
+        console.log(latestCid);
         try {
-          const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${latestCid}`);
+          const responseIPFS = await axios.get(`${urlIPFS}${latestCid}`);
           //console.log(responseIPFS.data);
           updatedPreviewSVLsInfo[i].pk = responseIndexer.data[i].svl_key;
           updatedPreviewSVLsInfo[i].mainPhotograph = responseIPFS.data[i].mainPhotograph;

@@ -228,11 +228,8 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         }  
       }
       else if (selectedGroup != -1 && selectedGroupType == -1) {
-        if (type == 'responsible') updatedDataSVL[selectedOwner].group[selectedGroup][type] = uploadResponse.data.cids[0]; 
-        else {
-          for (let i = 0; i < indexImagesToSave.length; i++) {
-            updatedDataSVL[selectedOwner].group[selectedGroup][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
-          }
+        for (let i = 0; i < indexImagesToSave.length; i++) {
+          updatedDataSVL[selectedOwner].group[selectedGroup][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
         }
       }
       else {
