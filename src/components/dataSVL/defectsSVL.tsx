@@ -63,7 +63,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVL
 
   const renderlistDefects = (groupIndex: number) => {
 
-    const listDefects = Array.from({length: defects[selectedOwner].group[groupIndex].numTypes}, (_, typeIndex) => (
+    const listDefects = Array.from({length: defects[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} 
         draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, typeIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, typeIndex)} onDragOver={(e) => handleDragOver(e)} >
@@ -74,7 +74,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVL
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
             <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
-            {defects[selectedOwner].group[groupIndex].numTypes > 1 &&
+            {defects[selectedOwner].group[groupIndex].type.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
               />
@@ -100,7 +100,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVL
           }
         </div>
         <div className={styles.addType}>
-          {defects[selectedOwner].group[groupIndex].numTypes - 1 == typeIndex &&
+          {defects[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} type={'defect'} editMode={editMode}
             />
@@ -116,7 +116,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVL
     );
   };
 
-  const listGroupDefects = Array.from({length: defects[selectedOwner].numGroups}, (_, groupIndex) => (
+  const listGroupDefects = Array.from({length: defects[selectedOwner].group.length}, (_, groupIndex) => (
     <div key={groupIndex}>
       <div className={styles.groupContainer}>
         <div className={styles.topPart}>
@@ -150,7 +150,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVL
         }
       </div>
       <div className={styles.addGroupButton}>
-        {defects[selectedOwner].numGroups - 1 == groupIndex &&
+        {defects[selectedOwner].group.length - 1 == groupIndex &&
           <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} />
         }
       </div>
@@ -164,7 +164,7 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVL
       </div>
       {listGroupDefects}
       <div className={styles.addGroupButton}>
-        {defects[selectedOwner].numGroups == 0 &&
+        {defects[selectedOwner].group.length == 0 &&
           <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} />
         }
       </div>

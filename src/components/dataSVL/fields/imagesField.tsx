@@ -128,7 +128,6 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
 
   const nextImage = (index: number) => {
     const numImages = selectedImages.filter(url => url != '').length;
-    console.log(numImages);
     if (index < numImages-1) {
       setShowType((prevState) => ({
         ...prevState,
@@ -220,12 +219,25 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         },
       });
       const updatedDataSVL = [...dataSVL];
-      if (type == 'mainPhotograph') {
-        updatedDataSVL[selectedOwner][type] = uploadResponse.data.cids[0];   
+      if (selectedGroup == -1 && selectedGroupType == -1) {
+        if (type == 'mainPhotograph') updatedDataSVL[selectedOwner][type] = uploadResponse.data.cids[0]; 
+        else {
+          for (let i = 0; i < indexImagesToSave.length; i++) {
+            updatedDataSVL[selectedOwner][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
+          }
+        }  
+      }
+      else if (selectedGroup != -1 && selectedGroupType == -1) {
+        if (type == 'responsible') updatedDataSVL[selectedOwner].group[selectedGroup][type] = uploadResponse.data.cids[0]; 
+        else {
+          for (let i = 0; i < indexImagesToSave.length; i++) {
+            updatedDataSVL[selectedOwner].group[selectedGroup][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
+          }
+        }
       }
       else {
         for (let i = 0; i < indexImagesToSave.length; i++) {
-          updatedDataSVL[selectedOwner][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
+          updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
         }
       }
       setDataSVL(updatedDataSVL);

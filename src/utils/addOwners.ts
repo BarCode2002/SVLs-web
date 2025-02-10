@@ -81,7 +81,7 @@ export const addModifications = (setModifications: React.Dispatch<SetStateAction
   ]);
 }
 
-export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>) => {
+export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>, levelDefault: string) => {
   setDefects((prevDefects: Defects[]) => [
     ...prevDefects,
     {
@@ -90,7 +90,7 @@ export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>
         kilometers: "",
         cause: "",
         type: Array.from({ length: 1 }, () => ({
-          level: "",
+          level: levelDefault,
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",

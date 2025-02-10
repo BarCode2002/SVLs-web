@@ -160,7 +160,7 @@ const Data = (): JSX.Element => {
       addGeneralInformation(setGeneralInformation);
       addMaintenances(setMaintenances);
       addModifications(setModifications);
-      addDefects(setDefects);
+      addDefects(setDefects, t('DataSVL.Forms.level'));
       addRepairs(setRepairs);
     }
     const updatedGeneralInformation = [...generalInformation];
