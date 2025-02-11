@@ -244,10 +244,10 @@ const Data = (): JSX.Element => {
                   //console.log(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
                   const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
                   prevOwnersGeneralInformation.push(responseIPFS.data[0]);
-                  prevOwnersMaintenances.push(responseIPFS.data[1]);
-                  prevOwnersModifications.push(responseIPFS.data[2]);
-                  prevOwnersDefects.push(responseIPFS.data[3]);
-                  prevOwnersRepairs.push(responseIPFS.data[4]);
+                  prevOwnersMaintenances.push(responseIPFS.data[1].maintenances);
+                  prevOwnersModifications.push(responseIPFS.data[2].modifications);
+                  prevOwnersDefects.push(responseIPFS.data[3].defects);
+                  prevOwnersRepairs.push(responseIPFS.data[4].repairs);
                   ++numPreviousOwners;
                 } catch (error: any | AxiosError) {
                   console.error("Unexpected error:", error);
@@ -275,11 +275,12 @@ const Data = (): JSX.Element => {
             }
           }
           setNewSVL(false);
-          console.log(prevOwnersGeneralInformation.length);
-          console.log(prevOwnersMaintenances);
+          //console.log(prevOwnersGeneralInformation.length);
+          //console.log(prevOwnersGeneralInformation);
+          //console.log(prevOwnersMaintenances);
           console.log(prevOwnersModifications);
-          console.log(prevOwnersDefects);
-          console.log(prevOwnersRepairs);
+          //console.log(prevOwnersDefects);
+          //console.log(prevOwnersRepairs);
         } catch (error: any | AxiosError) {
           console.error("Unexpected error:", error);
         }
@@ -312,25 +313,25 @@ const Data = (): JSX.Element => {
         <div className={styles.mainContainer}>
           <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
             setViewType={setViewType} selectedOwner={selectedOwner} totalOwners={totalOwners}
-            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
+            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation}
             maintenances={maintenances} setMaintenances={setMaintenances}
             modifications={modifications} setModifications={setModifications}
             defects={defects} setDefects={setDefects}
             repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk}
           />
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
-            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
-            maintenances={maintenances} setMaintenances={setMaintenances}
-            modifications={modifications} setModifications={setModifications}
-            defects={defects} setDefects={setDefects}
-            repairs={repairs} setRepairs={setRepairs}
-            totalOwners={totalOwners} editMode={editMode}
+            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} prevOwnersGeneralInformation={prevOwnersGeneralInformation}
+            maintenances={maintenances} setMaintenances={setMaintenances} prevOwnersMaintenances={prevOwnersMaintenances}
+            modifications={modifications} setModifications={setModifications} prevOwnersModifications={prevOwnersModifications}
+            defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects}
+            repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs}
+            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners}
           />
           <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
             selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} 
             setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
             setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-            totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
+            totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
           />
         </div>
       }

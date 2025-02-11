@@ -38,7 +38,7 @@ const RemoveOwnerButton = ({ setGeneralInformation, setMaintenances, setModifica
   }
   
   const handleOwnerRemoval = () => {
-
+    //if selectedOwner > numPreviousOwners 
     removeGeneralInformation();
     removeMaintenances();
     removeModifications();
