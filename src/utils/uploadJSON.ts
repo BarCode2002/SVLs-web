@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
 
-export const addAndSetGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, generalInformation: GeneralInformation) => {
+/*export const addAndSetGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, generalInformation: GeneralInformation) => {
     setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
       ...prevGeneralInformation,
       {
@@ -26,7 +26,7 @@ export const addAndSetGeneralInformation = (setGeneralInformation: React.Dispatc
         comments: generalInformation.comments,
       },
     ]);
-  }
+}*/
 
 export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>, selectedOwner: number, maintenanceGroup: any) => {
   setMaintenances((prevMaintenances: Maintenances[]) =>

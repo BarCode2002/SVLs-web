@@ -1,5 +1,5 @@
 import styles from '../../../styles/components/dataSVL/fields/imagesField.module.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PHOTOGRAPHS_SIZE } from '../../../utils/constants';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import axios from "axios";
@@ -34,6 +34,16 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
 
   const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
   const [imagesSaved, setImagesSaved] = useState(false);
+
+  useEffect(() => {
+    for (let i = 0; i < selectedImages.length; i++) {
+      if (selectedImages[i][4] == ':') {
+        setImagesSaved(false);
+        return;
+      }
+    }
+    setImagesSaved(true);
+  }, []);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {

@@ -32,9 +32,10 @@ type TopNavBarProps = {
   setDefects?: React.Dispatch<SetStateAction<Defects[]>>;
   repairs?: Repairs[];
   setRepairs?: React.Dispatch<SetStateAction<Repairs[]>>;
+  svl_pk?: string;
 };
 
-const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk }: TopNavBarProps): JSX.Element => {
 
   return (
     <div>
@@ -71,7 +72,8 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   <MintSVLButton totalOwners={totalOwners!} generalInformation={generalInformation!} 
                     maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} />
                 ) : (
-                  <EditSVLButton />
+                  <EditSVLButton totalOwners={totalOwners!} generalInformation={generalInformation!} 
+                  maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} />
                 )}
               </div>
             )}

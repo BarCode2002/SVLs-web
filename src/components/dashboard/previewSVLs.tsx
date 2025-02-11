@@ -64,17 +64,13 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
     else url = `http://127.0.0.1:3000/indexer/holder/by_vin?vin=${VIN}&owner_address=${myAddress}`;
     try {
       const responseIndexer = await axios.get(url);
-      //console.log(responseIndexer.data);
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
-      console.log(responseIndexer.data.length);
       for (let i = 0; i < responseIndexer.data.length; i++) {
         const latestCid = responseIndexer.data[i].current_owner_info[responseIndexer.data[i].current_owner_info.length-1];
-        console.log(latestCid);
         try {
           const responseIPFS = await axios.get(`${urlIPFS}${latestCid}`);
-          //console.log(responseIPFS.data);
           updatedPreviewSVLsInfo[i].pk = responseIndexer.data[i].svl_key;
-          updatedPreviewSVLsInfo[i].mainPhotograph = responseIPFS.data[i].mainPhotograph;
+          updatedPreviewSVLsInfo[i].mainPhotograph = responseIPFS!.data[0].mainPhotograph;
           updatedPreviewSVLsInfo[i].brand = responseIndexer.data[i].brand;
           updatedPreviewSVLsInfo[i].model = responseIndexer.data[i].model;
           updatedPreviewSVLsInfo[i].year = responseIndexer.data[i].year;

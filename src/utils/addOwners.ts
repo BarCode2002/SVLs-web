@@ -29,6 +29,33 @@ export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetS
   ]);
 }
 
+export const addGeneralInformationDefault = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, brandDefault: string, modelDefault: string, stateDefault: string, shiftDefault: string, fuelDefault: string, climateDefault: string, usageDefault: string, storageDefault: string) => {
+  setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
+    ...prevGeneralInformation,
+    {
+      VIN: '',
+      brand: brandDefault,
+      model: modelDefault,
+      year: '',
+      kilometers: '',
+      mainPhotograph: '',
+      state: stateDefault,
+      photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+      weight: '',
+      color: '',
+      engine: '',
+      power: '',
+      shift: shiftDefault,
+      fuel: fuelDefault,
+      autonomy: '',
+      climate: climateDefault,
+      usage: usageDefault,
+      storage: storageDefault,
+      comments: '',
+    },
+  ]);
+}
+
 export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>) => {
   setMaintenances((prevMaintenances: Maintenances[]) => [
     ...prevMaintenances,

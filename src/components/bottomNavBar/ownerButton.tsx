@@ -15,18 +15,20 @@ const OwnerButton = ({ index, selectedOwner, setSelectedOwner, ownersContainerRe
 
   const handleOwnerChange = (event: any) => {
     const button = event.target;
-    const containerRect = ownersContainerRef.getBoundingClientRect();
-    const buttonRect = button.getBoundingClientRect();
-    const offset = buttonRect.left - containerRect.left; 
-    const scrollTo = ownersContainerRef.scrollLeft + offset - containerRect.width / 2 + buttonRect.width / 2;
-    ownersContainerRef.scrollTo({ left: scrollTo, behavior: "smooth" });
+    if (ownersContainerRef) {
+      const containerRect = ownersContainerRef.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const offset = buttonRect.left - containerRect.left; 
+      const scrollTo = ownersContainerRef.scrollLeft + offset - containerRect.width / 2 + buttonRect.width / 2;
+      ownersContainerRef.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
     setSelectedOwner(index);
   };
 
   return (
     <div>
       <button
-        className={index == selectedOwner ? styles.ownerButtonSelected : styles.ownerButton}
+        className={index == selectedOwner ? styles.ownerButtonSelected : styles.ownerButton }
         onClick={handleOwnerChange}>
         {owner}
       </button>

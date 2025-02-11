@@ -12,7 +12,7 @@ import { addAndSetMaintenanceGroup, addAndSetMaintenanceGroupType, setOwnerSVLDa
 import { addAndSetModificationGroup, addAndSetModificationGroupType } from '../utils/uploadJSON.ts';
 import { addAndSetDefectGroup, addAndSetDefectGroupType } from '../utils/uploadJSON.ts';
 import { addAndSetRepairGroup, addAndSetRepairGroupType } from '../utils/uploadJSON.ts';
-import { addGeneralInformation, addMaintenances, addModifications, addDefects, addRepairs } from '../utils/addOwners.ts';
+import { addGeneralInformationDefault, addMaintenances, addModifications, addDefects, addRepairs } from '../utils/addOwners.ts';
 
 const Data = (): JSX.Element => {
 
@@ -155,50 +155,62 @@ const Data = (): JSX.Element => {
   const prevOwnersDefects: Defects[] = [];
   const prevOwnerRepairs: Repairs[] = [];
 
-  const fillOwnerSVLData = (selectedOwner: number, ownerSVLData: any) => {
-    if (selectedOwner > 0) {
-      addGeneralInformation(setGeneralInformation);
-      addMaintenances(setMaintenances);
-      addModifications(setModifications);
-      addDefects(setDefects, t('DataSVL.Forms.level'));
-      addRepairs(setRepairs);
-    }
+  const fillOwnerSVLData = (so: number, ownerSVLData: any) => {
+    //console.log(ownerSVLData);
+    //console.log(generalInformation);
+    //console.log(maintenances.length);
+    //console.log(modifications.length);
+    //console.log(defects.length);
+    //console.log(repairs.length);
 
-    const updatedGeneralInformation = [...generalInformation];
-    updatedGeneralInformation[selectedOwner] = ownerSVLData[0];
-    setGeneralInformation(updatedGeneralInformation);
+    setGeneralInformation((prevGeneralInformation) =>
+      prevGeneralInformation.map((item, i) =>
+        i == so ? { ...item,  ...ownerSVLData[0] } : item
+      )
+    );
 
-    setOwnerSVLDataToEmpty(selectedOwner, setMaintenances);
+    setOwnerSVLDataToEmpty(so, setMaintenances);
     for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
-      addAndSetMaintenanceGroup(setMaintenances, selectedOwner, ownerSVLData[1].maintenances[i]);
+      addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].maintenances[i]);
       for (let j = 1; j < ownerSVLData[1].maintenances[i].type.length; j++) {
-        addAndSetMaintenanceGroupType(setMaintenances, selectedOwner, i, ownerSVLData[1].maintenances[i].type[j]);
+        addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].maintenances[i].type[j]);
       }
     }
 
-    setOwnerSVLDataToEmpty(selectedOwner, setModifications);
+    setOwnerSVLDataToEmpty(so, setModifications);
     for (let i = 0; i < ownerSVLData[2].modifications.length; i++) {
-      addAndSetModificationGroup(setModifications, selectedOwner, ownerSVLData[2].modifications[i]);
+      addAndSetModificationGroup(setModifications, so, ownerSVLData[2].modifications[i]);
       for (let j = 1; j < ownerSVLData[2].modifications[i].type.length; j++) {
-        addAndSetModificationGroupType(setModifications, selectedOwner, i, ownerSVLData[2].modifications[i].type[j]);
+        addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].modifications[i].type[j]);
       }
     }
 
-    setOwnerSVLDataToEmpty(selectedOwner, setDefects);
+    setOwnerSVLDataToEmpty(so, setDefects);
     for (let i = 0; i < ownerSVLData[3].defects.length; i++) {
-      addAndSetDefectGroup(setDefects, selectedOwner, ownerSVLData[3].defects[i]);
+      addAndSetDefectGroup(setDefects, so, ownerSVLData[3].defects[i]);
       for (let j = 1; j < ownerSVLData[3].defects[i].type.length; ++j) {
-        addAndSetDefectGroupType(setDefects, selectedOwner, i, ownerSVLData[3].defects[i].type[j]);
+        addAndSetDefectGroupType(setDefects, so, i, ownerSVLData[3].defects[i].type[j]);
       }
     }
 
-    setOwnerSVLDataToEmpty(selectedOwner, setRepairs);
+    setOwnerSVLDataToEmpty(so, setRepairs);
     for (let i = 0; i < ownerSVLData[4].repairs.length; i++) {
-      addAndSetRepairGroup(setRepairs, selectedOwner, ownerSVLData[4].repairs[i]);
+      addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].repairs[i]);
       for (let j = 1; j < ownerSVLData[4].repairs[i].type.length; j++) {
-        addAndSetRepairGroupType(setRepairs, selectedOwner, i, ownerSVLData[4].repairs[i].type[j]);
+        addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].repairs[i].type[j]);
       }
     }
+  }
+
+  const addOwners = () => {
+    addGeneralInformationDefault(setGeneralInformation, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'),
+    t('DataSVL.Forms.state'), t('DataSVL.Forms.shift'), t('DataSVL.Forms.fuel'), t('DataSVL.Forms.climate'),
+    t('DataSVL.Forms.usage'), t('DataSVL.Forms.storage')
+    );
+    addMaintenances(setMaintenances);
+    addModifications(setModifications);
+    addDefects(setDefects, t('DataSVL.Forms.level'));
+    addRepairs(setRepairs);
   }
 
   useEffect(() => {
@@ -209,17 +221,21 @@ const Data = (): JSX.Element => {
           //console.log(responseIndexer.data);
           if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') {
             try {
+              for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
+                addOwners();
+              }
+              setTotalOwners(responseIndexer.data[0].current_owner_info.length);
+              setNumPreviousOwners(0);
               for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`);
-                console.log(responseIPFS.data);
+                //console.log(responseIPFS.data);
                 fillOwnerSVLData(i, responseIPFS.data);
               }
             } catch (error: any | AxiosError) {
               console.error("Unexpected error:", error);
             }
             setSelectedOwner(0);
-            setTotalOwners(responseIndexer.data[0].current_owner_info.length);
-            setNumPreviousOwners(0);
+            setNewSVL(false);
           }
         } catch (error: any | AxiosError) {
           console.error("Unexpected error:", error);
@@ -257,7 +273,7 @@ const Data = (): JSX.Element => {
             maintenances={maintenances} setMaintenances={setMaintenances}
             modifications={modifications} setModifications={setModifications}
             defects={defects} setDefects={setDefects}
-            repairs={repairs} setRepairs={setRepairs}
+            repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk}
           />
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
             generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} 
