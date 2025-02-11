@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/pages/Data.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../utils/interfaces.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
@@ -149,13 +149,13 @@ const Data = (): JSX.Element => {
     }))
   );
 
-  const prevOwnersGeneralInformation: GeneralInformation[] = [];
-  const prevOwnersMaintenances: Maintenances[] = [];
-  const prevOwnersModifications: Modifications[] = [];
-  const prevOwnersDefects: Defects[] = [];
-  const prevOwnersRepairs: Repairs[] = [];
+  const prevOwnersGeneralInformation = useRef<GeneralInformation[]>([]);
+  const prevOwnersMaintenances = useRef<Maintenances[]>([]);
+  const prevOwnersModifications = useRef<Modifications[]>([]);
+  const prevOwnersDefects = useRef<Defects[]>([]);
+  const prevOwnersRepairs = useRef<Repairs[]>([]);
 
-  const fillOwnerSVLData = (so: number, ownerSVLData: any) => {
+  const fillOwnerSVLData = (so: number, ownerSVLData: any, prevOwnersGeneralInformation: any, justTransferred: boolean)=> {
     //console.log(ownerSVLData);
     //console.log(generalInformation);
     //console.log(maintenances.length);
@@ -163,11 +163,20 @@ const Data = (): JSX.Element => {
     //console.log(defects.length);
     //console.log(repairs.length);
 
-    setGeneralInformation((prevGeneralInformation) =>
-      prevGeneralInformation.map((item, i) =>
-        i == so ? { ...item,  ...ownerSVLData[0] } : item
-      )
-    );
+    if (justTransferred) {
+      setGeneralInformation((prevGeneralInformation) =>
+        prevGeneralInformation.map((item, i) =>
+          i == so ? { ...item,  ...prevOwnersGeneralInformation } : item
+        )
+      );
+    }
+    else {
+      setGeneralInformation((prevGeneralInformation) =>
+        prevGeneralInformation.map((item, i) =>
+          i == so ? { ...item,  ...ownerSVLData[0] } : item
+        )
+      );
+    }
 
     setOwnerSVLDataToEmpty(so, setMaintenances);
     for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
@@ -229,7 +238,7 @@ const Data = (): JSX.Element => {
               for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`);
                 //console.log(responseIPFS.data);
-                fillOwnerSVLData(i, responseIPFS.data);
+                fillOwnerSVLData(i, responseIPFS.data, [], false);
               }
             } catch (error: any | AxiosError) {
               console.error("Unexpected error:", error);
@@ -243,11 +252,11 @@ const Data = (): JSX.Element => {
                 try {
                   //console.log(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
                   const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
-                  prevOwnersGeneralInformation.push(responseIPFS.data[0]);
-                  prevOwnersMaintenances.push(responseIPFS.data[1].maintenances);
-                  prevOwnersModifications.push(responseIPFS.data[2].modifications);
-                  prevOwnersDefects.push(responseIPFS.data[3].defects);
-                  prevOwnersRepairs.push(responseIPFS.data[4].repairs);
+                  prevOwnersGeneralInformation.current.push(responseIPFS.data[0]);
+                  prevOwnersMaintenances.current.push(responseIPFS.data[1].maintenances);
+                  prevOwnersModifications.current.push(responseIPFS.data[2].modifications);
+                  prevOwnersDefects.current.push(responseIPFS.data[3].defects);
+                  prevOwnersRepairs.current.push(responseIPFS.data[4].repairs);
                   ++numPreviousOwners;
                 } catch (error: any | AxiosError) {
                   console.error("Unexpected error:", error);
@@ -267,20 +276,21 @@ const Data = (): JSX.Element => {
                 else cid = responseIndexer.data[0].current_owner_info[i];
                 const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`);
                 //console.log(responseIPFS.data);
-                fillOwnerSVLData(i, responseIPFS.data);
+                fillOwnerSVLData(i, responseIPFS.data, prevOwnersGeneralInformation.current[numPreviousOwners-1], true);
               }
               setTotalOwners(numPreviousOwners+responseIndexer.data[0].current_owner_info.length);
             } catch (error: any | AxiosError) {
               console.error("Unexpected error:", error);
             }
+            setSelectedOwner(0);
+            //console.log(prevOwnersGeneralInformation.current.length);
+            //console.log(prevOwnersGeneralInformation.current[0].VIN);
+            //console.log(prevOwnersMaintenances);
+            //console.log(prevOwnersModifications);
+            //console.log(prevOwnersDefects);
+            //console.log(prevOwnersRepairs);
           }
           setNewSVL(false);
-          //console.log(prevOwnersGeneralInformation.length);
-          //console.log(prevOwnersGeneralInformation);
-          //console.log(prevOwnersMaintenances);
-          console.log(prevOwnersModifications);
-          //console.log(prevOwnersDefects);
-          //console.log(prevOwnersRepairs);
         } catch (error: any | AxiosError) {
           console.error("Unexpected error:", error);
         }
@@ -320,11 +330,11 @@ const Data = (): JSX.Element => {
             repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk}
           />
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
-            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} prevOwnersGeneralInformation={prevOwnersGeneralInformation}
-            maintenances={maintenances} setMaintenances={setMaintenances} prevOwnersMaintenances={prevOwnersMaintenances}
-            modifications={modifications} setModifications={setModifications} prevOwnersModifications={prevOwnersModifications}
-            defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects}
-            repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs}
+            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} prevOwnersGeneralInformation={prevOwnersGeneralInformation.current}
+            maintenances={maintenances} setMaintenances={setMaintenances} prevOwnersMaintenances={prevOwnersMaintenances.current}
+            modifications={modifications} setModifications={setModifications} prevOwnersModifications={prevOwnersModifications.current}
+            defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects.current}
+            repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
             totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners}
           />
           <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 

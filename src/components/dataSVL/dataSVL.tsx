@@ -45,7 +45,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
       {selectedSVLData == 0 && selectedOwner >= numPreviousOwners &&
         <GeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} editMode={editMode} />
       }
-      {selectedSVLData == 0 && selectedOwner < numPreviousOwners &&
+      {/*{selectedSVLData == 0 && selectedOwner < numPreviousOwners &&
         <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} prevOwnersMaintenances={prevOwnersMaintenances} />
       }
       {selectedSVLData == 1 && selectedOwner >= numPreviousOwners &&
@@ -68,7 +68,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
       }
       {selectedSVLData == 4 && selectedOwner >= numPreviousOwners &&
         <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} editMode={editMode} />
-      }
+      }*/}
     </div>
   );
 }

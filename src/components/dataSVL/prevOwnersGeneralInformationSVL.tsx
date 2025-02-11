@@ -1,5 +1,7 @@
 import styles from '../../styles/components/dataSVL/generalInformationSVL.module.css';
 import { GeneralInformation } from '../../utils/interfaces.ts';
+import TextContainer from './readOnlyFields/textContainer.tsx';
+import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import { useTranslation } from "react-i18next";
 
 type PrevOwnersGeneralInformationSVLProps = {
@@ -18,7 +20,23 @@ const PrevOwnersGeneralInformationSVL = ({ selectedOwner, prevOwnersGeneralInfor
       </div>
       <div className={styles.dataWrapper}>
         <div className={styles.data}>
-          
+          <TextContainer fieldLabel={t('DataSVL.Labels.vin')} text={prevOwnersGeneralInformation[selectedOwner].VIN} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.brand')} text={prevOwnersGeneralInformation[selectedOwner].brand} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.model')} text={prevOwnersGeneralInformation[selectedOwner].model} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.year')} text={prevOwnersGeneralInformation[selectedOwner].year} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersGeneralInformation[selectedOwner].kilometers} />
+          <ImageContainer fieldLabel={t('DataSVL.Labels.mainImage')} images={[prevOwnersGeneralInformation[selectedOwner].mainPhotograph]} />
+          <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersGeneralInformation[selectedOwner].photographs} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.state')} text={prevOwnersGeneralInformation[selectedOwner].state} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.weight')} text={prevOwnersGeneralInformation[selectedOwner].weight} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.color')} text={prevOwnersGeneralInformation[selectedOwner].color} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.engine')} text={prevOwnersGeneralInformation[selectedOwner].engine} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.power')} text={prevOwnersGeneralInformation[selectedOwner].power} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.autonomy')} text={prevOwnersGeneralInformation[selectedOwner].autonomy} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.climate')} text={prevOwnersGeneralInformation[selectedOwner].climate} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.usage')} text={prevOwnersGeneralInformation[selectedOwner].usage} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.storage')} text={prevOwnersGeneralInformation[selectedOwner].storage} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersGeneralInformation[selectedOwner].comments} />
         </div>
       </div>
     </div>
