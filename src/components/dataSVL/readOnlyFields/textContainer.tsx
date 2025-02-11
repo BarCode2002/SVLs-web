@@ -14,8 +14,10 @@ const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
 
   const checkNoData = () => {
     if (text == '' || text == t('DataSVL.Forms.state') || text == t('DataSVL.Forms.shift') ||
-    text == t('DataSVL.Forms.fuel') || text == t('DataSVL.Forms.climate') ||
-    text == t('DataSVL.Forms.usage') || text == t('DataSVL.Forms.storage')) setNoData(true);
+      text == t('DataSVL.Forms.fuel') || text == t('DataSVL.Forms.climate') ||
+      text == t('DataSVL.Forms.usage') || text == t('DataSVL.Forms.storage') ||
+      text == t('DataSVL.Forms.level')
+    ) setNoData(true);
     else setNoData(false);
   }
 

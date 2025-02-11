@@ -176,37 +176,37 @@ const Data = (): JSX.Element => {
           i == so ? { ...item,  ...ownerSVLData[0] } : item
         )
       );
-    }
-
-    setOwnerSVLDataToEmpty(so, setMaintenances);
-    for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
-      addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].maintenances[i]);
-      for (let j = 1; j < ownerSVLData[1].maintenances[i].type.length; j++) {
-        addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].maintenances[i].type[j]);
+    
+      setOwnerSVLDataToEmpty(so, setMaintenances);
+      for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
+        addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].maintenances[i]);
+        for (let j = 1; j < ownerSVLData[1].maintenances[i].type.length; j++) {
+          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].maintenances[i].type[j]);
+        }
       }
-    }
 
-    setOwnerSVLDataToEmpty(so, setModifications);
-    for (let i = 0; i < ownerSVLData[2].modifications.length; i++) {
-      addAndSetModificationGroup(setModifications, so, ownerSVLData[2].modifications[i]);
-      for (let j = 1; j < ownerSVLData[2].modifications[i].type.length; j++) {
-        addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].modifications[i].type[j]);
+      setOwnerSVLDataToEmpty(so, setModifications);
+      for (let i = 0; i < ownerSVLData[2].modifications.length; i++) {
+        addAndSetModificationGroup(setModifications, so, ownerSVLData[2].modifications[i]);
+        for (let j = 1; j < ownerSVLData[2].modifications[i].type.length; j++) {
+          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].modifications[i].type[j]);
+        }
       }
-    }
 
-    setOwnerSVLDataToEmpty(so, setDefects);
-    for (let i = 0; i < ownerSVLData[3].defects.length; i++) {
-      addAndSetDefectGroup(setDefects, so, ownerSVLData[3].defects[i]);
-      for (let j = 1; j < ownerSVLData[3].defects[i].type.length; ++j) {
-        addAndSetDefectGroupType(setDefects, so, i, ownerSVLData[3].defects[i].type[j]);
+      setOwnerSVLDataToEmpty(so, setDefects);
+      for (let i = 0; i < ownerSVLData[3].defects.length; i++) {
+        addAndSetDefectGroup(setDefects, so, ownerSVLData[3].defects[i]);
+        for (let j = 1; j < ownerSVLData[3].defects[i].type.length; ++j) {
+          addAndSetDefectGroupType(setDefects, so, i, ownerSVLData[3].defects[i].type[j]);
+        }
       }
-    }
 
-    setOwnerSVLDataToEmpty(so, setRepairs);
-    for (let i = 0; i < ownerSVLData[4].repairs.length; i++) {
-      addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].repairs[i]);
-      for (let j = 1; j < ownerSVLData[4].repairs[i].type.length; j++) {
-        addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].repairs[i].type[j]);
+      setOwnerSVLDataToEmpty(so, setRepairs);
+      for (let i = 0; i < ownerSVLData[4].repairs.length; i++) {
+        addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].repairs[i]);
+        for (let j = 1; j < ownerSVLData[4].repairs[i].type.length; j++) {
+          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].repairs[i].type[j]);
+        }
       }
     }
   }
@@ -253,10 +253,13 @@ const Data = (): JSX.Element => {
                   //console.log(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
                   const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
                   prevOwnersGeneralInformation.current.push(responseIPFS.data[0]);
-                  prevOwnersMaintenances.current.push(responseIPFS.data[1].maintenances);
-                  prevOwnersModifications.current.push(responseIPFS.data[2].modifications);
-                  prevOwnersDefects.current.push(responseIPFS.data[3].defects);
-                  prevOwnersRepairs.current.push(responseIPFS.data[4].repairs);
+                  //console.log(responseIPFS.data[1].maintenances.length);
+                  console.log(responseIPFS.data[2].modifications.length);
+                  console.log(responseIPFS.data[2].modifications[0].type.length);
+                  prevOwnersMaintenances.current.push(responseIPFS.data[1]);
+                  prevOwnersModifications.current.push(responseIPFS.data[2]);
+                  prevOwnersDefects.current.push(responseIPFS.data[3]);
+                  prevOwnersRepairs.current.push(responseIPFS.data[4]);
                   ++numPreviousOwners;
                 } catch (error: any | AxiosError) {
                   console.error("Unexpected error:", error);
@@ -272,20 +275,24 @@ const Data = (): JSX.Element => {
               }
               for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 let cid;
-                if (responseIndexer.data[0].current_owner_info[0] == '') cid = "Qme6enrnownz3wTieTreRFngEZpwbrywKboSwvSQUDB3we";
+                let justTransferred = false;
+                if (responseIndexer.data[0].current_owner_info[0] == '') {
+                  cid = "Qme6enrnownz3wTieTreRFngEZpwbrywKboSwvSQUDB3we";
+                  justTransferred = true;
+                }
                 else cid = responseIndexer.data[0].current_owner_info[i];
                 const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`);
                 //console.log(responseIPFS.data);
-                fillOwnerSVLData(i, responseIPFS.data, prevOwnersGeneralInformation.current[numPreviousOwners-1], true);
+                fillOwnerSVLData(i, responseIPFS.data, prevOwnersGeneralInformation.current[numPreviousOwners-1], justTransferred);
               }
               setTotalOwners(numPreviousOwners+responseIndexer.data[0].current_owner_info.length);
             } catch (error: any | AxiosError) {
               console.error("Unexpected error:", error);
             }
-            setSelectedOwner(0);
+            setSelectedOwner(numPreviousOwners);
             //console.log(prevOwnersGeneralInformation.current.length);
             //console.log(prevOwnersGeneralInformation.current[0].VIN);
-            //console.log(prevOwnersMaintenances);
+            //console.log(prevOwnersMaintenances.current);
             //console.log(prevOwnersModifications);
             //console.log(prevOwnersDefects);
             //console.log(prevOwnersRepairs);

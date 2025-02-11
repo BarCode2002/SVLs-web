@@ -17,19 +17,19 @@ type DataSVLProps = {
   selectedSVLData: number;
   generalInformation: GeneralInformation[];
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
-  prevOwnersGeneralInformation: GeneralInformation[];
+  prevOwnersGeneralInformation: any;
   maintenances: Maintenances[];
   setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
-  prevOwnersMaintenances: Maintenances[];
+  prevOwnersMaintenances: any;
   modifications: Modifications[];
   setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
-  prevOwnersModifications: Modifications[];
+  prevOwnersModifications: any;
   defects: Defects[];
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  prevOwnersDefects: Defects[];
+  prevOwnersDefects: any;
   repairs: Repairs[];
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
-  prevOwnersRepairs: Repairs[];
+  prevOwnersRepairs: any;
   totalOwners: number;
   editMode: boolean;
   numPreviousOwners: number;
@@ -45,7 +45,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
       {selectedSVLData == 0 && selectedOwner >= numPreviousOwners &&
         <GeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} editMode={editMode} />
       }
-      {/*{selectedSVLData == 0 && selectedOwner < numPreviousOwners &&
+      {selectedSVLData == 1 && selectedOwner < numPreviousOwners &&
         <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} prevOwnersMaintenances={prevOwnersMaintenances} />
       }
       {selectedSVLData == 1 && selectedOwner >= numPreviousOwners &&
@@ -68,7 +68,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
       }
       {selectedSVLData == 4 && selectedOwner >= numPreviousOwners &&
         <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} editMode={editMode} />
-      }*/}
+      }
     </div>
   );
 }

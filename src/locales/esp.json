@@ -80,7 +80,9 @@
       "repairs": "Reparaciones",
       "add": "Añade",
       "eraseAll": "Elimina todos",
-      "save": "Guarda"
+      "save": "Guarda",
+      "level": "Daño:",
+      "description": "Descripción:"
     },
     "Placeholders": {
       "vin": "VIN",
