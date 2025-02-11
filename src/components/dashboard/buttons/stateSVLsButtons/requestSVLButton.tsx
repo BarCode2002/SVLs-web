@@ -1,23 +1,61 @@
 import styles from '../../../../styles/components/dashboard/stateSVLButtons/stateSVLButtons.module.css';
 import { useTranslation } from 'react-i18next';
+import { PreviewSVLsInfo } from '../../../../utils/interfaces.ts';
+import { TezosToolkit, WalletContract } from '@taquito/taquito';
+import { getsmartContractAddress, getTezos } from '../../../../utils/wallet.ts';
+import { useEffect, useState } from 'react';
 
 type RequestSVLButtonProps = {
   requested: boolean;
+  previewSVLsInfo: PreviewSVLsInfo[];
+  setPreviewSVLsInfo: React.Dispatch<React.SetStateAction<PreviewSVLsInfo[]>>;
+  index: number;
 };
 
-const RequestSVLButton = ({ requested }: RequestSVLButtonProps): JSX.Element => {
+const RequestSVLButton = ({ requested, previewSVLsInfo, setPreviewSVLsInfo, index }: RequestSVLButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
+  const contractAddress = getsmartContractAddress();
+  const [Tezos, setTezos] = useState<TezosToolkit | undefined>(undefined);
 
-  const handleRequestSVL = async () => { 
-    
+  useEffect(() => {
+    const initializedTezos = getTezos();
+    setTezos(initializedTezos);
+  }, []);
+
+  const handleRequestorUnrequestSVL = async () => { 
+    const updatedPreviewSVLsInfo= [...previewSVLsInfo];
+    const svl_pk = previewSVLsInfo[index].pk;
+    if (!requested) {
+      try {
+        const contract: WalletContract = await Tezos!.wallet.at(contractAddress);
+        const op = await contract.methodsObject.requestTransfer(svl_pk).send({amount: 1});
+        await op.confirmation();
+        const ownerAddress = updatedPreviewSVLsInfo[index].stateNotMySVL[1];
+        updatedPreviewSVLsInfo[index].stateNotMySVL = [true, ownerAddress, localStorage.getItem('address')!, false];
+      } catch (error) {
+        console.log('error:', error);
+      }  
+    }
+    else {
+      try {
+        const contract: WalletContract = await Tezos!.wallet.at(contractAddress);
+        const op = await contract.methodsObject.requesterClearTransferRequest(svl_pk).send();
+        await op.confirmation();
+        const ownerAddress = updatedPreviewSVLsInfo[index].stateNotMySVL[1];
+        updatedPreviewSVLsInfo[index].stateNotMySVL = [false, ownerAddress, '', false];
+      } catch (error) {
+        console.log('error:', error);
+      }  
+    }
+    setPreviewSVLsInfo(updatedPreviewSVLsInfo);
   };
 
   return (
     <div>
       <button 
-        className={styles.buttonFull}
-        onClick={handleRequestSVL}>
+        className={previewSVLsInfo[index].stateNotMySVL[3] == true ? styles.buttonRight : styles.buttonFull}
+        onClick={handleRequestorUnrequestSVL}>
         {requested ? t('Dashboard.Labels.unrequest') : t('Dashboard.Labels.request')}
       </button>
     </div>

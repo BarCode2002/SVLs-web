@@ -153,7 +153,7 @@ const Data = (): JSX.Element => {
   const prevOwnersMaintenances: Maintenances[] = [];
   const prevOwnersModifications: Modifications[] = [];
   const prevOwnersDefects: Defects[] = [];
-  const prevOwnerRepairs: Repairs[] = [];
+  const prevOwnersRepairs: Repairs[] = [];
 
   const fillOwnerSVLData = (so: number, ownerSVLData: any) => {
     //console.log(ownerSVLData);
@@ -235,8 +235,51 @@ const Data = (): JSX.Element => {
               console.error("Unexpected error:", error);
             }
             setSelectedOwner(0);
-            setNewSVL(false);
           }
+          else {
+            let numPreviousOwners = 0;
+            for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) {
+              for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
+                try {
+                  //console.log(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
+                  const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
+                  prevOwnersGeneralInformation.push(responseIPFS.data[0]);
+                  prevOwnersMaintenances.push(responseIPFS.data[1]);
+                  prevOwnersModifications.push(responseIPFS.data[2]);
+                  prevOwnersDefects.push(responseIPFS.data[3]);
+                  prevOwnersRepairs.push(responseIPFS.data[4]);
+                  ++numPreviousOwners;
+                } catch (error: any | AxiosError) {
+                  console.error("Unexpected error:", error);
+                }
+              }
+            }
+            //console.log(prevOwnersModifications);
+            //console.log(numPreviousOwners);
+            setNumPreviousOwners(numPreviousOwners);
+            try {
+              for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
+                addOwners();
+              }
+              for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
+                let cid;
+                if (responseIndexer.data[0].current_owner_info[0] == '') cid = "Qme6enrnownz3wTieTreRFngEZpwbrywKboSwvSQUDB3we";
+                else cid = responseIndexer.data[0].current_owner_info[i];
+                const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`);
+                //console.log(responseIPFS.data);
+                fillOwnerSVLData(i, responseIPFS.data);
+              }
+              setTotalOwners(numPreviousOwners+responseIndexer.data[0].current_owner_info.length);
+            } catch (error: any | AxiosError) {
+              console.error("Unexpected error:", error);
+            }
+          }
+          setNewSVL(false);
+          console.log(prevOwnersGeneralInformation.length);
+          console.log(prevOwnersMaintenances);
+          console.log(prevOwnersModifications);
+          console.log(prevOwnersDefects);
+          console.log(prevOwnersRepairs);
         } catch (error: any | AxiosError) {
           console.error("Unexpected error:", error);
         }

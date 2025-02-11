@@ -56,7 +56,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
       stateNotMySVL: [null, '', '', null],
     }))
   );
-
+  
   const getSVLPreview = async () => {
     let url;
     if (filterSVL == 0) url = `http://127.0.0.1:3000/indexer/holder/owner_address/${myAddress}`;
@@ -66,7 +66,11 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
       const responseIndexer = await axios.get(url);
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
       for (let i = 0; i < responseIndexer.data.length; i++) {
-        const latestCid = responseIndexer.data[i].current_owner_info[responseIndexer.data[i].current_owner_info.length-1];
+        let latestCid;
+        if (responseIndexer.data[i].current_owner_info[0] == '') {
+          latestCid = responseIndexer.data[i].previous_owners_info[0].cids[responseIndexer.data[i].previous_owners_info[0].cids.length-1];
+        }
+        else latestCid = responseIndexer.data[i].current_owner_info[responseIndexer.data[i].current_owner_info.length-1];
         try {
           const responseIPFS = await axios.get(`${urlIPFS}${latestCid}`);
           updatedPreviewSVLsInfo[i].pk = responseIndexer.data[i].svl_key;
@@ -195,17 +199,18 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
                     <div>
                       {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == '' &&
                         <div className={styles.requestSVLtransfer}>
-                          <RequestSVLButton requested={false} />
+                          <RequestSVLButton requested={false} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
                         </div>
                       }
                       {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
                         <div className={styles.requestSVLtransfer}>
-                          <RequestSVLButton requested={true} />
+                          <RequestSVLButton requested={true} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
                         </div>
                       }
                       {dataPreviewSVL.stateNotMySVL[3] == true && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
                         <div className={styles.buySVL}>
-                          <BuySVLButton />
+                          <BuySVLButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          <RequestSVLButton requested={true} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
                         </div>
                       }
                     </div>
@@ -218,15 +223,15 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
                   ) : (
                     dataPreviewSVL.stateMySVL[2] == false ? (
                       <div className={styles.SVLRequested}>
-                        <AcceptSVLRequestButton />
-                        <DenySVLRequestButton />
+                        <AcceptSVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <DenySVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
                       </div>
                     ) : (
                       <div className={styles.SVLPendingBuy}>
                         <div className={styles.SVLRequestAcceptedPendingBuy}>
                           {pendingBuyLabel}
                         </div>
-                        <DenySVLRequestButton />
+                        <DenySVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
                       </div>
                     )
                   )

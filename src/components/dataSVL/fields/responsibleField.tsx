@@ -29,6 +29,11 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   const [showBig, setShowBig] = useState(false);
   const [imagesSaved, setImagesSaved] = useState(false);
 
+  useEffect(() => {
+    if (value[3][4] == ':') setImagesSaved(false);
+    else setImagesSaved(true);
+  }, []);
+
   const imageInputId = `${selectedGroup}`;
   
   const mechanicsList = ['Pepe', 'Jaja', 'ewfgew', 'Camion', 'avion', 'pepa', 'pepo', 'pepin', 'pepapaa', 'pepeeee', 'pepitp'];
