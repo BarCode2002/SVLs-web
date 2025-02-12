@@ -43,7 +43,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
       }
     }
     setImagesSaved(true);
-  }, []);
+  }, [selectedOwner]);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {

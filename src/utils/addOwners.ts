@@ -13,7 +13,7 @@ export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetS
       kilometers: prevGeneralInformation[prevGeneralInformation.length-1].kilometers,
       mainPhotograph: prevGeneralInformation[prevGeneralInformation.length-1].mainPhotograph,
       state: prevGeneralInformation[prevGeneralInformation.length-1].state,
-      photographs: prevGeneralInformation[prevGeneralInformation.length-1].photographs,
+      photographs: [...(prevGeneralInformation[prevGeneralInformation.length-1].photographs)],
       weight: prevGeneralInformation[prevGeneralInformation.length-1].weight,
       color: prevGeneralInformation[prevGeneralInformation.length-1].color,
       engine: prevGeneralInformation[prevGeneralInformation.length-1].engine,

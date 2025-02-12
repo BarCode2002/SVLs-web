@@ -328,7 +328,7 @@ const Data = (): JSX.Element => {
             totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners}
           />
           <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
-            selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} 
+            selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
             setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
             setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
             totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 

@@ -10,18 +10,19 @@ type BottomNavBarProps = {
   selectedSVLData: number;
   setSelectedSVLData: React.Dispatch<SetStateAction<number>>;
   selectedOwner: number;
-  setSelectedOwner: React.Dispatch<SetStateAction<number>>
+  setSelectedOwner: React.Dispatch<SetStateAction<number>>;
+  numPreviousOwners: number;
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
   setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
   setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
   totalOwners: number;
-  setTotalOwners: React.Dispatch<SetStateAction<number>>
+  setTotalOwners: React.Dispatch<SetStateAction<number>>;
   editMode: boolean;
 };
 
-const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode }: BottomNavBarProps): JSX.Element => {
+const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode }: BottomNavBarProps): JSX.Element => {
 
   const ownersContainerRef = useRef(null);
 
@@ -40,7 +41,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
       <div className={styles.bottomPart}>
         <RemoveOwnerButton  setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
           setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs} 
-          selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner}
+          selectedOwner={selectedOwner-numPreviousOwners} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
           totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
         />
         <div ref={ownersContainerRef} className={styles.ownersContainer}>
