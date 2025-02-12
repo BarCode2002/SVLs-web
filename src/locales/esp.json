@@ -82,7 +82,8 @@
       "eraseAll": "Elimina todos",
       "save": "Guarda",
       "level": "Daño:",
-      "description": "Descripción:"
+      "description": "Descripción:",
+      "components": "Componentes:"
     },
     "Placeholders": {
       "vin": "VIN",

@@ -34,6 +34,10 @@ export const checksBeforeMintSVL = (totalOwners: number, generalInformation: Gen
       }
     }
     for (let j = 0; j < maintenances[i].group.length; j++) {
+      if (maintenances[i].group[j].responsible[0] == null) {
+        console.log(`Owner ${i+1} has not set the responsible field for group ${j+1} in Maintenances`);
+        return false;
+      }
       if (maintenances[i].group[j].responsible[3][4] == ':') {
         console.log(`Owner ${i+1} has not saved the proof in responsible field for group ${j+1} in Maintenances`);
         return false;
@@ -48,7 +52,6 @@ export const checksBeforeMintSVL = (totalOwners: number, generalInformation: Gen
           return false;
         }
       }
-
       for (let l = 0; l < maintenances[i].group[j].type.length; l++) {
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
           if (maintenances[i].group[j].type[l].pre[z][4] == ':') {
@@ -63,6 +66,10 @@ export const checksBeforeMintSVL = (totalOwners: number, generalInformation: Gen
       }
     }
     for (let j = 0; j < modifications[i].group.length; j++) {
+      if (modifications[i].group[j].responsible[0] == null) {
+        console.log(`Owner ${i+1} has not set the responsible field for group ${j+1} in Modifications`);
+        return false;
+      }
       if (modifications[i].group[j].responsible[3][4] == ':') {
         console.log(`Owner ${i+1} has not saved the proof in responsible field for group ${j+1} in Modifications`);
         return false;
@@ -103,6 +110,10 @@ export const checksBeforeMintSVL = (totalOwners: number, generalInformation: Gen
     for (let j = 0; j < repairs[i].group.length; j++) {
       if (repairs[i].group[j].responsible[3][4] == ':') {
         console.log(`Owner ${i+1} has not saved the proof in responsible field for group ${j+1} in Repairs`);
+        return false;
+      }
+      if (repairs[i].group[j].responsible[0] == null) {
+        console.log(`Owner ${i+1} has not set the responsible field for group ${j+1} in Modifications`);
         return false;
       }
       for (let k = 0; k < PHOTOGRAPHS_SIZE; k++) {

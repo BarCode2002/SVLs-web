@@ -2,6 +2,8 @@ import styles from '../../styles/components/dataSVL/typeSVL.module.css';
 //import { Modifications } from '../../utils/interfaces.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
+import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';
+import ComponentsContainer from './readOnlyFields/componentsContainer.tsx';
 import { useTranslation } from "react-i18next";
 
 type PrevOwnersModificationsSVLProps = {
@@ -23,7 +25,7 @@ const PrevOwnersModificationsSVL = ({ selectedOwner, prevOwnersModifications }: 
           </div>
           <div className={styles.groupTypeBottomPart}>
             <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].name} />
-            {/*<TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].name} />*/}
+            <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} numComponents={prevOwnersModifications[selectedOwner].modifications[groupIndex].numComponents} components={prevOwnersModifications[selectedOwner].modifications[groupIndex].components} />
             <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].pre} />
             <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].post} />
             <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].comments} />
@@ -49,7 +51,7 @@ const PrevOwnersModificationsSVL = ({ selectedOwner, prevOwnersModifications }: 
           <div className={styles.topBottomPart}>
             <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].kilometers} />
             <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].name} />
-            {/*<TextContainer fieldLabel={t('DataSVL.Labels.responsible')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].responsible} />*/}
+            <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={prevOwnersModifications[selectedOwner].modifications[groupIndex].responsible} />
             <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].date} />
             <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].pre} />
             <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].post} />

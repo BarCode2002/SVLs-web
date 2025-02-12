@@ -1,0 +1,13 @@
+.componentsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.fieldLabel {
+  width: 150px;
+  color: var(--fieldLabelColor);
+}
+
+.components {
+  color: var(--fieldLabelColor);
+}
