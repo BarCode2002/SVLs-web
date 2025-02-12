@@ -154,6 +154,7 @@ const Data = (): JSX.Element => {
   const prevOwnersModifications = useRef<Modifications[]>([]);
   const prevOwnersDefects = useRef<Defects[]>([]);
   const prevOwnersRepairs = useRef<Repairs[]>([]);
+  const [_, forceUpdate] = useState(0);
 
   const fillOwnerSVLData = (so: number, ownerSVLData: any, prevOwnersGeneralInformation: any, justTransferred: boolean)=> {
     //console.log(ownerSVLData);
@@ -254,8 +255,8 @@ const Data = (): JSX.Element => {
                   const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
                   prevOwnersGeneralInformation.current.push(responseIPFS.data[0]);
                   //console.log(responseIPFS.data[1].maintenances.length);
-                  console.log(responseIPFS.data[2].modifications.length);
-                  console.log(responseIPFS.data[2].modifications[0].type.length);
+                  //console.log(responseIPFS.data[2].modifications.length);
+                  //console.log(responseIPFS.data[2].modifications[0].type.length);
                   prevOwnersMaintenances.current.push(responseIPFS.data[1]);
                   prevOwnersModifications.current.push(responseIPFS.data[2]);
                   prevOwnersDefects.current.push(responseIPFS.data[3]);
@@ -297,6 +298,7 @@ const Data = (): JSX.Element => {
             //console.log(prevOwnersDefects);
             //console.log(prevOwnersRepairs);
           }
+          forceUpdate((prev) => prev + 1);
           setNewSVL(false);
         } catch (error: any | AxiosError) {
           console.error("Unexpected error:", error);
