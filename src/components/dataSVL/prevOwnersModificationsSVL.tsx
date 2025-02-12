@@ -66,8 +66,6 @@ const PrevOwnersModificationsSVL = ({ selectedOwner, prevOwnersModifications }: 
     <div className={styles.typeSVLContainer}>
       <div className={styles.title}>
         {t('DataSVL.Labels.modifications')}
-        {prevOwnersModifications[selectedOwner].modifications.length}
-        {prevOwnersModifications[selectedOwner].modifications[0].type.length}
       </div>
       {listGroupModifications}
     </div>
