@@ -7,9 +7,10 @@ import { createJSON } from '../../utils/createJSON.ts';
 import { format } from 'date-fns';
 import axios from "axios";
 import { useEffect, useState } from 'react';
-import { checksBeforeMintSVL } from '../../utils/mintEdit.ts';
+import { checksBeforeMintOrUpdateSVL } from '../../utils/mintUpdate.ts';
 
 type MintSVLButtonProps = {
+  numPreviousOwners: number;
   totalOwners: number;
   generalInformation: GeneralInformation[];
   maintenances: Maintenances[];
@@ -18,7 +19,7 @@ type MintSVLButtonProps = {
   repairs: Repairs[];
 };
 
-const MintSVLButton = ({ totalOwners, generalInformation, maintenances, modifications, defects, repairs }: MintSVLButtonProps): JSX.Element => {
+const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs }: MintSVLButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -33,7 +34,7 @@ const MintSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
   }, []);
 
   const handleMintSVL = async () => {
-    if (checksBeforeMintSVL(totalOwners, generalInformation, maintenances, modifications, defects, repairs, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'))) {
+    if (checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'))) {
       const formData = new FormData();
       let cids = [];
       for (let i = 0; i < totalOwners; i++) {

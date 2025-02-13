@@ -40,14 +40,17 @@ type DataSVLProps = {
   totalOwners: number;
   editMode: boolean;
   numPreviousOwners: number;
+  mySVL: boolean;
 };
 
-const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners }: DataSVLProps): JSX.Element => {
+const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL }: DataSVLProps): JSX.Element => {
 
   const [prevMaintenancesShrinked, setPrevMaintenancesShrinked] = useState<MainShrinkedType[]>([]);
   const [prevModificationsShrinked, setPrevModificationsShrinked] = useState<MainShrinkedType[]>([]);
   const [prevDefectsShrinked, setPrevDefectsShrinked] = useState<MainShrinkedType[]>([]);
   const [prevRepairsShrinked, setPrevRepairsShrinked] = useState<MainShrinkedType[]>([]);
+  const [shrinkedReady, setShrinkedReady] = useState(false);
+  const [weird, setWeird] = useState(0);
 
   useEffect(() => {
     const numGroupsMaintenances: any[] = [];
@@ -58,12 +61,15 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     const numTypesDefects: any[] = [];
     const numGroupsRepairs: any[] = [];
     const numTypesRepairs: any[] = [];
-    for (let i = 0; i < numPreviousOwners; i++) {
+    let limit;
+    if (mySVL == true) limit = numPreviousOwners;
+    else limit = totalOwners;
+    for (let i = 0; i < limit; i++) {
       const numTypesMain: number[] = [];
       for (let j = 0; j < prevOwnersMaintenances[i].maintenances.length; j++) {
         numTypesMain.push(prevOwnersMaintenances[i].maintenances[j].type.length);
-      }  
-      numGroupsMaintenances.push(prevOwnersModifications[i].modifications.length);
+      }
+      numGroupsMaintenances.push(prevOwnersMaintenances[i].maintenances.length);
       numTypesMaintenances.push(numTypesMain);
 
       const numTypesMod: number[] = [];
@@ -86,16 +92,16 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
       }  
       numGroupsRepairs.push(prevOwnersRepairs[i].repairs.length);
       numTypesRepairs.push(numTypesRep);
-    }  
-    const updatedShrinkedMaintenances: MainShrinkedType[] = Array.from({ length: numPreviousOwners }, (_, groupIndex) =>
-      Array.from({ length: numGroupsModifications[groupIndex] }, (_, typeIndex) => ({
+    }
+    const updatedShrinkedMaintenances: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
+      Array.from({ length: numGroupsMaintenances[groupIndex] }, (_, typeIndex) => ({
         group: false,
         type: Array(numTypesMaintenances[groupIndex][typeIndex]).fill(false),
       }))
     );
     setPrevMaintenancesShrinked(updatedShrinkedMaintenances);
 
-    const updatedShrinkedModifications: MainShrinkedType[] = Array.from({ length: numPreviousOwners }, (_, groupIndex) =>
+    const updatedShrinkedModifications: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
       Array.from({ length: numGroupsModifications[groupIndex] }, (_, typeIndex) => ({
         group: false,
         type: Array(numTypesModifications[groupIndex][typeIndex]).fill(false),
@@ -103,7 +109,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     );
     setPrevModificationsShrinked(updatedShrinkedModifications);
 
-    const updatedShrinkedDefectss: MainShrinkedType[] = Array.from({ length: numPreviousOwners }, (_, groupIndex) =>
+    const updatedShrinkedDefectss: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
       Array.from({ length: numGroupsDefects[groupIndex] }, (_, typeIndex) => ({
         group: false,
         type: Array(numTypesDefects[groupIndex][typeIndex]).fill(false),
@@ -111,45 +117,49 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     );
     setPrevDefectsShrinked(updatedShrinkedDefectss);
 
-    const updatedShrinkedRepairs: MainShrinkedType[] = Array.from({ length: numPreviousOwners }, (_, groupIndex) =>
+    const updatedShrinkedRepairs: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
       Array.from({ length: numGroupsRepairs[groupIndex] }, (_, typeIndex) => ({
         group: false,
         type: Array(numTypesRepairs[groupIndex][typeIndex]).fill(false),
       }))
     );
     setPrevRepairsShrinked(updatedShrinkedRepairs);
+
+    if (!mySVL) setWeird(totalOwners);
+    else setWeird(numPreviousOwners);
+    setShrinkedReady(true);
   }, []);
 
   return (
     <div className={styles.dataSVLContainer}>
-      {selectedSVLData == 0 && selectedOwner < numPreviousOwners &&
+      {selectedSVLData == 0 && selectedOwner < weird &&
         <PrevOwnersGeneralInformationSVL selectedOwner={selectedOwner} prevOwnersGeneralInformation={prevOwnersGeneralInformation} />
       }
-      {selectedSVLData == 0 && selectedOwner >= numPreviousOwners &&
+      {selectedSVLData == 0 && selectedOwner >= weird &&
         <GeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} editMode={editMode} />
       }
-      {selectedSVLData == 1 && selectedOwner < numPreviousOwners &&
+      {shrinkedReady && selectedSVLData == 1 && selectedOwner < weird &&
         <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={prevOwnersMaintenances} />
       }
-      {selectedSVLData == 1 && selectedOwner >= numPreviousOwners &&
+      {selectedSVLData == 1 && selectedOwner >= weird &&
         <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} />
       }
-      {selectedSVLData == 2 && selectedOwner < numPreviousOwners &&
+      {shrinkedReady && selectedSVLData == 2 && selectedOwner < weird &&
         <PrevOwnersModificationsSVL selectedOwner={selectedOwner} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} prevOwnersModifications={prevOwnersModifications} />
       }
-      {selectedSVLData == 2 && selectedOwner >= numPreviousOwners &&
+      {selectedSVLData == 2 && selectedOwner >= weird &&
         <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} />
       }
-      {selectedSVLData == 3 && selectedOwner < numPreviousOwners &&
+      {shrinkedReady && selectedSVLData == 3 && selectedOwner < weird &&
         <PrevOwnersDefectsSVL selectedOwner={selectedOwner} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={prevOwnersDefects} prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} />
       }
-      {selectedSVLData == 3 && selectedOwner >= numPreviousOwners &&
+      {selectedSVLData == 3 && selectedOwner >= weird &&
         <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} defects={defects} setDefects={setDefects} editMode={editMode} />
       }
-      {selectedSVLData == 4 && selectedOwner < numPreviousOwners &&
+      {shrinkedReady && selectedSVLData == 4 && selectedOwner < weird &&
         <PrevOwnersRepairsSVL selectedOwner={selectedOwner} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={prevOwnersRepairs} />
       }
-      {selectedSVLData == 4 && selectedOwner >= numPreviousOwners &&
+      {selectedSVLData == 4 && selectedOwner >= weird &&
         <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} editMode={editMode} />
       }
     </div>

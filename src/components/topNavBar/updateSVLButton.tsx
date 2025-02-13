@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
-import { checksBeforeMintSVL } from '../../utils/mintEdit.ts';
+import { checksBeforeMintOrUpdateSVL } from '../../utils/mintUpdate.ts';
 import { useTranslation } from "react-i18next";
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
-import { getsmartContractAddress, getTezos } from '../../utils/wallet';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
+import { getsmartContractAddress, getTezos } from '../../utils/wallet.ts';
+import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
 import { createJSON } from '../../utils/createJSON.ts';
 import axios from "axios";
 
-type EditSVLButtonProps = {
+type UpdateSVLButtonProps = {
+  numPreviousOwners: number;
   totalOwners: number;
   generalInformation: GeneralInformation[];
   maintenances: Maintenances[];
@@ -18,7 +19,7 @@ type EditSVLButtonProps = {
   svl_pk: string;
 };
 
-const EditSVLButton = ({ totalOwners, generalInformation, maintenances, modifications, defects, repairs, svl_pk }: EditSVLButtonProps): JSX.Element => {
+const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, svl_pk }: UpdateSVLButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -33,11 +34,11 @@ const EditSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
   }, []);
 
   const handleUpdateSVL = async () => {
-    if (checksBeforeMintSVL(totalOwners, generalInformation, maintenances, modifications, defects, repairs, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'))) {
+    if (checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'))) {
       const formData = new FormData();
-      let cids = []; //tendrian que ser solo los nuevos
-      for (let i = 0; i < totalOwners; i++) {
-        const json = createJSON(i, generalInformation, maintenances, modifications, defects, repairs);
+      let cids = []; 
+      for (let i = numPreviousOwners; i < totalOwners; i++) {
+        const json = createJSON(i-numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs);
         const blob = new Blob([json], { type: "application/json" });
         formData.append("file", blob);
       }
@@ -80,4 +81,4 @@ const EditSVLButton = ({ totalOwners, generalInformation, maintenances, modifica
   );
 }
 
-export default EditSVLButton;
+export default UpdateSVLButton;

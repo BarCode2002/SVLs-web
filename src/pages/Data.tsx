@@ -28,6 +28,7 @@ const Data = (): JSX.Element => {
   const [editMode, setEditMode] = useState(true);
   const [viewType, setViewType] = useState(0);
   const [newSVL, setNewSVL] = useState(true);
+  const [mySVL, setMySVL] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
@@ -147,12 +148,11 @@ const Data = (): JSX.Element => {
   const prevOwnersModifications = useRef<Modifications[]>([]);
   const prevOwnersDefects = useRef<Defects[]>([]);
   const prevOwnersRepairs = useRef<Repairs[]>([]);
-  const didRun = useRef(false);// en teoria solo necesario para el development por el strict mode
+  const didRun = useRef(false);//en teoria solo necesario para el development por el strict mode
 
   const ownershipSummary = useRef<OwnershipSummary[]>([]);
 
-  const fillOwnerSVLData = (so: number, responseIPFS: any, prevOwnersGeneralInformation: any, justTransferred: boolean)=> {
-    //console.log(ownerSVLData);
+  const fillOwnerSVLData = (so: number, responseIPFS: any, prevOwnerGeneralInformation: any, justTransferred: boolean)=> {
     //console.log(generalInformation);
     //console.log(maintenances.length);
     //console.log(modifications.length);
@@ -160,14 +160,33 @@ const Data = (): JSX.Element => {
     //console.log(repairs.length);
 
     if (justTransferred) {
-      setGeneralInformation((prevGeneralInformation) =>
-        prevGeneralInformation.map((item, i) =>
-          i == so ? { ...item,  ...prevOwnersGeneralInformation } : item
-        )
-      );
+      const updatedGeneralInformation = [...generalInformation];
+      updatedGeneralInformation[0] = {
+        VIN: prevOwnerGeneralInformation.VIN,
+        brand: prevOwnerGeneralInformation.brand,
+        model: prevOwnerGeneralInformation.model,
+        year: prevOwnerGeneralInformation.year,
+        kilometers: prevOwnerGeneralInformation.kilometers,
+        mainPhotograph: prevOwnerGeneralInformation.mainPhotograph,
+        state: prevOwnerGeneralInformation.state,
+        photographs: [...prevOwnerGeneralInformation.photographs],
+        weight: prevOwnerGeneralInformation.weight,
+        color: prevOwnerGeneralInformation.color,
+        engine: prevOwnerGeneralInformation.engine,
+        power: prevOwnerGeneralInformation.power,
+        shift: prevOwnerGeneralInformation.shift,
+        fuel: prevOwnerGeneralInformation.fuel,
+        autonomy: prevOwnerGeneralInformation.autonomy,
+        climate: prevOwnerGeneralInformation.climate,
+        usage: prevOwnerGeneralInformation.usage,
+        storage: prevOwnerGeneralInformation.storage,
+        comments: prevOwnerGeneralInformation.comments,
+      },
+      setGeneralInformation(updatedGeneralInformation);
     }
     else {
       const ownerSVLData = responseIPFS.data;
+      //console.log(ownerSVLData);
       setGeneralInformation((prevGeneralInformation) =>
         prevGeneralInformation.map((item, i) =>
           i == so ? { ...item,  ...ownerSVLData[0] } : item
@@ -227,7 +246,61 @@ const Data = (): JSX.Element => {
         if (svl_pk) {
           try {
             const responseIndexer = await axios.get(`http://127.0.0.1:3000/indexer/holder/pk/${svl_pk}`);
-            if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') {
+            if (responseIndexer.data[0].owner_address != localStorage.getItem('address')) {
+              setMySVL(false)
+              let numPreviousOwners = 0;
+              for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) {
+                const owners = [];
+                for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
+                  try {
+                    const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
+                    prevOwnersGeneralInformation.current.push(responseIPFS.data[0]);
+                    prevOwnersMaintenances.current.push(responseIPFS.data[1]);
+                    prevOwnersModifications.current.push(responseIPFS.data[2]);
+                    prevOwnersDefects.current.push(responseIPFS.data[3]);
+                    prevOwnersRepairs.current.push(responseIPFS.data[4]);
+                    ++numPreviousOwners; 
+                    owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
+                  } catch (error: any | AxiosError) {
+                    console.error("Unexpected error:", error);
+                  }
+                }
+                if (responseIndexer.data[0].previous_owners_info[0].cids[0] != '') {
+                  const ownershipInfo = {
+                    ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
+                    owners: owners,
+                  }
+                  ownershipSummary.current.push(ownershipInfo);
+                }
+              }
+              try {
+                const owners = [];
+                for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
+                  try {
+                    const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`);
+                    prevOwnersGeneralInformation.current.push(responseIPFS.data[0]);
+                    prevOwnersMaintenances.current.push(responseIPFS.data[1]);
+                    prevOwnersModifications.current.push(responseIPFS.data[2]);
+                    prevOwnersDefects.current.push(responseIPFS.data[3]);
+                    prevOwnersRepairs.current.push(responseIPFS.data[4]);
+                    ++numPreviousOwners; 
+                    owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
+                  } catch (error: any | AxiosError) {
+                    console.error("Unexpected error:", error);
+                  }
+                }
+                const ownershipInfo = {
+                  ownerAddress: responseIndexer.data[0].owner_address,
+                  owners: owners,
+                }
+                ownershipSummary.current.push(ownershipInfo);
+                setTotalOwners(numPreviousOwners);
+              } catch (error: any | AxiosError) {
+                console.error("Unexpected error:", error);
+              }
+              setSelectedOwner(0);
+            }
+            else if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') {
               try {
                 for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
                   addOwners();
@@ -335,7 +408,7 @@ const Data = (): JSX.Element => {
       ) :
         <div className={styles.mainContainer}>
           <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
-            setViewType={setViewType} selectedOwner={selectedOwner} totalOwners={totalOwners}
+            setViewType={setViewType} selectedOwner={selectedOwner} totalOwners={totalOwners} numPreviousOwners={numPreviousOwners}
             generalInformation={generalInformation} setGeneralInformation={setGeneralInformation}
             maintenances={maintenances} setMaintenances={setMaintenances} modifications={modifications} 
             setModifications={setModifications} defects={defects} setDefects={setDefects}
@@ -347,7 +420,7 @@ const Data = (): JSX.Element => {
             modifications={modifications} setModifications={setModifications} prevOwnersModifications={prevOwnersModifications.current}
             defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects.current}
             repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
-            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners}
+            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL}
           />
           <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
             selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}

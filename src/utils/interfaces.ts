@@ -123,5 +123,5 @@ export interface PreviewSVLsInfo {
 
 export interface OwnershipSummary {
   ownerAddress: string;
-  numOwners: string[];
+  owners: string[];
 }

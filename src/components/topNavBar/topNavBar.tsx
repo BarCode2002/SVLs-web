@@ -5,7 +5,7 @@ import EditModeButton from './editModeButton';
 import UploadJSONButton from './uploadJSONButton';
 import DownloadJSONButton from './downloadJSONButton';
 import MintSVLButton from './mintSVLButton';
-import EditSVLButton from './editSVLButton';
+import EditSVLButton from './updateSVLButton';
 import DisconnectWalletButton from './disconnectWalletButton';
 import CreateSVLButton from './createSVLButton';
 import OwnershipSummaryButton from '../dataSVL/buttons/owenershipSummaryButton';
@@ -24,6 +24,7 @@ type TopNavBarProps = {
   setMyAddress?: React.Dispatch<React.SetStateAction<string | undefined>>;
   selectedOwner?: number;
   totalOwners?: number;
+  numPreviousOwners?: number;
   generalInformation?: GeneralInformation[];
   setGeneralInformation?: React.Dispatch<SetStateAction<GeneralInformation[]>>;
   maintenances?: Maintenances[];
@@ -38,7 +39,7 @@ type TopNavBarProps = {
   ownershipSummary: OwnershipSummary[];
 };
 
-const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary }: TopNavBarProps): JSX.Element => {
 
   return (
     <div>
@@ -80,10 +81,10 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
                 />
                 {newSVL == true ? (
-                  <MintSVLButton totalOwners={totalOwners!} generalInformation={generalInformation!} 
+                  <MintSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
                     maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} />
                 ) : (
-                  <EditSVLButton totalOwners={totalOwners!} generalInformation={generalInformation!} 
+                  <EditSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
                   maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} />
                 )}
               </div>
