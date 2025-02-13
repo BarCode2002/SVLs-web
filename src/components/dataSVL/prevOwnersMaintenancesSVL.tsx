@@ -4,14 +4,17 @@ import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';
 import ComponentsContainer from './readOnlyFields/componentsContainer.tsx';
+import ToggleVisibilityRDButton from './readOnlyFields/toggleVisibilityRDButton.tsx';
 import { useTranslation } from "react-i18next";
 
 type PrevOwnersMainteancesSVLProps = {
   selectedOwner: number;
+  shrinked: any;
+  setShrinked: any;
   prevOwnersMaintenances: any;
 };
 
-const PrevOwnersMaintenancesSVL = ({ selectedOwner, prevOwnersMaintenances }: PrevOwnersMainteancesSVLProps): JSX.Element => {
+const PrevOwnersMaintenancesSVL = ({ selectedOwner, shrinked, setShrinked, prevOwnersMaintenances }: PrevOwnersMainteancesSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -22,14 +25,17 @@ const PrevOwnersMaintenancesSVL = ({ selectedOwner, prevOwnersMaintenances }: Pr
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
+            <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={typeIndex} />
           </div>
-          <div className={styles.groupTypeBottomPart}>
-            <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].name} />
-            <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} numComponents={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].numComponents} components={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].components} />
-            <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].pre} />
-            <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].post} />
-            <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].comments} />
-          </div>
+          {shrinked[selectedOwner][groupIndex].type[typeIndex] == false &&
+            <div className={styles.groupTypeBottomPart}>
+              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].name} />
+              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} numComponents={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].numComponents} components={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].components} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].pre} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].post} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].comments} />
+            </div>
+          }
         </div>
       </div>
     ));
@@ -47,7 +53,9 @@ const PrevOwnersMaintenancesSVL = ({ selectedOwner, prevOwnersMaintenances }: Pr
         <div className={styles.topPart}>
           <div className={styles.toggleVisibilityRemoveGroup}>
             # {groupIndex + 1}
+            <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={-1} />
           </div>
+          {shrinked[selectedOwner][groupIndex].group == false &&
           <div className={styles.topBottomPart}>
             <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].kilometers} />
             <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].name} />
@@ -56,10 +64,13 @@ const PrevOwnersMaintenancesSVL = ({ selectedOwner, prevOwnersMaintenances }: Pr
             <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].pre} />
             <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].post} />
           </div>
+          }
         </div>
-        <div>
-          {renderlistMaintenances(groupIndex)}
-        </div>
+        {shrinked[selectedOwner][groupIndex].group == false &&
+          <div>
+            {renderlistMaintenances(groupIndex)}
+          </div>
+        }
       </div>
     </div>
   ));
