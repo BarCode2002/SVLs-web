@@ -148,7 +148,7 @@ const Data = (): JSX.Element => {
   const prevOwnersRepairs = useRef<Repairs[]>([]);
   const didRun = useRef(false);// en teoria solo necesario para el development por el strict mode
 
-  const fillOwnerSVLData = (so: number, ownerSVLData: any, prevOwnersGeneralInformation: any, justTransferred: boolean)=> {
+  const fillOwnerSVLData = (so: number, responseIPFS: any, prevOwnersGeneralInformation: any, justTransferred: boolean)=> {
     //console.log(ownerSVLData);
     //console.log(generalInformation);
     //console.log(maintenances.length);
@@ -164,6 +164,7 @@ const Data = (): JSX.Element => {
       );
     }
     else {
+      const ownerSVLData = responseIPFS.data;
       setGeneralInformation((prevGeneralInformation) =>
         prevGeneralInformation.map((item, i) =>
           i == so ? { ...item,  ...ownerSVLData[0] } : item
@@ -264,13 +265,11 @@ const Data = (): JSX.Element => {
                 for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                   let cid;
                   let justTransferred = false;
-                  if (responseIndexer.data[0].current_owner_info[0] == '') {
-                    cid = "Qme6enrnownz3wTieTreRFngEZpwbrywKboSwvSQUDB3we";
-                    justTransferred = true;
-                  }
+                  if (responseIndexer.data[0].current_owner_info[0] == '') justTransferred = true;
                   else cid = responseIndexer.data[0].current_owner_info[i];
-                  const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`);
-                  fillOwnerSVLData(i, responseIPFS.data, prevOwnersGeneralInformation.current[numPreviousOwners-1], justTransferred);
+                  let responseIPFS;
+                  if (justTransferred == false) responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`);
+                  fillOwnerSVLData(i, responseIPFS, prevOwnersGeneralInformation.current[numPreviousOwners-1], justTransferred);
                 }
                 setTotalOwners(numPreviousOwners+responseIndexer.data[0].current_owner_info.length);
               } catch (error: any | AxiosError) {
