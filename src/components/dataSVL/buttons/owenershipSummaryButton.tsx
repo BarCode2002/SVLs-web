@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/ownershipSummaryButton.module.css';
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
+import { OwnershipSummary } from '../../../utils/interfaces';
 import { useTranslation } from "react-i18next";
 
 type OwnershipSummaryButtonProps = {
-
+  ownershipSummary: OwnershipSummary[];
 }
 
-const OwnershipSummaryButton = ({ }: OwnershipSummaryButtonProps) => {
+const OwnershipSummaryButton = ({ ownershipSummary }: OwnershipSummaryButtonProps) => {
 
   const { t } = useTranslation();
   const [showInfo, setShowInfo] = useState(false);
@@ -33,10 +34,16 @@ const OwnershipSummaryButton = ({ }: OwnershipSummaryButtonProps) => {
       </button>
       {showInfo == true &&
         <div ref={refClickOutside} className={styles.ownershipSummaryContainer}>
-          <div className={styles.ownershipInformation}>
-            <div>hola: r343gtg</div>
-            <div>adios: 432423</div>
-          </div>
+          {ownershipSummary.map((owner, index) => (
+            <div key={index} className={styles.ownershipInformation}>
+              {owner.ownerAddress}
+              {Array(owner.owners).map((ownerI, i) => (
+                <div key={i}>
+                  {ownerI}
+                </div>
+              ))}
+            </div>
+          ))}
           <div className={styles.closeButton}>
             <button
               className={styles.button}

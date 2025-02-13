@@ -10,6 +10,7 @@ import DisconnectWalletButton from './disconnectWalletButton';
 import CreateSVLButton from './createSVLButton';
 import OwnershipSummaryButton from '../dataSVL/buttons/owenershipSummaryButton';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
+import { OwnershipSummary } from '../../utils/interfaces';
 import { SetStateAction } from 'react';
 
 type TopNavBarProps = {
@@ -34,9 +35,10 @@ type TopNavBarProps = {
   repairs?: Repairs[];
   setRepairs?: React.Dispatch<SetStateAction<Repairs[]>>;
   svl_pk?: string;
+  ownershipSummary: OwnershipSummary[];
 };
 
-const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary }: TopNavBarProps): JSX.Element => {
 
   return (
     <div>
@@ -57,12 +59,16 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
             <GoBackButton />
             {editMode == false ? (
               <div className={styles.alwaysVisibleButtons}>
-                <OwnershipSummaryButton />
+                {ownershipSummary.length > 0 &&
+                  <OwnershipSummaryButton ownershipSummary={ownershipSummary} />
+                }
                 <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
               </div>
             ) : (
               <div className={styles.rightSideButtons}>
-                <OwnershipSummaryButton />
+                {ownershipSummary.length > 0 &&
+                  <OwnershipSummaryButton ownershipSummary={ownershipSummary} />
+                }
                 <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
                 <UploadJSONButton selectedOwner={selectedOwner!} 

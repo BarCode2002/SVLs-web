@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/pages/Data.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../utils/interfaces.ts';
+import { OwnershipSummary } from '../utils/interfaces.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
@@ -148,6 +149,8 @@ const Data = (): JSX.Element => {
   const prevOwnersRepairs = useRef<Repairs[]>([]);
   const didRun = useRef(false);// en teoria solo necesario para el development por el strict mode
 
+  const ownershipSummary = useRef<OwnershipSummary[]>([]);
+
   const fillOwnerSVLData = (so: number, responseIPFS: any, prevOwnersGeneralInformation: any, justTransferred: boolean)=> {
     //console.log(ownerSVLData);
     //console.log(generalInformation);
@@ -231,10 +234,17 @@ const Data = (): JSX.Element => {
                 }
                 setTotalOwners(responseIndexer.data[0].current_owner_info.length);
                 setNumPreviousOwners(0);
+                const owners = [];
                 for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                   const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`);
-                  fillOwnerSVLData(i, responseIPFS.data, [], false);
+                  fillOwnerSVLData(i, responseIPFS, [], false);
+                  owners.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`);
                 }
+                const ownershipInfo = {
+                  ownerAddress: responseIndexer.data[0].owner_address,
+                  owners: owners,
+                }
+                ownershipSummary.current.push(ownershipInfo);
               } catch (error: any | AxiosError) {
                 console.error("Unexpected error:", error);
               }
@@ -243,6 +253,7 @@ const Data = (): JSX.Element => {
             else {
               let numPreviousOwners = 0;
               for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) {
+                const owners = [];
                 for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
                   try {
                     const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
@@ -251,17 +262,24 @@ const Data = (): JSX.Element => {
                     prevOwnersModifications.current.push(responseIPFS.data[2]);
                     prevOwnersDefects.current.push(responseIPFS.data[3]);
                     prevOwnersRepairs.current.push(responseIPFS.data[4]);
-                    ++numPreviousOwners;
+                    ++numPreviousOwners; 
+                    owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                   } catch (error: any | AxiosError) {
                     console.error("Unexpected error:", error);
                   }
                 }
+                const ownershipInfo = {
+                  ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
+                  owners: owners,
+                }
+                ownershipSummary.current.push(ownershipInfo);
               }
               setNumPreviousOwners(numPreviousOwners);
               try {
                 for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
                   addOwners();
                 }
+                const owners = [];
                 for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                   let cid;
                   let justTransferred = false;
@@ -270,7 +288,13 @@ const Data = (): JSX.Element => {
                   let responseIPFS;
                   if (justTransferred == false) responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`);
                   fillOwnerSVLData(i, responseIPFS, prevOwnersGeneralInformation.current[numPreviousOwners-1], justTransferred);
+                  owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners+i+1}`);
                 }
+                const ownershipInfo = {
+                  ownerAddress: responseIndexer.data[0].owner_address,
+                  owners: owners,
+                }
+                ownershipSummary.current.push(ownershipInfo);
                 setTotalOwners(numPreviousOwners+responseIndexer.data[0].current_owner_info.length);
               } catch (error: any | AxiosError) {
                 console.error("Unexpected error:", error);
@@ -313,10 +337,9 @@ const Data = (): JSX.Element => {
           <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
             setViewType={setViewType} selectedOwner={selectedOwner} totalOwners={totalOwners}
             generalInformation={generalInformation} setGeneralInformation={setGeneralInformation}
-            maintenances={maintenances} setMaintenances={setMaintenances}
-            modifications={modifications} setModifications={setModifications}
-            defects={defects} setDefects={setDefects}
-            repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk}
+            maintenances={maintenances} setMaintenances={setMaintenances} modifications={modifications} 
+            setModifications={setModifications} defects={defects} setDefects={setDefects}
+            repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk} ownershipSummary={ownershipSummary.current}
           />
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
             generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} prevOwnersGeneralInformation={prevOwnersGeneralInformation.current}

@@ -120,3 +120,8 @@ export interface PreviewSVLsInfo {
   stateNotMySVL: [boolean | null, string, string, boolean | null];
   //requested or not / owner address / requester address / request accepted or not
 }
+
+export interface OwnershipSummary {
+  ownerAddress: string;
+  numOwners: string[];
+}
