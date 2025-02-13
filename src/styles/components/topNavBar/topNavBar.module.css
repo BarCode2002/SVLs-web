@@ -31,6 +31,12 @@
   font-weight: 600;
 }
 
+.alwaysVisibleButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
 .rightSideButtons {
   display: flex;
   flex-grow: 1;

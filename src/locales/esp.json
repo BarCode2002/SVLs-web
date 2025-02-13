@@ -36,7 +36,9 @@
       "uploadJSON": "Sube propietario",
       "downloadJSON": "Descarga propietario",
       "mintSVL": "Crea SVL",
-      "editSVL": "Edita SVL"
+      "editSVL": "Edita SVL",
+      "ownershipSummary": "Resumen de propiedad",
+      "close": "Cierra"
     },
     "BottomBar": {
       "generalInformation": "Información general",

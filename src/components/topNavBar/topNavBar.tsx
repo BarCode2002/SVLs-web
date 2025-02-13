@@ -8,6 +8,7 @@ import MintSVLButton from './mintSVLButton';
 import EditSVLButton from './editSVLButton';
 import DisconnectWalletButton from './disconnectWalletButton';
 import CreateSVLButton from './createSVLButton';
+import OwnershipSummaryButton from '../dataSVL/buttons/owenershipSummaryButton';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { SetStateAction } from 'react';
 
@@ -55,9 +56,13 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
           <div className={styles.topNavBarDataContainer}>
             <GoBackButton />
             {editMode == false ? (
-              <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
+              <div className={styles.alwaysVisibleButtons}>
+                <OwnershipSummaryButton />
+                <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
+              </div>
             ) : (
               <div className={styles.rightSideButtons}>
+                <OwnershipSummaryButton />
                 <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
                 <UploadJSONButton selectedOwner={selectedOwner!} 
