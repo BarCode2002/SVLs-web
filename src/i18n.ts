@@ -1,19 +1,29 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import HttpBackend from "i18next-http-backend";
+import Backend from 'i18next-http-backend';
+
+const savedLanguage = localStorage.getItem('language') || 'es';
 
 i18n
-  .use(HttpBackend)
-  .use(initReactI18next) 
+  .use(Backend) 
+  .use(initReactI18next)  
   .init({
-    fallbackLng: "esp",
-    debug: false, 
+    lng: savedLanguage,
+    fallbackLng: 'es', 
+    debug: false,  
     interpolation: {
-      escapeValue: false,
+      escapeValue: false,  
     },
     backend: {
-      loadPath: "/src/locales/{{lng}}.json",
+      loadPath: "http://127.0.0.1:3000/mongo/translations?language={{lng}}", 
+    },
+    react: {
+      useSuspense: true, 
     },
   });
+
+i18n.on('languageChanged', (lng) => {
+  localStorage.setItem('language', lng);
+});
 
 export default i18n;
