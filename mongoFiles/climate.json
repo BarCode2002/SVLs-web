@@ -1,0 +1,12 @@
+{ 
+  "type": "climate",
+  "climate": [
+    "Lists.Climate.mediterranean",
+    "Lists.Climate.coastal",
+    "Lists.Climate.mountainous",
+    "Lists.Climate.tropical",
+    "Lists.Climate.desert",
+    "Lists.Climate.temperate",
+    "Lists.Climate.artic"
+  ]
+}

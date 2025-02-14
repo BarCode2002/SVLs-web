@@ -1,0 +1,12 @@
+{ 
+  "type": "state",
+  "state": [
+    "Lists.State.new",
+    "Lists.State.excellent",
+    "Lists.State.great",
+    "Lists.State.good",
+    "Lists.State.mediocre",
+    "Lists.State.poor",
+    "Lists.State.totalled"
+  ]
+}
