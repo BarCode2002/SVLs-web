@@ -49,27 +49,25 @@ const OwnershipSummaryButton = ({ ownershipSummary }: OwnershipSummaryButtonProp
         {t('DataSVL.TopBar.ownershipSummary')}
       </button>
       {showInfo == true &&
-      
-          <div ref={panelRef} className={styles.ownershipSummaryContainer} style={{ left: position.left, top: position.top }}>
-            {ownershipSummary.map((owner, index) => (
-              <div key={index} className={styles.ownershipInformation}>
-                {owner.ownerAddress}
-                {Array(owner.owners).map((ownerI, i) => (
-                  <div key={i}>
-                    {ownerI}
-                  </div>
-                ))}
-              </div>
-            ))}
-            <div className={styles.closeButton}>
-              <button
-                className={styles.button}
-                onClick={closeOwnershipSummary}>
-                {t('DataSVL.TopBar.close')}
-              </button>
+        <div ref={panelRef} className={styles.ownershipSummaryContainer} style={{ left: position.left, top: position.top }}>
+          {ownershipSummary.map((owner, index) => (
+            <div key={index} className={styles.ownershipInformation}>
+              {owner.ownerAddress}
+              {Array(owner.owners).map((ownerI, i) => (
+                <div key={i}>
+                  {ownerI}
+                </div>
+              ))}
             </div>
+          ))}
+          <div className={styles.closeButton}>
+            <button
+              className={styles.button}
+              onClick={closeOwnershipSummary}>
+              {t('DataSVL.TopBar.close')}
+            </button>
           </div>
-        
+        </div>
       }
     </div>
   );
