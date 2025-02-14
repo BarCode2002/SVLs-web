@@ -37,9 +37,10 @@ type TopNavBarProps = {
   setRepairs?: React.Dispatch<SetStateAction<Repairs[]>>;
   svl_pk?: string;
   ownershipSummary: OwnershipSummary[];
+  mySVL?: boolean;
 };
 
-const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL }: TopNavBarProps): JSX.Element => {
 
   return (
     <div>
@@ -63,7 +64,9 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 {ownershipSummary.length > 0 &&
                   <OwnershipSummaryButton ownershipSummary={ownershipSummary} />
                 }
-                <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
+                {mySVL == true &&
+                  <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
+                }
               </div>
             ) : (
               <div className={styles.rightSideButtons}>

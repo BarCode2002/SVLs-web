@@ -25,7 +25,7 @@ const Data = (): JSX.Element => {
   const [selectedOwner, setSelectedOwner] = useState(0);
   const [totalOwners, setTotalOwners] = useState(1);
   const [numPreviousOwners, setNumPreviousOwners] = useState(0);
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
   const [viewType, setViewType] = useState(0);
   const [newSVL, setNewSVL] = useState(true);
   const [mySVL, setMySVL] = useState(true);
@@ -412,7 +412,7 @@ const Data = (): JSX.Element => {
             generalInformation={generalInformation} setGeneralInformation={setGeneralInformation}
             maintenances={maintenances} setMaintenances={setMaintenances} modifications={modifications} 
             setModifications={setModifications} defects={defects} setDefects={setDefects}
-            repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk} ownershipSummary={ownershipSummary.current}
+            repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk} ownershipSummary={ownershipSummary.current} mySVL={mySVL}
           />
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
             generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} prevOwnersGeneralInformation={prevOwnersGeneralInformation.current}
