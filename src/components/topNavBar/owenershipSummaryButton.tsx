@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import styles from '../../../styles/components/dataSVL/buttons/ownershipSummaryButton.module.css';
-import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
-import { OwnershipSummary } from '../../../utils/interfaces';
+import styles from '../../styles/components/topNavBar/ownershipSummaryButton.module.css';
+import { DetectClickOutsideComponent } from '../varied/detectClickOutsideComponent';
+import { OwnershipSummary } from '../../utils/interfaces';
 import { useTranslation } from "react-i18next";
 
 type OwnershipSummaryButtonProps = {
@@ -13,12 +13,13 @@ const OwnershipSummaryButton = ({ ownershipSummary }: OwnershipSummaryButtonProp
   const { t } = useTranslation();
   const [showInfo, setShowInfo] = useState(false);
   
-  const openOwnershipSummary = () => {
-    setShowInfo(true)
+  const handleOwnershipSummary = () => {
+    if (showInfo) setShowInfo(false);
+    else setShowInfo(true);
   }
 
   const closeOwnershipSummary = () => {
-    setShowInfo(false)
+    setShowInfo(false);
   }
 
   const refClickOutside = DetectClickOutsideComponent(() => { 
@@ -26,14 +27,14 @@ const OwnershipSummaryButton = ({ ownershipSummary }: OwnershipSummaryButtonProp
   });
 
   return (
-    <div>
+    <div ref={refClickOutside}>
       <button
         className={styles.button}
-        onClick={openOwnershipSummary}>
+        onClick={handleOwnershipSummary}>
         {t('DataSVL.TopBar.ownershipSummary')}
       </button>
       {showInfo == true &&
-        <div ref={refClickOutside} className={styles.ownershipSummaryContainer}>
+        <div className={styles.ownershipSummaryContainer}>
           {ownershipSummary.map((owner, index) => (
             <div key={index} className={styles.ownershipInformation}>
               {owner.ownerAddress}

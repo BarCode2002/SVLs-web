@@ -26,6 +26,7 @@
   height: 200px;
   background-color: black;
   color: white;
+  z-index: 1;
 }
 
 .ownershipInformation {

@@ -1,6 +1,8 @@
 import { useState, useEffect, SetStateAction, useRef } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/dropdownMenu.module.css';
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
+import axios, { AxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 
 type DropdownMenuProps = {
   fieldLabel: string;
@@ -16,16 +18,34 @@ type DropdownMenuProps = {
 
 const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode }: DropdownMenuProps) => {
   
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [noMatchShown, setNoMatchShown] = useState(false);
-  const list = ['hola', 'adios', 'faf', 'fewf', 'reyt', 'fewfew', 'afeff0', 'fewfewafewfefwf', 'aaa'];
-  const cancelButtonText = 'Cancel';
-  const searchBarPlaceholder = 'Search...';
+  const [list, setList] = useState<string[]>([]);
+  const cancelButtonText = t('DataSVL.Placeholders.cancel');
+  const searchBarPlaceholder = t('DataSVL.Placeholders.search');
+
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        let typeQuery = type;
+        if (type == 'level') typeQuery = 'defectLevel';
+        const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/lists?type=${typeQuery}`);
+        setList(responseMongo.data)
+      } catch (error: any | AxiosError) {
+        console.error("Unexpected error:", error);
+      }
+    }
+    getList();
+  }, []);
   
   useEffect(() => {
-    if (list.some(value => value.toLowerCase().includes(searchQuery.toLowerCase()))) setNoMatchShown(true);
-    else setNoMatchShown(false);
+    if (list.length > 0) {
+      if (list.some(value => t(value).toLowerCase().includes(searchQuery.toLowerCase()))) setNoMatchShown(true);
+      else setNoMatchShown(false);
+    }
   }, [list, searchQuery]);
 
   const updateValue = (value: string) => {
@@ -72,7 +92,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
           className={styles.selected}
           onClick={hadleOpenDropdownMenu}
           disabled={!editMode}>
-          <span>{value}</span>
+          <span>{t(value)}</span>
           <span>{(isOpen) ? '<' : '>'}</span>
         </button>
         {isOpen && (
@@ -81,23 +101,23 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
               className={styles.searchInput}
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(t(e.target.value))}
               placeholder={searchBarPlaceholder}
             />
             <div className={styles.dropdownList}>
               {list.length ? list.map((value) => (
                 <div key={value}>
-                  {value.toLowerCase().includes(searchQuery.toLowerCase()) ? (
+                  {t(value).toLowerCase().includes(searchQuery.toLowerCase()) ? (
                     <button
                       className={styles.dropdownItem}
                       onClick={() => updateValue(value)}>
-                      {value}
+                      {t(value)}
                     </button>
                   ) : null}
                 </div>
               )) : null}
               {!noMatchShown ? (
-                <span className={styles.noMatch}>No match</span>
+                <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
               ) : null}
             </div>
             <button 

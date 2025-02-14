@@ -115,6 +115,8 @@
       "mechanicShop": "Nombre del taller mecánico",
       "dateMaintenance": "Selecciona la fecha del mantenimiento rutinario",
       "search": "Busca...",
+      "cancel": "Cancela",
+      "close": "Cierra",
       "component": "Componente",
       "owner": "Propietario",
       "groupDefect": "Grupo de defectos",
@@ -124,7 +126,8 @@
       "commentsModifications": "Comentarios sobre la modificación",
       "commentsRepair": "Comentarios sobre la reparación",
       "causeDefect": "Causa del grupo de defectos",
-      "descriptionDefect": "Descripción del defecto"
+      "descriptionDefect": "Descripción del defecto",
+      "noMatch": "Sin coincidencias"
     },
     "Forms": {
       "brand": "Selecciona la marca",
@@ -224,6 +227,19 @@
       "desert": "Desiertico",
       "temperate": "Templado",
       "artic": "Artico"
+    },
+    "Shift": {
+      "manual": "Manual",
+      "automatic": "Automático"
+    },
+    "Fuel": {
+      "gasoline": "Gasolina",
+      "diesel": "Diesel",
+      "hybrid": "Hibrido",
+      "electric": "Electrico",
+      "lpg": "Gas licuado de petróleo",
+      "cng": "Gas natural comprimido",
+      "hydrogen": "Hidrógeno"
     }
   }
 }

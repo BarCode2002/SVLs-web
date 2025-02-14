@@ -32,6 +32,8 @@ const PrevOwnersGeneralInformationSVL = ({ selectedOwner, prevOwnersGeneralInfor
           <TextContainer fieldLabel={t('DataSVL.Labels.color')} text={prevOwnersGeneralInformation[selectedOwner].color} />
           <TextContainer fieldLabel={t('DataSVL.Labels.engine')} text={prevOwnersGeneralInformation[selectedOwner].engine} />
           <TextContainer fieldLabel={t('DataSVL.Labels.power')} text={prevOwnersGeneralInformation[selectedOwner].power} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.shift')} text={prevOwnersGeneralInformation[selectedOwner].shift} />
+          <TextContainer fieldLabel={t('DataSVL.Labels.fuel')} text={prevOwnersGeneralInformation[selectedOwner].fuel} />
           <TextContainer fieldLabel={t('DataSVL.Labels.autonomy')} text={prevOwnersGeneralInformation[selectedOwner].autonomy} />
           <TextContainer fieldLabel={t('DataSVL.Labels.climate')} text={prevOwnersGeneralInformation[selectedOwner].climate} />
           <TextContainer fieldLabel={t('DataSVL.Labels.usage')} text={prevOwnersGeneralInformation[selectedOwner].usage} />

@@ -73,6 +73,14 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].power} 
             setDataSVL={setGeneralInformation} type={'power'} editMode={editMode}
           /> 
+          <DropdownMenu fieldLabel={t('DataSVL.Labels.shift')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
+            dataSVL={generalInformation} value={generalInformation[selectedOwner].shift} 
+            setDataSVL={setGeneralInformation} type={'shift'} editMode={editMode}
+          />
+          <DropdownMenu fieldLabel={t('DataSVL.Labels.fuel')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
+            dataSVL={generalInformation} value={generalInformation[selectedOwner].fuel} 
+            setDataSVL={setGeneralInformation} type={'fuel'} editMode={editMode}
+          /> 
           <InputField fieldLabel={t('DataSVL.Labels.autonomy')} placeholder={t('DataSVL.Placeholders.autonomy')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].autonomy} 
             setDataSVL={setGeneralInformation} type={'autonomy'} editMode={editMode}
