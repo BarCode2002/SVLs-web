@@ -15,6 +15,11 @@
   cursor: pointer;
 }
 
+.ownershipSummaryContainerWrapper {
+  display: flex;
+  position: relative;
+}
+
 .ownershipSummaryContainer {
   margin-top: 10px;
   border-radius: 10px;
