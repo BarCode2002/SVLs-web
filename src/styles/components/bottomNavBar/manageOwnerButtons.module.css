@@ -1,4 +1,4 @@
-.removeAddOwnerButton {
+.addOwnerButton {
   height: var(--buttonHeight);
   font-size: var(--buttonFontSize);
   font-weight: 600;
@@ -8,16 +8,13 @@
   border-radius: 10px;
 }
 
-.removeAddOwnerButton:hover {
+.addOwnerButton:hover {
   cursor: pointer;
-  height: var(--buttonHeight);
-  font-size: var(--buttonFontSize);
-  font-weight: var(--buttonFontWeight);
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsMainColor);
 }
 
-.removeAddOwnerButton:disabled {
+.addOwnerButton:disabled {
   cursor: default;
   background-color: var(--navBarsPrimaryColor);
   color: var(--navBarsSecondaryColor);
@@ -58,3 +55,29 @@
   color: var(--navBarsSecondaryColor);
 }
 
+.ownerContainer {
+  display: flex;
+}
+
+.removeOwnerButton {
+  position: absolute;
+  height: 20px;
+  font-size: var(--buttonFontSize);
+  font-weight: 600;
+  background-color: red;
+  border: none;
+  color: black;
+  border-radius: 10px;
+}
+
+.removeOwnerButton:hover {
+  cursor: pointer;
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsMainColor);
+}
+
+.removeOwnerButton:disabled {
+  cursor: default;
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+}

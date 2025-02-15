@@ -33,7 +33,7 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
   return (
     <div>
       <button
-        className={styles.removeAddOwnerButton}
+        className={styles.addOwnerButton}
         onClick={handleOwnerAddition}
         disabled={!editMode}>
         +

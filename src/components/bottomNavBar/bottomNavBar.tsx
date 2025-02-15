@@ -3,7 +3,6 @@ import styles from '../../styles/components/bottomNavBar/bottomNavBar.module.css
 import ChooseDataSVLButtons from './chooseDataSVLButtons.tsx';
 import AddOwnerButton from './addOwnerButton.tsx';
 import OwnerButton from './ownerButton.tsx';
-import RemoveOwnerButton from './removeOwnerButton.tsx';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
 
 type BottomNavBarProps = {
@@ -28,7 +27,12 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
 
   const ownerSelector = Array.from({length: totalOwners}, (_, index) => (
     <div key={index}>
-      <OwnerButton index={index} selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} ownersContainerRef={ownersContainerRef.current} />
+      <OwnerButton index={index} ownersContainerRef={ownersContainerRef.current} 
+        setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
+        setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs} 
+        selectedOwner={selectedOwner-numPreviousOwners} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
+        totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
+      />
     </div>
   ));
 
@@ -39,11 +43,6 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
       </div>
       <div className={styles.separator}></div>
       <div className={styles.bottomPart}>
-        <RemoveOwnerButton  setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
-          setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs} 
-          selectedOwner={selectedOwner-numPreviousOwners} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
-          totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
-        />
         <div ref={ownersContainerRef} className={styles.ownersContainer}>
           {ownerSelector}
         </div>
