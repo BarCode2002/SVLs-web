@@ -25,26 +25,52 @@
   border-radius: 10px;
   padding: 10px;
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 600px;
-  height: 200px;
-  background-color: black;
-  color: white;
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--dataPanelBackgroundColor);
   z-index: 1;
 }
 
-.ownershipInformation {
-  height: 100%;
+.ownershipSummaryInformationContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  gap: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--dataBackgroundColor);
+}
+
+.ownershipInformation {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--fieldLabelColor);
+}
+
+.ownersContainer {
+  display: flex;
   gap: 10px;
 }
 
-.closeButton {
+.closeButtonContainer {
+  margin-top: 10px;
   display: flex;
-  flex-grow: 1;
-  align-items: end;
   justify-content: end;
+}
+
+.closeButton {
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  border: none;
+  color: var(--dataPanelBackgroundColor);
+  background-color: var(--buttonBackgroundColor);
+  border-radius: 10px;
+}
+
+.closeButton:hover {
+  background-color: var(--dataPanelBackgroundColor);
+  border-radius: 10px;
+  color: var(--navBarsSecondaryColor);
+  cursor: pointer;
 }
