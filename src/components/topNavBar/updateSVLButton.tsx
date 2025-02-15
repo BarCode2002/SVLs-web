@@ -58,9 +58,6 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
         const op = await contract.methodsObject.update({
           svl_key: svl_pk, 
           VIN: generalInformation[0].VIN,
-          brand: generalInformation[0].brand,
-          model: generalInformation[0].model,
-          year: generalInformation[0].year,
           curr_owner_info: cids,
         }).send();
         await op.confirmation();   

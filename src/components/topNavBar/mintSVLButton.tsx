@@ -59,11 +59,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
         const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
         const op = await contract.methodsObject.mint({
           svl_key: svl_key, 
-          svl_price: 30, //se envia como mutez
           VIN: generalInformation[0].VIN,
-          brand: generalInformation[0].brand,
-          model: generalInformation[0].model,
-          year: generalInformation[0].year,
           curr_owner_info: cids,
         }).send({amount: 10});
         await op.confirmation();   

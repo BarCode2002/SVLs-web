@@ -113,7 +113,7 @@ export const checksBeforeMintOrUpdateSVL = (numPreviousOwners: number, totalOwne
         return false;
       }
       if (repairs[i].group[j].responsible[0] == null) {
-        console.log(`Owner ${numPreviousOwners+i+1} has not set the responsible field for group ${j+1} in Modifications`);
+        console.log(`Owner ${numPreviousOwners+i+1} has not set the responsible field for group ${j+1} in Repairs`);
         return false;
       }
       for (let k = 0; k < PHOTOGRAPHS_SIZE; k++) {

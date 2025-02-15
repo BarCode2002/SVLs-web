@@ -30,10 +30,13 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
   useEffect(() => {
     const getList = async () => {
       try {
-        let typeQuery = type;
-        if (type == 'level') typeQuery = 'defectLevel';
-        const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/lists?type=${typeQuery}`);
-        setList(responseMongo.data)
+        if (type == 'model') setList(['CTV5'])
+        else {
+          let typeQuery = type;
+          if (type == 'level') typeQuery = 'defectLevel';
+          const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/lists?type=${typeQuery}`);
+          setList(responseMongo.data)
+        }
       } catch (error: any | AxiosError) {
         console.error("Unexpected error:", error);
       }
