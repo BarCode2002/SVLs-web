@@ -105,15 +105,13 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
               placeholder={searchBarPlaceholder}
             />
             <div className={styles.dropdownList}>
-              {list.length ? list.map((value) => (
-                <div key={value}>
-                  {t(value).toLowerCase().includes(searchQuery.toLowerCase()) ? (
-                    <button
-                      className={styles.dropdownItem}
-                      onClick={() => updateValue(value)}>
-                      {t(value)}
-                    </button>
-                  ) : null}
+              {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value) => (
+                <div key={value}>   
+                  <button
+                    className={styles.dropdownItem}
+                    onClick={() => updateValue(value)}>
+                    {t(value)}
+                  </button>
                 </div>
               )) : null}
               {!noMatchShown ? (
