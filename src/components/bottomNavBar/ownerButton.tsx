@@ -25,9 +25,9 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
   const owner = `${t('DataSVL.BottomBar.owner')} ${index+1}`;
 
   const handleOwnerChange = (event: any) => {
-    const button = event.target;
     if (ownersContainerRef) {
       const containerRect = ownersContainerRef.getBoundingClientRect();
+      const button = event.target;
       const buttonRect = button.getBoundingClientRect();
       const offset = buttonRect.left - containerRect.left; 
       const scrollTo = ownersContainerRef.scrollLeft + offset - containerRect.width / 2 + buttonRect.width / 2;
@@ -67,18 +67,20 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
   }
 
   return (
-    <div className={styles.ownerContainer}>
-      <button
-        className={styles.removeOwnerButton}
-        onClick={handleOwnerRemoval}
-        disabled={!editMode}>
-        -
-      </button>
+    <div>
       <button
         className={index == selectedOwner ? styles.ownerButtonSelected : styles.ownerButton }
         onClick={handleOwnerChange}>
         {owner}
       </button>
+      <div className={styles.removeOwnerButtonWrapper}>
+        <button
+          className={styles.removeOwnerButton}
+          onClick={handleOwnerRemoval}
+          disabled={!editMode || totalOwners == 1  || selectedOwner < numPreviousOwners}>
+          x
+        </button>
+      </div>
     </div>
   );
 }

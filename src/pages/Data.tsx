@@ -14,6 +14,7 @@ import { addAndSetModificationGroup, addAndSetModificationGroupType } from '../u
 import { addAndSetDefectGroup, addAndSetDefectGroupType } from '../utils/uploadJSON.ts';
 import { addAndSetRepairGroup, addAndSetRepairGroupType } from '../utils/uploadJSON.ts';
 import { addGeneralInformationDefault, addMaintenances, addModifications, addDefects, addRepairs } from '../utils/addOwners.ts';
+import { parse, format } from "date-fns";
 
 const Data = (): JSX.Element => {
 
@@ -269,6 +270,7 @@ const Data = (): JSX.Element => {
                   const ownershipInfo = {
                     ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
                     owners: owners,
+                    transferDate: responseIndexer.data[0].previous_owners_info[i].transferData,
                   }
                   ownershipSummary.current.push(ownershipInfo);
                 }
@@ -289,9 +291,12 @@ const Data = (): JSX.Element => {
                     console.error("Unexpected error:", error);
                   }
                 }
+                const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
+                const transferDate = format(date, "dd/MM/yyyy");
                 const ownershipInfo = {
                   ownerAddress: responseIndexer.data[0].owner_address,
                   owners: owners,
+                  transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
                 }
                 ownershipSummary.current.push(ownershipInfo);
                 setTotalOwners(numPreviousOwners);
@@ -313,9 +318,12 @@ const Data = (): JSX.Element => {
                   fillOwnerSVLData(i, responseIPFS, [], false);
                   owners.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`);
                 }
+                const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
+                const transferDate = format(date, "dd/MM/yyyy");
                 const ownershipInfo = {
                   ownerAddress: responseIndexer.data[0].owner_address,
                   owners: owners,
+                  transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
                 }
                 ownershipSummary.current.push(ownershipInfo);
               } catch (error: any | AxiosError) {
@@ -344,6 +352,7 @@ const Data = (): JSX.Element => {
                 const ownershipInfo = {
                   ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
                   owners: owners,
+                  transferDate: responseIndexer.data[0].previous_owners_info[i].transferData
                 }
                 ownershipSummary.current.push(ownershipInfo);
               }
@@ -363,9 +372,12 @@ const Data = (): JSX.Element => {
                   fillOwnerSVLData(i, responseIPFS, prevOwnersGeneralInformation.current[numPreviousOwners-1], justTransferred);
                   owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners+i+1}`);
                 }
+                const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
+                const transferDate = format(date, "dd/MM/yyyy");
                 const ownershipInfo = {
                   ownerAddress: responseIndexer.data[0].owner_address,
                   owners: owners,
+                  transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
                 }
                 ownershipSummary.current.push(ownershipInfo);
                 setTotalOwners(numPreviousOwners+responseIndexer.data[0].current_owner_info.length);

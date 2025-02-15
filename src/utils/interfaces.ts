@@ -124,4 +124,5 @@ export interface PreviewSVLsInfo {
 export interface OwnershipSummary {
   ownerAddress: string;
   owners: string[];
+  transferDate: string;
 }

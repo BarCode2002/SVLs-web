@@ -37,7 +37,9 @@
       "mintSVL": "Crea SVL",
       "editSVL": "Edita SVL",
       "ownershipSummary": "Resumen de propiedad",
-      "close": "Cierra"
+      "close": "Cierra",
+      "mintDate": "Creado el:",
+      "acquisitionDate": "Adquirido el:"
     },
     "BottomBar": {
       "generalInformation": "Información general",

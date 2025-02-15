@@ -32,15 +32,16 @@
 
 .ownersContainer {
   display: flex;
-  flex-direction: row;
   gap: 10px;
-  align-items: center;
+  margin-top: 5px;
+  align-items: top;
   white-space: nowrap;
   overflow-x: hidden;
+  height: 70px;
 }
 
 .addOwnerButton {
   display: flex;
   flex-grow: 1;
-  justify-content: flex-end;
+  justify-content: end;
 }

@@ -42,9 +42,7 @@
 
 .ownerButton:hover {
   cursor: pointer;
-  height: 35px;
-  font-size: var(--buttonFontSize);
-  font-weight: var(--buttonFontWeight);
+  height: var(--buttonHeight);
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
 }
@@ -55,18 +53,18 @@
   color: var(--navBarsSecondaryColor);
 }
 
-.ownerContainer {
-  display: flex;
+.removeOwnerButtonWrapper {
+  position: relative;
 }
 
 .removeOwnerButton {
+  margin-top: 5px;
   position: absolute;
-  height: 20px;
-  font-size: var(--buttonFontSize);
-  font-weight: 600;
-  background-color: red;
+  width: 100%;
+  background-color: transparent;
   border: none;
-  color: black;
+  color: white;
+  font-size: 14px;
   border-radius: 10px;
 }
 

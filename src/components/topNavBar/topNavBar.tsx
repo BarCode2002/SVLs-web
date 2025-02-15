@@ -8,7 +8,7 @@ import MintSVLButton from './mintSVLButton';
 import EditSVLButton from './updateSVLButton';
 import DisconnectWalletButton from './disconnectWalletButton';
 import CreateSVLButton from './createSVLButton';
-import OwnershipSummaryButton from './owenershipSummaryButton';
+import OwnershipSummaryButton from './ownershipSummaryButton';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { OwnershipSummary } from '../../utils/interfaces';
 import { SetStateAction } from 'react';
