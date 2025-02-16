@@ -35,7 +35,7 @@ const BuySVLButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: BuySVLButt
       }
       updatedPreviewSVLsInfo[19] = {
         pk: '',
-        price: '',
+        price: 0,
         mySVL: null,
         mainPhotograph: '',
         brand: '',

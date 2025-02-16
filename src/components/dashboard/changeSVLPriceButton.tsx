@@ -4,6 +4,7 @@ import { PreviewSVLsInfo } from '../../utils/interfaces';
 import { getsmartContractAddress, getTezos } from '../../utils/wallet';
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { useEffect, useState } from 'react';
+import axios from "axios";
 
 type ChangeSVLPriceButtonProps = {
   previewSVLsInfo: PreviewSVLsInfo[];
@@ -29,6 +30,13 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
   const handleChangeSVLPrice = async () => { 
     if (step == 0) setStep(1)
     else {
+      try {
+        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        const minTransferPrice = response.data.minTransferPrice;
+        if (previewSVLsInfo[index].price < parseInt(minTransferPrice)) return;
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
       const svl_pk = previewSVLsInfo[index].pk;
       const previousPrice = previewSVLsInfo[index].price;
       const mutez = previewSVLsInfo[index].price * 1000000;

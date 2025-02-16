@@ -36,6 +36,7 @@ const OwnershipSummaryButton = ({ ownershipSummary }: OwnershipSummaryButtonProp
   const closeOwnershipSummary = () => {
     setShowInfo(false);
   }
+  
   const refClickOutside = DetectClickOutsideComponent(() => { 
     if (showInfo) setShowInfo(false); 
   });

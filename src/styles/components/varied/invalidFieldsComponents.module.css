@@ -1,0 +1,45 @@
+.invalidFieldsContainer {
+  display: flex;
+  position: relative;
+}
+
+.invalidFields {
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--dataPanelBackgroundColor);
+  z-index: 1;
+}
+
+.invalidField {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--fieldLabelColor);
+}
+
+.closeButtonContainer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: end;
+}
+
+.closeButton {
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  border: none;
+  color: var(--dataPanelBackgroundColor);
+  background-color: var(--buttonBackgroundColor);
+  border-radius: 10px;
+}
+
+.closeButton:hover {
+  background-color: var(--dataPanelBackgroundColor);
+  border-radius: 10px;
+  color: var(--navBarsSecondaryColor);
+  cursor: pointer;
+}
