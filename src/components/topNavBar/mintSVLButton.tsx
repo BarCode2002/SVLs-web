@@ -37,6 +37,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
     if (checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'))) {
       const formData = new FormData();
       let cids = [];
+      let mintPrice;
       for (let i = 0; i < totalOwners; i++) {
         const json = createJSON(i, generalInformation, maintenances, modifications, defects, repairs);
         const blob = new Blob([json], { type: "application/json" });
@@ -48,8 +49,13 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
             "Content-Type": "multipart/form-data",
           },
         });
-        //console.log("Upload successful:", response.data.cids);
         cids = response.data.cids;
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+      try {
+        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        mintPrice = response.data.mintPrice;
       } catch (error) {
         console.error("Upload failed:", error);
       }
@@ -61,7 +67,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
           svl_key: svl_key, 
           VIN: generalInformation[0].VIN,
           curr_owner_info: cids,
-        }).send({amount: 10});
+        }).send({amount: mintPrice});
         await op.confirmation();   
       } catch (error) {
         console.log('error:', error);

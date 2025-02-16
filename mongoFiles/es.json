@@ -22,7 +22,11 @@
       "request": "Solicita",
       "unrequest": "Quitar solicitación",
       "buy": "Compra",
-      "connectWallet": "Conecta la cartera"
+      "connectWallet": "Conecta la cartera",
+      "price": "Precio:",
+      "change": "Cambia",
+      "confirm": "Confimar",
+      "priceSVL": "Precio del SVL"
     }
   },
   "DataSVL": {

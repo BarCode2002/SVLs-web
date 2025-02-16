@@ -36,7 +36,7 @@ type TopNavBarProps = {
   repairs?: Repairs[];
   setRepairs?: React.Dispatch<SetStateAction<Repairs[]>>;
   svl_pk?: string;
-  ownershipSummary: OwnershipSummary[];
+  ownershipSummary?: OwnershipSummary[];
   mySVL?: boolean;
 };
 
@@ -61,8 +61,8 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
             <GoBackButton />
             {editMode == false ? (
               <div className={styles.alwaysVisibleButtons}>
-                {ownershipSummary.length > 0 &&
-                  <OwnershipSummaryButton ownershipSummary={ownershipSummary} />
+                {ownershipSummary!.length > 0 &&
+                  <OwnershipSummaryButton ownershipSummary={ownershipSummary!} />
                 }
                 {mySVL == true &&
                   <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
@@ -70,8 +70,8 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
               </div>
             ) : (
               <div className={styles.rightSideButtons}>
-                {ownershipSummary.length > 0 &&
-                  <OwnershipSummaryButton ownershipSummary={ownershipSummary} />
+                {ownershipSummary!.length > 0 &&
+                  <OwnershipSummaryButton ownershipSummary={ownershipSummary!} />
                 }
                 <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />

@@ -1,9 +1,10 @@
-import styles from '../../../../styles/components/dashboard/stateSVLButtons/stateSVLButtons.module.css';
+import styles from '../../../styles/components/dashboard/stateSVLButtons/stateSVLButtons.module.css';
 import { useTranslation } from 'react-i18next';
-import { PreviewSVLsInfo } from '../../../../utils/interfaces.ts';
+import { PreviewSVLsInfo } from '../../../utils/interfaces.ts';
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
-import { getsmartContractAddress, getTezos } from '../../../../utils/wallet.ts';
+import { getsmartContractAddress, getTezos } from '../../../utils/wallet.ts';
 import { useEffect, useState } from 'react';
+import axios from "axios";
 
 type RequestSVLButtonProps = {
   requested: boolean;
@@ -26,10 +27,17 @@ const RequestSVLButton = ({ requested, previewSVLsInfo, setPreviewSVLsInfo, inde
   const handleRequestorUnrequestSVL = async () => { 
     const updatedPreviewSVLsInfo= [...previewSVLsInfo];
     const svl_pk = previewSVLsInfo[index].pk;
+    let requestFee;
     if (!requested) {
       try {
+        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        requestFee = response.data.requestFee;
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+      try {
         const contract: WalletContract = await Tezos!.wallet.at(contractAddress);
-        const op = await contract.methodsObject.requestTransfer(svl_pk).send({amount: 1});
+        const op = await contract.methodsObject.requestTransfer(svl_pk).send({amount: requestFee});
         await op.confirmation();
         const ownerAddress = updatedPreviewSVLsInfo[index].stateNotMySVL[1];
         updatedPreviewSVLsInfo[index].stateNotMySVL = [true, ownerAddress, localStorage.getItem('address')!, false];

@@ -1,7 +1,7 @@
-import styles from '../../../../styles/components/dashboard/stateSVLButtons/stateSVLButtons.module.css';
+import styles from '../../../styles/components/dashboard/stateSVLButtons/stateSVLButtons.module.css';
 import { useTranslation } from 'react-i18next';
-import { PreviewSVLsInfo } from '../../../../utils/interfaces';
-import { getsmartContractAddress, getTezos } from '../../../../utils/wallet';
+import { PreviewSVLsInfo } from '../../../utils/interfaces';
+import { getsmartContractAddress, getTezos } from '../../../utils/wallet';
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { useEffect, useState } from 'react';
 
