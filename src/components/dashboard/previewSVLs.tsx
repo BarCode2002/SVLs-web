@@ -48,7 +48,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
   const [previewSVLsInfo, setPreviewSVLsInfo] = useState<PreviewSVLsInfo[]>(
     Array.from({ length: 20 }, () => ({
       pk: '',
-      price: '',
+      price: 0,
       mySVL: null,
       mainPhotograph: '',
       brand: '',
@@ -136,39 +136,45 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
                 {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == true &&
                   <div className={styles.ownerOrRequesterContentWrapper}>
                     <div className={styles.ownerOrRequesterContent}>
-                      {dataPreviewSVL.stateMySVL[1]}
+                      {requesterAddresLabel}
                       <div className={styles.separator}>
                         <div className={styles.leftSepartor}></div>
                         <div className={styles.middleSepartor}></div>
                         <div className={styles.rightSepartor}></div>
                       </div>
-                      <div>{requesterAddresLabel}</div>
+                      <div>
+                        {dataPreviewSVL.stateMySVL[1]}
+                      </div>
                     </div>
                   </div>
                 }
                 {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == false &&
                   <div className={styles.ownerOrRequesterContentWrapper}>
                     <div className={styles.ownerOrRequesterContent}>
-                      {myAddress}
+                      {ownerMeLabel}
                       <div className={styles.separator}>
                         <div className={styles.leftSepartor}></div>
                         <div className={styles.middleSepartor}></div>
                         <div className={styles.rightSepartor}></div>
                       </div>
-                      <div>{ownerMeLabel}</div>
+                      <div>
+                        {myAddress}
+                      </div>
                     </div>
                   </div>
                 }
                 {dataPreviewSVL.mySVL == false &&
                   <div className={styles.ownerOrRequesterContentWrapper}>
                     <div className={styles.ownerOrRequesterContent}>
-                      {dataPreviewSVL.stateNotMySVL[1]}
+                      {ownerAddressLabel}
                       <div className={styles.separator}>
                         <div className={styles.leftSepartor}></div>
                         <div className={styles.middleSepartor}></div>
                         <div className={styles.rightSepartor}></div>
                       </div>
-                      <div>{ownerAddressLabel}</div>
+                      <div>
+                        {dataPreviewSVL.stateNotMySVL[1]} 
+                      </div>
                     </div>
                   </div>
                 }
@@ -195,25 +201,57 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
                 </div>
                 {(dataPreviewSVL.mySVL == false) ? (
                   dataPreviewSVL.stateNotMySVL[0] == true && dataPreviewSVL.stateNotMySVL[2] != '' && dataPreviewSVL.stateNotMySVL[2] != myAddress ? (
-                    <div className={styles.blockedSVL}>
-                      {blockedLabel}
+                    <div>
+                      <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                      <div className={styles.separator}>
+                        <div className={styles.leftSepartor}></div>
+                        <div className={styles.middleSepartor}></div>
+                        <div className={styles.rightSepartor}></div>
+                      </div>
+                      <div className={styles.blockedSVL}>
+                        {blockedLabel}
+                      </div>
                     </div>
                   ) : (
                     <div>
                       {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == '' &&
-                        <div className={styles.requestSVLtransfer}>
-                          <RequestSVLButton requested={false} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <div>
+                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          <div className={styles.separator}>
+                            <div className={styles.leftSepartor}></div>
+                            <div className={styles.middleSepartor}></div>
+                            <div className={styles.rightSepartor}></div>
+                          </div>
+                          <div className={styles.requestSVLtransfer}>
+                            <RequestSVLButton requested={false} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          </div>
                         </div>
                       }
                       {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
-                        <div className={styles.requestSVLtransfer}>
-                          <RequestSVLButton requested={true} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <div>
+                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          <div className={styles.separator}>
+                            <div className={styles.leftSepartor}></div>
+                            <div className={styles.middleSepartor}></div>
+                            <div className={styles.rightSepartor}></div>
+                          </div>
+                          <div className={styles.requestSVLtransfer}>
+                            <RequestSVLButton requested={true} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          </div>
                         </div>
                       }
                       {dataPreviewSVL.stateNotMySVL[3] == true && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
-                        <div className={styles.buySVL}>
-                          <BuySVLButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
-                          <RequestSVLButton requested={true} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <div>
+                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          <div className={styles.separator}>
+                            <div className={styles.leftSepartor}></div>
+                            <div className={styles.middleSepartor}></div>
+                            <div className={styles.rightSepartor}></div>
+                          </div>
+                          <div className={styles.buySVL}>
+                            <BuySVLButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                            <RequestSVLButton requested={true} previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          </div>
                         </div>
                       }
                     </div>
@@ -221,23 +259,44 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
                 ) : (
                   dataPreviewSVL.stateMySVL[0] == false ? (
                     <div>
+                      <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                      <div className={styles.separator}>
+                        <div className={styles.leftSepartor}></div>
+                        <div className={styles.middleSepartor}></div>
+                        <div className={styles.rightSepartor}></div>
+                      </div>
                       <div className={styles.SVLNotRequested}>
                         {notRequestedLabel}
                       </div>
-                      <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} price={'10'} />
                     </div>
                   ) : (
                     dataPreviewSVL.stateMySVL[2] == false ? (
-                      <div className={styles.SVLRequested}>
-                        <AcceptSVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
-                        <DenySVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                      <div>
+                        <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <div className={styles.separator}>
+                          <div className={styles.leftSepartor}></div>
+                          <div className={styles.middleSepartor}></div>
+                          <div className={styles.rightSepartor}></div>
+                        </div>
+                        <div className={styles.SVLRequested}>
+                          <AcceptSVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          <DenySVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        </div>
                       </div>
                     ) : (
-                      <div className={styles.SVLPendingBuy}>
-                        <div className={styles.SVLRequestAcceptedPendingBuy}>
-                          {pendingBuyLabel}
+                      <div>
+                        <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <div className={styles.separator}>
+                          <div className={styles.leftSepartor}></div>
+                          <div className={styles.middleSepartor}></div>
+                          <div className={styles.rightSepartor}></div>
                         </div>
-                        <DenySVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <div className={styles.SVLPendingBuy}>
+                          <div className={styles.SVLRequestAcceptedPendingBuy}>
+                            {pendingBuyLabel}
+                          </div>
+                          <DenySVLRequestButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        </div>
                       </div>
                     )
                   )

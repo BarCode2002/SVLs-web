@@ -1,0 +1,60 @@
+.changeSVLPriceContainer {
+  display: flex;
+  width: 384px;
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+  font-weight: 450;
+  height: 40px;
+  align-items: center;
+
+}
+
+.fieldLabel {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.inputField {
+  padding-left: 5px;
+  outline: none;
+  border: none;
+  height: 25px;
+  width: 100%;
+  border-radius: 10px;
+  font-size: var(--buttonFontSize);
+}
+
+.price {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonsContainer {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: end;
+}
+
+.button {
+  border: none;
+  border-radius: 10px;
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+  font-size: var(--buttonFontSize);
+  font-weight: 450;
+}
+
+.button:hover {
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
+  cursor: pointer;
+}
+
+.confirmCancelButtonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

@@ -110,7 +110,7 @@ export interface Repairs {
 
 export interface PreviewSVLsInfo {
   pk: string;
-  price: string;
+  price: number;
   mySVL: boolean | null;
   mainPhotograph: string;
   brand: string;

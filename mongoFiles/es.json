@@ -26,7 +26,8 @@
       "price": "Precio:",
       "change": "Cambia",
       "confirm": "Confimar",
-      "priceSVL": "Precio del SVL"
+      "priceSVL": "Precio del SVL",
+      "cancel": "Cancela"
     }
   },
   "DataSVL": {
