@@ -2,7 +2,7 @@
   position: absolute;
   z-index: 1;
   top: 55px;
-  right: 10px;
+  right: 30px;
   background-color: var(--dataPanelBackgroundColor);
   border-radius: 10px;
   padding: 10px;
@@ -11,14 +11,14 @@
 .invalidFields {
   padding: 10px;
   border-radius: 10px;
-  width: fit-content;
+  width: 800px;
   height: fit-content;
   background-color: var(--dataBackgroundColor);
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 300px;
 }
 
 .invalidField {
@@ -32,9 +32,12 @@
   margin-top: 10px;
   display: flex;
   justify-content: end;
+  background-color: var(--dataBackgroundColor);
+  border-radius: 10px;
 }
 
 .closeButton {
+  margin: 5px;
   height: var(--buttonHeight);
   font-size: var(--buttonFontSize);
   font-weight: var(--buttonFontWeight);

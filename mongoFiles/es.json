@@ -91,7 +91,9 @@
       "save": "Guarda",
       "level": "Daño:",
       "description": "Descripción:",
-      "components": "Componentes:"
+      "components": "Componentes:",
+      "warningRemoveOwner": "¿Estas seguro que quieres eliminar el propietario",
+      "warningRemoveOwnerLostData": "Se perdera toda la información introducida."
     },
     "Placeholders": {
       "vin": "VIN",
@@ -123,6 +125,7 @@
       "dateMaintenance": "Selecciona la fecha del mantenimiento rutinario",
       "search": "Busca...",
       "cancel": "Cancela",
+      "confirm": "Confirma",
       "close": "Cierra",
       "component": "Componente",
       "owner": "Propietario",
@@ -196,14 +199,42 @@
   },
   "InvalidFields": {
     "owner": "Propietario",
-    "VIN": "no ha definido el VIN en información general. Es un campo obligatorio",
-    "brand": "no ha definido la marca en información general. Es un campo obligatorio",
-    "model": "no ha definido el model en información general. Es un campo obligatorio",
-    "year": "no ha definido el año en información general. Es un campo obligatorio",
-    "mainPhotograph": "no ha subido la imagen principal en información general. Es un campo obligatorio",
-    "mainPhotographNotSaved": "no ha gurdado la imagen principal en información general",
-    "photographsNotSaved": "no ha gurdado la imagenes en información general",
+    "mandatoryField": "Campo obligatorio.",
+    "VIN": "no ha definido el VIN en información general.",
+    "brand": "no ha definido la marca en información general.",
+    "model": "no ha definido el model en información general. ",
+    "year": "no ha definido el año en información general.",
+    "mainPhotograph": "no ha subido la imagen principal en información general.",
+    "mainPhotographNotSaved": "no ha gurdado la imagen principal en información general.",
+    "photographsNotSaved": "no ha gurdado las imágenes en información general.",
     
+    "responsibleMaintenances": "no ha definido el responsable del grupo de mantenimientos",
+    "proofResponsibleMaintenances": "no ha guardado la prueba del responsable del grupo de mantenimientos",
+    "previousImagesGroupMaintenances": "no ha guardado las imagenes previas al grupo de mantenimientos",
+    "postImagesGroupMaintenances": "no ha guardado las imagenes posteriores al grupo de mantenimientos",
+    "maintenanceGroup": "perteneciente al grupo de mantenimientos",
+    "previousImagesMaintenance": "no ha guardado las imagenes previas al mantenimiento",
+    "postImagesMaintenance": "no ha guardado las imagenes posteriores al mantenimiento",
+
+    "responsibleModifications": "no ha definido el responsable del grupo de modificaciones",
+    "proofResponsibleModifications": "no ha guardado la prueba del responsable del grupo de modificaciones",
+    "previousImagesGroupModifications": "no ha guardado las imagenes previas al grupo de modificaciones",
+    "postImagesGroupModifications": "no ha guardado las imagenes posteriores al grupo de modificaciones",
+    "modificationGroup": "perteneciente al grupo de modificaciones",
+    "previousImagesModification": "no ha guardado las imágenes previas a la modificación",
+    "postImagesModification": "no ha guardado las imágenes posteriores a la modificación",
+
+    "imagesDefect": "no ha guardado las imágenes del defecto",
+    "defectGroup": "perteneciente al grupo de defectos",
+
+    "responsibleRepairs": "no ha definido el responsable del grupo de reparaciones",
+    "proofResponsibleRepairs": "no ha guardado la prueba del responsable del grupo de reparaciones",
+    "previousImagesGroupRepairs": "no ha guardado las imagenes previas al grupo de reparaciones",
+    "postImagesGroupRepairs": "no ha guardado las imagenes posteriores al grupo de reparaciones",
+    "repairGroup": "perteneciente al grupo de modificaciones",
+    "previousImagesRepair": "no ha guardado las imágenes previas a la modificación",
+    "postImagesRepair": "no ha guardado las imágenes posteriores a la modificación",
+
     "minTransferPrice": "El precio del SVL tiene que ser mayor o igual que el precio mínimo de venta:"
   },
   "Lists": {

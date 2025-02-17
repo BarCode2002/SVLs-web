@@ -22,13 +22,13 @@ const InvalidFieldsComponent = ({ invalidFields, setInvalidFieldsVisible }: Inva
             <div>{field}</div>
           </div>
         ))}
-        <div className={styles.closeButtonContainer}>
-          <button
-            className={styles.closeButton}
-            onClick={closeInvalidFieldsComponent}>
-            {t('DataSVL.TopBar.close')}
-          </button>
-        </div>
+      </div>
+      <div className={styles.closeButtonContainer}>
+        <button
+          className={styles.closeButton}
+          onClick={closeInvalidFieldsComponent}>
+          {t('DataSVL.TopBar.close')}
+        </button>
       </div>
     </div>
   );

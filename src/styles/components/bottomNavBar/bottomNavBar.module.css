@@ -37,7 +37,7 @@
   align-items: top;
   white-space: nowrap;
   overflow-x: hidden;
-  height: 70px;
+  height: fit-content;
 }
 
 .addOwnerButton {

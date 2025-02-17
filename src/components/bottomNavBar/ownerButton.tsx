@@ -1,4 +1,4 @@
-import { SetStateAction } from 'react';
+import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { useTranslation } from "react-i18next";
@@ -23,6 +23,7 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
 
   const { t } = useTranslation();
   const owner = `${t('DataSVL.BottomBar.owner')} ${index+1}`;
+  const [warnignRemoveOwner, setWarningRemoveOwner] = useState(false);
 
   const handleOwnerChange = (event: any) => {
     if (ownersContainerRef) {
@@ -64,23 +65,51 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
     removeRepairs();
     if (selectedOwner+numPreviousOwners > 0) setSelectedOwner(selectedOwner+numPreviousOwners-1);
     setTotalOwners(totalOwners-1);
+    setWarningRemoveOwner(false);
+  }
+
+  const handleOpenWarning = () => {
+    setWarningRemoveOwner(true);
+  }
+
+  const handleCloseWarning = () => {
+    setWarningRemoveOwner(false);
   }
 
   return (
-    <div>
+    <div className={styles.ownerContainer}>
       <button
         className={index == selectedOwner ? styles.ownerButtonSelected : styles.ownerButton }
         onClick={handleOwnerChange}>
         {owner}
       </button>
-      <div className={styles.removeOwnerButtonWrapper}>
-        <button
-          className={styles.removeOwnerButton}
-          onClick={handleOwnerRemoval}
-          disabled={!editMode || totalOwners == 1  || selectedOwner < numPreviousOwners}>
-          x
-        </button>
-      </div>
+      <button
+        className={styles.removeOwnerButton}
+        onClick={handleOpenWarning}
+        disabled={!editMode || totalOwners == 1  || selectedOwner < numPreviousOwners}>
+        x
+      </button>
+      {warnignRemoveOwner &&
+        <div className={styles.warnignRemoveOwnerContainer}>
+          <div className={styles.warnignRemoveOwner}>
+            <div className={styles.text}>
+              {t('DataSVL.Labels.warningRemoveOwner')} {index+1}? {t('DataSVL.Labels.warningRemoveOwnerLostData')}
+            </div>
+            <div className={styles.confirmCloseButtonContainer}>
+              <button
+                className={styles.confirmCloseButton}
+                onClick={handleOwnerRemoval}>
+                {t('DataSVL.Placeholders.confirm')}
+              </button>
+              <button
+                className={styles.confirmCloseButton}
+                onClick={handleCloseWarning}>
+                {t('DataSVL.Placeholders.cancel')}
+              </button>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   );
 }
