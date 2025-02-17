@@ -66,6 +66,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
     else url = `http://127.0.0.1:3000/indexer/holder/by_vin?vin=${VIN}&owner_address=${myAddress}`;
     try {
       const responseIndexer = await axios.get(url);
+      console.log(responseIndexer.data);
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
       for (let i = 0; i < responseIndexer.data.length; i++) {
         let latestCid;

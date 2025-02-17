@@ -11,7 +11,8 @@ import CreateSVLButton from './createSVLButton';
 import OwnershipSummaryButton from './ownershipSummaryButton';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { OwnershipSummary } from '../../utils/interfaces';
-import { SetStateAction } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
+import axios from "axios";
 
 type TopNavBarProps = {
   page: string;
@@ -42,6 +43,20 @@ type TopNavBarProps = {
 
 const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL }: TopNavBarProps): JSX.Element => {
 
+  const [mintPrice, setMintPrice] = useState<string>('');
+
+  useEffect(() => {
+    const getMintPrice = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        setMintPrice(response.data.mintPrice);
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+    };
+    getMintPrice();
+  }, []);
+
   return (
     <div>
         {page == 'Dashboard' ? (
@@ -67,6 +82,9 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 {mySVL == true &&
                   <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
                 }
+                <div className={styles.mintPrice}>
+                  {mintPrice} tezos
+                </div>
               </div>
             ) : (
               <div className={styles.rightSideButtons}>
@@ -84,11 +102,18 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
                 />
                 {newSVL == true ? (
-                  <MintSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
-                    maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} />
+                  <div className={styles.mintPriceContainer}>
+                    <MintSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
+                      maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} 
+                    />
+                    <div className={styles.mintPrice}>
+                      {mintPrice} tezos
+                    </div>
+                  </div>
                 ) : (
                   <EditSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
-                  maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} />
+                    maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} 
+                  />
                 )}
               </div>
             )}
