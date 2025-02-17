@@ -21,7 +21,7 @@ const OwnershipSummaryButton = ({ ownershipSummary }: OwnershipSummaryButtonProp
     else {
       if (buttonRef.current) {
         const rect = buttonRef.current.getBoundingClientRect();
-        const panelWidth = 370;
+        const panelWidth = 400;
         const screenWidth = window.innerWidth;
         let newX = rect.left;
         if (newX + panelWidth > screenWidth) {
