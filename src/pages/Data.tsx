@@ -329,7 +329,7 @@ const Data = (): JSX.Element => {
               } catch (error: any | AxiosError) {
                 console.error("Unexpected error:", error);
               }
-              setSelectedOwner(0);
+              setSelectedOwner(responseIndexer.data[0].current_owner_info.length-1);
             }
             else {
               let numPreviousOwners = 0;
@@ -352,11 +352,10 @@ const Data = (): JSX.Element => {
                 const ownershipInfo = {
                   ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
                   owners: owners,
-                  transferDate: responseIndexer.data[0].previous_owners_info[i].transferData
+                  transferDate: format(responseIndexer.data[0].previous_owners_info[i].transferData, "dd/MM/yyyy"),
                 }
                 ownershipSummary.current.push(ownershipInfo);
               }
-              setNumPreviousOwners(numPreviousOwners);
               try {
                 for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
                   addOwners();
@@ -385,6 +384,7 @@ const Data = (): JSX.Element => {
                 console.error("Unexpected error:", error);
               }
               setSelectedOwner(numPreviousOwners);
+              setNumPreviousOwners(numPreviousOwners);
             }
             setNewSVL(false);
           } catch (error: any | AxiosError) {
@@ -435,7 +435,7 @@ const Data = (): JSX.Element => {
             modifications={modifications} setModifications={setModifications} prevOwnersModifications={prevOwnersModifications.current}
             defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects.current}
             repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
-            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL}
+            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType} 
           />
           <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
             selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}

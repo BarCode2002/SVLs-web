@@ -23,11 +23,23 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
   const [initialPrice, setInitialPrice] = useState<number>(0);
   const [invalidFieldsVisible, setInvalidFieldsVisible] = useState(false);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
+  const [requestFee, setRequestFee] = useState<string>('');
 
   useEffect(() => {
     const initializedTezos = getTezos();
     setTezos(initializedTezos);
     setInitialPrice(previewSVLsInfo[index].price);
+    const getRequestFee = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        const requestFee = response.data.requestFee;
+        setRequestFee(requestFee);
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+
+    }
+    getRequestFee();
   }, []);
   
   const handleChangeSVLPrice = async () => { 
@@ -125,8 +137,15 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
           }
         </div>
       ) : (
-        <div className={styles.price}>
-          {t('Dashboard.Labels.price')} {previewSVLsInfo[index].price} tezos
+        <div className={styles.priceRequestFeeContainer}>
+          <div>
+            {t('Dashboard.Labels.price')} {previewSVLsInfo[index].price} tezos
+          </div>
+          {previewSVLsInfo[index].stateNotMySVL[0] == false &&
+            <div>
+              {t('Dashboard.Labels.requestFee')} {requestFee} tezos
+            </div>
+          }
         </div>
       )}  
     </div>

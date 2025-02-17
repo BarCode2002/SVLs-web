@@ -60,3 +60,15 @@
   flex-direction: row;
   gap: 10px;
 }
+
+.priceRequestFeeContainer {
+  width: 384px;
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+  font-weight: 450;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}

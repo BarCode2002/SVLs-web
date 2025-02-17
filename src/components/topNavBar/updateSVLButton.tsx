@@ -7,6 +7,7 @@ import { getsmartContractAddress, getTezos } from '../../utils/wallet.ts';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
 import { createJSON } from '../../utils/createJSON.ts';
 import axios from "axios";
+import InvalidFieldsComponent from '../varied/invalidFieldsComponent.tsx';
 
 type UpdateSVLButtonProps = {
   numPreviousOwners: number;
@@ -25,6 +26,8 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
 
   const [contractAddress, setContractAddress] = useState<string | undefined>();
   const [Tezos, setTezos] = useState<TezosToolkit | undefined>(undefined);
+  const [invalidFieldsVisible, setInvalidFieldsVisible] = useState(false);
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
   
   useEffect(() => {
     const initializedContractAddress = getsmartContractAddress();
@@ -34,36 +37,40 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
   }, []);
 
   const handleUpdateSVL = async () => {
-    if (checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs)) {
-      const formData = new FormData();
-      let cids = []; 
-      for (let i = numPreviousOwners; i < totalOwners; i++) {
-        const json = createJSON(i-numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs);
-        const blob = new Blob([json], { type: "application/json" });
-        formData.append("file", blob);
-      }
-      try {
-        const response = await axios.post("http://127.0.0.1:3000/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        //console.log("Upload successful:", response.data.cids);
-        cids = response.data.cids;
-      } catch (error) {
-        console.error("Upload failed:", error);
-      }
-      try {
-        const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
-        const op = await contract.methodsObject.update({
-          svl_key: svl_pk, 
-          VIN: generalInformation[0].VIN,
-          curr_owner_info: cids,
-        }).send();
-        await op.confirmation();   
-      } catch (error) {
-        console.log('error:', error);
-      }
+    const updatedInvalidFields = checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs); 
+    if (updatedInvalidFields.length > 0) {
+      setInvalidFields(updatedInvalidFields);
+      setInvalidFieldsVisible(true);
+      return;
+    }
+    const formData = new FormData();
+    let cids = []; 
+    for (let i = numPreviousOwners; i < totalOwners; i++) {
+      const json = createJSON(i-numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs);
+      const blob = new Blob([json], { type: "application/json" });
+      formData.append("file", blob);
+    }
+    try {
+      const response = await axios.post("http://127.0.0.1:3000/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      //console.log("Upload successful:", response.data.cids);
+      cids = response.data.cids;
+    } catch (error) {
+      console.error("Upload failed:", error);
+    }
+    try {
+      const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
+      const op = await contract.methodsObject.update({
+        svl_key: svl_pk, 
+        VIN: generalInformation[0].VIN,
+        curr_owner_info: cids,
+      }).send();
+      await op.confirmation();   
+    } catch (error) {
+      console.log('error:', error);
     }
   };
 
@@ -74,6 +81,9 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
         onClick={handleUpdateSVL}>
         {t('DataSVL.TopBar.editSVL')}
       </button>
+      {invalidFieldsVisible &&
+        <InvalidFieldsComponent invalidFields={invalidFields} setInvalidFieldsVisible={setInvalidFieldsVisible} />
+      }
     </div>
   );
 }

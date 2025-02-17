@@ -24,6 +24,7 @@
       "buy": "Compra",
       "connectWallet": "Conecta la cartera",
       "price": "Precio:",
+      "requestFee": "Comisión por solicitar:",
       "change": "Cambia",
       "confirm": "Confimar",
       "priceSVL": "Precio del SVL",
@@ -253,7 +254,7 @@
       "totalled": "Siniestro"
     },
     "DefectLevel": {
-      "comstic": "Cosmético",
+      "cosmetic": "Cosmético",
       "minor": "Menor",
       "moderate": "Moderado",
       "major": "Importante",

@@ -30,7 +30,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
       <OwnerButton index={index} ownersContainerRef={ownersContainerRef.current} 
         setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
         setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs} 
-        selectedOwner={selectedOwner-numPreviousOwners} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
+        selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
         totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
       />
     </div>
@@ -38,6 +38,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
 
   return (
     <div className={styles.bottomNavBarContainer}>
+
       <div className={styles.topPart}>
         <ChooseDataSVLButtons selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} />
       </div>

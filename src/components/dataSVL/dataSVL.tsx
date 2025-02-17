@@ -41,9 +41,10 @@ type DataSVLProps = {
   editMode: boolean;
   numPreviousOwners: number;
   mySVL: boolean;
+  viewType: number;
 };
 
-const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL }: DataSVLProps): JSX.Element => {
+const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL, viewType }: DataSVLProps): JSX.Element => {
 
   const [prevMaintenancesShrinked, setPrevMaintenancesShrinked] = useState<MainShrinkedType[]>([]);
   const [prevModificationsShrinked, setPrevModificationsShrinked] = useState<MainShrinkedType[]>([]);
@@ -132,36 +133,50 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
 
   return (
     <div className={styles.dataSVLContainer}>
-      {selectedSVLData == 0 && selectedOwner < weird &&
-        <PrevOwnersGeneralInformationSVL selectedOwner={selectedOwner} prevOwnersGeneralInformation={prevOwnersGeneralInformation} />
-      }
-      {selectedSVLData == 0 && selectedOwner >= weird &&
-        <GeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} editMode={editMode} />
-      }
-      {shrinkedReady && selectedSVLData == 1 && selectedOwner < weird &&
-        <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={prevOwnersMaintenances} />
-      }
-      {selectedSVLData == 1 && selectedOwner >= weird &&
-        <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} />
-      }
-      {shrinkedReady && selectedSVLData == 2 && selectedOwner < weird &&
-        <PrevOwnersModificationsSVL selectedOwner={selectedOwner} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} prevOwnersModifications={prevOwnersModifications} />
-      }
-      {selectedSVLData == 2 && selectedOwner >= weird &&
-        <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} />
-      }
-      {shrinkedReady && selectedSVLData == 3 && selectedOwner < weird &&
-        <PrevOwnersDefectsSVL selectedOwner={selectedOwner} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={prevOwnersDefects} prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} />
-      }
-      {selectedSVLData == 3 && selectedOwner >= weird &&
-        <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} defects={defects} setDefects={setDefects} editMode={editMode} />
-      }
-      {shrinkedReady && selectedSVLData == 4 && selectedOwner < weird &&
-        <PrevOwnersRepairsSVL selectedOwner={selectedOwner} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={prevOwnersRepairs} />
-      }
-      {selectedSVLData == 4 && selectedOwner >= weird &&
-        <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} editMode={editMode} />
-      }
+      {viewType == 0 ? (
+        <div>
+          {selectedSVLData == 0 && selectedOwner < weird &&
+            <PrevOwnersGeneralInformationSVL selectedOwner={selectedOwner} prevOwnersGeneralInformation={prevOwnersGeneralInformation} />
+          }
+          {selectedSVLData == 0 && selectedOwner >= weird &&
+            <GeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} editMode={editMode} />
+          }
+          {shrinkedReady && selectedSVLData == 1 && selectedOwner < weird &&
+            <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={prevOwnersMaintenances} />
+          }
+          {selectedSVLData == 1 && selectedOwner >= weird &&
+            <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} />
+          }
+          {shrinkedReady && selectedSVLData == 2 && selectedOwner < weird &&
+            <PrevOwnersModificationsSVL selectedOwner={selectedOwner} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} prevOwnersModifications={prevOwnersModifications} />
+          }
+          {selectedSVLData == 2 && selectedOwner >= weird &&
+            <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} />
+          }
+          {shrinkedReady && selectedSVLData == 3 && selectedOwner < weird &&
+            <PrevOwnersDefectsSVL selectedOwner={selectedOwner} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={prevOwnersDefects} prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} />
+          }
+          {selectedSVLData == 3 && selectedOwner >= weird &&
+            <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} defects={defects} setDefects={setDefects} editMode={editMode} />
+          }
+          {shrinkedReady && selectedSVLData == 4 && selectedOwner < weird &&
+            <PrevOwnersRepairsSVL selectedOwner={selectedOwner} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={prevOwnersRepairs} />
+          }
+          {selectedSVLData == 4 && selectedOwner >= weird &&
+            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} editMode={editMode} />
+          }
+        </div>
+      ) : (
+        <div>
+          <PrevOwnersGeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} prevOwnersGeneralInformation={generalInformation} />
+          {/*<PrevOwnersMaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={maintenances} />
+          <PrevOwnersModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} prevOwnersModifications={modifications} />
+          <PrevOwnersDefectsSVL selectedOwner={selectedOwner-numPreviousOwners} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={defects} prevOwnersRepairs={repairs} repairs={repairs} />
+          <PrevOwnersRepairsSVL selectedOwner={selectedOwner-numPreviousOwners} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={repairs} /> 
+          Me da que no puede reutilizar estos componentes para la vista resumen*/}
+          
+          </div>
+      )}
     </div>
   );
 }

@@ -22,7 +22,6 @@ type OwnerButtonProps = {
 const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, numPreviousOwners, totalOwners, setTotalOwners, editMode  }: OwnerButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
-  const owner = `${t('DataSVL.BottomBar.owner')} ${index+1}`;
   const [warnignRemoveOwner, setWarningRemoveOwner] = useState(false);
 
   const handleOwnerChange = (event: any) => {
@@ -81,7 +80,7 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
       <button
         className={index == selectedOwner ? styles.ownerButtonSelected : styles.ownerButton }
         onClick={handleOwnerChange}>
-        {owner}
+        {`${t('DataSVL.BottomBar.owner')} ${index+1}`}
       </button>
       <button
         className={styles.removeOwnerButton}

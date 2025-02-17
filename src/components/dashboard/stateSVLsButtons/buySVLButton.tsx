@@ -27,7 +27,8 @@ const BuySVLButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: BuySVLButt
     const svl_pk = previewSVLsInfo[index].pk;
     try {
       const contract: WalletContract = await Tezos!.wallet.at(contractAddress);
-      const op = await contract.methodsObject.transfer(svl_pk).send({amount: 0.00003});
+      const mutezPrice = previewSVLsInfo[index].price;
+      const op = await contract.methodsObject.transfer(svl_pk).send({amount: mutezPrice});
       await op.confirmation();
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
       for (let i = 0; i < 20-1; i++) {

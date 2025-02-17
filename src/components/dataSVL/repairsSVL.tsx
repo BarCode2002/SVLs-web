@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 
 type RepairsSVLProps = {
   selectedOwner: number;
+  numPreviousOwners: number;
   repairs: Repairs[];
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
   totalOwners: number;
@@ -25,7 +26,7 @@ type RepairsSVLProps = {
   editMode: boolean;
 };
 
-const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects, editMode }: RepairsSVLProps): JSX.Element => {
+const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, totalOwners, defects, editMode }: RepairsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -159,7 +160,7 @@ const RepairsSVL = ({ selectedOwner, repairs, setRepairs, totalOwners, defects, 
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={repairs} setDataSVL={setRepairs} type={'date'} editMode={editMode}
               />
-              {selectedOwner != 0 &&
+              {selectedOwner+numPreviousOwners > 0 &&
                 <DefectsRepairedField totalOwners={totalOwners} fieldLabel={t('DataSVL.Labels.defectsRepaired')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} repairs={repairs} setRepairs={setRepairs} defects={defects} editMode={editMode}
                 />
