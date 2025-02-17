@@ -1,17 +1,24 @@
 .invalidFieldsContainer {
-  display: flex;
-  position: relative;
+  position: absolute;
+  z-index: 1;
+  top: 55px;
+  right: 10px;
+  background-color: var(--dataPanelBackgroundColor);
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .invalidFields {
-  margin-top: 10px;
-  border-radius: 10px;
   padding: 10px;
-  position: absolute;
+  border-radius: 10px;
   width: fit-content;
   height: fit-content;
-  background-color: var(--dataPanelBackgroundColor);
-  z-index: 1;
+  background-color: var(--dataBackgroundColor);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: auto;
+  max-height: 500px;
 }
 
 .invalidField {

@@ -1,8 +1,8 @@
-import styles from '../../styles/components/topNavBar/ownershipSummaryButton.module.css';
+import styles from '../../styles/components/varied/invalidFieldsComponents.module.css';
 import { useTranslation } from "react-i18next";
 
 type InvalidFieldsComponentProps = {
-  invalidFields: [];
+  invalidFields: string[];
   setInvalidFieldsVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

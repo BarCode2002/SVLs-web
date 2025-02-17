@@ -34,7 +34,7 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
   }, []);
 
   const handleUpdateSVL = async () => {
-    if (checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'))) {
+    if (checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs)) {
       const formData = new FormData();
       let cids = []; 
       for (let i = numPreviousOwners; i < totalOwners; i++) {

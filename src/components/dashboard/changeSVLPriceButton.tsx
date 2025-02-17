@@ -4,6 +4,7 @@ import { PreviewSVLsInfo } from '../../utils/interfaces';
 import { getsmartContractAddress, getTezos } from '../../utils/wallet';
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { useEffect, useState } from 'react';
+import InvalidFieldsComponent from '../varied/invalidFieldsComponent';
 import axios from "axios";
 
 type ChangeSVLPriceButtonProps = {
@@ -20,6 +21,8 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
   const [Tezos, setTezos] = useState<TezosToolkit | undefined>(undefined);
   const [step, setStep] = useState(0);
   const [initialPrice, setInitialPrice] = useState<number>(0);
+  const [invalidFieldsVisible, setInvalidFieldsVisible] = useState(false);
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
 
   useEffect(() => {
     const initializedTezos = getTezos();
@@ -33,7 +36,12 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
       try {
         const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
         const minTransferPrice = response.data.minTransferPrice;
-        if (previewSVLsInfo[index].price < parseInt(minTransferPrice)) return;
+        if (previewSVLsInfo[index].price < parseInt(minTransferPrice)) {
+          const updatedInvalidFields = [`${t('InvalidFields.minTransferPrice')} ${minTransferPrice} tezos`];
+          setInvalidFields(updatedInvalidFields);
+          setInvalidFieldsVisible(true);
+          return;
+        }
       } catch (error) {
         console.error("Upload failed:", error);
       }
@@ -71,6 +79,7 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
 
   return (
     <div>
+      
       {previewSVLsInfo[index].mySVL == true ? (
         <div className={styles.changeSVLPriceContainer}>
           <div className={styles.fieldLabel}>
@@ -111,12 +120,15 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
               </div>
             )}
           </div>
+          {invalidFieldsVisible &&
+            <InvalidFieldsComponent invalidFields={invalidFields} setInvalidFieldsVisible={setInvalidFieldsVisible} />
+          }
         </div>
-        ) : (
-          <div className={styles.price}>
-           {t('Dashboard.Labels.price')} {previewSVLsInfo[index].price} tezos
-          </div>
-        )}
+      ) : (
+        <div className={styles.price}>
+          {t('Dashboard.Labels.price')} {previewSVLsInfo[index].price} tezos
+        </div>
+      )}  
     </div>
   );
 };

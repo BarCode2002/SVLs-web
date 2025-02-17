@@ -18,7 +18,7 @@
 
 .previewSVLContainer:hover {
   cursor: pointer;
-  transform: scale(1.01); 
+  /*transform: scale(1.01); Not possible because it moves the invalid fiels component */
 }
 
 .ownerOrRequesterContentWrapper {

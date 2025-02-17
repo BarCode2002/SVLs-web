@@ -194,6 +194,18 @@
       }
     }
   },
+  "InvalidFields": {
+    "owner": "Propietario",
+    "VIN": "no ha definido el VIN en información general. Es un campo obligatorio",
+    "brand": "no ha definido la marca en información general. Es un campo obligatorio",
+    "model": "no ha definido el model en información general. Es un campo obligatorio",
+    "year": "no ha definido el año en información general. Es un campo obligatorio",
+    "mainPhotograph": "no ha subido la imagen principal en información general. Es un campo obligatorio",
+    "mainPhotographNotSaved": "no ha gurdado la imagen principal en información general",
+    "photographsNotSaved": "no ha gurdado la imagenes en información general",
+    
+    "minTransferPrice": "El precio del SVL tiene que ser mayor o igual que el precio mínimo de venta:"
+  },
   "Lists": {
     "State": {
       "new": "Nuevo",
