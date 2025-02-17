@@ -391,7 +391,10 @@ const Data = (): JSX.Element => {
             console.error("Unexpected error:", error);
           }
         }
-        else setNewSVL(true);
+        else {
+          setNewSVL(true);
+          setEditMode(true);
+        }
         setIsLoading(false);
       }, 1000);
       return () => clearTimeout(timer);
