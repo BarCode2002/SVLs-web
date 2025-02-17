@@ -16,9 +16,9 @@
   background-color: var(--dataBackgroundColor);
   display: flex;
   flex-direction: column;
-  gap: 10px;
   overflow-y: auto;
   max-height: 300px;
+  gap: 5px;
 }
 
 .invalidField {
@@ -29,7 +29,6 @@
 }
 
 .closeButtonContainer {
-  margin-top: 10px;
   display: flex;
   justify-content: end;
   background-color: var(--dataBackgroundColor);
@@ -37,13 +36,17 @@
 }
 
 .closeButton {
-  margin: 5px;
-  height: var(--buttonHeight);
+  position: absolute;
+  z-index: 1;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
   font-size: var(--buttonFontSize);
   font-weight: var(--buttonFontWeight);
   border: none;
-  color: var(--dataPanelBackgroundColor);
-  background-color: var(--buttonBackgroundColor);
+  color: var(--fieldLabelColor);
+  background-color: var(--dataBackgroundColor);
   border-radius: 10px;
 }
 

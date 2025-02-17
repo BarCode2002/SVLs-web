@@ -1,5 +1,4 @@
 import styles from '../../styles/components/varied/invalidFieldsComponents.module.css';
-import { useTranslation } from "react-i18next";
 
 type InvalidFieldsComponentProps = {
   invalidFields: string[];
@@ -8,27 +7,25 @@ type InvalidFieldsComponentProps = {
 
 const InvalidFieldsComponent = ({ invalidFields, setInvalidFieldsVisible }: InvalidFieldsComponentProps) => {
 
-  const { t } = useTranslation();
-
   const closeInvalidFieldsComponent = () => {
     setInvalidFieldsVisible(false);
   }
   
   return (
     <div className={styles.invalidFieldsContainer}>
+      <div className={styles.closeButtonContainer}>   
+        <button
+          className={styles.closeButton}
+          onClick={closeInvalidFieldsComponent}>
+          X
+        </button>
+      </div>
       <div className={styles.invalidFields}>
         {invalidFields.map((field, index) => (
           <div key={index} className={styles.invalidField}>
             <div>{field}</div>
           </div>
         ))}
-      </div>
-      <div className={styles.closeButtonContainer}>
-        <button
-          className={styles.closeButton}
-          onClick={closeInvalidFieldsComponent}>
-          {t('DataSVL.TopBar.close')}
-        </button>
       </div>
     </div>
   );
