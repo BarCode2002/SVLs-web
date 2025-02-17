@@ -120,7 +120,10 @@
       "me": "Yo",
       "mechanic": "Mecánico",
       "proof": "prueba",
-      "uploadProof": "Sube la prueba",
+      "canYouProveItMaintenanances": "¿Puedes corroborar que realizaste el grupo de mantenimientos?",
+      "canYouProveItModifiactions": "¿Puedes corroborar que realizaste el grupo de modifiaciones?",
+      "canYouProveItRepairs": "¿Puedes corroborar que realizaste el grupo de reparaciones?",
+      "uploadProof": "Sube una prueba",
       "mechanicShop": "Nombre del taller mecánico",
       "dateMaintenance": "Selecciona la fecha del mantenimiento rutinario",
       "search": "Busca...",
@@ -137,7 +140,9 @@
       "commentsRepair": "Comentarios sobre la reparación",
       "causeDefect": "Causa del grupo de defectos",
       "descriptionDefect": "Descripción del defecto",
-      "noMatch": "Sin coincidencias"
+      "noMatch": "Sin coincidencias",
+      "yes": "Si",
+      "no": "No"
     },
     "Forms": {
       "brand": "Selecciona la marca",

@@ -14,7 +14,7 @@
   gap: 10px;
 }
 
-.meButton {
+.leftButton {
   height: var(--buttonHeight);
   border: none;
   border-top-left-radius: 10px;
@@ -22,23 +22,23 @@
   font-size: var(--buttonFontSize);
   color: var(--fieldDataColor);
   border-right: solid black 1px;
-  background-color: var(--fieldBackgroundColor);
+  background-color: var(--buttonSelectedBackgroundColor);
 }
 
-.meButton:hover {
+.leftButton:hover {
   cursor: pointer;
-  background-color: green;
-}
-
-.meButton:disabled {
-  cursor: default;
   background-color: var(--fieldBackgroundColor);
 }
 
-.meButtonSelected {
+.leftButton:disabled {
+  cursor: default;
+  background-color: var(--buttonSelectedBackgroundColor);
+}
+
+.leftButtonSelected {
   height: var(--buttonHeight);
   border: none;
-  background-color: green;
+  background-color: var(--fieldBackgroundColor);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   font-size: var(--buttonFontSize);
@@ -46,15 +46,15 @@
   border-right: solid black 1px;
 }
 
-.meButtonSelected:hover {
+.leftButtonSelected:hover {
   cursor: pointer;
 }
 
-.meButtonSelected:disabled {
+.leftButtonSelected:disabled {
   cursor: default;
 }
 
-.mechanicButton {
+.rightButton {
   height: var(--buttonHeight);
   border: none;
   border-top-right-radius: 10px;
@@ -62,23 +62,23 @@
   font-size: var(--buttonFontSize);
   color: var(--fieldDataColor);
   border-left: solid black 1px;
-  background-color: var(--fieldBackgroundColor);
+  background-color: var(--buttonSelectedBackgroundColor);
 }
 
-.mechanicButton:hover {
+.rightButton:hover {
   cursor: pointer;
-  background-color: green;
-}
-
-.mechanicButton:disabled {
-  cursor: default;
   background-color: var(--fieldBackgroundColor);
 }
 
-.mechanicButtonSelected {
+.rightButton:disabled {
+  cursor: default;
+  background-color: var(--buttonSelectedBackgroundColor);
+}
+
+.rightButtonSelected {
   height: var(--buttonHeight);
   border: none;
-  background-color: green;
+  background-color: var(--fieldBackgroundColor);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   font-size: var(--buttonFontSize);
@@ -86,12 +86,21 @@
   border-left: solid black 1px;
 }
 
-.mechanicButtonSelected:hover {
+.rightButtonSelected:hover {
   cursor: pointer;
 }
 
-.mechanicButtonSelected:disabled {
+.rightButtonSelected:disabled {
   cursor: default;
+}
+
+.questionProofContainer {
+  display: flex;
+  align-items: center;
+}
+
+.questionProofText {
+  margin-right: 5px;
 }
 
 .inputField {
@@ -152,46 +161,6 @@
   background-color: var(--fieldBackgroundColor);
 }
 
-.noProofButton {
-  height: var(--buttonHeight);
-  border: none;
-  border-radius: 10px;
-  font-size: var(--buttonFontSize);
-  color: var(--fieldDataColor);
-  background-color: red;
-}
-
-.noProofButton:hover {
-  cursor: pointer;
-}
-
-.noProofButton:disabled {
-  cursor: default;
-}
-
-.yesProofButton {
-  height: var(--buttonHeight);
-  border: none;
-  border-radius: 10px;
-  font-size: var(--buttonFontSize);
-  color: var(--fieldDataColor);
-  background-color: green;
-}
-
-.yesProofButton:hover {
-  cursor: pointer;
-}
-
-.yesProofButton:disabled {
-  cursor: default;
-}
-
-.proofUploadContainer {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 .fileInput {
   height: var(--fieldHeight);
   width: fit-content;
@@ -234,6 +203,7 @@
 }
 
 .imageSmall {
+  margin-top: 5px;
   height: 108px;
   width: 192px;
   border-radius: 10px;
@@ -249,6 +219,7 @@
 
 .removeImageButton {
   position: absolute;
+  top: 5px;
   right: 172px;
   width: 20px;
   color: black;

@@ -163,13 +163,13 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
         {step >= 0 &&
           <div>
             <button
-              className={mechanic != false ? styles.meButton : styles.meButtonSelected}
+              className={mechanic != false ? styles.leftButton : styles.leftButtonSelected}
               onClick={handleMeResponsible}
               disabled={!editMode}>
               {t('DataSVL.Placeholders.me')}
             </button>
             <button
-              className={mechanic != true ? styles.mechanicButton : styles.mechanicButtonSelected}
+              className={mechanic != true ? styles.rightButton : styles.rightButtonSelected}
               onClick={handleMechanicResponsible}
               disabled={!editMode}>
               {t('DataSVL.Placeholders.mechanic')}
@@ -203,22 +203,22 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
           </div>
         }
         {step >= 2 &&
-          <div>
-            {proof == false || proof == null ? (
-              <button
-                className={styles.noProofButton}
-                onClick={handleYesProof}
-                disabled={!editMode}>
-                {t('DataSVL.Placeholders.proof')} {'x'}
-              </button>
-            ) : (
-              <button
-                className={styles.yesProofButton}
-                onClick={handleNoProof}
-                disabled={!editMode}>
-                {t('DataSVL.Placeholders.proof')} {'✔'}
-              </button>
-            )}
+          <div className={styles.questionProofContainer}>
+            <div className={styles.questionProofText}>
+              {t('DataSVL.Placeholders.canYouProveItMaintenanances')}
+            </div>
+            <button
+              className={proof != true ? styles.leftButton : styles.leftButtonSelected}
+              onClick={handleYesProof}
+              disabled={!editMode}>
+              {t('DataSVL.Placeholders.yes')}
+            </button>
+            <button
+              className={proof != false ? styles.rightButton : styles.rightButtonSelected}
+              onClick={handleNoProof}
+              disabled={!editMode}>
+              {t('DataSVL.Placeholders.no')}
+            </button>
           </div>
         }
         {step >= 3 && proof == true && 
