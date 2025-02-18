@@ -23,6 +23,16 @@
   background-color: var(--dataPanelBackgroundColor);
 }
 
+.groupContainerPrevOwners {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--dataPanelBackgroundColor);
+  margin-bottom: 10px;
+}
+
 .topPart {
   height: fit-content;
   display: flex;

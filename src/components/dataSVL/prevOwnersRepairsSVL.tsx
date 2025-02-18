@@ -50,7 +50,7 @@ const PrevOwnersRepairsSVL = ({ selectedOwner, shrinked, setShrinked, prevOwners
 
   const listGroupRepairs = Array.from({length: prevOwnersRepairs[selectedOwner].repairs.length }, (_, groupIndex) => (
     <div key={groupIndex}>
-      <div className={styles.groupContainer}>
+      <div className={styles.groupContainerPrevOwners}>
         <div className={styles.topPart}>
           <div className={styles.toggleVisibilityRemoveGroup}>
             # {groupIndex + 1}

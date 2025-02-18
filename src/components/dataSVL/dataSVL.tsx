@@ -163,7 +163,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
             <PrevOwnersRepairsSVL selectedOwner={selectedOwner} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={prevOwnersRepairs} />
           }
           {selectedSVLData == 4 && selectedOwner >= weird &&
-            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} editMode={editMode} />
+            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} />
           }
         </div>
       ) : (
