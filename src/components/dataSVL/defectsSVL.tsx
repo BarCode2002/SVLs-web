@@ -1,6 +1,6 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Defects } from '../../utils/interfaces.ts';
+import { Defects, Repairs } from '../../utils/interfaces.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -12,16 +12,20 @@ import DateField from './fields/dateField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
 import DropdownMenu from './fields/dropdownMenu.tsx';
 import DragGroupGroupTypeButton from './buttons/dragGroupGroupTypeButton.tsx';
+import RepairedDefectsByContainer from './readOnlyFields/repairedDefectByContainer.tsx';
 import { useTranslation } from "react-i18next";
 
 type DefectsSVLProps = {
   selectedOwner: number;
+  totalOwners: number;
+  numPreviousOwners: number;
   defects: Defects[];
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
+  repairs: Repairs[];
   editMode: boolean;
 };
 
-const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVLProps): JSX.Element => {
+const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode }: DefectsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -139,6 +143,9 @@ const DefectsSVL = ({ selectedOwner, defects, setDefects, editMode }: DefectsSVL
               <InputTextField fieldLabel={t('DataSVL.Labels.cause')} placeholder={t('DataSVL.Placeholders.causeDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].cause} 
                 setDataSVL={setDefects} type={'cause'} editMode={editMode}
+              />
+              <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} selectedOwner={selectedOwner+numPreviousOwners} 
+                selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
               />
             </div>
           }

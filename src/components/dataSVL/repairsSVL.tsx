@@ -21,13 +21,12 @@ type RepairsSVLProps = {
   numPreviousOwners: number;
   repairs: Repairs[];
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
-  totalOwners: number;
   defects: Defects[];
   prevOwnersDefects: any;
   editMode: boolean;
 };
 
-const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, totalOwners, defects, prevOwnersDefects, editMode }: RepairsSVLProps): JSX.Element => {
+const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, defects, prevOwnersDefects, editMode }: RepairsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -161,7 +160,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, tot
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={repairs} setDataSVL={setRepairs} type={'date'} editMode={editMode}
               />
-              <DefectsRepairedField totalOwners={totalOwners} numPreviousOwners={numPreviousOwners} fieldLabel={t('DataSVL.Labels.defectsRepaired')} 
+              <DefectsRepairedField numPreviousOwners={numPreviousOwners} fieldLabel={t('DataSVL.Labels.defectsRepaired')} 
                 selectedOwner={selectedOwner} selectedGroup={groupIndex} repairs={repairs} setRepairs={setRepairs} defects={defects} 
                 prevOwnersDefects={prevOwnersDefects} editMode={editMode}
               />

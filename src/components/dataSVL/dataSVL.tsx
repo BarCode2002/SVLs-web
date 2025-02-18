@@ -154,16 +154,16 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
             <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} />
           }
           {shrinkedReady && selectedSVLData == 3 && selectedOwner < weird &&
-            <PrevOwnersDefectsSVL selectedOwner={selectedOwner} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={prevOwnersDefects} prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} />
+            <PrevOwnersDefectsSVL selectedOwner={selectedOwner} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={prevOwnersDefects} prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} />
           }
           {selectedSVLData == 3 && selectedOwner >= weird &&
-            <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} defects={defects} setDefects={setDefects} editMode={editMode} />
+            <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} totalOwners={totalOwners} numPreviousOwners={numPreviousOwners} defects={defects} setDefects={setDefects} repairs={repairs} editMode={editMode} />
           }
           {shrinkedReady && selectedSVLData == 4 && selectedOwner < weird &&
             <PrevOwnersRepairsSVL selectedOwner={selectedOwner} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={prevOwnersRepairs} />
           }
           {selectedSVLData == 4 && selectedOwner >= weird &&
-            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} totalOwners={totalOwners} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} />
+            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} />
           }
         </div>
       ) : (
