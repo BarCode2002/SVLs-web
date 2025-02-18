@@ -3,18 +3,24 @@ import { Defects, Repairs } from '../../utils/interfaces.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import RepairedDefectsByContainer from './readOnlyFields/repairedDefectByContainer.tsx';
+import ToggleVisibilityButton from './buttons/toggleVisibilityButton.tsx';
+import ToggleVisibilityRDButton from './readOnlyFields/toggleVisibilityRDButton.tsx';
 import { useTranslation } from "react-i18next";
+import { SetStateAction } from 'react';
 
 type SummaryViewDefectsProps = {
   prevOwnersDefects: any;
   defects: Defects[];
   repairs: Repairs[];
   prevOwnersRepairs: any;
+  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
+  shrinked: any;
+  setShrinked: any;
   numPreviousOwners: number;
   totalOwners: number;
 };
 
-const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRepairs, numPreviousOwners, totalOwners }: SummaryViewDefectsProps): JSX.Element => {
+const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRepairs, setDefects, shrinked, setShrinked, numPreviousOwners, totalOwners }: SummaryViewDefectsProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -25,12 +31,15 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
+            <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={typeIndex} />
           </div>
-          <div className={styles.groupTypeBottomPart}>
-            <TextContainer fieldLabel={t('DataSVL.Labels.level')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].level} />
-            <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].photographs} />
-            <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].description} />
-          </div>
+          {shrinked[selectedOwner][groupIndex].type[typeIndex] == false &&
+            <div className={styles.groupTypeBottomPart}>
+              <TextContainer fieldLabel={t('DataSVL.Labels.level')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].level} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].photographs} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].description} />
+            </div>
+          }
         </div>
       </div>
     ));
@@ -50,19 +59,24 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
           <div className={styles.topPart}>
             <div className={styles.toggleVisibilityRemoveGroup}>
               # {groupIndex + 1}
+              <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={-1} />
             </div>
-            <div className={styles.topBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].date} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].kilometers} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].cause} />
-              <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs}  
-                selectedOwner={selectedOwner} selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
-              />
+            {shrinked[selectedOwner][groupIndex].group == false &&
+              <div className={styles.topBottomPart}>
+                <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].date} />
+                <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].kilometers} />
+                <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].cause} />
+                <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs}  
+                  selectedOwner={selectedOwner} selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
+                />
+              </div>
+            }
+          </div>
+          {shrinked[selectedOwner][groupIndex].group == false &&
+            <div>
+              {renderListPreviousDefects(groupIndex, selectedOwner)}
             </div>
-          </div>
-          <div>
-            {renderListPreviousDefects(groupIndex, selectedOwner)}
-          </div>
+          }
         </div>
       </div>
     ));
@@ -84,12 +98,17 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
+            <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner-numPreviousOwners} 
+              selectedGroup={groupIndex} selectedGroupType={typeIndex}
+            />
           </div>
-          <div className={styles.groupTypeBottomPart}>
-            <TextContainer fieldLabel={t('DataSVL.Labels.level')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].level} />
-            <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].photographs} />
-            <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].description} />
-          </div>
+          {defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].shrinked == false &&
+            <div className={styles.groupTypeBottomPart}>
+              <TextContainer fieldLabel={t('DataSVL.Labels.level')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].level} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].photographs} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].description} />
+            </div>
+          }
         </div>
       </div>
     ));
@@ -109,19 +128,26 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
           <div className={styles.topPart}>
             <div className={styles.toggleVisibilityRemoveGroup}>
               # {groupIndex + 1}
-            </div>
-            <div className={styles.topBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].date} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].kilometers} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].cause} />
-              <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
+              <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner-numPreviousOwners} 
+                selectedGroup={groupIndex} selectedGroupType={-1}
               />
             </div>
+            {defects[selectedOwner-numPreviousOwners].group[groupIndex].shrinked == false &&
+              <div className={styles.topBottomPart}>
+                <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].date} />
+                <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].kilometers} />
+                <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].cause} />
+                <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
+                />
+              </div>
+            }
           </div>
-          <div>
-            {renderListActualDefects(groupIndex, selectedOwner)}
-          </div>
+          {defects[selectedOwner-numPreviousOwners].group[groupIndex].shrinked == false &&
+            <div>
+              {renderListActualDefects(groupIndex, selectedOwner)}
+            </div>
+          }
         </div>
       </div>
     ));
