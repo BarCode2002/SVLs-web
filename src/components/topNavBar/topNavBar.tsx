@@ -79,6 +79,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 {ownershipSummary!.length > 0 &&
                   <OwnershipSummaryButton ownershipSummary={ownershipSummary!} />
                 }
+                <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
                 {mySVL == true &&
                   <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
                 }
@@ -91,8 +92,8 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 {ownershipSummary!.length > 0 &&
                   <OwnershipSummaryButton ownershipSummary={ownershipSummary!} />
                 }
-                <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
+                <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />
                 <UploadJSONButton selectedOwner={selectedOwner!} 
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
                   setMaintenances={setMaintenances!} setModifications={setModifications!}
