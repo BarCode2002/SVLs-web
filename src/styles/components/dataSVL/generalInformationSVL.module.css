@@ -14,10 +14,26 @@
   font-size: 3rem;
 }
 
+.owner {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
 .dataWrapper {
   background-color: var(--dataPanelBackgroundColor);
   padding: 10px;
   border-radius: 10px;
+}
+
+.dataWrapperSummary {
+  background-color: var(--dataPanelBackgroundColor);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .data {

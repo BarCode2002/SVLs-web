@@ -3,7 +3,7 @@ import styles from '../../../styles/components/dataSVL/readOnlyFields/components
 type ComponentsContainerProps = {
   fieldLabel: string;
   numComponents: number;
-  components: [number, number, number][];
+  components: string[];
 }
 
 const ComponentsContainer = ({ fieldLabel, numComponents, components }: ComponentsContainerProps) => {

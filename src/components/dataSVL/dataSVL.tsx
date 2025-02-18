@@ -11,6 +11,11 @@ import DefectsSVL from './defectsSVL.tsx';
 import PrevOwnersDefectsSVL from './prevOwnersDefectsSVL.tsx';
 import RepairsSVL from './repairsSVL.tsx';
 import PrevOwnersRepairsSVL from './prevOwnersRepairsSVL.tsx';
+import SummaryViewGeneralInformation from './summaryViewGeneralInformation.tsx';
+import SummaryViewMaintenances from './summaryViewMaintenances.tsx';
+import SummaryViewModifications from './summaryViewModifications.tsx';
+import SummaryViewDefects from './summaryViewDefects.tsx';
+import SummaryViewRepairs from './summaryViewRepairs.tsx';
 
 type ShrinkedType = {
   group: boolean;
@@ -168,14 +173,12 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
         </div>
       ) : (
         <div>
-          <PrevOwnersGeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} prevOwnersGeneralInformation={generalInformation} />
-          {/*<PrevOwnersMaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={maintenances} />
-          <PrevOwnersModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} prevOwnersModifications={modifications} />
-          <PrevOwnersDefectsSVL selectedOwner={selectedOwner-numPreviousOwners} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={defects} prevOwnersRepairs={repairs} repairs={repairs} />
-          <PrevOwnersRepairsSVL selectedOwner={selectedOwner-numPreviousOwners} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={repairs} /> 
-          Me da que no puede reutilizar estos componentes para la vista resumen*/}
-          
-          </div>
+          {selectedSVLData == 0 && <SummaryViewGeneralInformation prevOwnersGeneralInformation={prevOwnersGeneralInformation} generalInformation={generalInformation} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
+          {selectedSVLData == 1 && <SummaryViewMaintenances prevOwnersMaintenances={prevOwnersMaintenances} maintenances={maintenances} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
+          {selectedSVLData == 2 && <SummaryViewModifications prevOwnersModifications={prevOwnersModifications} modifications={modifications} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
+          {selectedSVLData == 3 && <SummaryViewDefects prevOwnersDefects={prevOwnersDefects} defects={defects} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
+          {selectedSVLData == 4 && <SummaryViewRepairs prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
+        </div>
       )}
     </div>
   );

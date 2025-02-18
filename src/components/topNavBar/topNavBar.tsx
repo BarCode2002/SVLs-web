@@ -80,12 +80,14 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   <OwnershipSummaryButton ownershipSummary={ownershipSummary!} />
                 }
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
-                {mySVL == true &&
+                {mySVL == true && viewType == 0 &&
                   <EditModeButton editMode={editMode} setEditMode={setEditMode!} />
                 }
-                <div className={styles.mintPrice}>
-                  {mintPrice} tezos
-                </div>
+                {newSVL &&
+                  <div className={styles.mintPrice}>
+                    {mintPrice} tezos
+                  </div>
+                }
               </div>
             ) : (
               <div className={styles.rightSideButtons}>
@@ -93,29 +95,30 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   <OwnershipSummaryButton ownershipSummary={ownershipSummary!} />
                 }
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
-                <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />
-                <UploadJSONButton selectedOwner={selectedOwner!} 
+                {viewType == 0 && <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />}
+                {viewType == 0 && <UploadJSONButton selectedOwner={selectedOwner!} 
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
                   setMaintenances={setMaintenances!} setModifications={setModifications!}
                   setDefects={setDefects!} setRepairs={setRepairs!}
-                />
-                <DownloadJSONButton selectedOwner={selectedOwner!} generalInformation={generalInformation!} 
+                />}
+                {viewType == 0 && <DownloadJSONButton selectedOwner={selectedOwner!} generalInformation={generalInformation!} 
                   maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
-                />
-                {newSVL == true ? (
+                />}
+                {newSVL == true && viewType == 0 && 
                   <div className={styles.mintPriceContainer}>
-                    <MintSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
+                    {viewType == 0 && <MintSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
                       maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} 
-                    />
+                    />}
                     <div className={styles.mintPrice}>
                       {mintPrice} tezos
                     </div>
                   </div>
-                ) : (
+                }
+                {newSVL == false && viewType == 0 &&
                   <EditSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
                     maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} 
                   />
-                )}
+                }
               </div>
             )}
           </div>

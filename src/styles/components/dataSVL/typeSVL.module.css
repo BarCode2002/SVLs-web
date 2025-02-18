@@ -14,6 +14,20 @@
   font-size: 3rem;
 }
 
+.summaryContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.owner {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
 .groupContainer {
   height: fit-content;
   display: flex;

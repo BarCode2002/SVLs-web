@@ -19,9 +19,10 @@ type BottomNavBarProps = {
   totalOwners: number;
   setTotalOwners: React.Dispatch<SetStateAction<number>>;
   editMode: boolean;
+  viewType: number;
 };
 
-const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode }: BottomNavBarProps): JSX.Element => {
+const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode, viewType }: BottomNavBarProps): JSX.Element => {
 
   const ownersContainerRef = useRef(null);
 
@@ -42,19 +43,23 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
       <div className={styles.topPart}>
         <ChooseDataSVLButtons selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} />
       </div>
-      <div className={styles.separator}></div>
-      <div className={styles.bottomPart}>
-        <div ref={ownersContainerRef} className={styles.ownersContainer}>
-          {ownerSelector}
+      {viewType == 0 &&
+        <div>
+          <div className={styles.separator}></div>
+          <div className={styles.bottomPart}>
+            <div ref={ownersContainerRef} className={styles.ownersContainer}>
+              {ownerSelector}
+            </div>
+            <div className={styles.addOwnerButton}>
+              <AddOwnerButton setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
+                setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
+                setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
+                editMode={editMode}
+              />
+            </div>
+          </div>
         </div>
-        <div className={styles.addOwnerButton}>
-          <AddOwnerButton setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
-            setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-            setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
-            editMode={editMode}
-          />
-        </div>
-      </div>
+      }
     </div>
   );
 }

@@ -461,13 +461,14 @@ const Data = (): JSX.Element => {
             modifications={modifications} setModifications={setModifications} prevOwnersModifications={prevOwnersModifications.current}
             defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects.current}
             repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
-            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType} 
+            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType}
           />
+          
           <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
             selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
             setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
             setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-            totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
+            totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} viewType={viewType}
           />
         </div>
       }

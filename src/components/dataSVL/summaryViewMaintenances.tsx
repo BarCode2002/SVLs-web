@@ -1,0 +1,166 @@
+import styles from '../../styles/components/dataSVL/typeSVL.module.css';
+import { Maintenances } from '../../utils/interfaces.ts';
+import TextContainer from './readOnlyFields/textContainer.tsx';
+import ImageContainer from './readOnlyFields/imageContainer.tsx';
+import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';
+import ComponentsContainer from './readOnlyFields/componentsContainer.tsx';
+import { useTranslation } from "react-i18next";
+
+type SummaryViewMaintenancesProps = {
+  prevOwnersMaintenances: any;
+  maintenances: Maintenances[];
+  numPreviousOwners: number;
+  totalOwners: number;
+};
+
+const SummaryViewMaintenances = ({ prevOwnersMaintenances, maintenances, numPreviousOwners, totalOwners }: SummaryViewMaintenancesProps): JSX.Element => {
+
+  const { t } = useTranslation();
+
+  const renderListPreviousMaintenances = (groupIndex: number, selectedOwner: number) => {
+
+    const listPreviousMaintenances = Array.from({length: prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type.length}, (_, typeIndex) => (
+      <div key={typeIndex} className={styles.typeContainer} >
+        <div className={styles.groupType}>
+          <div className={styles.groupTypeTopPart}>
+            # {typeIndex + 1}
+          </div>
+          <div className={styles.groupTypeBottomPart}>
+            <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].name} />
+            <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} numComponents={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].numComponents} components={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].components} />
+            <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].pre} />
+            <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].post} />
+            <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].comments} />
+          </div>
+        </div>
+      </div>
+    ));
+
+    return (
+      <div className={styles.typesContainer}>
+        {listPreviousMaintenances}
+      </div> 
+    );
+  };
+  
+  const listPreviousGroupMaintenances = (selectedOwner: number) => {
+
+    const listPreviousGroupMaintenances = Array.from({length: prevOwnersMaintenances[selectedOwner].maintenances.length }, (_, groupIndex) => (
+      <div key={groupIndex}>
+        <div className={styles.groupContainerPrevOwners}>
+          <div className={styles.topPart}>
+            <div className={styles.toggleVisibilityRemoveGroup}>
+              # {groupIndex + 1}
+            </div>
+            <div className={styles.topBottomPart}>
+              <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].kilometers} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].name} />
+              <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].responsible} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].date} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].pre} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].post} />
+            </div>
+          </div>
+          <div>
+            {renderListPreviousMaintenances(groupIndex, selectedOwner)}
+          </div>
+        </div>
+      </div>
+    ));
+
+    return (
+      <div className={styles.summaryContainer}>
+        <div className={styles.owner}>
+          {t('DataSVL.Placeholders.owner')} {selectedOwner+1}
+        </div>
+        {listPreviousGroupMaintenances}
+      </div> 
+    );
+  };
+
+  const renderListActualMaintenances = (groupIndex: number, selectedOwner: number) => {
+
+    const listActualMaintenances = Array.from({length: maintenances[selectedOwner-numPreviousOwners].group[groupIndex].type.length}, (_, typeIndex) => (
+      <div key={typeIndex} className={styles.typeContainer} >
+        <div className={styles.groupType}>
+          <div className={styles.groupTypeTopPart}>
+            # {typeIndex + 1}
+          </div>
+          <div className={styles.groupTypeBottomPart}>
+            <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].name} />
+            <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} numComponents={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].numComponents} components={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].components} />
+            <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].pre} />
+            <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].post} />
+            <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].comments} />
+          </div>
+        </div>
+      </div>
+    ));
+
+    return (
+      <div className={styles.typesContainer}>
+        {listActualMaintenances}
+      </div> 
+    );
+  };
+
+  const listActualGroupMaintenances = (selectedOwner: number) => {
+
+    const listActualGroupMaintenances = Array.from({length: maintenances[selectedOwner-numPreviousOwners].group.length }, (_, groupIndex) => (
+      <div key={groupIndex}>
+        <div className={styles.groupContainer}>
+          <div className={styles.topPart}>
+            <div className={styles.toggleVisibilityRemoveGroup}>
+              # {groupIndex + 1}
+            </div>
+            <div className={styles.topBottomPart}>
+              <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].kilometers} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].name} />
+              <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].responsible} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].date} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].pre} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={maintenances[selectedOwner-numPreviousOwners].group[groupIndex].post} />
+            </div>
+          </div>
+          <div>
+            {renderListActualMaintenances(groupIndex, selectedOwner)}
+          </div>
+        </div>
+      </div>
+    ));
+
+    return (
+      <div className={styles.summaryContainer}>
+        <div className={styles.owner}>
+          {t('DataSVL.Placeholders.owner')} {selectedOwner+1}
+        </div>
+        {listActualGroupMaintenances}
+      </div> 
+    );
+  };
+
+  const listMaintenances = Array.from({length: totalOwners }, (_, selectedOwner) => (
+    <div key={selectedOwner}>
+      {selectedOwner < numPreviousOwners ? (
+        <div>          
+          {listPreviousGroupMaintenances(selectedOwner)}
+        </div>
+      ) : (
+        <div>          
+          {listActualGroupMaintenances(selectedOwner)}
+        </div>
+      )}
+    </div>
+  ));
+
+  return (
+    <div className={styles.typeSVLContainer}>
+      <div className={styles.title}>
+        {t('DataSVL.Labels.maintenances')}
+      </div>
+      {listMaintenances}
+    </div>
+  );
+}
+
+export default SummaryViewMaintenances;
