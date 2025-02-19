@@ -3,7 +3,8 @@
   "Dashboard": {
     "TopBar": {
       "createSVL": "Crea SVL",
-      "disconnectWallet": "Desconecta la cartera"
+      "disconnectWallet": "Desconecta la cartera",
+      "changeWallet": "Cambia de cartera"
     },
     "Labels": {
       "mySVLs": "Mis SVLs",

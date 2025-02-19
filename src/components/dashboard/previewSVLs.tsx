@@ -112,7 +112,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
 
   useEffect(() => {
     getSVLPreview();
-  }, [filterSVL, search]);
+  }, [filterSVL, search, myAddress]);
 
   const viewSVLInDetail = (svl_pk: string) => {
     navigate(`/data/${svl_pk}`); 

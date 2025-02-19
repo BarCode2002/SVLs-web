@@ -9,6 +9,7 @@ import EditSVLButton from './updateSVLButton';
 import DisconnectWalletButton from './disconnectWalletButton';
 import CreateSVLButton from './createSVLButton';
 import OwnershipSummaryButton from './ownershipSummaryButton';
+import ChangeWalletButton from './changeWalletButton';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { OwnershipSummary } from '../../utils/interfaces';
 import { SetStateAction, useEffect, useState } from 'react';
@@ -63,8 +64,11 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
           <div className={styles.topNavBarDashboardContainer}>
             {myAddress != undefined &&
               <div className={styles.leftSideButton}>
-                <div className={styles.myAddress}>{myAddress}</div>
+                <div className={styles.myAddress}>
+                  {myAddress}
+                </div>
                 <DisconnectWalletButton setMyAddress={setMyAddress!} />
+                <ChangeWalletButton setMyAddress={setMyAddress!} />
               </div>
             }
             <div className={styles.rightSideButtons}>
