@@ -94,7 +94,10 @@
       "description": "Descripción:",
       "components": "Componentes:",
       "warningRemoveOwner": "¿Estas seguro que quieres eliminar el propietario",
-      "warningRemoveOwnerLostData": "Se perdera toda la información introducida."
+      "warningRemoveOwnerLostData": "Se perdera toda la información introducida.",
+      "allDefectsRepaired": "ha reparado todos los defectos",
+      "defectRepaired": "ha reparado el defecto",
+      "inTheRepair": "en la reparación"
     },
     "Placeholders": {
       "vin": "VIN",

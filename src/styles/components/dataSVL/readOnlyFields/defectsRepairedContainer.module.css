@@ -1,4 +1,4 @@
-.defectsContainer {
+.defectsRepairedContainer {
   display: flex;
   align-items: center;
 }
@@ -10,4 +10,26 @@
 
 .defectsRepaired {
   color: var(--fieldLabelColor);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.defectRepaired {
+  color: var(--fieldLabelColor);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.ownerPart {
+  width: fit-content;
+}
+
+.groupPart {
+  width: fit-content;
+}
+
+.defectPart {
+  width: fit-content;
 }

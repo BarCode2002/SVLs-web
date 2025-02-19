@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from '../../../styles/components/dataSVL/readOnlyFields/responsibleContainer.module.css';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
+import { useTranslation } from "react-i18next";
 
 type ResponsibleContainerProps = {
   fieldLabel: string;
@@ -11,6 +12,9 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
 
   const [showBig, setShowBig] = useState(false);
   const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
+
+  const { t } = useTranslation();
+  
 
   const changeImageSize = (size: string) => {
     if (size == 'big') setShowBig(true);
