@@ -45,22 +45,27 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
     }
     const formData = new FormData();
     let cids = []; 
+    let noCids = true;
     for (let i = numPreviousOwners; i < totalOwners; i++) {
       const json = createJSON(i-numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs);
       const blob = new Blob([json], { type: "application/json" });
       formData.append("file", blob);
+      noCids = false;
     }
-    try {
-      const response = await axios.post("http://127.0.0.1:3000/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      //console.log("Upload successful:", response.data.cids);
-      cids = response.data.cids;
-    } catch (error) {
-      console.error("Upload failed:", error);
+    if (!noCids) {
+      try {
+        const response = await axios.post("http://127.0.0.1:3000/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        //console.log("Upload successful:", response.data.cids);
+        cids = response.data.cids;
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
     }
+    else cids = [''];
     try {
       const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
       const op = await contract.methodsObject.update({

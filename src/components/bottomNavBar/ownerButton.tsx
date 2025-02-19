@@ -37,23 +37,23 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
   };
   
   const removeGeneralInformation = () => {
-    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => prevGeneralInformation.filter((_, index) => index != selectedOwner));
+    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => prevGeneralInformation.filter((_, index) => index != selectedOwner-numPreviousOwners));
   }
 
   const removeMaintenances = () => {
-    setMaintenances((prevMaintenances: Maintenances[]) => prevMaintenances.filter((_, index) => index != selectedOwner));
+    setMaintenances((prevMaintenances: Maintenances[]) => prevMaintenances.filter((_, index) => index != selectedOwner-numPreviousOwners));
   }
 
   const removeModifications = () => {
-    setModifications((prevModifications: Modifications[]) => prevModifications.filter((_, index) => index != selectedOwner));
+    setModifications((prevModifications: Modifications[]) => prevModifications.filter((_, index) => index != selectedOwner-numPreviousOwners));
   }
 
   const removeDefects = () => {
-    setDefects((prevDefects: Defects[]) => prevDefects.filter((_, index) => index != selectedOwner));
+    setDefects((prevDefects: Defects[]) => prevDefects.filter((_, index) => index != selectedOwner-numPreviousOwners));
   }
 
   const removeRepairs = () => {
-    setRepairs((prevRepairs: Repairs[]) => prevRepairs.filter((_, index) => index != selectedOwner));
+    setRepairs((prevRepairs: Repairs[]) => prevRepairs.filter((_, index) => index != selectedOwner-numPreviousOwners));
   }
   
   const handleOwnerRemoval = () => {
@@ -62,7 +62,7 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
     removeModifications();
     removeDefects();
     removeRepairs();
-    if (selectedOwner+numPreviousOwners > 0) setSelectedOwner(selectedOwner+numPreviousOwners-1);
+    if (selectedOwner > 0) setSelectedOwner(selectedOwner-1);
     setTotalOwners(totalOwners-1);
     setWarningRemoveOwner(false);
   }
@@ -82,12 +82,14 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
         onClick={handleOwnerChange}>
         {`${t('DataSVL.BottomBar.owner')} ${index+1}`}
       </button>
-      <button
-        className={styles.removeOwnerButton}
-        onClick={handleOpenWarning}
-        disabled={!editMode || totalOwners == 1  || selectedOwner < numPreviousOwners}>
-        x
-      </button>
+      {index >= numPreviousOwners &&
+        <button
+          className={styles.removeOwnerButton}
+          onClick={handleOpenWarning}
+          disabled={!editMode || totalOwners == 1}>
+          x
+        </button>
+      }  
       {warnignRemoveOwner &&
         <div className={styles.warnignRemoveOwnerContainer}>
           <div className={styles.warnignRemoveOwner}>
