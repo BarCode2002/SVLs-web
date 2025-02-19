@@ -11,6 +11,12 @@
   padding-right: 50px;
 }
 
+.languageSelectorContainer {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
 .title {
   font-size: 5rem;
   font-weight: 800;

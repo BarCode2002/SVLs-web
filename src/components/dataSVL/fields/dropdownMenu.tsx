@@ -35,7 +35,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
           let typeQuery = type;
           if (type == 'level') typeQuery = 'defectLevel';
           const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/lists?type=${typeQuery}`);
-          setList(responseMongo.data)
+          setList(responseMongo.data);
         }
       } catch (error: any | AxiosError) {
         console.error("Unexpected error:", error);

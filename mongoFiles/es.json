@@ -29,7 +29,9 @@
       "change": "Cambia",
       "confirm": "Confimar",
       "priceSVL": "Precio del SVL",
-      "cancel": "Cancela"
+      "cancel": "Cancela",
+      "sloganFirstPart": "Historiales de vehiculo atemporales",
+      "sloganSecondPart": "para vehiculos atemporales"
     }
   },
   "DataSVL": {
@@ -164,52 +166,6 @@
       "climate": "Selecciona el clima",
       "storage": "Selecciona el almacenamiento del vehiculo",
       "level": "Selecciona nivel del defecto"
-    },
-    "DropDownMenus": {
-      "state": {
-        "new": "Nuevo",
-        "excellent": "Excelente",
-        "great": "Muy bueno",
-        "good": "Bueno",
-        "mediocre": "Mediocre",
-        "poor": "Malo",
-        "totalled": "Roto"
-      },
-      "shift": {
-        "manual": "Manual",
-        "automatic": "Automático"
-      },
-      "use": {
-        "daily": "Diario",
-        "weekend": "Fin de semana",
-        "business": "Empresa",
-        "project": "Proyecto",
-        "classic": "Clasico",
-        "utility": "De trabajo",
-        "seasonal": "De temporada"
-      },
-      "fuel": {
-        "gasoline": "Gasolina",
-        "diesel": "Diesel",
-        "hybrid": "Hibrido",
-        "electric": "Electrico"
-      },
-      "climate": {
-        "tropical": "Tropical",
-        "desert": "Desierto",
-        "mediterranean": "Mediterraneo",
-        "temperate": "Templado",
-        "continental": "Continental",
-        "highland": "Tierras altas",
-        "subartic": "Subartico"
-      },
-      "defects": {
-        "cosmetic": "Cosmético",
-        "minor": "Menor",
-        "moderate": "Moderado",
-        "significant": "Importante",
-        "critical": "Crítico"
-      }
     }
   },
   "InvalidFields": {
@@ -254,6 +210,10 @@
     "minTransferPrice": "El precio del SVL tiene que ser mayor o igual que el precio mínimo de venta:"
   },
   "Lists": {
+    "Language": {
+      "es": "Castellano",
+      "en": "Ingles"
+    },
     "State": {
       "new": "Nuevo",
       "excellent": "Excelente",

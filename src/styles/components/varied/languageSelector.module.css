@@ -1,0 +1,126 @@
+.dropdownMenuContainer {
+  display: flex;
+  align-items: center;
+}
+
+.fieldLabel {
+  color: var(--fieldLabelColor);
+  width: 150px;
+}
+
+.dropDownPosition {
+  position: relative;
+}
+
+.selected {
+  display: flex;
+  align-items: center;
+  width: 310px;
+  height: var(--fieldHeight);
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: var(--fieldFontSize);
+  background-color: var(--fieldBackgroundColor);
+  border: none;
+  border-radius: 10px;
+  justify-content: space-between;
+  color: var(--fieldDataColor);
+}
+
+.selected:hover {
+  cursor: pointer;
+}
+
+.selected:disabled {
+  cursor: default;
+}
+
+.dropdownMenu {
+  position: absolute;
+  margin-top: -40px;
+  margin-left: 320px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--fieldBackgroundColor);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.searchInput {
+  width: 200px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 15px;
+  border-radius: 10px;
+  padding-left: 10px;
+  border: none;
+  font-size: 1rem;
+  color: var(--fieldDataColor);
+  background-color: white;
+}
+
+.searchInput::placeholder {
+  color: var(--fieldPlaceholderColor);
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.dropdownList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 235px;
+  max-height: 150px;
+  padding-left: 15px;
+  border-left: none;
+  overflow-y: auto;
+}
+
+.dropdownItem {
+  background-color: var(--fieldBackgroundColor);
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.dropdownItem:hover {
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.noMatch {
+  font-size: 1rem;
+}
+
+.cancelButton {
+  color: black;
+  height: var(--buttonHeight);
+  background-color: white;
+  border-radius: 10px;
+  align-self: end;
+  margin-right: 10px;
+  margin-bottom: 7px;
+  font-size: var(--buttonFontSize);
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancelButton:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+
+
+
+

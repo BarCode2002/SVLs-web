@@ -36,7 +36,7 @@ const Dashboard = (): JSX.Element => {
     <div>
       {myAddress == undefined ? (
         <div className={styles.mainContainer}>
-          <Welcome myAddress={myAddress} setMyAddress={setMyAddress} />
+          <Welcome setMyAddress={setMyAddress} />
         </div>
       ) : (
         <div className={styles.mainContainer}>

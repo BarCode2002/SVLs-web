@@ -3,11 +3,10 @@ import { getWallet, connectWallet } from '../../utils/wallet';
 import { useTranslation } from "react-i18next";
 
 type ConnectWalletButtonProps = {
-  myAddress: string | undefined;
   setMyAddress: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-const ConnectWalletButton = ({ myAddress, setMyAddress }: ConnectWalletButtonProps): JSX.Element => {
+const ConnectWalletButton = ({ setMyAddress }: ConnectWalletButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -21,7 +20,7 @@ const ConnectWalletButton = ({ myAddress, setMyAddress }: ConnectWalletButtonPro
       <button
         className={styles.button}
         onClick={handleConnectWallet}>
-        {myAddress == undefined ?  t('Dashboard.Labels.connectWallet') : myAddress}
+        {t('Dashboard.Labels.connectWallet')}
       </button>
     </div>
   );

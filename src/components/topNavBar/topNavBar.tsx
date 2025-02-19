@@ -67,8 +67,8 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 <div className={styles.myAddress}>
                   {myAddress}
                 </div>
-                <DisconnectWalletButton setMyAddress={setMyAddress!} />
                 <ChangeWalletButton setMyAddress={setMyAddress!} />
+                <DisconnectWalletButton setMyAddress={setMyAddress!} />
               </div>
             }
             <div className={styles.rightSideButtons}>
