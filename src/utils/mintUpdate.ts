@@ -116,9 +116,11 @@ export const checksBeforeMintOrUpdateSVL = (numPreviousOwners: number, totalOwne
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.proofResponsibleRepairs')} ${j+1}.`);
         
       }
+      let defectNotFinished = false
       for (let k = 0; k < repairs[i].group[j].numDefectsRepaired; k++) {
-        if (repairs[i].group[j].defectsRepaired[k][0] == -1 || repairs[i].group[j].defectsRepaired[k][1] == -1 || repairs[i].group[j].defectsRepaired[k][2] == -1) {
+        if (!defectNotFinished && (repairs[i].group[j].defectsRepaired[k][0] == -1 || repairs[i].group[j].defectsRepaired[k][1] == -1 || repairs[i].group[j].defectsRepaired[k][2] == -1)) {
           invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.defectRepairedNotComplete')} ${j+1}.`);
+          defectNotFinished = true;
         }
       }
       let foundNotSaved1 = false;
