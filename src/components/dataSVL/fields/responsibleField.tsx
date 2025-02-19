@@ -3,6 +3,7 @@ import styles from '../../../styles/components/dataSVL/fields/responsibleField.m
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { useTranslation } from "react-i18next";
+import { TrashIconRed } from '../../../assets/trash';
 import axios from "axios";
 
 type ResponsibleFieldProps = {
@@ -256,7 +257,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                         className={styles.removeImageButton}
                         onClick={removeUploadedImage}
                         disabled={!editMode}>
-                        x
+                        <TrashIconRed />
                       </button>
                     </div>
                   </div>

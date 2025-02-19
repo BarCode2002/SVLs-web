@@ -2,6 +2,7 @@ import styles from '../../../styles/components/dataSVL/fields/imagesField.module
 import { useEffect, useRef, useState } from 'react';
 import { PHOTOGRAPHS_SIZE } from '../../../utils/constants';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
+import { TrashIconRed } from '../../../assets/trash';
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
 
@@ -304,7 +305,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                   className={styles.removeImageButton}
                   onClick={() => removeUploadedImage(index)}
                   disabled={!editMode}>
-                  x 
+                  <TrashIconRed />
                 </button>
               </div>
             </div>

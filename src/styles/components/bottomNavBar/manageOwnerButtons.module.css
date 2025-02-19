@@ -46,6 +46,7 @@
   border: none;
   color: var(--navBarsSecondaryColor);
   border-radius: 10px;
+  padding-top: 6px;
 }
 
 .removeOwnerButton:hover {

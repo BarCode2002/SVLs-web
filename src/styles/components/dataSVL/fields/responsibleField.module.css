@@ -220,23 +220,22 @@
 .removeImageButton {
   position: absolute;
   top: 5px;
-  right: 172px;
-  width: 20px;
-  color: black;
-  background-color: white;
+  right: 160px;
+  width: 33px;
+  height: 40px;
+  background-color: transparent;
   border: none;
-  border-top-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  opacity: 0.5;
 }
 
 .removeImageButton:hover {
   cursor: pointer;
-  background-color: red;
+  opacity: 1;
 }
 
 .removeImageButton:disabled {
   cursor: default;
-  background-color: white;
+  opacity: 0.5;
 }
 
 .mainImageBigContainer {

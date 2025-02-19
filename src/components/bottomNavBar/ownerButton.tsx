@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
+import { TrashIconWhite, TrashIconHover } from '../../assets/trash';
 import { useTranslation } from "react-i18next";
 
 type OwnerButtonProps = {
@@ -23,6 +24,7 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
 
   const { t } = useTranslation();
   const [warnignRemoveOwner, setWarningRemoveOwner] = useState(false);
+  const [trashHovered, setTrashHovered] = useState(false);
 
   const handleOwnerChange = (event: any) => {
     if (ownersContainerRef) {
@@ -84,10 +86,12 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
       </button>
       {index >= numPreviousOwners &&
         <button
+          onMouseEnter={() => setTrashHovered(true)}
+          onMouseLeave={() => setTrashHovered(false)}
           className={styles.removeOwnerButton}
           onClick={handleOpenWarning}
           disabled={!editMode || totalOwners == 1}>
-          x
+          {trashHovered ? <TrashIconHover /> : <TrashIconWhite />}
         </button>
       }  
       {warnignRemoveOwner &&
