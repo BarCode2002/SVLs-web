@@ -36,6 +36,7 @@ const LanguageSelector = (): JSX.Element => {
 
   const handleLanguageChange = (newLanguage: string) => {
     i18n.changeLanguage(newLanguage.split(".").pop());
+    console.log(newLanguage);
     localStorage.setItem('language', newLanguage);
     setIsOpen(false);
   };

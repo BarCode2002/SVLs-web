@@ -3,6 +3,7 @@ import Data from './pages/Data.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 
 const App = (): JSX.Element => {
+
   return (
     <Router>
       <Routes>

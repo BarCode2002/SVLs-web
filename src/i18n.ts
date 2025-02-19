@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import Backend from 'i18next-http-backend';
 
-const savedLanguage = localStorage.getItem('language') || 'es';
+const savedLanguage = localStorage.getItem('language') || 'Lists.Language.es';
 
 i18n
   .use(Backend) 
@@ -21,9 +21,5 @@ i18n
       useSuspense: true, 
     },
   });
-
-i18n.on('languageChanged', (lng) => {
-  localStorage.setItem('language', lng);
-});
 
 export default i18n;
