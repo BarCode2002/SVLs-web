@@ -116,6 +116,11 @@ export const checksBeforeMintOrUpdateSVL = (numPreviousOwners: number, totalOwne
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.proofResponsibleRepairs')} ${j+1}.`);
         
       }
+      for (let k = 0; k < repairs[i].group[j].numDefectsRepaired; k++) {
+        if (repairs[i].group[j].defectsRepaired[k][0] == -1 || repairs[i].group[j].defectsRepaired[k][1] == -1 || repairs[i].group[j].defectsRepaired[k][2] == -1) {
+          invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.defectRepairedNotComplete')} ${j+1}.`);
+        }
+      }
       let foundNotSaved1 = false;
       let foundNotSaved2 = false;
       for (let k = 0; k < PHOTOGRAPHS_SIZE; k++) {

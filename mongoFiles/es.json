@@ -243,6 +243,7 @@
 
     "responsibleRepairs": "no ha definido el responsable del grupo de reparaciones",
     "proofResponsibleRepairs": "no ha guardado la prueba del responsable del grupo de reparaciones",
+    "defectRepairedNotComplete": "no ha acabado de definir que defecto ha reparado en el grupo de reparaciones",
     "previousImagesGroupRepairs": "no ha guardado las imagenes previas al grupo de reparaciones",
     "postImagesGroupRepairs": "no ha guardado las imagenes posteriores al grupo de reparaciones",
     "repairGroup": "perteneciente al grupo de modificaciones",
