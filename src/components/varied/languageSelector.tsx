@@ -57,10 +57,10 @@ const LanguageSelector = (): JSX.Element => {
     <div ref={refClickOutside} className={styles.dropdownMenuContainer}>
       <div className={styles.dropDownPosition}>
         <button
-          className={styles.selected}
+          className={isOpen ? styles.selectedOpen : styles.selected}
           onClick={hadleOpenDropdownMenu}>
           <span>{t(localStorage.getItem('language')!)}</span>
-          <span>{(isOpen) ? '<' : '>'}</span>
+          <span>{(isOpen) ? '↑' : '↓'}</span>
         </button>
         {isOpen && (
           <div className={styles.dropdownMenu}>

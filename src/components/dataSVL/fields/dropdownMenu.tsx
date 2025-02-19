@@ -96,7 +96,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
           onClick={hadleOpenDropdownMenu}
           disabled={!editMode}>
           <span>{t(value)}</span>
-          <span>{(isOpen) ? '<' : '>'}</span>
+          <span>{(isOpen) ? '←' : '→'}</span>
         </button>
         {isOpen && (
           <div ref={refScrollIntoView} className={styles.dropdownMenu}>
