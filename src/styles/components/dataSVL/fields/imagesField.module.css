@@ -93,9 +93,10 @@
   top: -111px; 
   width: 33px;
   height: 40px;
-  background-color: transparent;
+  background-color: white;
+  border-bottom-right-radius: 10px;
   border: none;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .removeImageButton:hover {
