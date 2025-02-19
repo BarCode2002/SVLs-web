@@ -2,6 +2,33 @@ import { SetStateAction } from "react";
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from "./constants";
 
+export const addGeneralInformationPrev = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, prevOwnersGeneralInformation: GeneralInformation[], numPreviousOwners: number) => {
+  setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
+    ...prevGeneralInformation,
+    {
+      VIN: prevOwnersGeneralInformation[numPreviousOwners-1].VIN,
+      brand: prevOwnersGeneralInformation[numPreviousOwners-1].brand,
+      model: prevOwnersGeneralInformation[numPreviousOwners-1].model,
+      year: prevOwnersGeneralInformation[numPreviousOwners-1].year,
+      kilometers: prevOwnersGeneralInformation[numPreviousOwners-1].kilometers,
+      mainPhotograph: prevOwnersGeneralInformation[numPreviousOwners-1].mainPhotograph,
+      state: prevOwnersGeneralInformation[numPreviousOwners-1].state,
+      photographs: [...(prevOwnersGeneralInformation[numPreviousOwners-1].photographs)],
+      weight: prevOwnersGeneralInformation[numPreviousOwners-1].weight,
+      color: prevOwnersGeneralInformation[numPreviousOwners-1].color,
+      engine: prevOwnersGeneralInformation[numPreviousOwners-1].engine,
+      power: prevOwnersGeneralInformation[numPreviousOwners-1].power,
+      shift: prevOwnersGeneralInformation[numPreviousOwners-1].shift,
+      fuel: prevOwnersGeneralInformation[numPreviousOwners-1].fuel,
+      autonomy: prevOwnersGeneralInformation[numPreviousOwners-1].autonomy,
+      climate: prevOwnersGeneralInformation[numPreviousOwners-1].climate,
+      usage: prevOwnersGeneralInformation[numPreviousOwners-1].usage,
+      storage: prevOwnersGeneralInformation[numPreviousOwners-1].storage,
+      comments: prevOwnersGeneralInformation[numPreviousOwners-1].comments,
+    },
+  ]);
+}
+
 export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>) => {
   setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
     ...prevGeneralInformation,
@@ -29,28 +56,28 @@ export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetS
   ]);
 }
 
-export const addGeneralInformationDefault = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, brandDefault: string, modelDefault: string, stateDefault: string, shiftDefault: string, fuelDefault: string, climateDefault: string, usageDefault: string, storageDefault: string) => {
+export const addGeneralInformationDefault = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>) => {
   setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
     ...prevGeneralInformation,
     {
       VIN: '',
-      brand: brandDefault,
-      model: modelDefault,
+      brand: 'DataSVL.Forms.brand',
+      model: 'DataSVL.Forms.model',
       year: '',
       kilometers: '',
       mainPhotograph: '',
-      state: stateDefault,
+      state: 'DataSVL.Forms.state',
       photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       weight: '',
       color: '',
       engine: '',
       power: '',
-      shift: shiftDefault,
-      fuel: fuelDefault,
+      shift: 'DataSVL.Forms.shift',
+      fuel: 'DataSVL.Forms.fuel',
       autonomy: '',
-      climate: climateDefault,
-      usage: usageDefault,
-      storage: storageDefault,
+      climate: 'DataSVL.Forms.climate',
+      usage: 'DataSVL.Forms.usage',
+      storage: 'DataSVL.Forms.storage',
       comments: '',
     },
   ]);
@@ -108,7 +135,7 @@ export const addModifications = (setModifications: React.Dispatch<SetStateAction
   ]);
 }
 
-export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>, levelDefault: string) => {
+export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>) => {
   setDefects((prevDefects: Defects[]) => [
     ...prevDefects,
     {
@@ -117,7 +144,7 @@ export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>
         kilometers: "",
         cause: "",
         type: Array.from({ length: 1 }, () => ({
-          level: levelDefault,
+          level: 'DataSVL.Forms.level',
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",

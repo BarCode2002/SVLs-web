@@ -20,9 +20,10 @@ type BottomNavBarProps = {
   setTotalOwners: React.Dispatch<SetStateAction<number>>;
   editMode: boolean;
   viewType: number;
+  prevOwnersGeneralInformation: GeneralInformation[];
 };
 
-const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode, viewType }: BottomNavBarProps): JSX.Element => {
+const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode, viewType, prevOwnersGeneralInformation }: BottomNavBarProps): JSX.Element => {
 
   const ownersContainerRef = useRef(null);
 
@@ -39,7 +40,6 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
 
   return (
     <div className={styles.bottomNavBarContainer}>
-
       <div className={styles.topPart}>
         <ChooseDataSVLButtons selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} />
       </div>
@@ -54,7 +54,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
               <AddOwnerButton setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
                 setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
                 setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
-                editMode={editMode}
+                numPreviousOwners={numPreviousOwners} editMode={editMode} prevOwnersGeneralInformation={prevOwnersGeneralInformation}
               />
             </div>
           </div>

@@ -225,6 +225,7 @@
   height: 40px;
   background-color: white;
   border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
   border: none;
   opacity: 0.4;
 }

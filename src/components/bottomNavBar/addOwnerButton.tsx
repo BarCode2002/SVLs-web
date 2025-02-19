@@ -1,8 +1,7 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
-import { addGeneralInformation, addMaintenances, addModifications, addDefects, addRepairs } from '../../utils/addOwners.ts';
-import { useTranslation } from "react-i18next";
+import { addGeneralInformationPrev, addGeneralInformation, addMaintenances, addModifications, addDefects, addRepairs } from '../../utils/addOwners.ts';
 
 type AddOwnerButtonProps = {
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
@@ -13,18 +12,21 @@ type AddOwnerButtonProps = {
   setSelectedOwner: React.Dispatch<React.SetStateAction<number>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<React.SetStateAction<number>>;
+  numPreviousOwners: number;
   editMode: boolean;
+  prevOwnersGeneralInformation: GeneralInformation[];
 };
 
-const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, setSelectedOwner, totalOwners, setTotalOwners, editMode }: AddOwnerButtonProps): JSX.Element => {
-
-  const { t } = useTranslation();
+const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, setSelectedOwner, totalOwners, setTotalOwners, numPreviousOwners, editMode, prevOwnersGeneralInformation }: AddOwnerButtonProps): JSX.Element => {
 
   const handleOwnerAddition = () => {
-    addGeneralInformation(setGeneralInformation);
+    if (numPreviousOwners == totalOwners) {
+      addGeneralInformationPrev(setGeneralInformation, prevOwnersGeneralInformation, numPreviousOwners);
+    }
+    else addGeneralInformation(setGeneralInformation);
     addMaintenances(setMaintenances);
     addModifications(setModifications);
-    addDefects(setDefects, t('DataSVL.Forms.level'));
+    addDefects(setDefects);
     addRepairs(setRepairs);
     setSelectedOwner(totalOwners);
     setTotalOwners(totalOwners+1);

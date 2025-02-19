@@ -35,23 +35,23 @@ const Data = (): JSX.Element => {
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: 1 }, () => ({
       VIN: '',
-      brand: t('DataSVL.Forms.brand'),
-      model: t('DataSVL.Forms.model'),
+      brand: 'DataSVL.Forms.brand',
+      model: 'DataSVL.Forms.model',
       year: '',
       kilometers: '',
       mainPhotograph: '',
-      state: t('DataSVL.Forms.state'),
+      state: 'DataSVL.Forms.state',
       photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       weight: '',
       color: '',
       engine: '',
       power: '',
-      shift: t('DataSVL.Forms.shift'),
-      fuel: t('DataSVL.Forms.fuel'),
+      shift: 'DataSVL.Forms.shift',
+      fuel: 'DataSVL.Forms.fuel',
       autonomy: '',
-      climate: t('DataSVL.Forms.climate'),
-      usage: t('DataSVL.Forms.usage'),
-      storage: t('DataSVL.Forms.storage'),
+      climate: 'DataSVL.Forms.climate',
+      usage: 'DataSVL.Forms.usage',
+      storage: 'DataSVL.Forms.storage',
       comments: '',
     }))
   );
@@ -109,7 +109,7 @@ const Data = (): JSX.Element => {
         kilometers: "",
         cause: "",
         type: Array.from({ length: 1 }, () => ({
-          level: t('DataSVL.Forms.level'),
+          level: 'DataSVL.Forms.level',
           photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",
           shrinked: false,
@@ -229,13 +229,10 @@ const Data = (): JSX.Element => {
   }
 
   const addOwners = () => {
-    addGeneralInformationDefault(setGeneralInformation, t('DataSVL.Forms.brand'), t('DataSVL.Forms.model'),
-    t('DataSVL.Forms.state'), t('DataSVL.Forms.shift'), t('DataSVL.Forms.fuel'), t('DataSVL.Forms.climate'),
-    t('DataSVL.Forms.usage'), t('DataSVL.Forms.storage')
-    );
+    addGeneralInformationDefault(setGeneralInformation);
     addMaintenances(setMaintenances);
     addModifications(setModifications);
-    addDefects(setDefects, t('DataSVL.Forms.level'));
+    addDefects(setDefects);
     addRepairs(setRepairs);
   }
 
@@ -468,7 +465,8 @@ const Data = (): JSX.Element => {
             selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
             setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
             setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-            totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} viewType={viewType}
+            totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
+            viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current}
           />
         </div>
       }
