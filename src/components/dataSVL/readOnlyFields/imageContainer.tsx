@@ -89,7 +89,7 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
               <img
                 className={styles.imageSmall}
                 onClick={() => changeImageSize('big', index)}
-                src={`${urlIPFS}${url}`}
+                src={url[4] != ':' ? `${urlIPFS}${url}` : url}
               />
             </div>
           ))}
@@ -110,7 +110,7 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
             </button>
             <img
               className={styles.imageBig}
-              src={`${urlIPFS}${images[showType.imageIndex]}`}
+              src={images[showType.imageIndex][4] != ':' ? `${urlIPFS}${images[showType.imageIndex]}` : images[showType.imageIndex]}
             />
             <button
               className={styles.nextImageButton}
@@ -125,13 +125,13 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
                   <img
                     className={styles.imageSmallSelected}
                     onClick={() => changeImageSize('big', index)}
-                    src={`${urlIPFS}${url}`}
+                    src={url[4] != ':' ? `${urlIPFS}${url}` : url}
                   />
                 ) : (
                   <img
                     className={styles.imageSmall}
                     onClick={() => changeImageSize('big', index)}
-                    src={`${urlIPFS}${url}`}
+                    src={url[4] != ':' ? `${urlIPFS}${url}` : url}
                   />
                 )}
               </div>

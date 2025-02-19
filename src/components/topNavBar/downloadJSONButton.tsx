@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 type DownloadJSONButtonProps = {
   selectedOwner: number;
+  numPreviousOwners: number;
   generalInformation: GeneralInformation[];
   maintenances: Maintenances[];
   modifications: Modifications[];
@@ -12,12 +13,12 @@ type DownloadJSONButtonProps = {
   repairs: Repairs[];
 };
 
-const DownloadJSONButton = ({ selectedOwner, generalInformation, maintenances, modifications, defects, repairs }: DownloadJSONButtonProps): JSX.Element => {
+const DownloadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs }: DownloadJSONButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
   const handleDownloadJSON = () => {
-    const json = createJSON(selectedOwner, generalInformation, maintenances, modifications, defects, repairs);
+    const json = createJSON(selectedOwner-numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs);
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");

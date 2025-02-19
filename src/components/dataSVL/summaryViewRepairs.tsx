@@ -57,7 +57,7 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
 
     const listPreviousGroupRepairs = Array.from({length: prevOwnersRepairs[selectedOwner].repairs.length }, (_, groupIndex) => (
       <div key={groupIndex}>
-        <div className={styles.groupContainerPrevOwners}>
+        <div className={styles.groupContainer}>
           <div className={styles.topPart}>
             <div className={styles.toggleVisibilityRemoveGroup}>
               # {groupIndex + 1}

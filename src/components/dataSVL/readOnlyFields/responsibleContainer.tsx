@@ -26,80 +26,94 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>
-      {responsible[0] == false ? (
+      {responsible[0] == false &&
         <div className={styles.responsible}>
-          <div>Propietario del vehiculo</div>
+          <div>{t('DataSVL.Labels.vehicleOwner')}</div>
           {responsible[2] == false || responsible[2] == null ? (
-            <div>Sin pruebas de que se realizara</div>
+            <div>{t('DataSVL.Labels.withOutProof')}</div>
           ) : (
             <div className={styles.proofContainer}>
-              <div>El responsable tiene pruebas</div>
-              {showBig == false ? (
-                <div className={styles.imageSmallContainer}>
-                  {responsible[3] != '' &&
-                    <img
-                      className={styles.imageSmall}
-                      onClick={() => changeImageSize('big')}
-                      src={`${urlIPFS}${responsible[3]}`}
-                    />
-                  }
-                </div>
+              {responsible[3] == '' ? (
+                <div>{t('DataSVL.Labels.hasProofButNotUploaded')}</div>
               ) : (
-                <div className={styles.mainImageBigContainer}>
-                  <div className={styles.imageBigContainer}>
-                    <button
-                      className={styles.closeImageBigContainer}
-                      onClick={() => changeImageSize('small')}>
-                      <GoBackArrowIcon />
-                    </button>
-                    <img
-                      className={styles.imageBig}
-                      src={`${urlIPFS}${responsible[3]}`}
-                    />
-                  </div>
+                <div>
+                  {showBig == false ? (
+                    <div className={styles.imageSmallContainer}>
+                      <img
+                        className={styles.imageSmall}
+                        onClick={() => changeImageSize('big')}
+                        src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
+                      />
+                    </div>
+                  ) : (
+                    <div className={styles.mainImageBigContainer}>
+                      <div className={styles.imageBigContainer}>
+                        <button
+                          className={styles.closeImageBigContainer}
+                          onClick={() => changeImageSize('small')}>
+                          <GoBackArrowIcon />
+                        </button>
+                        <img
+                          className={styles.imageBig}
+                          src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              )} 
             </div>
           )}
         </div>
-      ) : (
+      }
+      {responsible[0] == true &&
         <div className={styles.responsible}>
-          <div>Mecanico</div>
-          <div>{responsible[1]}</div>
+          <div>{t('DataSVL.Labels.mechanic')}</div>
+          {responsible[1] != '' &&
+            <div>{t('DataSVL.Labels.inTheRepairShop')} {responsible[1]}</div>
+          }
           {responsible[2] == false || responsible[2] == null ? (
-            <div>Sin pruebas de que se realizara</div>
+            <div>{t('DataSVL.Labels.withOutProof')}</div>
           ) : (
             <div className={styles.proofContainer}>
-              <div>El responsable tiene pruebas</div>
-              {showBig == false ? (
-                <div className={styles.imageSmallContainer}>
-                  {responsible[3] != '' &&
-                    <img
-                      className={styles.imageSmall}
-                      onClick={() => changeImageSize('big')}
-                      src={`${urlIPFS}${responsible[3]}`}
-                    />
-                  }
-                </div>
+              {responsible[3] == '' ? (
+                <div>{t('DataSVL.Labels.hasProofButNotUploaded')}</div>
               ) : (
-                <div className={styles.mainImageBigContainer}>
-                  <div className={styles.imageBigContainer}>
-                    <button
-                      className={styles.closeImageBigContainer}
-                      onClick={() => changeImageSize('small')}>
-                      <GoBackArrowIcon />
-                    </button>
-                    <img
-                      className={styles.imageBig}
-                      src={`${urlIPFS}${responsible[3]}`}
-                    />
-                  </div>
+                <div>
+                  {showBig == false ? (
+                    <div className={styles.imageSmallContainer}>
+                      <img
+                        className={styles.imageSmall}
+                        onClick={() => changeImageSize('big')}
+                        src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
+                      />
+                    </div>
+                  ) : (
+                    <div className={styles.mainImageBigContainer}>
+                      <div className={styles.imageBigContainer}>
+                        <button
+                          className={styles.closeImageBigContainer}
+                          onClick={() => changeImageSize('small')}>
+                          <GoBackArrowIcon />
+                        </button>
+                        <img
+                          className={styles.imageBig}
+                          src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              )} 
             </div>
           )}
         </div>
-      )}
+      }
+      {responsible[0] == null &&
+        <div className={styles.responsible}>
+          -
+        </div>
+      }
     </div>
   );
 };

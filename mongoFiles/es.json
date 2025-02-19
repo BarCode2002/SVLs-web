@@ -97,7 +97,12 @@
       "warningRemoveOwnerLostData": "Se perdera toda la información introducida.",
       "allDefectsRepaired": "ha reparado todos los defectos",
       "defectRepaired": "ha reparado el defecto",
-      "inTheRepair": "en la reparación"
+      "inTheRepair": "en la reparación",
+      "vehicleOwner": "Propietario del vehiculo",
+      "mechanic": "Mecánico",
+      "withOutProof": "Sin pruebas de que se realizara",
+      "inTheRepairShop": "en el taller:",
+      "hasProofButNotUploaded": "Tiene pruebas pero no las ha subido"
     },
     "Placeholders": {
       "vin": "VIN",
@@ -124,9 +129,9 @@
       "me": "Yo",
       "mechanic": "Mecánico",
       "proof": "prueba",
-      "canYouProveItMaintenanances": "¿Puedes corroborar que realizaste el grupo de mantenimientos?",
-      "canYouProveItModifiactions": "¿Puedes corroborar que realizaste el grupo de modifiaciones?",
-      "canYouProveItRepairs": "¿Puedes corroborar que realizaste el grupo de reparaciones?",
+      "canYouProveItMaintenanances": "¿Puedes corroborar que realizaste los mantenimientos?",
+      "canYouProveItModifiactions": "¿Puedes corroborar que realizaste las modifiaciones?",
+      "canYouProveItRepairs": "¿Puedes corroborar que realizaste las reparaciones?",
       "uploadProof": "Sube una prueba",
       "mechanicShop": "Nombre del taller mecánico",
       "dateMaintenance": "Selecciona la fecha del mantenimiento rutinario",

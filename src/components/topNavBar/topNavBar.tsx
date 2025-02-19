@@ -96,13 +96,13 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 }
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
                 {viewType == 0 && <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />}
-                {viewType == 0 && <UploadJSONButton selectedOwner={selectedOwner!} 
+                {viewType == 0 && <UploadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!}
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
                   setMaintenances={setMaintenances!} setModifications={setModifications!}
                   setDefects={setDefects!} setRepairs={setRepairs!}
                 />}
-                {viewType == 0 && <DownloadJSONButton selectedOwner={selectedOwner!} generalInformation={generalInformation!} 
-                  maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
+                {viewType == 0 && <DownloadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!} 
+                  generalInformation={generalInformation!} maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
                 />}
                 {newSVL == true && viewType == 0 && 
                   <div className={styles.mintPriceContainer}>
