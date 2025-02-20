@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
-import { checksBeforeMintOrUpdateSVL } from '../../utils/mintUpdate.ts';
+import { checks } from '../../utils/checks.ts';
 import { useTranslation } from "react-i18next";
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { getsmartContractAddress, getTezos } from '../../utils/wallet.ts';
@@ -37,7 +37,7 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
   }, []);
 
   const handleUpdateSVL = async () => {
-    const updatedInvalidFields = checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs); 
+    const updatedInvalidFields = checks(0, totalOwners-numPreviousOwners, numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs); 
     if (updatedInvalidFields.length > 0) {
       setInvalidFields(updatedInvalidFields);
       setInvalidFieldsVisible(true);

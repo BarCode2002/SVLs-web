@@ -2,6 +2,9 @@ import styles from '../../styles/components/topNavBar/topNavBarButtons.module.cs
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { createJSON } from '../../utils/createJSON';
 import { useTranslation } from "react-i18next";
+import { checks } from '../../utils/checks';
+import InvalidFieldsComponent from '../varied/invalidFieldsComponent';
+import { useState } from 'react';
 
 type DownloadJSONButtonProps = {
   selectedOwner: number;
@@ -16,8 +19,16 @@ type DownloadJSONButtonProps = {
 const DownloadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs }: DownloadJSONButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
+  const [invalidFieldsVisible, setInvalidFieldsVisible] = useState(false);
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
 
   const handleDownloadJSON = () => {
+    const updatedInvalidFields = checks(selectedOwner-numPreviousOwners, selectedOwner-numPreviousOwners+1 ,numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs); 
+    if (updatedInvalidFields.length > 0) {
+      setInvalidFields(updatedInvalidFields);
+      setInvalidFieldsVisible(true);
+      return;
+    }
     const json = createJSON(selectedOwner-numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs);
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
@@ -35,6 +46,9 @@ const DownloadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformati
         onClick={handleDownloadJSON}>
         {t('DataSVL.TopBar.downloadJSON')}
       </button>
+      {invalidFieldsVisible &&
+        <InvalidFieldsComponent invalidFields={invalidFields} setInvalidFieldsVisible={setInvalidFieldsVisible} />
+      }
     </div>
   );
 }

@@ -2,9 +2,9 @@ import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } fro
 import { PHOTOGRAPHS_SIZE } from "./constants";
 import i18n from 'i18next'; 
 
-export const checksBeforeMintOrUpdateSVL = (numPreviousOwners: number, totalOwners: number, generalInformation: GeneralInformation[], maintenances: Maintenances[], modifications: Modifications[], defects: Defects[], repairs: Repairs[]) => {
+export const checks = (start: number, end: number, numPreviousOwners: number, generalInformation: GeneralInformation[], maintenances: Maintenances[], modifications: Modifications[], defects: Defects[], repairs: Repairs[]) => {
   const invalidFields: string[] = [];
-  for (let i = 0; i < totalOwners-numPreviousOwners; i++) { 
+  for (let i = start; i < end; i++) { 
     if (generalInformation[i].VIN == '') {
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.VIN')} ${i18n.t('InvalidFields.mandatoryField')}`);
     }

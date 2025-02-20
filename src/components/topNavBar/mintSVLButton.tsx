@@ -7,7 +7,7 @@ import { createJSON } from '../../utils/createJSON.ts';
 import { format } from 'date-fns';
 import axios from "axios";
 import { useEffect, useState } from 'react';
-import { checksBeforeMintOrUpdateSVL } from '../../utils/mintUpdate.ts';
+import { checks } from '../../utils/checks.ts';
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent.tsx';
 
 type MintSVLButtonProps = {
@@ -37,7 +37,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
   }, []);
 
   const handleMintSVL = async () => {
-    const updatedInvalidFields = checksBeforeMintOrUpdateSVL(numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs); 
+    const updatedInvalidFields = checks(0, totalOwners-numPreviousOwners, numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs); 
     if (updatedInvalidFields.length > 0) {
       setInvalidFields(updatedInvalidFields);
       setInvalidFieldsVisible(true);
