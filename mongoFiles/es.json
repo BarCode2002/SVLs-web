@@ -104,8 +104,9 @@
       "vehicleOwner": "Propietario del vehiculo",
       "mechanic": "Mecánico",
       "withOutProof": "Sin pruebas de que se realizara",
-      "inTheRepairShop": "en el taller:",
-      "hasProofButNotUploaded": "Tiene pruebas pero no las ha subido"
+      "inTheRepairShop": "El taller mecánico:",
+      "hasProofButNotUploaded": "Tiene pruebas pero no las ha subido",
+      "proof": "Prueba:"
     },
     "Placeholders": {
       "vin": "VIN",
@@ -133,8 +134,11 @@
       "mechanic": "Mecánico",
       "proof": "prueba",
       "canYouProveItMaintenanances": "¿Puedes corroborar que realizaste los mantenimientos?",
-      "canYouProveItModifiactions": "¿Puedes corroborar que realizaste las modifiaciones?",
+      "canYouProveItModifiactions": "¿Puedes corroborar que realizaste las modificaciones?",
       "canYouProveItRepairs": "¿Puedes corroborar que realizaste las reparaciones?",
+      "canYouProveItMaintenanancesMechanic": "¿Puedes corroborar que se realizaron los mantenimientos?",
+      "canYouProveItModifiactionsMechanic": "¿Puedes corroborar que se realizaron las modificaciones?",
+      "canYouProveItRepairsMechanic": "¿Puedes corroborar que se realizaron las reparaciones?",
       "uploadProof": "Sube una prueba",
       "mechanicShop": "Nombre del taller mecánico",
       "dateMaintenance": "Selecciona la fecha del mantenimiento rutinario",

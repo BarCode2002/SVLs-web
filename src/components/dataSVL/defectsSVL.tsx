@@ -77,7 +77,9 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
             <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
+            {defects[selectedOwner].group[groupIndex].type.length > 1 &&
+              <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
+            }
             {defects[selectedOwner].group[groupIndex].type.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}

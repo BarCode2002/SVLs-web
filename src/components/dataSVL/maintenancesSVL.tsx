@@ -71,10 +71,13 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
+            
             <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
+            {maintenances[selectedOwner].group[groupIndex].type.length > 1 &&
+              <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
+            }
             {maintenances[selectedOwner].group[groupIndex].type.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
@@ -151,7 +154,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
               />
               <ResponsibleField fieldLabel={t('DataSVL.Labels.responsible')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 dataSVL={maintenances} value={maintenances[selectedOwner].group[groupIndex].responsible} 
-                setDataSVL={setMaintenances} editMode={editMode}
+                setDataSVL={setMaintenances} type={'maintenances'} editMode={editMode}
               />
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={maintenances} setDataSVL={setMaintenances} type={'date'} editMode={editMode}

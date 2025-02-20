@@ -78,7 +78,9 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
             <ToggleVisibilityButton dataSVL={repairs} setDataSVL={setRepairs} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
+            {repairs[selectedOwner].group[groupIndex].type.length > 1 &&
+              <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
+            }
             {repairs[selectedOwner].group[groupIndex].type.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setRepairs} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
@@ -155,7 +157,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
               />
               <ResponsibleField fieldLabel={t('DataSVL.Labels.responsible')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 dataSVL={repairs} value={repairs[selectedOwner].group[groupIndex].responsible} 
-                setDataSVL={setRepairs} editMode={editMode}
+                setDataSVL={setRepairs} type={'repairs'} editMode={editMode}
               />
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={repairs} setDataSVL={setRepairs} type={'date'} editMode={editMode}

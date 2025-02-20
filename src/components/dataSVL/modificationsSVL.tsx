@@ -74,7 +74,9 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
             <ToggleVisibilityButton dataSVL={modifications} setDataSVL={setModifications} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
+            {modifications[selectedOwner].group[groupIndex].type.length > 1 &&
+              <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
+            }
             {modifications[selectedOwner].group[groupIndex].type.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setModifications} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
@@ -151,7 +153,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
               />
               <ResponsibleField fieldLabel={t('DataSVL.Labels.responsible')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 dataSVL={modifications} value={modifications[selectedOwner].group[groupIndex].responsible} 
-                setDataSVL={setModifications} editMode={editMode}
+                setDataSVL={setModifications} type={'modifications'} editMode={editMode}
               />
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={modifications} setDataSVL={setModifications} type={'date'} editMode={editMode}

@@ -13,10 +13,11 @@ type ResponsibleFieldProps = {
   dataSVL: any;
   value: [boolean | null, string, boolean | null, string];
   setDataSVL: React.Dispatch<SetStateAction<any>>;
+  type: string;
   editMode: boolean;
 }
 
-const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL, editMode }: ResponsibleFieldProps) => {
+const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL, type, editMode }: ResponsibleFieldProps) => {
 
   const { t } = useTranslation();
 
@@ -164,94 +165,113 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const imagePreviewContainer = useRef(null);
 
+  const renderQuestionProofTest = () => {
+    if (type === 'maintenances') {
+      if (mechanic) return t('DataSVL.Placeholders.canYouProveItMaintenanancesMechanic');
+      else return t('DataSVL.Placeholders.canYouProveItMaintenanances');
+    }
+    if (type === 'modifications') {
+      if (mechanic) return t('DataSVL.Placeholders.canYouProveItModifiactionsMechanic');
+      else return t('DataSVL.Placeholders.canYouProveItModifiactions');
+    }
+    else {
+      if (mechanic) return t('DataSVL.Placeholders.canYouProveItRepairsMechanic');
+      else return t('DataSVL.Placeholders.canYouProveItRepairs');
+    }
+  };
+
   return (
     <div className={styles.responsibleFieldContainer}>
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>
       <div className={styles.dataContainer}>
-        {step >= 0 &&
-          <div>
-            <button
-              className={mechanic != false ? styles.leftButton : styles.leftButtonSelected}
-              onClick={handleMeResponsible}
-              disabled={!editMode}>
-              {t('DataSVL.Placeholders.me')}
-            </button>
-            <button
-              className={mechanic != true ? styles.rightButton : styles.rightButtonSelected}
-              onClick={handleMechanicResponsible}
-              disabled={!editMode}>
-              {t('DataSVL.Placeholders.mechanic')}
-            </button>
-          </div>
-        }
-        {step >= 1 && mechanic == true &&
-          <div>
-            <input
-              className={styles.inputField}
-              placeholder={t('DataSVL.Placeholders.mechanicShop')}
-              value={searchQuery}
-              onChange={handleInputChange}
-              disabled={!editMode}
-            />
-            {isOpen && searchQuery != '' &&
-              <div className={styles.mechanicsListWrapper}>
-                <div ref={refClickOutside} className={styles.mechanicsList}>
-                  {mechanicsList.filter(mechanic => mechanic.toLowerCase().includes(searchQuery.toLowerCase())).map((mechanic, index) => (
-                    <button
-                      key={index}
-                      className={styles.mechanic}
-                      onClick={() => handleMechanicSelected(mechanic)}
-                      disabled={!editMode}>
-                      {mechanic}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            }
-          </div>
-        }
-        {step >= 2 &&
-          <div className={styles.questionProofContainer}>
-            <div className={styles.questionProofText}>
-              {t('DataSVL.Placeholders.canYouProveItMaintenanances')}
+        <div className={styles.dataContainerTopPart}>
+          {step >= 0 &&
+            <div>
+              <button
+                className={mechanic != false ? styles.leftButton : styles.leftButtonSelected}
+                onClick={handleMeResponsible}
+                disabled={!editMode}>
+                {t('DataSVL.Placeholders.me')}
+              </button>
+              <button
+                className={mechanic != true ? styles.rightButton : styles.rightButtonSelected}
+                onClick={handleMechanicResponsible}
+                disabled={!editMode}>
+                {t('DataSVL.Placeholders.mechanic')}
+              </button>
             </div>
-            <button
-              className={proof != true ? styles.leftButton : styles.leftButtonSelected}
-              onClick={handleYesProof}
-              disabled={!editMode}>
-              {t('DataSVL.Placeholders.yes')}
-            </button>
-            <button
-              className={proof != false ? styles.rightButton : styles.rightButtonSelected}
-              onClick={handleNoProof}
-              disabled={!editMode}>
-              {t('DataSVL.Placeholders.no')}
-            </button>
-          </div>
-        }
-        {step >= 3 && proof == true && 
-          <div className={styles.proofUploadContainer}>
-            <button 
-              className={styles.fileInput}
-              onClick={() => document.getElementById(imageInputId)!.click()}
-              disabled={!editMode}>
-              {t('DataSVL.Placeholders.uploadProof')}
-            </button>
-            <input 
-              type="file" 
-              multiple={false}
-              onChange={handleImageField}
-              id={imageInputId}
-              style={{ display: 'none' }}
-            />
-            <button
-              className={styles.saveImagesButton}
-              onClick={() => handleUploadImagesToIPFS()}
-              disabled={value[3] == '' || editMode == false || imagesSaved == true}>
-              {t('DataSVL.Labels.save')}
-            </button>
+          }
+          {step >= 1 && mechanic == true &&
+            <div>
+              <input
+                className={styles.inputField}
+                placeholder={t('DataSVL.Placeholders.mechanicShop')}
+                value={searchQuery}
+                onChange={handleInputChange}
+                disabled={!editMode}
+              />
+              {isOpen && searchQuery != '' &&
+                <div className={styles.mechanicsListWrapper}>
+                  <div ref={refClickOutside} className={styles.mechanicsList}>
+                    {mechanicsList.filter(mechanic => mechanic.toLowerCase().includes(searchQuery.toLowerCase())).map((mechanic, index) => (
+                      <button
+                        key={index}
+                        className={styles.mechanic}
+                        onClick={() => handleMechanicSelected(mechanic)}
+                        disabled={!editMode}>
+                        {mechanic}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          {step >= 2 &&
+            <div className={styles.questionProofContainer}>
+              <div className={styles.questionProofText}>
+                {renderQuestionProofTest()}
+              </div>
+              <button
+                className={proof != true ? styles.leftButton : styles.leftButtonSelected}
+                onClick={handleYesProof}
+                disabled={!editMode}>
+                {t('DataSVL.Placeholders.yes')}
+              </button>
+              <button
+                className={proof != false ? styles.rightButton : styles.rightButtonSelected}
+                onClick={handleNoProof}
+                disabled={!editMode}>
+                {t('DataSVL.Placeholders.no')}
+              </button>
+            </div>
+          }
+        </div>
+          {step >= 3 && proof == true && 
+          <div className={styles.dataContainerBottomPart}>
+            <div>
+              <button 
+                className={styles.fileInput}
+                onClick={() => document.getElementById(imageInputId)!.click()}
+                disabled={!editMode}>
+                {t('DataSVL.Placeholders.uploadProof')}
+              </button>
+              <input 
+                type="file" 
+                multiple={false}
+                onChange={handleImageField}
+                id={imageInputId}
+                style={{ display: 'none' }}
+              />
+              <button
+                className={styles.saveImagesButton}
+                onClick={() => handleUploadImagesToIPFS()}
+                disabled={value[3] == '' || editMode == false || imagesSaved == true}>
+                {t('DataSVL.Labels.save')}
+              </button>
+            </div>
             {value[3] != '' &&
               <div>
                 {showBig == false ? (

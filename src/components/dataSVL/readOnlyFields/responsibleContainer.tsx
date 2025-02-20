@@ -14,7 +14,6 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
   const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
 
   const { t } = useTranslation();
-  
 
   const changeImageSize = (size: string) => {
     if (size == 'big') setShowBig(true);
@@ -28,17 +27,19 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
       </div>
       {responsible[0] == false &&
         <div className={styles.responsible}>
-          <div>{t('DataSVL.Labels.vehicleOwner')}</div>
-          {responsible[2] == false || responsible[2] == null ? (
-            <div>{t('DataSVL.Labels.withOutProof')}</div>
-          ) : (
+          <div>{t('DataSVL.Labels.vehicleOwner')}.</div>
+          {responsible[2] == false &&
+            <div>{t('DataSVL.Labels.withOutProof')}.</div>
+          }
+          {responsible[2] == true &&
             <div className={styles.proofContainer}>
               {responsible[3] == '' ? (
-                <div>{t('DataSVL.Labels.hasProofButNotUploaded')}</div>
+                <div>{t('DataSVL.Labels.hasProofButNotUploaded')}.</div>
               ) : (
                 <div>
                   {showBig == false ? (
                     <div className={styles.imageSmallContainer}>
+                      {t('DataSVL.Labels.proof')}
                       <img
                         className={styles.imageSmall}
                         onClick={() => changeImageSize('big')}
@@ -63,25 +64,29 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
                 </div>
               )} 
             </div>
-          )}
+          }
         </div>
       }
       {responsible[0] == true &&
         <div className={styles.responsible}>
-          <div>{t('DataSVL.Labels.mechanic')}</div>
           {responsible[1] != '' &&
-            <div>{t('DataSVL.Labels.inTheRepairShop')} {responsible[1]}</div>
+            <div>{t('DataSVL.Labels.inTheRepairShop')} {responsible[1]}.</div>
           }
-          {responsible[2] == false || responsible[2] == null ? (
-            <div>{t('DataSVL.Labels.withOutProof')}</div>
-          ) : (
+          {responsible[1] == '' &&
+            <div>{t('DataSVL.Labels.inTheRepairShop')} -</div>
+          }
+          {responsible[2] == false && 
+            <div>{t('DataSVL.Labels.withOutProof')}.</div>
+          }
+          {responsible[2] == true && 
             <div className={styles.proofContainer}>
               {responsible[3] == '' ? (
-                <div>{t('DataSVL.Labels.hasProofButNotUploaded')}</div>
+                <div>{t('DataSVL.Labels.hasProofButNotUploaded')}.</div>
               ) : (
                 <div>
                   {showBig == false ? (
                     <div className={styles.imageSmallContainer}>
+                      {t('DataSVL.Labels.proof')}
                       <img
                         className={styles.imageSmall}
                         onClick={() => changeImageSize('big')}
@@ -106,7 +111,7 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
                 </div>
               )} 
             </div>
-          )}
+          }
         </div>
       }
       {responsible[0] == null &&

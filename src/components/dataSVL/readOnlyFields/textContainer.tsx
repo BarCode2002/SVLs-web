@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/readOnlyFields/textContainer.module.css';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 type TextContainerProps = {
   fieldLabel: string;
@@ -9,14 +9,15 @@ type TextContainerProps = {
 
 const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
 
-  const { t } = useTranslation();
   const [noData, setNoData] = useState(false);
-
+  const { t } = useTranslation();
+  
   const checkNoData = () => {
-    if (text == '' || text == t('DataSVL.Forms.state') || text == t('DataSVL.Forms.shift') ||
-      text == t('DataSVL.Forms.fuel') || text == t('DataSVL.Forms.climate') ||
-      text == t('DataSVL.Forms.usage') || text == t('DataSVL.Forms.storage') ||
-      text == t('DataSVL.Forms.level')
+    if (text == '' || text == 'DataSVL.Forms.brand' || text == 'DataSVL.Forms.model' || 
+      text == 'DataSVL.Forms.state' || text == 'DataSVL.Forms.shift' ||
+      text == 'DataSVL.Forms.fuel' || text == 'DataSVL.Forms.climate' ||
+      text == 'DataSVL.Forms.usage' || text == 'DataSVL.Forms.storage' ||
+      text == 'DataSVL.Forms.level'
     ) setNoData(true);
     else setNoData(false);
   }
@@ -32,7 +33,7 @@ const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
       </div>
       {noData == false &&
         <div className={styles.text}> 
-          {text}
+          {t(text)}
         </div>
       }
       {noData == true &&

@@ -10,8 +10,22 @@
 
 .dataContainer {
   display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.dataContainerTopPart {
+  display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.dataContainerBottomPart {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
 }
 
 .leftButton {
