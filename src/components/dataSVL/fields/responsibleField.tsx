@@ -52,6 +52,12 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
         setProof(value[2]);
       }
     }
+    else {
+      setProof(null);
+      setMechanic(null);
+      setStep(0);
+      setSearchQuery('');
+    }
   }, [selectedOwner]);
 
   const handleMeResponsible = () => {
