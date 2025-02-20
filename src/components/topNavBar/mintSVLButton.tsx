@@ -61,6 +61,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
     } catch (error) {
       console.error("Upload failed:", error);
     }
+    console.log(cids);
     try {
       const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
       mintPrice = response.data.mintPrice;

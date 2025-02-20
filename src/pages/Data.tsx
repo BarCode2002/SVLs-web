@@ -15,6 +15,7 @@ import { addAndSetDefectGroup, addAndSetDefectGroupType } from '../utils/uploadJ
 import { addAndSetRepairGroup, addAndSetRepairGroupType } from '../utils/uploadJSON.ts';
 import { addGeneralInformationDefault, addMaintenances, addModifications, addDefects, addRepairs } from '../utils/addOwners.ts';
 import { parse, format } from "date-fns";
+import pako from "pako";
 
 const Data = (): JSX.Element => {
 
@@ -186,7 +187,7 @@ const Data = (): JSX.Element => {
       setGeneralInformation(updatedGeneralInformation);
     }
     else {
-      const ownerSVLData = responseIPFS.data;
+      const ownerSVLData = responseIPFS;
       //console.log(ownerSVLData);
       setGeneralInformation((prevGeneralInformation) =>
         prevGeneralInformation.map((item, i) =>
@@ -255,8 +256,13 @@ const Data = (): JSX.Element => {
                   setNumPreviousOwners(0);
                   const owners = [];
                   for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
-                    const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`);
-                    fillOwnerSVLData(i, responseIPFS, [], false);
+                    const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`, {
+                      responseType: "arraybuffer",
+                    });
+                    const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                    const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                    const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                    fillOwnerSVLData(i, parsedIPFSData, [], false);
                     owners.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`);
                   }
                   const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
@@ -279,12 +285,17 @@ const Data = (): JSX.Element => {
                   const owners = [];
                   for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
                     try {
-                      const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
-                      prevOwnersGeneralInformation.current.push(responseIPFS.data[0]);
-                      prevOwnersMaintenances.current.push(responseIPFS.data[1]);
-                      prevOwnersModifications.current.push(responseIPFS.data[2]);
-                      prevOwnersDefects.current.push(responseIPFS.data[3]);
-                      prevOwnersRepairs.current.push(responseIPFS.data[4]);
+                      const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`, {
+                        responseType: "arraybuffer",
+                      });
+                      const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                      const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                      const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                      prevOwnersGeneralInformation.current.push(parsedIPFSData[0]);
+                      prevOwnersMaintenances.current.push(parsedIPFSData[1]);
+                      prevOwnersModifications.current.push(parsedIPFSData[2]);
+                      prevOwnersDefects.current.push(parsedIPFSData[3]);
+                      prevOwnersRepairs.current.push(parsedIPFSData[4]);
                       ++numPreviousOwners; 
                       owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                     } catch (error: any | AxiosError) {
@@ -299,16 +310,16 @@ const Data = (): JSX.Element => {
                       owners: owners,
                       transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
                     }
-                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferData, "dd/MM/yyyy");
+                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
                     ownershipSummary.current.push(ownershipInfo);
                   }
                   else {
                     const ownershipInfo = {
                       ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
                       owners: owners,
-                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${format(responseIndexer.data[0].previous_owners_info[i].transferData, "dd/MM/yyyy")}`,
+                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy")}`,
                     }
-                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferData, "dd/MM/yyyy");
+                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
                     ownershipSummary.current.push(ownershipInfo);
                   }
                 }
@@ -316,12 +327,17 @@ const Data = (): JSX.Element => {
                   const owners = [];
                   for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                     try {
-                      const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`);
-                      prevOwnersGeneralInformation.current.push(responseIPFS.data[0]);
-                      prevOwnersMaintenances.current.push(responseIPFS.data[1]);
-                      prevOwnersModifications.current.push(responseIPFS.data[2]);
-                      prevOwnersDefects.current.push(responseIPFS.data[3]);
-                      prevOwnersRepairs.current.push(responseIPFS.data[4]);
+                      const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`, {
+                        responseType: "arraybuffer",
+                      });
+                      const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                      const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                      const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                      prevOwnersGeneralInformation.current.push(parsedIPFSData[0]);
+                      prevOwnersMaintenances.current.push(parsedIPFSData[1]);
+                      prevOwnersModifications.current.push(parsedIPFSData[2]);
+                      prevOwnersDefects.current.push(parsedIPFSData[3]);
+                      prevOwnersRepairs.current.push(parsedIPFSData[4]);
                       ++numPreviousOwners; 
                       owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                     } catch (error: any | AxiosError) {
@@ -344,41 +360,48 @@ const Data = (): JSX.Element => {
             else {
               let numPreviousOwners = 0;
               let lastTransferDate;
-              for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) {
-                const owners = [];
-                for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
-                  try {
-                    const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`);
-                    prevOwnersGeneralInformation.current.push(responseIPFS.data[0]);
-                    prevOwnersMaintenances.current.push(responseIPFS.data[1]);
-                    prevOwnersModifications.current.push(responseIPFS.data[2]);
-                    prevOwnersDefects.current.push(responseIPFS.data[3]);
-                    prevOwnersRepairs.current.push(responseIPFS.data[4]);
-                    ++numPreviousOwners; 
-                    owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
-                  } catch (error: any | AxiosError) {
-                    console.error("Unexpected error:", error);
+              if (responseIndexer.data[0].previous_owners_info[0].cids[0] != '') {
+                for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) {
+                  const owners = [];
+                  for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
+                    try {
+                      const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`, {
+                        responseType: "arraybuffer",
+                      });
+                      const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                      const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                      const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                      prevOwnersGeneralInformation.current.push(parsedIPFSData[0]);
+                      prevOwnersMaintenances.current.push(parsedIPFSData[1]);
+                      prevOwnersModifications.current.push(parsedIPFSData[2]);
+                      prevOwnersDefects.current.push(parsedIPFSData[3]);
+                      prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                      ++numPreviousOwners; 
+                      owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
+                    } catch (error: any | AxiosError) {
+                      console.error("Unexpected error:", error);
+                    }
                   }
-                }
-                if (i == responseIndexer.data[0].previous_owners_info.length-1) {
-                  const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
-                  const transferDate = format(date, "dd/MM/yyyy");
-                  const ownershipInfo = {
-                    ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
-                    owners: owners,
-                    transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
+                  if (i == responseIndexer.data[0].previous_owners_info.length-1) {
+                    const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
+                    const transferDate = format(date, "dd/MM/yyyy");
+                    const ownershipInfo = {
+                      ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
+                      owners: owners,
+                      transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
+                    }
+                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
+                    ownershipSummary.current.push(ownershipInfo);
                   }
-                  lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferData, "dd/MM/yyyy");
-                  ownershipSummary.current.push(ownershipInfo);
-                }
-                else {
-                  const ownershipInfo = {
-                    ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
-                    owners: owners,
-                    transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${format(responseIndexer.data[0].previous_owners_info[i].transferData, "dd/MM/yyyy")}`,
+                  else {
+                    const ownershipInfo = {
+                      ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
+                      owners: owners,
+                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy")}`,
+                    }
+                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
+                    ownershipSummary.current.push(ownershipInfo);
                   }
-                  lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferData, "dd/MM/yyyy");
-                  ownershipSummary.current.push(ownershipInfo);
                 }
               }
               try {
@@ -391,17 +414,36 @@ const Data = (): JSX.Element => {
                   let justTransferred = false;
                   if (responseIndexer.data[0].current_owner_info[0] == '') justTransferred = true;
                   else cid = responseIndexer.data[0].current_owner_info[i];
-                  let responseIPFS;
-                  if (justTransferred == false) responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`);
-                  fillOwnerSVLData(i, responseIPFS, prevOwnersGeneralInformation.current[numPreviousOwners-1], justTransferred);
+                  let parsedIPFSData;
+                  if (justTransferred == false) {
+                    const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`, {
+                      responseType: "arraybuffer",
+                    });
+                    const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                    const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                    parsedIPFSData = JSON.parse(decompressedIPFSData);
+                  }
+                  fillOwnerSVLData(i, parsedIPFSData, prevOwnersGeneralInformation.current[numPreviousOwners-1], justTransferred);
                   owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners+i+1}`);
                 }
-                const ownershipInfo = {
-                  ownerAddress: responseIndexer.data[0].owner_address,
-                  owners: owners,
-                  transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${lastTransferDate}`,
+                if (numPreviousOwners > 0) {
+                  const ownershipInfo = {
+                    ownerAddress: responseIndexer.data[0].owner_address,
+                    owners: owners,
+                    transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${lastTransferDate}`,
+                  }
+                  ownershipSummary.current.push(ownershipInfo);
                 }
-                ownershipSummary.current.push(ownershipInfo);
+                else {
+                  const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
+                  const transferDate = format(date, "dd/MM/yyyy");
+                  const ownershipInfo = {
+                    ownerAddress: responseIndexer.data[0].owner_address,
+                    owners: owners,
+                    transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
+                  }
+                  ownershipSummary.current.push(ownershipInfo);
+                }
                 setTotalOwners(numPreviousOwners+responseIndexer.data[0].current_owner_info.length);
               } catch (error: any | AxiosError) {
                 console.error("Unexpected error:", error);

@@ -9,6 +9,7 @@ import BuySVLButton from './stateSVLsButtons/buySVLButton';
 import ChangeSVLPriceButton from './changeSVLPriceButton';
 import axios, { AxiosError } from "axios";
 import { useNavigate } from 'react-router-dom'; 
+import pako from "pako";
 
 type PreviewSVLsProps = {
   myAddress: string;
@@ -66,7 +67,6 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
     else url = `http://127.0.0.1:3000/indexer/holder/by_vin?vin=${VIN}&owner_address=${myAddress}`;
     try {
       const responseIndexer = await axios.get(url);
-      console.log(responseIndexer.data);
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
       for (let i = 0; i < responseIndexer.data.length; i++) {
         let latestCid;
@@ -75,10 +75,15 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
         }
         else latestCid = responseIndexer.data[i].current_owner_info[responseIndexer.data[i].current_owner_info.length-1];
         try {
-          const responseIPFS = await axios.get(`${urlIPFS}${latestCid}`);
+          const responseIPFS = await axios.get(`${urlIPFS}${latestCid}`, {
+            responseType: "arraybuffer",
+          });
+          const compressedIPFSData = new Uint8Array(responseIPFS.data);
+          const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+          const parsedIPFSData = JSON.parse(decompressedIPFSData);
           updatedPreviewSVLsInfo[i].pk = responseIndexer.data[i].svl_key;
           updatedPreviewSVLsInfo[i].price = responseIndexer.data[i].svl_price.slice(0, -6);
-          updatedPreviewSVLsInfo[i].mainPhotograph = responseIPFS!.data[0].mainPhotograph;
+          updatedPreviewSVLsInfo[i].mainPhotograph = parsedIPFSData[0].mainPhotograph;
           updatedPreviewSVLsInfo[i].brand = responseIndexer.data[i].brand;
           updatedPreviewSVLsInfo[i].model = responseIndexer.data[i].model;
           updatedPreviewSVLsInfo[i].year = responseIndexer.data[i].year;
