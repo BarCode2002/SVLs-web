@@ -1,5 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
+import { DragIcon } from '../../../assets/drag';
 
 type DragGroupGroupTypeButtonProps = {
   setDraggable: React.Dispatch<SetStateAction<boolean>>;
@@ -24,7 +25,7 @@ const DragGroupGroupTypeButton = ({ setDraggable, editMode }: DragGroupGroupType
         onMouseUp={unmakeDraggable}
         onMouseLeave={unmakeDraggable}
         disabled={!editMode}>
-        {'<->'}
+        <DragIcon />
       </button>
     </div>
   );

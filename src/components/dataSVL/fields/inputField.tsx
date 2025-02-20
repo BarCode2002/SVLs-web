@@ -17,15 +17,12 @@ type InputFieldProps = {
 const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode }: InputFieldProps) => {
   
   const validateInputAndUpdateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let re: RegExp;
-    if (type == 'year' || type == 'kilometers' || type == 'weight' || type == 'horsepower' || type == 'autonomy') {
+    let re: RegExp =  /^[a-zA-Z\s-]+$/;
+    if (type == 'year' || type == 'kilometers' || type == 'weight' || type == 'power' || type == 'autonomy') {
       re = /^\d*$/;
     } 
-    else if (type == 'engine' || type == 'VIN') {
+    else if (type == 'engine' || type == 'VIN' || type == 'name') {
       re = /^/;
-    }
-    else {
-      re = /^[a-zA-Z\s-]+$/;
     }
     if (e.target.value == "" || re.test(e.target.value)) {
       const updateSVLdata = [...dataSVL];

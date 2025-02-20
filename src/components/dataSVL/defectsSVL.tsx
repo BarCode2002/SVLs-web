@@ -96,7 +96,7 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
                 setDataSVL={setDefects} type={'photographs'} allowMultipleImages={true} editMode={editMode}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.descriptionDefect')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={typeIndex} 
+                selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
                 value={defects[selectedOwner].group[groupIndex].type[typeIndex].description} 
                 setDataSVL={setDefects} type={'description'} editMode={editMode}
               />
