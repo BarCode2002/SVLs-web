@@ -220,7 +220,7 @@
 .removeImageButton {
   position: absolute;
   top: 5px;
-  right: 160px;
+  right: 159px;
   width: 33px;
   height: 40px;
   background-color: white;
@@ -256,8 +256,7 @@
 
 .imageBigContainer {
   width: 100%;
-  height: min(56.25vw, 100vh);
-  overflow: hidden;
+  height: min(56.25vw, calc(100vh - 150px));
 }
 
 .imageBig {
@@ -285,4 +284,43 @@
 .closeImageBigContainer:hover {
   cursor: pointer;
   opacity: 1;
+}
+
+.imagePreviewContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  overflow-x: auto;
+  height: 140px;
+  width: calc(100vw - 30px);
+}
+
+.removeImagePreviewButton {
+  position: absolute;
+  width: 33px;
+  height: 40px;
+  background-color: white;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border: none;
+  opacity: 0.4;
+}
+
+.removeImagePreviewButton:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.removeImagePreviewButton:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.imageSmallSelected {
+  height: 108px;
+  width: 192px;
+  border-radius: 10px;
+  border: solid 4px white;
 }

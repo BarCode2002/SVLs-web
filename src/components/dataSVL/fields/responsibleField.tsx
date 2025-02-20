@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/responsibleField.module.css';
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
@@ -128,6 +128,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
     const updatedDataSVL = [...dataSVL];
     updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = '';    
     setDataSVL(updatedDataSVL);
+    setShowBig(false);
   }
 
   const refClickOutside = DetectClickOutsideComponent(() => { 
@@ -154,6 +155,8 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
       console.error("Upload failed:", error);
     }
   }
+
+  const imagePreviewContainer = useRef(null);
 
   return (
     <div className={styles.responsibleFieldContainer}>
@@ -273,6 +276,33 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                         className={styles.imageBig}
                         src={value[3][4] != ':' ? `${urlIPFS}${value[3]}` : value[3]}
                       />
+                    </div>
+                    <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
+                      {[value[3]].filter(url => url != '').map((url, index) => (
+                        <div key={`${url}-${index}`}>
+                          <div className={styles.removeImageButtonWrapper}>
+                            <button
+                              className={styles.removeImagePreviewButton}
+                              onClick={() => removeUploadedImage()}
+                              disabled={!editMode}>
+                              <TrashIconRed />
+                            </button>
+                          </div>
+                          {showBig ? (
+                            <img
+                              className={styles.imageSmallSelected}
+                              onClick={() => changeImageSize('big')}
+                              src={url[4] != ':' ? `${urlIPFS}${url}` : url}
+                            />
+                          ) : (
+                            <img
+                              className={styles.imageSmall}
+                              onClick={() => changeImageSize('big')}
+                              src={url[4] != ':' ? `${urlIPFS}${url}` : url}
+                            />
+                          )}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}

@@ -110,6 +110,27 @@
   opacity: 0.5;
 }
 
+.removeImagePreviewButton {
+  position: absolute;
+  width: 33px;
+  height: 40px;
+  background-color: white;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border: none;
+  opacity: 0.4;
+}
+
+.removeImagePreviewButton:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.removeImagePreviewButton:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
 .mainImageBigContainer {
   position: absolute;
   top: 0;

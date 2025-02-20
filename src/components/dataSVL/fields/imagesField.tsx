@@ -84,18 +84,70 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     }
   };
 
-  const removeUploadedImage = (imamgeRemovedIndex: number) => {
+  const removeUploadedImage = (imageRemovedIndex: number) => {
     const updatedDataSVL = [...dataSVL];
-    for (let i = imamgeRemovedIndex; i < selectedImages.filter(url => url != '').length; i++) {
+    const numImages = selectedImages.filter(url => url != '').length;
+    for (let i = imageRemovedIndex; i < numImages; i++) {
       if (selectedGroup == -1 && selectedGroupType == -1) {
-        if (type == 'mainPhotograph') updatedDataSVL[selectedOwner][type] = '';
-        else updatedDataSVL[selectedOwner][type][i] = updatedDataSVL[selectedOwner][type][i+1];
+        if (type == 'mainPhotograph') {
+          updatedDataSVL[selectedOwner][type] = '';
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: false,
+            imageIndex: i,
+          }));
+        }
+        else {
+          updatedDataSVL[selectedOwner][type][i] = updatedDataSVL[selectedOwner][type][i+1];
+          if (numImages == 1) {
+            setShowType((prevState) => ({
+              ...prevState,
+              showBig: false,
+              imageIndex: i,
+            }));
+          }
+          else if (showType.showBig && showType.imageIndex+1 == numImages) {
+            setShowType((prevState) => ({
+              ...prevState,
+              showBig: true,
+              imageIndex: i-1,
+            }));
+          }
+        }
       }
       else if (selectedGroup != -1 && selectedGroupType == -1) {
         updatedDataSVL[selectedOwner].group[selectedGroup][type][i] =  updatedDataSVL[selectedOwner].group[selectedGroup][type][i+1];
+        if (numImages == 1) {
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: false,
+            imageIndex: i,
+          }));
+        }
+        else if (showType.showBig && showType.imageIndex+1 == numImages) {
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: true,
+            imageIndex: i-1,
+          }));
+        }
       }
       else {
         updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i+1];
+        if (numImages == 1) {
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: false,
+            imageIndex: i,
+          }));
+        }
+        else if (showType.showBig && showType.imageIndex+1 == numImages) {
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: true,
+            imageIndex: i-1,
+          }));
+        }
       }
     }
     setDataSVL(updatedDataSVL);
@@ -320,24 +372,36 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
               onClick={() => changeImageSize('small', -1)}>
               <GoBackArrowIcon />
             </button>
-            <button
-              className={styles.previousImageButton}
-              onClick={() => previousImage(showType.imageIndex)}>
-              ←
-            </button>
+            {selectedImages.filter(url => url != '').length > 1 &&
+              <button
+                className={styles.previousImageButton}
+                onClick={() => previousImage(showType.imageIndex)}>
+                ←
+              </button>
+            }
             <img
               className={styles.imageBig}
               src={selectedImages[showType.imageIndex][4] != ':' ? `${urlIPFS}${selectedImages[showType.imageIndex]}` : selectedImages[showType.imageIndex]}
             />
-            <button
-              className={styles.nextImageButton}
-              onClick={() => nextImage(showType.imageIndex)}>
-              →
-            </button>
+            {selectedImages.filter(url => url != '').length > 1 &&
+              <button
+                className={styles.nextImageButton}
+                onClick={() => nextImage(showType.imageIndex)}>
+                →
+              </button>
+            }
           </div>
           <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
             {selectedImages.filter(url => url != '').map((url, index) => (
               <div key={`${url}-${index}`}>
+                <div className={styles.removeImageButtonWrapper}>
+                  <button
+                    className={styles.removeImagePreviewButton}
+                    onClick={() => removeUploadedImage(index)}
+                    disabled={!editMode}>
+                    <TrashIconRed />
+                  </button>
+                </div>
                 {showType.imageIndex == index ? (
                   <img
                     className={styles.imageSmallSelected}
