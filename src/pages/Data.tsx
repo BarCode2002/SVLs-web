@@ -249,9 +249,6 @@ const Data = (): JSX.Element => {
               setMySVL(false)
               if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') {
                 try {
-                  for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
-                    addOwners();
-                  }
                   setTotalOwners(responseIndexer.data[0].current_owner_info.length);
                   setNumPreviousOwners(0);
                   const owners = [];
@@ -262,7 +259,11 @@ const Data = (): JSX.Element => {
                     const compressedIPFSData = new Uint8Array(responseIPFS.data);
                     const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
                     const parsedIPFSData = JSON.parse(decompressedIPFSData);
-                    fillOwnerSVLData(i, parsedIPFSData, [], false);
+                    prevOwnersGeneralInformation.current.push(parsedIPFSData[0]);
+                    prevOwnersMaintenances.current.push(parsedIPFSData[1]);
+                    prevOwnersModifications.current.push(parsedIPFSData[2]);
+                    prevOwnersDefects.current.push(parsedIPFSData[3]);
+                    prevOwnersRepairs.current.push(parsedIPFSData[4]);
                     owners.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`);
                   }
                   const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
@@ -276,7 +277,7 @@ const Data = (): JSX.Element => {
                 } catch (error: any | AxiosError) {
                   console.error("Unexpected error:", error);
                 }
-                setSelectedOwner(responseIndexer.data[0].current_owner_info.length-1);
+                setSelectedOwner(0);
               }
               else {
                 let numPreviousOwners = 0;
