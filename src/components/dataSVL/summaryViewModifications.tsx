@@ -35,7 +35,7 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
           {shrinked[selectedOwner][groupIndex].type[typeIndex] == false &&
             <div className={styles.groupTypeBottomPart}>
               <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].name} />
-              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} numComponents={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].numComponents} components={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].components} />
+              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].components} />
               <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].pre} />
               <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].post} />
               <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].comments} />
@@ -106,7 +106,7 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
           {modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
               <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].name} />
-              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} numComponents={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].numComponents} components={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].components} />
+              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].components} />
               <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].pre} />
               <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].post} />
               <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].comments} />

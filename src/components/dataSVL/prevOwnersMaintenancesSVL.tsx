@@ -30,7 +30,7 @@ const PrevOwnersMaintenancesSVL = ({ selectedOwner, shrinked, setShrinked, prevO
           {shrinked[selectedOwner][groupIndex].type[typeIndex] == false &&
             <div className={styles.groupTypeBottomPart}>
               <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].name} />
-              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} numComponents={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].numComponents} components={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].components} />
+              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].components} />
               <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].pre} />
               <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].post} />
               <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].comments} />

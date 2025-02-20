@@ -2,22 +2,26 @@ import styles from '../../../styles/components/dataSVL/readOnlyFields/components
 
 type ComponentsContainerProps = {
   fieldLabel: string;
-  numComponents: number;
   components: string[];
 }
 
-const ComponentsContainer = ({ fieldLabel, numComponents, components }: ComponentsContainerProps) => {
+const ComponentsContainer = ({ fieldLabel, components }: ComponentsContainerProps) => {
 
   return (
     <div className={styles.componentsContainer}>
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>
-      {Array.from({ length: numComponents }).map((_, componentIndex) => (
-        <div key={componentIndex} className={styles.components}>
-          {components[componentIndex]}
-        </div>
-      ))}
+      <div className={styles.components}>
+        {components.filter(url => url != '').map((component, index) => (
+          <div key={index} className={styles.components}>
+            {component}
+          </div>
+        ))}
+        {components.filter(url => url != '').length == 0 &&
+          <div>-</div>
+        }
+      </div>
     </div>
   );
 };

@@ -9,5 +9,10 @@
 }
 
 .components {
+  display: flex;
+  gap: 5px;
+}
+
+.component {
   color: var(--fieldLabelColor);
 }
