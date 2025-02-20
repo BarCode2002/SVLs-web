@@ -83,7 +83,7 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
         <div>-</div>
       }
       {showType.showBig == false &&
-        <div className={fieldLabel ? styles.imageSmallContainer : styles.imageSmallContainerGroupType}>
+        <div className={styles.imageSmallContainer}>
           {images.filter(url => url != '').map((url, index) => (
             <div key={`${url}-${index}`}>
               <img
@@ -103,20 +103,24 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
               onClick={() => changeImageSize('small', -1)}>
               <GoBackArrowIcon />
             </button>
-            <button
-              className={styles.previousImageButton}
-              onClick={() => previousImage(showType.imageIndex)}>
-              ←
-            </button>
+            {images.filter(url => url != '').length > 1 &&
+              <button
+                className={styles.previousImageButton}
+                onClick={() => previousImage(showType.imageIndex)}>
+                ←
+              </button>
+            }
             <img
               className={styles.imageBig}
               src={images[showType.imageIndex][4] != ':' ? `${urlIPFS}${images[showType.imageIndex]}` : images[showType.imageIndex]}
             />
-            <button
-              className={styles.nextImageButton}
-              onClick={() => nextImage(showType.imageIndex)}>
-              →
-            </button>
+            {images.filter(url => url != '').length > 1 &&
+              <button
+                className={styles.nextImageButton}
+                onClick={() => nextImage(showType.imageIndex)}>
+                →
+              </button>
+            }
           </div>
           <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
             {images.filter(url => url != '').map((url, index) => (
@@ -144,3 +148,4 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
 };
 
 export default ImageContainer;
+   

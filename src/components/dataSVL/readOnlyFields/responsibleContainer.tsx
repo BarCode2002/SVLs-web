@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/readOnlyFields/responsibleContainer.module.css';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { useTranslation } from "react-i18next";
@@ -19,6 +19,8 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
     if (size == 'big') setShowBig(true);
     else setShowBig(false);
   }
+
+  const imagePreviewContainer = useRef(null);
 
   return (
     <div className={styles.responsibleContainer}>
@@ -58,6 +60,21 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
                           className={styles.imageBig}
                           src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
                         />
+                      </div>
+                      <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
+                        {showBig ? (
+                          <img
+                            className={styles.imageSmallSelected}
+                            onClick={() => changeImageSize('big')}
+                            src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
+                          />
+                        ) : (
+                          <img
+                            className={styles.imageSmall}
+                            onClick={() => changeImageSize('big')}
+                            src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
+                          />
+                        )}
                       </div>
                     </div>
                   )}
@@ -105,6 +122,21 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
                           className={styles.imageBig}
                           src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
                         />
+                      </div>
+                      <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
+                        {showBig ? (
+                          <img
+                            className={styles.imageSmallSelected}
+                            onClick={() => changeImageSize('big')}
+                            src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
+                          />
+                        ) : (
+                          <img
+                            className={styles.imageSmall}
+                            onClick={() => changeImageSize('big')}
+                            src={responsible[3][4] != ':' ? `${urlIPFS}${responsible[3]}` : responsible[3]}
+                          />
+                        )}
                       </div>
                     </div>
                   )}
