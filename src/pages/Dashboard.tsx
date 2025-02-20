@@ -20,6 +20,11 @@ const Dashboard = (): JSX.Element => {
   useEffect(() => {
     const initializedwallet = getWallet();
     setWallet(initializedwallet);
+    const filterSVLs = localStorage.getItem('filterSVLs');
+    const VIN = localStorage.getItem('VIN');
+    setFilterSVLs(parseInt(filterSVLs!));
+    setVIN(VIN!);
+    
   }, []);
 
   useEffect(() => {

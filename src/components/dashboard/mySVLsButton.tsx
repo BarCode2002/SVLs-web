@@ -12,6 +12,7 @@ const MySVLsButton = ({ filterSVLs, setFilterSVLs }: MySVLsButtonProps): JSX.Ele
 
   const handleMySVLs = async () => {
     setFilterSVLs(0);
+    localStorage.setItem('filterSVLs', '0');
   };
 
   return (

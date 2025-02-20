@@ -12,6 +12,7 @@ const RequestedSVLsButton = ({ filterSVLs, setFilterSVLs }: RequestedSVLsButtonP
 
   const handleRequestedSVLs = async () => {
     setFilterSVLs(1);
+    localStorage.setItem('filterSVLs', '1');
   };
 
   return (

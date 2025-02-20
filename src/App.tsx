@@ -4,6 +4,9 @@ import Dashboard from './pages/Dashboard.tsx';
 
 const App = (): JSX.Element => {
 
+  localStorage.setItem('filterSVLs', '0');
+  localStorage.setItem('VIN', '');
+
   return (
     <Router>
       <Routes>

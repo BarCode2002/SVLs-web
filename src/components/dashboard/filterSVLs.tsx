@@ -1,5 +1,4 @@
 import styles from '../../styles/components/dashboard/filterSVLs.module.css';
-import { useTranslation } from "react-i18next";
 
 type FilterSVLsProps = {
   setFilterSVLs: React.Dispatch<number>;
@@ -12,11 +11,11 @@ type FilterSVLsProps = {
 
 const FilterSVLs = ({ setFilterSVLs, VIN, setVIN, placeholder, search, setSearch }: FilterSVLsProps): JSX.Element => {
 
-  const { t } = useTranslation();
-
   const handleBrowseSVLByVIN = (event: { key: string; }) => {
     if (event.key === "Enter") {
       setFilterSVLs(2);
+      localStorage.setItem('filterSVLs', '2');
+      localStorage.setItem('VIN', VIN);
       if (search == true) setSearch(false);
       else setSearch(true);
     }
