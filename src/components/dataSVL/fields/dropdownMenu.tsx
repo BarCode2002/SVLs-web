@@ -30,7 +30,12 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
   useEffect(() => {
     const getList = async () => {
       try {
-        if (type == 'model') setList(['CTV5'])
+        if (type == 'model') {
+          if (dataSVL[selectedOwner].brand != 'DataSVL.Forms.brand') {
+            const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/models?brand=${dataSVL[selectedOwner].brand}`);
+            setList(responseMongo.data);
+          }
+        }
         else {
           let typeQuery = type;
           if (type == 'level') typeQuery = 'defectLevel';
@@ -42,7 +47,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
       }
     }
     getList();
-  }, []);
+  }, [dataSVL[selectedOwner].brand]);
   
   useEffect(() => {
     if (list.length > 0) {
