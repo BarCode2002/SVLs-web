@@ -1,8 +1,0 @@
-.mainContainer {
-  height: var(--vh, 100vh);
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  background-color: var(--backgroundColor);
-  overflow-y: hidden;
-}

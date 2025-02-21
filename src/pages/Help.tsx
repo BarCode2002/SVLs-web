@@ -1,18 +1,21 @@
-import styles from '../styles/pages/Help.module.css';
-
 const Help = (): JSX.Element => {
 
-  const updateViewportHeight = () => {
-    const newHeight = window.innerHeight;
-    document.documentElement.style.setProperty('--vh', `${newHeight}px`);
-  }
-  window.addEventListener('resize', updateViewportHeight);
-
   return (
-    <div className={styles.mainContainer}>
-      
+    <div>
+      <iframe
+        src="help.pdf"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          border: "none",
+        }}
+        title="PDF Viewer">
+      </iframe>
     </div>
   );
-}
+};
 
 export default Help;
