@@ -11,7 +11,7 @@ const HelpButton = (): JSX.Element => {
       <button
         className={styles.button}
         onClick={handleOpenHelp}>
-        ?
+        Ayuda
       </button>
     </div>
   );

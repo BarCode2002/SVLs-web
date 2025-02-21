@@ -17,6 +17,12 @@
   left: 20px;
 }
 
+.helpContainer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
 .title {
   font-size: 5rem;
   font-weight: 800;
