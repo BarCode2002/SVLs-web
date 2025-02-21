@@ -26,13 +26,17 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
   const [list, setList] = useState<string[]>([]);
   const cancelButtonText = t('DataSVL.Placeholders.cancel');
   const searchBarPlaceholder = t('DataSVL.Placeholders.search');
+  const [prevBrand, setPrevBrand] = useState('');
 
   useEffect(() => {
     const getList = async () => {
       try {
-        const updatedDataSVL = [...dataSVL];
-        updatedDataSVL[selectedOwner].model = 'DataSVL.Forms.model';
-        setDataSVL(updatedDataSVL);
+        if (prevBrand != '' && prevBrand != dataSVL[selectedOwner].brand) {
+          const updatedDataSVL = [...dataSVL];
+          updatedDataSVL[selectedOwner].model = 'DataSVL.Forms.model';
+          setDataSVL(updatedDataSVL);
+        }
+        else setPrevBrand(dataSVL[selectedOwner].brand);
         if (type == 'model') {
           if (dataSVL[selectedOwner].brand != 'DataSVL.Forms.brand') {
             const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/models?brand=${dataSVL[selectedOwner].brand}`);
