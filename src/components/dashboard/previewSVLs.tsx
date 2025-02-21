@@ -191,13 +191,13 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
                 />
                 <div className={styles.infoPreviewSVL}>
                   <div>
-                    {brandLabel} {dataPreviewSVL.brand}
+                    {dataPreviewSVL.brand}
                   </div>
                   <div>
-                    {modelLabel} {dataPreviewSVL.model}
+                    {dataPreviewSVL.model}
                   </div>
                   <div>
-                    {yearLabel} {dataPreviewSVL.year}  
+                    {dataPreviewSVL.year}  
                   </div>
                 </div>
                 <div className={styles.separator}>

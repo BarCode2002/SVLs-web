@@ -11,6 +11,7 @@ import CreateSVLButton from './createSVLButton';
 import OwnershipSummaryButton from './ownershipSummaryButton';
 import ChangeWalletButton from './changeWalletButton';
 import LanguageSelector from '../varied/languageSelector';
+import HelpButton from './helpButton';
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
 import { OwnershipSummary } from '../../utils/interfaces';
 import { SetStateAction, useEffect, useState } from 'react';
@@ -75,6 +76,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
             }
             <div className={styles.rightSideButtons}>
               <CreateSVLButton />
+              <HelpButton />
             </div>
           </div>
         ) : (
@@ -94,6 +96,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                     {mintPrice} tezos
                   </div>
                 }
+                <HelpButton />
               </div>
             ) : (
               <div className={styles.rightSideButtons}>
@@ -125,6 +128,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                     maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} 
                   />
                 }
+                <HelpButton />
               </div>
             )}
           </div>
