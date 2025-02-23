@@ -10,6 +10,7 @@ import ChangeSVLPriceButton from './changeSVLPriceButton';
 import axios, { AxiosError } from "axios";
 import { useNavigate } from 'react-router-dom'; 
 import pako from "pako";
+import { ipfsRetrieve, indexer } from '../../utils/ip';
 
 type PreviewSVLsProps = {
   myAddress: string;
@@ -36,7 +37,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
   const [numPreviewSVLs, setNumPreviewSVLs] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
+  const urlIPFS = ipfsRetrieve;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -62,9 +63,9 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
   
   const getSVLPreview = async () => {
     let url;
-    if (filterSVL == 0) url = `http://127.0.0.1:3000/indexer/holder/owner_address/${myAddress}`;
-    else if (filterSVL == 1) url = `http://127.0.0.1:3000/indexer/holder/requested_svls?requester_address=${myAddress}`;
-    else url = `http://127.0.0.1:3000/indexer/holder/by_vin?vin=${VIN}&owner_address=${myAddress}`;
+    if (filterSVL == 0) url = `${indexer}holder/owner_address/${myAddress}`;
+    else if (filterSVL == 1) url = `${indexer}holder/requested_svls?requester_address=${myAddress}`;
+    else url = `${indexer}holder/by_vin?vin=${VIN}&owner_address=${myAddress}`;
     try {
       const responseIndexer = await axios.get(url);
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
