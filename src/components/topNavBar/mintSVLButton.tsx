@@ -9,6 +9,7 @@ import axios from "axios";
 import { useEffect, useState } from 'react';
 import { checks } from '../../utils/checks.ts';
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent.tsx';
+import { ipfsUpload, mongoSmartContract } from '../../utils/ip.ts';
 
 type MintSVLButtonProps = {
   numPreviousOwners: number;
@@ -52,7 +53,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
       formData.append("file", blob);
     }
     try {
-      const response = await axios.post("http://127.0.0.1:3000/upload", formData, {
+      const response = await axios.post(ipfsUpload, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -63,7 +64,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
     }
     console.log(cids);
     try {
-      const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+      const response = await axios.get(mongoSmartContract);
       mintPrice = response.data.mintPrice;
     } catch (error) {
       console.error("Upload failed:", error);

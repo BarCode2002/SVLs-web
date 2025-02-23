@@ -5,6 +5,7 @@ import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { TrashIconRed } from '../../../assets/trash';
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
+import { ipfsRetrieve, ipfsUpload } from '../../../utils/ip';
 
 type ImagesFieldProps = {
   fieldLabel: string;
@@ -24,7 +25,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
 
   const { t } = useTranslation();
   
-  const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
+  const urlIPFS = ipfsRetrieve;
 
   let imageInputId;
   if (selectedGroup == -1) {
@@ -276,7 +277,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
           formData.append("file", blob, `image/${fileExtension}`);
         }
       }
-      const uploadResponse = await axios.post("http://127.0.0.1:3000/upload", formData, {
+      const uploadResponse = await axios.post(ipfsUpload, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

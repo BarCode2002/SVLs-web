@@ -6,6 +6,7 @@ import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { useEffect, useState } from 'react';
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent';
 import axios from "axios";
+import { mongoSmartContract } from '../../utils/ip';
 
 type ChangeSVLPriceButtonProps = {
   previewSVLsInfo: PreviewSVLsInfo[];
@@ -31,7 +32,7 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
     setInitialPrice(previewSVLsInfo[index].price);
     const getRequestFee = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        const response = await axios.get(mongoSmartContract);
         const requestFee = response.data.requestFee;
         setRequestFee(requestFee);
       } catch (error) {
@@ -46,7 +47,7 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
     if (step == 0) setStep(1)
     else {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        const response = await axios.get(mongoSmartContract);
         const minTransferPrice = response.data.minTransferPrice;
         if (previewSVLsInfo[index].price < parseInt(minTransferPrice)) {
           const updatedInvalidFields = [`${t('InvalidFields.minTransferPrice')} ${minTransferPrice} tezos`];

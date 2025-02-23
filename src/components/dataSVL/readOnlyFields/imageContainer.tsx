@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/readOnlyFields/imageContainer.module.css';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
+import { ipfsRetrieve } from '../../../utils/ip';
 
 type ImageContainerProps = {
   fieldLabel: string;
@@ -9,7 +10,7 @@ type ImageContainerProps = {
 
 const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
 
-  const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
+  const urlIPFS = ipfsRetrieve;
 
   const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
 

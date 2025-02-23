@@ -16,6 +16,7 @@ import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } fro
 import { OwnershipSummary } from '../../utils/interfaces';
 import { SetStateAction, useEffect, useState } from 'react';
 import axios from "axios";
+import { mongoSmartContract } from '../../utils/ip';
 
 type TopNavBarProps = {
   page: string;
@@ -51,7 +52,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
   useEffect(() => {
     const getMintPrice = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        const response = await axios.get(mongoSmartContract);
         setMintPrice(response.data.mintPrice);
       } catch (error) {
         console.error("Upload failed:", error);

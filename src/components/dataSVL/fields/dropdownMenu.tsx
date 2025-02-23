@@ -3,6 +3,7 @@ import styles from '../../../styles/components/dataSVL/fields/dropdownMenu.modul
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 import axios, { AxiosError } from "axios";
 import { useTranslation } from "react-i18next";
+import { mongoBrand, mongoList } from '../../../utils/ip';
 
 type DropdownMenuProps = {
   fieldLabel: string;
@@ -39,14 +40,14 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
         else setPrevBrand(dataSVL[selectedOwner].brand);
         if (type == 'model') {
           if (dataSVL[selectedOwner].brand != 'DataSVL.Forms.brand') {
-            const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/models?brand=${dataSVL[selectedOwner].brand}`);
+            const responseMongo = await axios.get(`${mongoBrand}${dataSVL[selectedOwner].brand}`);
             setList(responseMongo.data);
           }
         }
         else {
           let typeQuery = type;
           if (type == 'level') typeQuery = 'defectLevel';
-          const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/lists?type=${typeQuery}`);
+          const responseMongo = await axios.get(`${mongoList}${typeQuery}`);
           setList(responseMongo.data);
         }
       } catch (error: any | AxiosError) {

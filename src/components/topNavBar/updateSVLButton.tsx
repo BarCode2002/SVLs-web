@@ -8,6 +8,7 @@ import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } fro
 import { createJSON } from '../../utils/createJSON.ts';
 import axios from "axios";
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent.tsx';
+import { ipfsUpload } from '../../utils/ip.ts';
 
 type UpdateSVLButtonProps = {
   numPreviousOwners: number;
@@ -54,7 +55,7 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
     }
     if (!noCids) {
       try {
-        const response = await axios.post("http://127.0.0.1:3000/upload", formData, {
+        const response = await axios.post(ipfsUpload, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

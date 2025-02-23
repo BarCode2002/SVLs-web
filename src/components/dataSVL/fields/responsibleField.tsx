@@ -5,6 +5,7 @@ import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { useTranslation } from "react-i18next";
 import { TrashIconRed } from '../../../assets/trash';
 import axios from "axios";
+import { ipfsRetrieve } from '../../../utils/ip';
 
 type ResponsibleFieldProps = {
   fieldLabel: string;
@@ -21,7 +22,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const { t } = useTranslation();
 
-  const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
+  const urlIPFS = ipfsRetrieve;
 
   const [step, setStep] = useState(0);
   const [mechanic, setMechanic] = useState<boolean | null>(null);

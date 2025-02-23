@@ -23,9 +23,9 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const brandLabel = t('Dashboard.Labels.brand');
-  const modelLabel = t('Dashboard.Labels.model');
-  const yearLabel = t('Dashboard.Labels.year');
+  //const brandLabel = t('Dashboard.Labels.brand');
+  //const modelLabel = t('Dashboard.Labels.model');
+  //const yearLabel = t('Dashboard.Labels.year');
   const notRequestedLabel = t('Dashboard.Labels.notRequested');
   const pendingBuyLabel = t('Dashboard.Labels.pendingBuy');
   const blockedLabel = t('Dashboard.Labels.blocked');

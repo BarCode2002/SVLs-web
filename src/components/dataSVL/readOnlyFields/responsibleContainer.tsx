@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/readOnlyFields/responsibleContainer.module.css';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { useTranslation } from "react-i18next";
+import { ipfsRetrieve } from '../../../utils/ip';
 
 type ResponsibleContainerProps = {
   fieldLabel: string;
@@ -11,7 +12,7 @@ type ResponsibleContainerProps = {
 const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerProps) => {
 
   const [showBig, setShowBig] = useState(false);
-  const urlIPFS = 'http://127.0.0.1:8080/ipfs/';
+  const urlIPFS = ipfsRetrieve;
 
   const { t } = useTranslation();
 
