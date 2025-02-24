@@ -18,9 +18,10 @@ type OwnerButtonProps = {
   totalOwners: number;
   setTotalOwners: React.Dispatch<React.SetStateAction<number>>;
   editMode: boolean;
+  mySVL: boolean;
 };
 
-const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, numPreviousOwners, totalOwners, setTotalOwners, editMode  }: OwnerButtonProps): JSX.Element => {
+const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, selectedOwner, setSelectedOwner, numPreviousOwners, totalOwners, setTotalOwners, editMode, mySVL }: OwnerButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
   const [warnignRemoveOwner, setWarningRemoveOwner] = useState(false);
@@ -84,7 +85,7 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
         onClick={handleOwnerChange}>
         {`${t('DataSVL.BottomBar.owner')} ${index+1}`}
       </button>
-      {index >= numPreviousOwners &&
+      {mySVL && index >= numPreviousOwners &&
         <button
           onMouseEnter={() => setTrashHovered(true)}
           onMouseLeave={() => setTrashHovered(false)}

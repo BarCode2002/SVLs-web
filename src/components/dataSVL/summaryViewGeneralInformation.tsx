@@ -9,9 +9,10 @@ type SummaryViewGeneralInformationProps = {
   generalInformation: GeneralInformation[];
   numPreviousOwners: number;
   totalOwners: number;
+  mySVL: boolean
 };
 
-const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalInformation, numPreviousOwners, totalOwners }: SummaryViewGeneralInformationProps): JSX.Element => {
+const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalInformation, numPreviousOwners, totalOwners, mySVL }: SummaryViewGeneralInformationProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -21,7 +22,7 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
         {t('DataSVL.Placeholders.owner')} {selectedOwner+1}
       </div>
       <div className={styles.dataWrapperSummary}>
-        {selectedOwner < numPreviousOwners ? (
+        {!mySVL || selectedOwner < numPreviousOwners ? (
           <div className={styles.data}>          
             <TextContainer fieldLabel={t('DataSVL.Labels.vin')} text={prevOwnersGeneralInformation[selectedOwner].VIN} />
             <TextContainer fieldLabel={t('DataSVL.Labels.brand')} text={prevOwnersGeneralInformation[selectedOwner].brand} />

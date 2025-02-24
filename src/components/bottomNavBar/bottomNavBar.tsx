@@ -21,9 +21,10 @@ type BottomNavBarProps = {
   editMode: boolean;
   viewType: number;
   prevOwnersGeneralInformation: GeneralInformation[];
+  mySVL: boolean;
 };
 
-const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode, viewType, prevOwnersGeneralInformation }: BottomNavBarProps): JSX.Element => {
+const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode, viewType, prevOwnersGeneralInformation, mySVL }: BottomNavBarProps): JSX.Element => {
 
   const ownersContainerRef = useRef(null);
 
@@ -33,7 +34,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
         setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
         setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs} 
         selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
-        totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode}
+        totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} mySVL={mySVL}
       />
     </div>
   ));
@@ -50,13 +51,15 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
             <div ref={ownersContainerRef} className={styles.ownersContainer}>
               {ownerSelector}
             </div>
-            <div className={styles.addOwnerButton}>
-              <AddOwnerButton setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
-                setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-                setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
-                numPreviousOwners={numPreviousOwners} editMode={editMode} prevOwnersGeneralInformation={prevOwnersGeneralInformation}
-              />
-            </div>
+            {mySVL &&
+              <div className={styles.addOwnerButton}>
+                <AddOwnerButton setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
+                  setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
+                  setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
+                  numPreviousOwners={numPreviousOwners} editMode={editMode} prevOwnersGeneralInformation={prevOwnersGeneralInformation}
+                />
+              </div>
+            }
           </div>
         </div>
       }

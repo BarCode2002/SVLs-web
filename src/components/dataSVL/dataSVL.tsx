@@ -173,11 +173,11 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
         </div>
       ) : (
         <div>
-          {selectedSVLData == 0 && <SummaryViewGeneralInformation prevOwnersGeneralInformation={prevOwnersGeneralInformation} generalInformation={generalInformation} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
-          {selectedSVLData == 1 && <SummaryViewMaintenances prevOwnersMaintenances={prevOwnersMaintenances} maintenances={maintenances} setMaintenances={setMaintenances} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
-          {selectedSVLData == 2 && <SummaryViewModifications prevOwnersModifications={prevOwnersModifications} modifications={modifications} setModifications={setModifications} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
-          {selectedSVLData == 3 && <SummaryViewDefects prevOwnersDefects={prevOwnersDefects} defects={defects} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs} setDefects={setDefects} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
-          {selectedSVLData == 4 && <SummaryViewRepairs prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} setRepairs={setRepairs} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} />}
+          {selectedSVLData == 0 && <SummaryViewGeneralInformation prevOwnersGeneralInformation={prevOwnersGeneralInformation} generalInformation={generalInformation} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
+          {selectedSVLData == 1 && <SummaryViewMaintenances prevOwnersMaintenances={prevOwnersMaintenances} maintenances={maintenances} setMaintenances={setMaintenances} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
+          {selectedSVLData == 2 && <SummaryViewModifications prevOwnersModifications={prevOwnersModifications} modifications={modifications} setModifications={setModifications} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
+          {selectedSVLData == 3 && <SummaryViewDefects prevOwnersDefects={prevOwnersDefects} defects={defects} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs} setDefects={setDefects} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
+          {selectedSVLData == 4 && <SummaryViewRepairs prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} setRepairs={setRepairs} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
         </div>
       )}
     </div>

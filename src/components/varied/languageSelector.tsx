@@ -3,6 +3,7 @@ import styles from '../../styles/components/varied/languageSelector.module.css';
 import { useTranslation } from 'react-i18next';
 import axios, { AxiosError } from "axios";
 import { DetectClickOutsideComponent } from './detectClickOutsideComponent';
+import { mongoList } from '../../utils/ip';
 
 const LanguageSelector = (): JSX.Element => {
 
@@ -18,7 +19,7 @@ const LanguageSelector = (): JSX.Element => {
   useEffect(() => {
     const getLanguageList = async () => {
       try {
-        const responseMongo = await axios.get(`http://127.0.0.1:3000/mongo/lists?type=language`);
+        const responseMongo = await axios.get(`${mongoList}language`);
         setList(responseMongo.data);
       } catch (error: any | AxiosError) {
         console.error("Unexpected error:", error);

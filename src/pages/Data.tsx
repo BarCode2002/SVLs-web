@@ -16,6 +16,7 @@ import { addAndSetRepairGroup, addAndSetRepairGroupType } from '../utils/uploadJ
 import { addGeneralInformationDefault, addMaintenances, addModifications, addDefects, addRepairs } from '../utils/addOwners.ts';
 import { parse, format } from "date-fns";
 import pako from "pako";
+import { indexer, ipfsRetrieve } from '../utils/ip.ts';
 
 const Data = (): JSX.Element => {
 
@@ -244,7 +245,7 @@ const Data = (): JSX.Element => {
       const timer = setTimeout(async () => {
         if (svl_pk) {
           try {
-            const responseIndexer = await axios.get(`http://127.0.0.1:3000/indexer/holder/pk/${svl_pk}`);
+            const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
             if (responseIndexer.data[0].owner_address != localStorage.getItem('address')) {
               setMySVL(false)
               if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') {
@@ -253,7 +254,7 @@ const Data = (): JSX.Element => {
                   setNumPreviousOwners(0);
                   const owners = [];
                   for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
-                    const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`, {
+                    const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
                       responseType: "arraybuffer",
                     });
                     const compressedIPFSData = new Uint8Array(responseIPFS.data);
@@ -286,7 +287,7 @@ const Data = (): JSX.Element => {
                   const owners = [];
                   for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
                     try {
-                      const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`, {
+                      const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].previous_owners_info[i].cids[j]}`, {
                         responseType: "arraybuffer",
                       });
                       const compressedIPFSData = new Uint8Array(responseIPFS.data);
@@ -328,7 +329,7 @@ const Data = (): JSX.Element => {
                   const owners = [];
                   for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
                     try {
-                      const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].current_owner_info[i]}`, {
+                      const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
                         responseType: "arraybuffer",
                       });
                       const compressedIPFSData = new Uint8Array(responseIPFS.data);
@@ -366,7 +367,7 @@ const Data = (): JSX.Element => {
                   const owners = [];
                   for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
                     try {
-                      const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${responseIndexer.data[0].previous_owners_info[i].cids[j]}`, {
+                      const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].previous_owners_info[i].cids[j]}`, {
                         responseType: "arraybuffer",
                       });
                       const compressedIPFSData = new Uint8Array(responseIPFS.data);
@@ -417,7 +418,7 @@ const Data = (): JSX.Element => {
                   else cid = responseIndexer.data[0].current_owner_info[i];
                   let parsedIPFSData;
                   if (justTransferred == false) {
-                    const responseIPFS = await axios.get(`http://127.0.0.1:8080/ipfs/${cid}`, {
+                    const responseIPFS = await axios.get(`${ipfsRetrieve}${cid}`, {
                       responseType: "arraybuffer",
                     });
                     const compressedIPFSData = new Uint8Array(responseIPFS.data);
@@ -509,7 +510,7 @@ const Data = (): JSX.Element => {
             setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
             setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
             totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
-            viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current}
+            viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current} mySVL={mySVL}
           />
         </div>
       }
