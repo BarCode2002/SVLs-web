@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   name: web-ingress
 spec:
+  tls:
+    - hosts:
+        - web-test.com
+      secretName: web-tls 
   rules:
     - host: web-test.com
       http:
@@ -14,3 +18,31 @@ spec:
                 name: web-service
                 port:
                   number: 80
+          - path: /mongo
+            pathType: Prefix
+            backend:
+              service:
+                name: nestjs-api-service
+                port:
+                  number: 3000  
+          - path: /indexer
+            pathType: Prefix
+            backend:
+              service:
+                name: nestjs-api-service
+                port:
+                  number: 3000  
+          - path: /upload
+            pathType: Prefix
+            backend:
+              service:
+                name: nestjs-api-service
+                port:
+                  number: 3000  
+          - path: /ipfs
+            pathType: Prefix
+            backend:
+              service:
+                name: ipfs-service
+                port:
+                  number: 8080 
