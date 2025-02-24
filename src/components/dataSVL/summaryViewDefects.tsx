@@ -18,9 +18,10 @@ type SummaryViewDefectsProps = {
   setShrinked: any;
   numPreviousOwners: number;
   totalOwners: number;
+  mySVL: boolean;
 };
 
-const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRepairs, setDefects, shrinked, setShrinked, numPreviousOwners, totalOwners }: SummaryViewDefectsProps): JSX.Element => {
+const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRepairs, setDefects, shrinked, setShrinked, numPreviousOwners, totalOwners, mySVL }: SummaryViewDefectsProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -164,7 +165,7 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
 
   const listDefects = Array.from({length: totalOwners }, (_, selectedOwner) => (
     <div key={selectedOwner}>
-      {selectedOwner < numPreviousOwners ? (
+      {!mySVL || selectedOwner < numPreviousOwners ? (
         <div>          
           {listPreviousGroupDefects(selectedOwner)}
         </div>

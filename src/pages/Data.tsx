@@ -510,7 +510,7 @@ const Data = (): JSX.Element => {
             setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
             setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
             totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
-            viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current}
+            viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current} mySVL={mySVL}
           />
         </div>
       }
