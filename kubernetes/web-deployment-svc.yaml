@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web
+  name: web-deployment
   labels:
     app: web
 spec:
@@ -15,7 +15,7 @@ spec:
         app: web
     spec:
       containers:
-      - name: web
+      - name: web-container
         image: barcode11/web:latest
         ports:
         - containerPort: 80
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-service
+  name: web-svc
 spec:
   selector:
     app: web
