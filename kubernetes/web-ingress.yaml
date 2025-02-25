@@ -5,8 +5,12 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
+  tls:
+  - hosts:
+    - securevehiclelogbook.com
+    secretName: securevehiclelogbook-tls
   rules:
-    - host: web-test.com
+    - host: securevehiclelogbook.com
       http:
         paths:
           - path: /
@@ -43,4 +47,4 @@ spec:
               service:
                 name: ipfs-svc
                 port:
-                  number: 8080 
+                  number: 8080
