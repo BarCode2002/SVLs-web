@@ -4,11 +4,12 @@ metadata:
   name: web-ingress
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   tls:
   - hosts:
     - securevehiclelogbook.com
-    secretName: securevehiclelogbook-tls
+    secretName: web-tls  
   rules:
     - host: securevehiclelogbook.com
       http:
