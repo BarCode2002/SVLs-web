@@ -47,7 +47,7 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
             if (repairs[i-numPreviousOwners].group[j].defectsRepaired[l][0] == selectedOwner && 
               repairs[i-numPreviousOwners].group[j].defectsRepaired[l][1] == selectedGroup &&
               repairs[i-numPreviousOwners].group[j].defectsRepaired[l][2] == -2) {
-              updatedDR[numDR] = `${t('DataSVL.Placeholders.owner')} ${i+1} ${t('DataSVL.Labels.allDefectsRepaired')} ${j+1}`;
+              updatedDR[numDR] = `${t('DataSVL.Placeholders.owner')} ${i+1} ${t('DataSVL.Labels.allDefectsRepaired')} ${t('DataSVL.Labels.inTheRepair')} ${j+1}`;
               ++numDR;
             }
             else if (repairs[i-numPreviousOwners].group[j].defectsRepaired[l][0] == selectedOwner && 

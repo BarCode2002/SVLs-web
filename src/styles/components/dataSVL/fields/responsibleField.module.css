@@ -116,6 +116,10 @@
   margin-right: 5px;
 }
 
+.setMechanicContainer {
+  display: flex;
+}
+
 .inputField {
   border-radius: 10px;
   height: var(--fieldHeight);
@@ -149,8 +153,10 @@
 
 .mechanicsList {
   position: absolute;
+  right: 7px;
+  top: 35px;
   background-color: white;
-  height: 120px;
+  max-height: 120px;
   width: 195px;
   z-index: 1;
   display: flex;

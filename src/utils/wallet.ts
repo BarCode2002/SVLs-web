@@ -2,7 +2,7 @@ import { TezosToolkit } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import { BeaconEvent, NetworkType } from '@airgap/beacon-dapp';
 
-const smartContractAddress = "KT1DoNS3nUiLzhwgc2KFZ9jKMYVcHGnKgKSW";
+const smartContractAddress = "KT1LRyxZc8xG27JJCKaFFTzk668T7Sm7LSnZ";
 
 export const getsmartContractAddress = () => {
   return smartContractAddress;

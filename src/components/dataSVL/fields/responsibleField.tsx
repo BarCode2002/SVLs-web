@@ -205,7 +205,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
             </div>
           }
           {step >= 1 && mechanic == true &&
-            <div>
+            <div className={styles.setMechanicContainer}>
               <input
                 className={styles.inputField}
                 placeholder={t('DataSVL.Placeholders.mechanicShop')}
@@ -214,8 +214,8 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                 disabled={!editMode}
               />
               {isOpen && searchQuery != '' &&
-                <div className={styles.mechanicsListWrapper}>
-                  <div ref={refClickOutside} className={styles.mechanicsList}>
+                <div ref={refClickOutside} className={styles.mechanicsListWrapper}>
+                  <div className={styles.mechanicsList}>
                     {mechanicsList.filter(mechanic => mechanic.toLowerCase().includes(searchQuery.toLowerCase())).map((mechanic, index) => (
                       <button
                         key={index}
@@ -228,115 +228,123 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
                   </div>
                 </div>
               }
-            </div>
-          }
-          {step >= 2 &&
-            <div className={styles.questionProofContainer}>
-              <div className={styles.questionProofText}>
-                {renderQuestionProofTest()}
-              </div>
               <button
-                className={proof != true ? styles.leftButton : styles.leftButtonSelected}
-                onClick={handleYesProof}
-                disabled={!editMode}>
-                {t('DataSVL.Placeholders.yes')}
-              </button>
-              <button
-                className={proof != false ? styles.rightButton : styles.rightButtonSelected}
-                onClick={handleNoProof}
-                disabled={!editMode}>
-                {t('DataSVL.Placeholders.no')}
+                className={styles.saveImagesButton}
+                onClick={() => handleMechanicSelected(searchQuery)}
+                disabled={!editMode || value[1] == searchQuery}>
+                {t('DataSVL.Labels.save')}
               </button>
             </div>
           }
         </div>
-          {step >= 3 && proof == true && 
-          <div className={styles.dataContainerBottomPart}>
-            <div>
-              <button 
-                className={styles.fileInput}
-                onClick={() => document.getElementById(imageInputId)!.click()}
-                disabled={!editMode}>
-                {t('DataSVL.Placeholders.uploadProof')}
-              </button>
-              <input 
-                type="file" 
-                multiple={false}
-                onChange={handleImageField}
-                id={imageInputId}
-                style={{ display: 'none' }}
-              />
-              <button
-                className={styles.saveImagesButton}
-                onClick={() => handleUploadImagesToIPFS()}
-                disabled={value[3] == '' || editMode == false || imagesSaved == true}>
-                {t('DataSVL.Labels.save')}
-              </button>
-            </div>
-            {value[3] != '' &&
-              <div>
-                {showBig == false ? (
-                  <div className={styles.imageSmallContainer}>
-                    <img
-                      className={styles.imageSmall}
-                      onClick={() => changeImageSize('big')}
-                      src={value[3][4] != ':' ? `${urlIPFS}${value[3]}` : value[3]}
+          {step >= 2 &&
+            <div className={styles.dataContainerBottomPart}>
+              <div className={styles.questionProofContainer}>
+                <div className={styles.questionProofText}>
+                  {renderQuestionProofTest()}
+                </div>
+                <button
+                  className={proof != true ? styles.leftButton : styles.leftButtonSelected}
+                  onClick={handleYesProof}
+                  disabled={!editMode}>
+                  {t('DataSVL.Placeholders.yes')}
+                </button>
+                <button
+                  className={proof != false ? styles.rightButton : styles.rightButtonSelected}
+                  onClick={handleNoProof}
+                  disabled={!editMode}>
+                  {t('DataSVL.Placeholders.no')}
+                </button>
+              </div>
+              {step >= 3 && proof == true && 
+                <div>
+                  <div>
+                    <button 
+                      className={styles.fileInput}
+                      onClick={() => document.getElementById(imageInputId)!.click()}
+                      disabled={!editMode}>
+                      {t('DataSVL.Placeholders.uploadProof')}
+                    </button>
+                    <input 
+                      type="file" 
+                      multiple={false}
+                      onChange={handleImageField}
+                      id={imageInputId}
+                      style={{ display: 'none' }}
                     />
-                    <div className={styles.removeImageButtonWrapper}>
-                      <button
-                        className={styles.removeImageButton}
-                        onClick={removeUploadedImage}
-                        disabled={!editMode}>
-                        <TrashIconRed />
-                      </button>
-                    </div>
+                    <button
+                      className={styles.saveImagesButton}
+                      onClick={() => handleUploadImagesToIPFS()}
+                      disabled={value[3] == '' || editMode == false || imagesSaved == true}>
+                      {t('DataSVL.Labels.save')}
+                    </button>
                   </div>
-                ) : (
-                  <div className={styles.mainImageBigContainer}>
-                    <div className={styles.imageBigContainer}>
-                      <button
-                        className={styles.closeImageBigContainer}
-                        onClick={() => changeImageSize('small')}>
-                        <GoBackArrowIcon />
-                      </button>
-                      <img
-                        className={styles.imageBig}
-                        src={value[3][4] != ':' ? `${urlIPFS}${value[3]}` : value[3]}
-                      />
-                    </div>
-                    <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
-                      {[value[3]].filter(url => url != '').map((url, index) => (
-                        <div key={`${url}-${index}`}>
+                  {value[3] != '' &&
+                    <div>
+                      {showBig == false ? (
+                        <div className={styles.imageSmallContainer}>
+                          <img
+                            className={styles.imageSmall}
+                            onClick={() => changeImageSize('big')}
+                            src={value[3][4] != ':' ? `${urlIPFS}${value[3]}` : value[3]}
+                          />
                           <div className={styles.removeImageButtonWrapper}>
                             <button
-                              className={styles.removeImagePreviewButton}
-                              onClick={() => removeUploadedImage()}
+                              className={styles.removeImageButton}
+                              onClick={removeUploadedImage}
                               disabled={!editMode}>
                               <TrashIconRed />
                             </button>
                           </div>
-                          {showBig ? (
-                            <img
-                              className={styles.imageSmallSelected}
-                              onClick={() => changeImageSize('big')}
-                              src={url[4] != ':' ? `${urlIPFS}${url}` : url}
-                            />
-                          ) : (
-                            <img
-                              className={styles.imageSmall}
-                              onClick={() => changeImageSize('big')}
-                              src={url[4] != ':' ? `${urlIPFS}${url}` : url}
-                            />
-                          )}
                         </div>
-                      ))}
+                      ) : (
+                        <div className={styles.mainImageBigContainer}>
+                          <div className={styles.imageBigContainer}>
+                            <button
+                              className={styles.closeImageBigContainer}
+                              onClick={() => changeImageSize('small')}>
+                              <GoBackArrowIcon />
+                            </button>
+                            <img
+                              className={styles.imageBig}
+                              src={value[3][4] != ':' ? `${urlIPFS}${value[3]}` : value[3]}
+                            />
+                          </div>
+                          <div ref={imagePreviewContainer} className={styles.imagePreviewContainer}>
+                            {[value[3]].filter(url => url != '').map((url, index) => (
+                              <div key={`${url}-${index}`}>
+                                <div className={styles.removeImageButtonWrapper}>
+                                  <button
+                                    className={styles.removeImagePreviewButton}
+                                    onClick={() => removeUploadedImage()}
+                                    disabled={!editMode}>
+                                    <TrashIconRed />
+                                  </button>
+                                </div>
+                                {showBig ? (
+                                  <img
+                                    className={styles.imageSmallSelected}
+                                    onClick={() => changeImageSize('big')}
+                                    src={url[4] != ':' ? `${urlIPFS}${url}` : url}
+                                  />
+                                ) : (
+                                  <img
+                                    className={styles.imageSmall}
+                                    onClick={() => changeImageSize('big')}
+                                    src={url[4] != ':' ? `${urlIPFS}${url}` : url}
+                                  />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                )}
-              </div>
-            }
-          </div>
-        }
+                  }
+                </div>
+              }
+            </div>
+          }
       </div>
     </div>
   );
