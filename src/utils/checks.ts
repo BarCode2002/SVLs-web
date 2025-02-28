@@ -8,10 +8,10 @@ export const checks = (start: number, end: number, numPreviousOwners: number, ge
     if (generalInformation[i].VIN == '') {
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.VIN')} ${i18n.t('InvalidFields.mandatoryField')}`);
     }
-    if (generalInformation[i].brand == i18n.t('DataSVL.Forms.brand')) {
+    if (generalInformation[i].brand == 'DataSVL.Forms.brand') {
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.brand')} ${i18n.t('InvalidFields.mandatoryField')}`);
     }
-    if (generalInformation[i].model == i18n.t('DataSVL.Forms.model')) {
+    if (generalInformation[i].model == 'DataSVL.Forms.model') {
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.model')} ${i18n.t('InvalidFields.mandatoryField')}`);
     }
     if (generalInformation[i].year == '') {
