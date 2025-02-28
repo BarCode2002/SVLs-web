@@ -144,7 +144,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
             <PrevOwnersGeneralInformationSVL selectedOwner={selectedOwner} prevOwnersGeneralInformation={prevOwnersGeneralInformation} />
           }
           {selectedSVLData == 0 && selectedOwner >= weird &&
-            <GeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} editMode={editMode} />
+            <GeneralInformationSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} editMode={editMode} />
           }
           {shrinkedReady && selectedSVLData == 1 && selectedOwner < weird &&
             <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={prevOwnersMaintenances} />

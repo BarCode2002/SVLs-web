@@ -40,17 +40,17 @@ const Data = (): JSX.Element => {
       brand: 'DataSVL.Forms.brand',
       model: 'DataSVL.Forms.model',
       year: '',
-      kilometers: '',
+      kilometers: ['', 'km'],
       mainPhotograph: '',
       state: 'DataSVL.Forms.state',
       photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-      weight: '',
+      weight: ['', 'kg'],
       color: '',
       engine: '',
-      power: '',
+      power: ['', 'cv'],
       shift: 'DataSVL.Forms.shift',
       fuel: 'DataSVL.Forms.fuel',
-      autonomy: '',
+      autonomy: ['', 'km'],
       climate: 'DataSVL.Forms.climate',
       usage: 'DataSVL.Forms.usage',
       storage: 'DataSVL.Forms.storage',
@@ -62,7 +62,7 @@ const Data = (): JSX.Element => {
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
-        kilometers: "",
+        kilometers: ['', 'km'],
         name: "",
         responsible: [null, "", null, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -85,7 +85,7 @@ const Data = (): JSX.Element => {
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
-        kilometers: "",
+        kilometers: ['', 'km'],
         name: "",
         responsible: [null, "", null, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -108,7 +108,7 @@ const Data = (): JSX.Element => {
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
-        kilometers: "",
+        kilometers: ['', 'km'],
         cause: "",
         type: Array.from({ length: 1 }, () => ({
           level: 'DataSVL.Forms.level',
@@ -125,7 +125,7 @@ const Data = (): JSX.Element => {
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
-        kilometers: "",
+        kilometers: ['', ''],
         name: "",
         responsible: [null, "", null, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),

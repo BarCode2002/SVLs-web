@@ -9,12 +9,14 @@ import { useTranslation } from "react-i18next";
 
 type GeneralInformationSVLProps = {
   selectedOwner: number;
+  numPreviousOwners: number;
+  totalOwners: number;
   generalInformation: GeneralInformation[];
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
   editMode: boolean;
 };
 
-const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralInformation, editMode }: GeneralInformationSVLProps): JSX.Element => {
+const GeneralInformationSVL = ({ selectedOwner, numPreviousOwners, totalOwners, generalInformation, setGeneralInformation, editMode }: GeneralInformationSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -27,19 +29,19 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
         <div className={styles.data}>
           <InputField fieldLabel={t('DataSVL.Labels.vin')} placeholder={t('DataSVL.Placeholders.vin')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].VIN} 
-            setDataSVL={setGeneralInformation} type={'VIN'} editMode={editMode}
+            setDataSVL={setGeneralInformation} type={'VIN'} editMode={editMode} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
           />
           <DropdownMenu fieldLabel={t('DataSVL.Labels.brand')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].brand} 
-            setDataSVL={setGeneralInformation} type={'brand'} editMode={editMode}
+            setDataSVL={setGeneralInformation} type={'brand'} editMode={editMode} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
           />
           <DropdownMenu fieldLabel={t('DataSVL.Labels.model')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].model} 
-            setDataSVL={setGeneralInformation} type={'model'} editMode={editMode}
+            setDataSVL={setGeneralInformation} type={'model'} editMode={editMode} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
           />
           <InputField fieldLabel={t('DataSVL.Labels.year')} placeholder={t('DataSVL.Placeholders.year')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].year} 
-            setDataSVL={setGeneralInformation} type={'year'} editMode={editMode}
+            setDataSVL={setGeneralInformation} type={'year'} editMode={editMode} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
           />       
           <InputField fieldLabel={t('DataSVL.Labels.kilometers')} placeholder={t('DataSVL.Placeholders.kilometers')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 

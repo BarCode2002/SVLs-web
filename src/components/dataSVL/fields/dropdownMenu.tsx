@@ -15,9 +15,11 @@ type DropdownMenuProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
   editMode: boolean;
+  numPreviousOwners?: number;
+  totalOwners?: number;
 };
 
-const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode }: DropdownMenuProps) => {
+const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode, numPreviousOwners, totalOwners }: DropdownMenuProps) => {
   
   const { t } = useTranslation();
 
@@ -28,6 +30,17 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
   const cancelButtonText = t('DataSVL.Placeholders.cancel');
   const searchBarPlaceholder = t('DataSVL.Placeholders.search');
   const [prevBrand, setPrevBrand] = useState('');
+
+  //tendre que actualizarlo para cuando haya previous owners. 
+  if (selectedGroup == -1 && selectedGroupType == -1 && numPreviousOwners == 0 && (type == 'brand' || type == 'model')) {
+    useEffect(() => {
+      const updateSVLdata = [...dataSVL];
+      for (let i = 1; i < totalOwners!; i++) {
+        updateSVLdata[i][type] = updateSVLdata[0][type];
+      }
+      setDataSVL(updateSVLdata);
+    }, [dataSVL[0].brand, dataSVL[0].model]);
+  }
 
   useEffect(() => {
     const getList = async () => {
@@ -104,13 +117,18 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
         </div>
       }
       <div className={styles.dropDownPosition}>
-        <button
-          className={styles.selected}
-          onClick={hadleOpenDropdownMenu}
-          disabled={!editMode}>
-          <span>{t(value)}</span>
-          <span>{(isOpen) ? '←' : '→'}</span>
-        </button>
+        <div className={styles.selectedAndOptionalContainer}>
+          <button
+            className={styles.selected}
+            onClick={hadleOpenDropdownMenu}
+            disabled={!editMode || ((type == 'brand' || type == 'model') && selectedOwner > 0)}>
+            <span>{t(value)}</span>
+            <span>{(isOpen) ? '←' : '→'}</span>
+          </button>
+          {numPreviousOwners == 0 && selectedOwner == 0 && (type == 'brand' || type == 'model') &&
+            <div>Solo puede introducirlo el primer propietario, asegurate que este bien</div> 
+          }
+        </div>
         {isOpen && (
           <div ref={refScrollIntoView} className={styles.dropdownMenu}>
             <input

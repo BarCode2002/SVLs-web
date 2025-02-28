@@ -3,17 +3,17 @@ export interface GeneralInformation {
   brand: string;
   model: string;
   year: string;
-  kilometers: string;
+  kilometers: [string, string];
   mainPhotograph: string;
   state: string;
   photographs: string[];
-  weight: string;
+  weight: [string, string];
   color: string;
   engine: string;
-  power: string;
+  power: [string, string];
   shift: string;
   fuel: string;
-  autonomy: string,
+  autonomy: [string, string],
   climate: string;
   usage: string;
   storage: string;
@@ -33,7 +33,7 @@ interface Maintenance {
 export interface Maintenances {
   group: {
     date: string;
-    kilometers: string;
+    kilometers: [string, string];
     name: string;
     responsible: [boolean | null, string, boolean | null, string];
     pre: string[],
@@ -56,7 +56,7 @@ interface Modification {
 export interface Modifications {
   group: {
     date: string;
-    kilometers: string;
+    kilometers: [string, string];
     name: string;
     responsible: [boolean | null, string, boolean | null, string];
     pre: string[],
@@ -76,7 +76,7 @@ interface Defect {
 export interface Defects {
   group: {
     date: string;
-    kilometers: string;
+    kilometers: [string, string];
     cause: string;
     type: Defect[];
     shrinked: boolean;
@@ -96,7 +96,7 @@ interface Repair {
 export interface Repairs {
   group: {
     date: string;
-    kilometers: string;
+    kilometers: [string, string];
     name: string;
     responsible: [boolean | null, string, boolean | null, string];
     pre: string[],

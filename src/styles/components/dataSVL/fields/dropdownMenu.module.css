@@ -12,6 +12,10 @@
   position: relative;
 }
 
+.selectedAndOptionalContainer {
+  display: flex;
+}
+
 .selected {
   display: flex;
   align-items: center;

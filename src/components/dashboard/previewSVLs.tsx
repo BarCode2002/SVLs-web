@@ -24,9 +24,6 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  //const brandLabel = t('Dashboard.Labels.brand');
-  //const modelLabel = t('Dashboard.Labels.model');
-  //const yearLabel = t('Dashboard.Labels.year');
   const notRequestedLabel = t('Dashboard.Labels.notRequested');
   const pendingBuyLabel = t('Dashboard.Labels.pendingBuy');
   const blockedLabel = t('Dashboard.Labels.blocked');
@@ -103,7 +100,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
             updatedPreviewSVLsInfo[i].mySVL = false;
           }
         } catch (error) {
-          console.log("Error retriving JSON:", error);
+          //console.log("Error retriving JSON:", error);
         }
       }
       setPreviewSVLsInfo(updatedPreviewSVLsInfo);
@@ -112,7 +109,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
       if (axios.isAxiosError(error)) {
         if (error.status == 404) setNumPreviewSVLs(0);
       }
-      console.error("Unexpected error:", error);
+      //console.error("Unexpected error:", error);
     }
   };
 
