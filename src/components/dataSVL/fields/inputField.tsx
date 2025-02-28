@@ -1,5 +1,6 @@
 import { SetStateAction, useEffect } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/inputField.module.css';
+import { useTranslation } from 'react-i18next';
 
 type InputFieldProps = {
   fieldLabel: string;
@@ -17,6 +18,9 @@ type InputFieldProps = {
 }
 
 const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode, numPreviousOwners, totalOwners }: InputFieldProps) => {
+
+  const { t } = useTranslation();
+  
 
   //tendre que actualizarlo para cuando haya previous owners. 
   if (selectedGroup == -1 && selectedGroupType == -1 && numPreviousOwners == 0 && (type == 'VIN' || type == 'year')) {
@@ -108,7 +112,9 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, sel
         />
       }
       {numPreviousOwners == 0 && selectedOwner == 0 && (type == 'VIN' || type == 'year') &&
-        <div>Solo puede introducirlo el primer propietario, asegurate que este bien</div> 
+        <div className={styles.firstOwnersFields}>
+          {t('DataSVL.Labels.firstOwnerFields')}
+        </div> 
       }
       {(type == 'kilometers' || type == 'autonomy') &&
         <div className={styles.optionalContaier}>

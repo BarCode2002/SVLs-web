@@ -126,7 +126,9 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
             <span>{(isOpen) ? '←' : '→'}</span>
           </button>
           {numPreviousOwners == 0 && selectedOwner == 0 && (type == 'brand' || type == 'model') &&
-            <div>Solo puede introducirlo el primer propietario, asegurate que este bien</div> 
+            <div className={styles.firstOwnersFields}>
+              {t('DataSVL.Labels.firstOwnerFields')}
+            </div> 
           }
         </div>
         {isOpen && (

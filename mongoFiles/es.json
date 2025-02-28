@@ -106,7 +106,8 @@
       "withOutProof": "Sin pruebas de que se realizara",
       "inTheRepairShop": "El taller mecánico:",
       "hasProofButNotUploaded": "Tiene pruebas pero no las ha subido",
-      "proof": "Prueba:"
+      "proof": "Prueba:",
+      "firstOwnerFields": "Solo puede introducirlo el primer propietario, asegurate que este bien"
     },
     "Placeholders": {
       "vin": "VIN",

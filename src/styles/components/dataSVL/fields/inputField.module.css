@@ -116,3 +116,7 @@
 .rightButtonSelected:disabled {
   cursor: default;
 }
+
+.firstOwnersFields {
+  margin-left: 5px;
+}
