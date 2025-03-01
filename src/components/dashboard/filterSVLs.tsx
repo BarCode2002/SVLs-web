@@ -1,35 +1,31 @@
 import { useTranslation } from 'react-i18next';
 import styles from '../../styles/components/dashboard/filterSVLs.module.css';
+import { FilterSVLsInterface } from '../../utils/interfaces';
+import DropdownMenuFilter from './dropdownMenuFilter';
 
 type FilterSVLsProps = {
   setFilterSVLs: React.Dispatch<number>;
-  VIN: string;
-  setVIN: React.Dispatch<string>;
-  placeholder: string
+  appliedFiltersSVL: FilterSVLsInterface;
+  setAppliedFiltersSVL: React.Dispatch<FilterSVLsInterface>;
   search: boolean;
   setSearch: React.Dispatch<boolean>;
 };
 
-const FilterSVLs = ({ setFilterSVLs, VIN, setVIN, placeholder, search, setSearch }: FilterSVLsProps): JSX.Element => {
+const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFiltersSVL, setSearch }: FilterSVLsProps): JSX.Element => {
 
   const { t } = useTranslation();
 
-  const handleBrowseSVLByVIN = (event: { key: string; }) => {
-    if (event.key === "Enter") {
-      setFilterSVLs(2);
-      localStorage.setItem('filterSVLs', '2');
-      localStorage.setItem('VIN', VIN);
-      if (search == true) setSearch(false);
-      else setSearch(true);
-    }
-  }
-
-  const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVIN(e.target.value);
+  //va el error es solo de typescript y no se como quitarlo
+  const updateFilter = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
+    setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      ...prevAppliedFiltersSVL,
+      [type]: e.target.value,
+    }));
   }
 
   const handleSearch = () => {
-    
+    setSearch(true);
+    setFilterSVLs(2);
   }
 
   return (
@@ -37,141 +33,84 @@ const FilterSVLs = ({ setFilterSVLs, VIN, setVIN, placeholder, search, setSearch
       <input
         className={styles.inputField} 
         type="text"
-        value={'numMaintenances'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
+        value={appliedFiltersSVL.numOwners}
+        onChange={(e) => updateFilter(e, 'numOwners')}
+        placeholder={t('Dashboard.Placeholders.numOwners')}
       />
       <input
         className={styles.inputField} 
         type="text"
-        value={'numDefects'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
+        value={appliedFiltersSVL.numMaintenances}
+        onChange={(e) => updateFilter(e, 'numMaintenances')}
+        placeholder={t('Dashboard.Placeholders.numMaintenances')}
       />
       <input
         className={styles.inputField} 
         type="text"
-        value={'numRepairs'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
+        value={appliedFiltersSVL.numDefects}
+        onChange={(e) => updateFilter(e, 'numDefects')}
+        placeholder={t('Dashboard.Placeholders.numDefects')}
+      />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'defectChoosenLevel'} />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={appliedFiltersSVL.numRepairs}
+        onChange={(e) => updateFilter(e, 'numRepairs')}
+        placeholder={t('Dashboard.Placeholders.numRepairs')}
       />
       <input
         className={styles.inputField} 
         type="text"
-        value={VIN}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
+        value={appliedFiltersSVL.vin}
+        onChange={(e) => updateFilter(e, 'vin')}
+        placeholder={t('Dashboard.Placeholders.vin')}
+      />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'brand'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'model'} />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={appliedFiltersSVL.year}
+        onChange={(e) => updateFilter(e, 'year')}
+        placeholder={t('Dashboard.Placeholders.year')}
       />
       <input
         className={styles.inputField} 
         type="text"
-        value={'brand'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
+        value={appliedFiltersSVL.kilometers}
+        onChange={(e) => updateFilter(e, 'kilometers')}
+        placeholder={t('Dashboard.Placeholders.kilometers')}
+      />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'state'} />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={appliedFiltersSVL.color}
+        onChange={(e) => updateFilter(e, 'color')}
+        placeholder={t('Dashboard.Placeholders.color')}
       />
       <input
         className={styles.inputField} 
         type="text"
-        value={'model'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
+        value={appliedFiltersSVL.power}
+        onChange={(e) => updateFilter(e, 'power')}
+        placeholder={t('Dashboard.Placeholders.power')}
       />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'shift'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'fuel'} />
       <input
         className={styles.inputField} 
         type="text"
-        value={'year'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
+        value={appliedFiltersSVL.autonomy}
+        onChange={(e) => updateFilter(e, 'autonomy')}
+        placeholder={t('Dashboard.Placeholders.autonomy')}
       />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'kilometers'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'state'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'color'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'power'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'shift'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'fuel'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'autonomy'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'climate'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'usage'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={'storage'}
-        onChange={updateValue}
-        onKeyDown={handleBrowseSVLByVIN}
-        placeholder={placeholder}
-      />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'climate'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'usage'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'storage'} />
       <button
-        className={styles.button}
+        className={search == true ? styles.buttonSelected : styles.button}
         onClick={handleSearch}>
         {t('Dashboard.Labels.search')}
       </button>

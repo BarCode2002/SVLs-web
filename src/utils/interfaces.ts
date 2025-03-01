@@ -127,3 +127,25 @@ export interface OwnershipSummary {
   owners: string[];
   transferDate: string;
 }
+
+export interface FilterSVLsInterface {
+  numOwners: string;
+  numMaintenances: string; 
+  numDefects: string; 
+  defectChoosenLevel: string;
+  numRepairs: string;
+  vin: string;
+  brand: string;
+  model: string;
+  year: string;
+  kilometers: string;
+  state: string;
+  color: string;
+  power: string;
+  shift: string;
+  fuel: string;
+  autonomy: string;
+  climate: string;
+  usage: string;
+  storage: string;
+}

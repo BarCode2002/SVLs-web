@@ -33,6 +33,27 @@
       "sloganFirstPart": "Timeless vehicle records",
       "sloganSecondPart": "for timeless vehicles",
       "search": "Search"
+    },
+    "Placeholders": {
+      "numOwners": "Number of owners",
+      "numMaintenances": "Number of maintenances",
+      "numDefects": "Number of defects",
+      "defectChoosenLevel": "Defects importance",
+      "numRepairs": "Number of repairs",
+      "vin": "VIN",
+      "brand": "Brand",
+      "model": "Model",
+      "year": "Year",
+      "kilometers": "Mileage",
+      "state": "State",
+      "color": "Color",
+      "power": "Power",
+      "shift": "Shift",
+      "fuel": "Fuel",
+      "autonomy": "Autonomy",
+      "climate": "Climate",
+      "usage": "Usage",
+      "storage": "Storage"
     }
   },
   "DataSVL": {
@@ -171,7 +192,7 @@
       "fuel": "Select fuel type",
       "climate": "Select the climate",
       "storage": "Select vehicle storage",
-      "level": "Select defect level"
+      "level": "Select defect importance"
     }
   },
   "InvalidFields": {

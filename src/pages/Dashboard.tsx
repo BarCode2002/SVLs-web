@@ -8,6 +8,7 @@ import MySVLsButton from '../components/dashboard/mySVLsButton';
 import RequestedSVLsButton from '../components/dashboard/requestedSVLsButton';
 import FilterSVLs from '../components/dashboard/filterSVLs';
 import PreviewSVLs from '../components/dashboard/previewSVLs';
+import { FilterSVLsInterface } from '../utils/interfaces';
 
 const Dashboard = (): JSX.Element => {
 
@@ -15,16 +16,33 @@ const Dashboard = (): JSX.Element => {
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
   const [search, setSearch] = useState(false);
   const [filterSVLs, setFilterSVLs] = useState(0);
-  const [VIN, setVIN] = useState('');
+  const [appliedFiltersSVL, setAppliedFiltersSVL] = useState<FilterSVLsInterface>({
+    numOwners: '',
+    numMaintenances: '',
+    numDefects: '',
+    defectChoosenLevel: 'Dashboard.Placeholders.defectChoosenLevel',
+    numRepairs: '',
+    vin: '',
+    brand: 'Dashboard.Placeholders.brand',
+    model: 'Dashboard.Placeholders.model',
+    year: '',
+    kilometers: '',
+    state: 'Dashboard.Placeholders.state',
+    color: '',
+    power: '',
+    shift: 'Dashboard.Placeholders.shift',
+    fuel: 'Dashboard.Placeholders.fuel',
+    autonomy: '',
+    climate: 'Dashboard.Placeholders.climate',
+    usage: 'Dashboard.Placeholders.usage',
+    storage: 'Dashboard.Placeholders.storage',
+  });
 
   useEffect(() => {
     const initializedwallet = getWallet();
     setWallet(initializedwallet);
     const filterSVLs = localStorage.getItem('filterSVLs');
-    const VIN = localStorage.getItem('VIN');
-    setFilterSVLs(parseInt(filterSVLs!));
-    setVIN(VIN!);
-    
+    setFilterSVLs(parseInt(filterSVLs!));    
   }, []);
 
   useEffect(() => {
@@ -48,11 +66,11 @@ const Dashboard = (): JSX.Element => {
           <TopNavBar page={'Dashboard'} myAddress={myAddress} setMyAddress={setMyAddress} />
           <div className={styles.dashboardInformation}>
             <div className={styles.filterContainer}>
-              <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
-              <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} />
-              <FilterSVLs setFilterSVLs={setFilterSVLs} VIN={VIN} setVIN={setVIN} placeholder={'VIN'} search={search} setSearch={setSearch} />
+              <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
+              <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
+              <FilterSVLs setFilterSVLs={setFilterSVLs} appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} search={search} setSearch={setSearch} />
             </div>
-            <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} VIN={VIN} search={search} />
+            <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} appliedFiltersSVL={appliedFiltersSVL} search={search} />
           </div>
         </div>
       )}   

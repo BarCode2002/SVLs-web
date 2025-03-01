@@ -31,7 +31,29 @@
       "priceSVL": "Precio del SVL",
       "cancel": "Cancela",
       "sloganFirstPart": "Historiales de vehiculo atemporales",
-      "sloganSecondPart": "para vehiculos atemporales"
+      "sloganSecondPart": "para vehiculos atemporales",
+      "search": "Busca"
+    },
+    "Placeholders": {
+      "numOwners": "Número de propietarios",
+      "numMaintenances": "Número de mantenimientos",
+      "numDefects": "Número de defectos",
+      "defectChoosenLevel": "Importancia de los defectos",
+      "numRepairs": "Número de reparaciones",
+      "vin": "VIN",
+      "brand": "Marca",
+      "model": "Modelo",
+      "year": "Año",
+      "kilometers": "Kilometros",
+      "state": "Estado",
+      "color": "Color",
+      "power": "Potencia",
+      "shift": "Cambio",
+      "fuel": "Combustible",
+      "autonomy": "Autonomía",
+      "climate": "Clima",
+      "usage": "Uso",
+      "storage": "Almacenamiento"
     }
   },
   "DataSVL": {
@@ -171,7 +193,7 @@
       "fuel": "Selecciona el tipo de combustible",
       "climate": "Selecciona el clima",
       "storage": "Selecciona el almacenamiento del vehículo",
-      "level": "Selecciona nivel del defecto"
+      "level": "Selecciona la importancia del defecto"
     }
   },
   "InvalidFields": {

@@ -4,15 +4,17 @@ import { useTranslation } from "react-i18next";
 type RequestedSVLsButtonProps = {
   filterSVLs: number;
   setFilterSVLs: React.Dispatch<number>;
+  setSearch: React.Dispatch<boolean>;
 };
 
-const RequestedSVLsButton = ({ filterSVLs, setFilterSVLs }: RequestedSVLsButtonProps): JSX.Element => {
+const RequestedSVLsButton = ({ filterSVLs, setFilterSVLs, setSearch }: RequestedSVLsButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
   const handleRequestedSVLs = async () => {
     setFilterSVLs(1);
     localStorage.setItem('filterSVLs', '1');
+    setSearch(false);
   };
 
   return (

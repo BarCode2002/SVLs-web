@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/components/dashboard/previewSVLs.module.css';
-import { PreviewSVLsInfo } from '../../utils/interfaces';
+import { FilterSVLsInterface, PreviewSVLsInfo } from '../../utils/interfaces';
 import { useTranslation } from 'react-i18next';
 import AcceptSVLRequestButton from './stateSVLsButtons/acceptSVLRequestButton';
 import DenySVLRequestButton from './stateSVLsButtons/denySVLRequestButton';
@@ -15,11 +15,11 @@ import { ipfsRetrieve, indexer } from '../../utils/ip';
 type PreviewSVLsProps = {
   myAddress: string;
   filterSVL: number;
-  VIN: string;
+  appliedFiltersSVL: FilterSVLsInterface;
   search: boolean;
 };
 
-const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): JSX.Element => {
+const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search }: PreviewSVLsProps): JSX.Element => {
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -62,9 +62,17 @@ const PreviewSVLs = ({ myAddress, filterSVL, VIN, search }: PreviewSVLsProps): J
     let url;
     if (filterSVL == 0) url = `${indexer}holder/owner_address/${myAddress}`;
     else if (filterSVL == 1) url = `${indexer}holder/requested_svls?requester_address=${myAddress}`;
-    else url = `${indexer}holder/by_vin?vin=${VIN}&owner_address=${myAddress}`;
+    else url = `${indexer}holder/filterSVL?owner_address=${myAddress}`;
     try {
-      const responseIndexer = await axios.get(url);
+      let responseIndexer;
+      if (filterSVL == 0 ||  filterSVL == 1) responseIndexer = await axios.get(url);
+      else {
+        responseIndexer = await axios.post(url, JSON.stringify(appliedFiltersSVL), {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      }
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
       for (let i = 0; i < responseIndexer.data.length; i++) {
         let latestCid;
