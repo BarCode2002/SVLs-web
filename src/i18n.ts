@@ -3,14 +3,14 @@ import { initReactI18next } from "react-i18next";
 import Backend from 'i18next-http-backend';
 import { mongoLanguage } from "./utils/ip";
 
-const savedLanguage = localStorage.getItem('language') || 'Lists.Language.es';
+const savedLanguge = localStorage.getItem('language')!;
 
 i18n
   .use(Backend) 
   .use(initReactI18next)  
   .init({
-    lng: savedLanguage,
-    fallbackLng: 'es', 
+    lng: savedLanguge,
+    fallbackLng: 'es',
     debug: false,  
     interpolation: {
       escapeValue: false,  
@@ -21,6 +21,9 @@ i18n
     react: {
       useSuspense: true, 
     },
+  })
+  .then(() => {
+    i18n.changeLanguage(savedLanguge.split(".").pop());
   });
 
 export default i18n;

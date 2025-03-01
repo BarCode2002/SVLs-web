@@ -3,8 +3,8 @@
   "Dashboard": {
     "TopBar": {
       "createSVL": "Crea SVL",
-      "disconnectWallet": "Desconecta la cartera",
-      "changeWallet": "Cambia de cartera"
+      "disconnectWallet": "Desconecta el monedero",
+      "changeWallet": "Cambia de monedero"
     },
     "Labels": {
       "mySVLs": "Mis SVLs",
@@ -23,7 +23,7 @@
       "request": "Solicita",
       "unrequest": "Quitar solicitación",
       "buy": "Compra",
-      "connectWallet": "Conecta la cartera",
+      "connectWallet": "Conecta el monedero",
       "price": "Precio:",
       "requestFee": "Comisión por solicitar:",
       "change": "Cambia",
@@ -105,7 +105,7 @@
       "mechanic": "Mecánico",
       "withOutProof": "Sin pruebas de que se realizara",
       "inTheRepairShop": "El taller mecánico:",
-      "hasProofButNotUploaded": "Tiene pruebas pero no las ha subido",
+      "hasProofButNotUploaded": "El propietario tiene pruebas pero no las ha subido",
       "proof": "Prueba:",
       "firstOwnerFields": "Solo el primer propietario puede modificarlo, verifícalo bien."
     },
