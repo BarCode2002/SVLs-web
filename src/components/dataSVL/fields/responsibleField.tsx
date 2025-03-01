@@ -63,22 +63,28 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   }, [selectedOwner]);
 
   const handleMeResponsible = () => {
-    const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = false;    
-    setDataSVL(updatedDataSVL);
-    setMechanic(false);
-    setProof(null);
-    setStep(2);
+    if (dataSVL[selectedOwner].group[selectedGroup].responsible[0] != false) {
+      const updatedDataSVL = [...dataSVL];
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = false;  
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = '';  
+      setDataSVL(updatedDataSVL);
+      setMechanic(false);
+      setProof(null);
+      setStep(2);
+    }
   }
 
   const handleMechanicResponsible = () => {
-    const updatedDataSVL = [...dataSVL];
-    updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = true;    
-    setDataSVL(updatedDataSVL);
-    setMechanic(true);
-    setProof(null);
-    setSearchQuery('');
-    setStep(1);
+    if (dataSVL[selectedOwner].group[selectedGroup].responsible[0] != true) {
+      const updatedDataSVL = [...dataSVL];
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = true;    
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = '';
+      setDataSVL(updatedDataSVL);
+      setMechanic(true);
+      setProof(null);
+      setSearchQuery('');
+      setStep(1);
+    }
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +104,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
     setDataSVL(updatedDataSVL);
     setSearchQuery(mechanic);
     setIsOpen(false);
-    setStep(2);
+    if (step == 1) setStep(2);
   }
 
   const handleYesProof = () => {

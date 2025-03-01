@@ -125,7 +125,7 @@ const Data = (): JSX.Element => {
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
-        kilometers: ['', ''],
+        kilometers: ['', 'km'],
         name: "",
         responsible: [null, "", null, ""],
         pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),

@@ -38,7 +38,10 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, sel
     if (type == 'year' || type == 'kilometers' || type == 'weight' || type == 'power' || type == 'autonomy') {
       re = /^\d*$/;
     } 
-    else if (type == 'engine' || type == 'VIN' || type == 'name') {
+    else if (type == 'VIN') {
+      re = /^[A-Z0-9-]+$/;
+    }
+    else if (type == 'engine' || type == 'name') {
       re = /^/;
     }
     if (e.target.value == "" || re.test(e.target.value)) {

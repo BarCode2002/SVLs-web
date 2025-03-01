@@ -6,9 +6,9 @@ export const DragIcon = () => {
         xmlns="http://www.w3.org/2000/svg"
         fill="black"
         stroke="black"
-        stroke-width="6"
-        stroke-linecap="round"
-        stroke-linejoin="round">
+        strokeWidth="6"
+        strokeLinecap="round"
+        strokeLinejoin="round">
         <circle cx="60" cy="60" r="5" />
         
         <line x1="60" y1="10" x2="60" y2="40" />

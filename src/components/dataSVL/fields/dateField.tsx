@@ -17,11 +17,9 @@ type DateFieldProps = {
 const DateField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, dataSVL, setDataSVL, type, editMode }: DateFieldProps) => {
 
   const handleDateSelected = (date: any) => {
-    if (date !== null) {
-      const updateSVLdata = [...dataSVL];
-      updateSVLdata[selectedOwner].group[selectedGroup][type] = date;
-      setDataSVL(updateSVLdata);
-    }
+    const updateSVLdata = [...dataSVL];
+    updateSVLdata[selectedOwner].group[selectedGroup][type] = date;
+    setDataSVL(updateSVLdata);
   };
 
   return (

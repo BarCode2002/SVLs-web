@@ -170,6 +170,8 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
     if (event.target.value != '') {
       updatedIsOpen[i][0] = true;
       updatedSearchQuery[i][0] = event.target.value;
+      updatedSearchQuery[i][1] = '';
+      updatedSearchQuery[i][2] = '';
       setIsOpen(updatedIsOpen);
       setSearchQuery(updatedSearchQuery);
     }
@@ -190,6 +192,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
     if (event.target.value != '') {
       updatedIsOpen[i][1] = true;
       updatedSearchQuery[i][1] = event.target.value;
+      updatedSearchQuery[i][2] = '';
       setIsOpen(updatedIsOpen);
       setSearchQuery(updatedSearchQuery);
     }

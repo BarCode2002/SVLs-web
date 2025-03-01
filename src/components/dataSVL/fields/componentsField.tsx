@@ -1,6 +1,7 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/componentsField.module.css';
 import { COMPONENTS_SIZE } from '../../../utils/constants';
+import { TrashIconBlackSmall } from '../../../assets/trash';
 
 type ComponentsFieldProps = {
   placeholder: string;
@@ -59,7 +60,7 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
             className={styles.removeComponentButton}
             onClick={() => removeComponent(index)}
             disabled={!editMode}>
-            -
+            <TrashIconBlackSmall />
           </button>
         </div>
       }
