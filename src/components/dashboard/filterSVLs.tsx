@@ -4,6 +4,7 @@ import { FilterSVLsInterface } from '../../utils/interfaces';
 import DropdownMenuFilter from './dropdownMenuFilter';
 
 type FilterSVLsProps = {
+  filterSVLs: number;
   setFilterSVLs: React.Dispatch<number>;
   appliedFiltersSVL: FilterSVLsInterface;
   setAppliedFiltersSVL: React.Dispatch<FilterSVLsInterface>;
@@ -11,7 +12,7 @@ type FilterSVLsProps = {
   setSearch: React.Dispatch<boolean>;
 };
 
-const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFiltersSVL, setSearch }: FilterSVLsProps): JSX.Element => {
+const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setAppliedFiltersSVL, setSearch }: FilterSVLsProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -24,19 +25,29 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
   }
 
   const handleSearch = () => {
-    setSearch(true);
+    if (search) setSearch(false);
+    else setSearch(true);
     setFilterSVLs(2);
   }
 
   return (
-    <div className={styles.filterInputFieldsContainer}>
-      <input
-        className={styles.inputField} 
-        type="text"
-        value={appliedFiltersSVL.numOwners}
-        onChange={(e) => updateFilter(e, 'numOwners')}
-        placeholder={t('Dashboard.Placeholders.numOwners')}
-      />
+    <div className={styles.filterContainer}>
+      <div className={styles.inputFieldContainer}>
+        <input
+          className={styles.inputField} 
+          type="text"
+          value={appliedFiltersSVL.numOwners}
+          onChange={(e) => updateFilter(e, 'numOwners')}
+          placeholder={t('Dashboard.Placeholders.numOwners')}
+        />
+        <input
+          className={styles.inputField} 
+          type="text"
+          value={appliedFiltersSVL.numOwners}
+          onChange={(e) => updateFilter(e, 'numOwners')}
+          placeholder={t('Dashboard.Placeholders.numOwners')}
+        />
+      </div>
       <input
         className={styles.inputField} 
         type="text"
@@ -86,13 +97,6 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
       <input
         className={styles.inputField} 
         type="text"
-        value={appliedFiltersSVL.color}
-        onChange={(e) => updateFilter(e, 'color')}
-        placeholder={t('Dashboard.Placeholders.color')}
-      />
-      <input
-        className={styles.inputField} 
-        type="text"
         value={appliedFiltersSVL.power}
         onChange={(e) => updateFilter(e, 'power')}
         placeholder={t('Dashboard.Placeholders.power')}
@@ -110,7 +114,7 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
       <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'usage'} />
       <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'storage'} />
       <button
-        className={search == true ? styles.buttonSelected : styles.button}
+        className={filterSVLs == 2 ? styles.buttonSelected : styles.button}
         onClick={handleSearch}>
         {t('Dashboard.Labels.search')}
       </button>

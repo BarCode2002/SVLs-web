@@ -109,7 +109,7 @@
   cursor: pointer;
 }
 
-.dropdownItemSelected {
+.dropdownItemCheckBox{
   background-color: var(--fieldBackgroundColor);
   border: none;
   text-align: left;

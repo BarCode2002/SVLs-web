@@ -8,16 +8,21 @@
   color: var(--fieldLabelColor);
 }
 
-.filterInputFieldsContainer {
+.filterContainer {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+.inputFieldContainer {
+  display: flex;
+  gap: 5px;
+}
+
 .inputField {
   border-radius: 10px;
   height: var(--fieldHeight);
-  width: 200px;
+  width: 95px;
   padding-top: 0px;
   padding-bottom: 0px;
   border: none;
@@ -66,4 +71,5 @@
   color:  var(--navBarsPrimaryColor);
   background-color: var(--navBarsSecondaryColor);
   width: fit-content;
+  cursor: pointer;
 }

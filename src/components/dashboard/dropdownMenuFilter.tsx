@@ -61,13 +61,32 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
     }
   }, [list, searchQuery]);
 
-  const updateValue = (value: string) => {
-    //va el error es solo de typescript y no se como quitarlo
-    setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
-      ...prevAppliedFiltersSVL,
-      [type]: value,
-    }));
-    setIsOpen(false);
+  const updateValue = (checked: boolean, value: string, index: number) => {
+    if (type == 'state' || type == 'shift' || type == 'fuel' || type == 'climate' || type == 'usage' || type == 'storage') {
+      if (checked) {
+        //va el error es solo de typescript y no se como quitarlo
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+          ...prevAppliedFiltersSVL,
+          [type]: prevAppliedFiltersSVL[type].map((item, i) => (index == i ? value : item)),
+        }));
+      }
+      else {
+        //va el error es solo de typescript y no se como quitarlo
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+          ...prevAppliedFiltersSVL,
+          [type]: prevAppliedFiltersSVL[type].map((item, i) => (index == i ? '' : item)),
+        }));
+      }
+    }
+    else {
+      //va el error es solo de typescript y no se como quitarlo
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: value,
+      }));
+      setIsOpen(false);
+    }
+
   }
 
   const hadleOpenDropdownMenu = () => {
@@ -97,7 +116,27 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
           <button
             className={styles.selected}
             onClick={hadleOpenDropdownMenu}>
-            <span>{t(appliedFiltersSVL[type])}</span>
+            {type == 'state' &&
+              <span>{t('Dashboard.Placeholders.state')}</span>
+            }
+            {type == 'shift' &&
+              <span>{t('Dashboard.Placeholders.shift')}</span>
+            }
+            {type == 'fuel' &&
+              <span>{t('Dashboard.Placeholders.fuel')}</span>
+            }
+            {type == 'climate' &&
+              <span>{t('Dashboard.Placeholders.climate')}</span>
+            }
+            {type == 'usage' &&
+              <span>{t('Dashboard.Placeholders.usage')}</span>
+            }
+            {type == 'storage' &&
+              <span>{t('Dashboard.Placeholders.storage')}</span>
+            }
+            {(type != 'state' && type != 'shift' && type != 'fuel' && type != 'climate' && type != 'usage' && type != 'storage') &&
+              <span>{t(appliedFiltersSVL[type])}</span>
+            }
             <span>{(isOpen) ? '←' : '→'}</span>
           </button>
         </div>
@@ -111,17 +150,31 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
               placeholder={searchBarPlaceholder}
             />
             <div className={styles.dropdownList}>
-              {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value) => (
-                <div key={value} className={styles.dropdownItemContainer}>   
-                  <button
-                    className={styles.dropdownItem}
-                    onClick={() => updateValue(value)}>
-                    {t(value)} 
-                  </button>
-                  <button
-                    className={styles.dropdownItemSelected}>
-                    X
-                  </button>
+              {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value, index) => (
+                <div key={index}>   
+                  {(type == 'state' || type == 'shift' || type == 'fuel' || type == 'climate' || type == 'usage' || type == 'storage') &&
+                    <div className={styles.dropdownItemContainer}>
+                      <button
+                        className={styles.dropdownItem}
+                        onClick={() => updateValue(appliedFiltersSVL[type][index] != value, value, index)}>
+                        {t(value)} 
+                      </button>
+                      <input
+                        className={styles.dropdownItemCheckBox}
+                        type="checkbox"
+                        id="checkbox"
+                        checked={appliedFiltersSVL[type][index] == value}
+                        onChange={(e) => updateValue(e.target.checked, value, index)}
+                      />
+                    </div>
+                  } 
+                  {(type != 'state' && type != 'shift' && type != 'fuel' && type != 'climate' && type != 'usage' && type != 'storage') &&
+                    <button
+                      className={styles.dropdownItem}
+                      onClick={() => updateValue(false, value, index)}>
+                      {t(value)} 
+                    </button>
+                  } 
                 </div>
               )) : null}
               {!noMatchShown ? (

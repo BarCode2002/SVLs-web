@@ -139,13 +139,12 @@ export interface FilterSVLsInterface {
   model: string;
   year: string;
   kilometers: string;
-  state: string;
-  color: string;
+  state: string[];
   power: string;
-  shift: string;
-  fuel: string;
+  shift: string[];
+  fuel: string[];
   autonomy: string;
-  climate: string;
-  usage: string;
-  storage: string;
+  climate: string[];
+  usage: string[];
+  storage: string[];
 }

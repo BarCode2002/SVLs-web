@@ -27,15 +27,14 @@ const Dashboard = (): JSX.Element => {
     model: 'Dashboard.Placeholders.model',
     year: '',
     kilometers: '',
-    state: 'Dashboard.Placeholders.state',
-    color: '',
+    state: ['Dashboard.Placeholders.state', '', '', '', '', '', ''],
     power: '',
-    shift: 'Dashboard.Placeholders.shift',
-    fuel: 'Dashboard.Placeholders.fuel',
+    shift: ['Dashboard.Placeholders.shift', ''],
+    fuel: ['Dashboard.Placeholders.fuel', '', '', '', '', '', ''],
     autonomy: '',
-    climate: 'Dashboard.Placeholders.climate',
-    usage: 'Dashboard.Placeholders.usage',
-    storage: 'Dashboard.Placeholders.storage',
+    climate: ['Dashboard.Placeholders.climate', '', '', '', '', '', ''],
+    usage: ['Dashboard.Placeholders.usage', '', '', ''],
+    storage: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
   });
 
   useEffect(() => {
@@ -68,7 +67,7 @@ const Dashboard = (): JSX.Element => {
             <div className={styles.filterContainer}>
               <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
-              <FilterSVLs setFilterSVLs={setFilterSVLs} appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} search={search} setSearch={setSearch} />
+              <FilterSVLs filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} search={search} setSearch={setSearch} />
             </div>
             <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} appliedFiltersSVL={appliedFiltersSVL} search={search} />
           </div>
