@@ -26,7 +26,7 @@ const FilterSVLs = ({ setFilterSVLs, VIN, setVIN, placeholder, search, setSearch
   }
 
   return (
-    <div>
+    <div className={styles.filterInputFieldsContainer}>
       <input
         className={styles.inputField} 
         type="text"
@@ -35,6 +35,95 @@ const FilterSVLs = ({ setFilterSVLs, VIN, setVIN, placeholder, search, setSearch
         onKeyDown={handleBrowseSVLByVIN}
         placeholder={placeholder}
       />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={''}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+      <input
+        className={styles.inputField} 
+        type="text"
+        value={VIN}
+        onChange={updateValue}
+        onKeyDown={handleBrowseSVLByVIN}
+        placeholder={placeholder}
+      />
+
     </div>
   );
 }
