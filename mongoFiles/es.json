@@ -107,7 +107,8 @@
       "inTheRepairShop": "El taller mecánico:",
       "hasProofButNotUploaded": "El propietario tiene pruebas pero no las ha subido",
       "proof": "Prueba:",
-      "firstOwnerFields": "Solo el primer propietario puede modificarlo, verifícalo bien."
+      "firstOwnerFields": "Solo el primer propietario puede modificarlo, verifícalo bien.",
+      "search": "Busca"
     },
     "Placeholders": {
       "vin": "VIN",

@@ -31,7 +31,8 @@
       "priceSVL": "SVL price",
       "cancel": "Cancel",
       "sloganFirstPart": "Timeless vehicle records",
-      "sloganSecondPart": "for timeless vehicles"
+      "sloganSecondPart": "for timeless vehicles",
+      "search": "Search"
     }
   },
   "DataSVL": {
@@ -72,7 +73,7 @@
       "weight": "Weight:",
       "color": "Color:",
       "engine": "Engine:",
-      "power": "Horses:",
+      "power": "Power:",
       "autonomy": "Autonomy:",
       "shift": "Shift:",
       "fuel": "Fuel:",
@@ -128,7 +129,7 @@
       "weight": "Vehicle weight",
       "color": "Vehicle color",
       "engine": "Vehicle engine",
-      "power": "Vehicle horsepower",
+      "power": "Vehicle power",
       "comments": "General comments about the vehicle",
       "autonomy": "Vehicle autonomy",
       "me": "Me",
