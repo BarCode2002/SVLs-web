@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 type TextContainerProps = {
   fieldLabel: string;
-  text: string;
+  text: string | [string, string];
 }
 
 const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
@@ -13,7 +13,10 @@ const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
   const { t } = useTranslation();
   
   const checkNoData = () => {
-    if (text == '' || text == 'DataSVL.Forms.brand' || text == 'DataSVL.Forms.model' || 
+    if (fieldLabel == t('DataSVL.Labels.kilometers') || fieldLabel == t('DataSVL.Labels.weight') || fieldLabel == t('DataSVL.Labels.power') || fieldLabel == t('DataSVL.Labels.autonomy')) {
+      if (text[0] == '') setNoData(true);
+    }
+    else if (text == '' || text == 'DataSVL.Forms.brand' || text == 'DataSVL.Forms.model' || 
       text == 'DataSVL.Forms.state' || text == 'DataSVL.Forms.shift' ||
       text == 'DataSVL.Forms.fuel' || text == 'DataSVL.Forms.climate' ||
       text == 'DataSVL.Forms.usage' || text == 'DataSVL.Forms.storage' ||
@@ -31,7 +34,12 @@ const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>
-      {noData == false &&
+      {noData == false && (fieldLabel == t('DataSVL.Labels.kilometers') || fieldLabel == t('DataSVL.Labels.weight') || fieldLabel == t('DataSVL.Labels.power') || fieldLabel == t('DataSVL.Labels.autonomy')) &&
+        <div className={styles.text}> 
+          {text[0]} {text[1]}
+        </div>
+      }
+      {noData == false && fieldLabel != t('DataSVL.Labels.kilometers') && fieldLabel != t('DataSVL.Labels.weight') && fieldLabel != t('DataSVL.Labels.power') && fieldLabel != t('DataSVL.Labels.autonomy') &&
         <div className={styles.text}> 
           {t(text)}
         </div>

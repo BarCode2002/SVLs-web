@@ -21,7 +21,6 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, sel
 
   const { t } = useTranslation();
   
-
   //tendre que actualizarlo para cuando haya previous owners. 
   if (selectedGroup == -1 && selectedGroupType == -1 && numPreviousOwners == 0 && (type == 'VIN' || type == 'year')) {
     useEffect(() => {
