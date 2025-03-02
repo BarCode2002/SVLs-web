@@ -62,6 +62,10 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     }
   }, [list, searchQuery]);
 
+  useEffect(() => {
+    localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
+  }, [appliedFiltersSVL]);
+
   const updateValue = (checked: boolean, value: string, index: number) => {
     if (type == 'state' || type == 'shift' || type == 'fuel' || type == 'climate' || type == 'usage' || type == 'storage') {
       if (checked) {
@@ -87,7 +91,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
       }));
       setIsOpen(false);
     }
-
   }
 
   const updateValueDefects = (checked: boolean, value: string, defectIndex: number, typeDefectIndex: number) => {
@@ -100,6 +103,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
           [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex]].map((item, i) => (i === typeDefectIndex ? checked : item))
         }
       }));
+      localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
     }
     else {
       let re: RegExp;
@@ -113,6 +117,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
             [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex]].map((item, i) => (i === typeDefectIndex ? value : item))
           }
         }));
+       
       }
     }
   }

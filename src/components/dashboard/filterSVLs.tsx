@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import styles from '../../styles/components/dashboard/filterSVLs.module.css';
 import { FilterSVLsInterface } from '../../utils/interfaces';
 import DropdownMenuFilter from './dropdownMenuFilter';
+import { useEffect } from 'react';
 
 type FilterSVLsProps = {
   filterSVLs: number;
@@ -16,9 +17,12 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
 
   const { t } = useTranslation();
 
+  useEffect(() => {
+    localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
+  }, [appliedFiltersSVL]);
+
   //va el error es solo de typescript y no se como quitarlo
   const updateFilter = (value: string, type: string, index: number) => {
-    console.log("fewgfr");
     if (type == 'numOwners' || type == 'numMaintenances' || type == 'numRepairs' || type == 'year') {
       let re: RegExp;
       re = /^(0|[1-9]\d*)$/;
@@ -50,9 +54,36 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
         }));
       }
     }
-    localStorage.setItem('appliedFiltersSVL', String(appliedFiltersSVL));
-    console.log(String(appliedFiltersSVL));
+  }
 
+  const handleResetFilters = () => {
+    const defaultState: FilterSVLsInterface = {
+      numOwners: ['0', ''],
+      numMaintenances: ['0', ''],
+      defects: {
+        cosmetic: [false, '0', ''],
+        minor: [false, '0', ''],
+        moderate: [false, '0', ''],
+        important: [false, '0', ''],
+        critical: [false, '0', '']
+      },
+      numRepairs: ['0', ''],
+      vin: '',
+      brand: 'Dashboard.Placeholders.brand',
+      model: 'Dashboard.Placeholders.model',
+      year: ['0', ''],
+      kilometers: ['0', '', 'km'],
+      state: ['Dashboard.Placeholders.state', '', '', '', '', '', ''],
+      power: ['0', '', 'cv'],
+      shift: ['Dashboard.Placeholders.shift', ''],
+      fuel: ['Dashboard.Placeholders.fuel', '', '', '', '', '', ''],
+      autonomy: ['0', '', 'km'],
+      climate: ['Dashboard.Placeholders.climate', '', '', '', '', '', ''],
+      usage: ['Dashboard.Placeholders.usage', '', '', ''],
+      storage: ['Dashboard.Placeholders.storage', '', '', '', '', '', '']
+    }
+    setAppliedFiltersSVL(defaultState);
+    localStorage.setItem('appliedFiltersSVL', JSON.stringify(defaultState));
   }
 
   const handleSearch = () => {
@@ -257,11 +288,18 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
       <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'climate'} defectList={[]} />
       <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'usage'} defectList={[]} />
       <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'storage'} defectList={[]} />
-      <button
-        className={filterSVLs == 2 ? styles.buttonSelected : styles.button}
-        onClick={handleSearch}>
-        {t('Dashboard.Labels.search')}
-      </button>
+      <div className={styles.bottomButtons}>
+        <button
+          className={styles.button}
+          onClick={handleResetFilters}>
+          {t('Dashboard.Labels.reset')}
+        </button>
+        <button
+          className={filterSVLs == 2 ? styles.buttonSelected : styles.button}
+          onClick={handleSearch}>
+          {t('Dashboard.Labels.search')}
+        </button>
+      </div>
     </div>
   );
 }

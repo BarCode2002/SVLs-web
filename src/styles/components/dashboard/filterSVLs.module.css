@@ -209,3 +209,8 @@
 .rightButtonSelected:hover {
   cursor: pointer;
 }
+
+.bottomButtons {
+  display: flex;
+  justify-content: space-between;
+}
