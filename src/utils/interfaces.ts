@@ -129,21 +129,26 @@ export interface OwnershipSummary {
 }
 
 export interface FilterSVLsInterface {
-  numOwners: string;
-  numMaintenances: string; 
-  numDefects: string; 
-  defectChoosenLevel: string;
-  numRepairs: string;
+  numOwners: string[];
+  numMaintenances: string[]; 
+  defects: {
+    cosmetic: [boolean, string, string],
+    minor: [boolean, string, string],
+    moderate: [boolean, string, string],
+    important: [boolean, string, string],
+    critical: [boolean, string, string]
+  };
+  numRepairs: string[];
   vin: string;
   brand: string;
   model: string;
-  year: string;
-  kilometers: string;
+  year: string[];
+  kilometers: string[];
   state: string[];
-  power: string;
+  power: string[];
   shift: string[];
   fuel: string[];
-  autonomy: string;
+  autonomy: string[];
   climate: string[];
   usage: string[];
   storage: string[];

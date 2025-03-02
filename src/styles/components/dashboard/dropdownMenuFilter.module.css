@@ -125,12 +125,11 @@
   height: var(--buttonHeight);
   background-color: white;
   border-radius: 10px;
-  align-self: end;
-  margin-right: 10px;
   margin-bottom: 7px;
   font-size: var(--buttonFontSize);
   border: none;
   transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 170px;
 }
 
 .cancelButton:hover {
@@ -142,5 +141,57 @@
   margin-left: 5px;
 }
 
+.inputFieldLeft {
+  border-radius: 10px;
+  width: 40px;
+  border: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding-left: 10px;
+  font-size: var(--fielFontSize);
+  color: var(--fieldDataColor);
+  background-color: var(--fieldBackgroundColor);
+}
 
+.inputFieldLeft::placeholder {
+  color: var(--fieldPlaceholderColor);
+}
+
+.inputFieldLeft:disabled {
+  cursor: default;
+}
+
+.inputFieldLeft:focus {
+  background-color: white;
+  outline: none;
+}
+
+.inputFieldRight {
+  border-radius: 10px;
+  width: 40px;
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding-left: 10px;
+  font-size: var(--fielFontSize);
+  color: var(--fieldDataColor);
+  background-color: var(--fieldBackgroundColor);
+}
+
+.inputFieldRight::placeholder {
+  color: var(--fieldPlaceholderColor);
+}
+
+.inputFieldRight:disabled {
+  cursor: default;
+}
+
+.inputFieldRight:focus {
+  background-color: white;
+  outline: none;
+}
 

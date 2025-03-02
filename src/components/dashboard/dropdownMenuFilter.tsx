@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from '../../styles/components/dashboard/dropdownMenuFilter.module.css';
 import axios, { AxiosError } from "axios";
 import { useTranslation } from "react-i18next";
@@ -43,7 +43,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
         }
         else {
           let typeQuery = type;
-          if (type == 'defectChoosenLevel') typeQuery = 'defectLevel';
+          if (type == 'defects') typeQuery = 'defectLevel';
           const responseMongo = await axios.get(`${mongoList}${typeQuery}`);
           setList(responseMongo.data);
         }
@@ -134,7 +134,10 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
             {type == 'storage' &&
               <span>{t('Dashboard.Placeholders.storage')}</span>
             }
-            {(type != 'state' && type != 'shift' && type != 'fuel' && type != 'climate' && type != 'usage' && type != 'storage') &&
+            {type == 'defects' &&
+              <span>{t('Dashboard.Placeholders.defectChoosenLevel')}</span>
+            }
+            {(type != 'state' && type != 'shift' && type != 'fuel' && type != 'climate' && type != 'usage' && type != 'storage' && type != 'defects') &&
               <span>{t(appliedFiltersSVL[type])}</span>
             }
             <span>{(isOpen) ? '←' : '→'}</span>
@@ -149,16 +152,64 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
               onChange={(e) => setSearchQuery(t(e.target.value))}
               placeholder={searchBarPlaceholder}
             />
-            <div className={styles.dropdownList}>
-              {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value, index) => (
-                <div key={index}>   
-                  {(type == 'state' || type == 'shift' || type == 'fuel' || type == 'climate' || type == 'usage' || type == 'storage') &&
+            {type != 'defects' ? (
+              <div className={styles.dropdownList}>
+                {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value, index) => (
+                  <div key={index}>   
+                    {(type == 'state' || type == 'shift' || type == 'fuel' || type == 'climate' || type == 'usage' || type == 'storage') &&
+                      <div className={styles.dropdownItemContainer}>
+                        <button
+                          className={styles.dropdownItem}
+                          onClick={() => updateValue(appliedFiltersSVL[type][index] != value, value, index)}>
+                          {t(value)} 
+                        </button>
+                        <input
+                          className={styles.dropdownItemCheckBox}
+                          type="checkbox"
+                          id="checkbox"
+                          checked={appliedFiltersSVL[type][index] == value}
+                          onChange={(e) => updateValue(e.target.checked, value, index)}
+                        />
+                      </div>
+                    } 
+                    {(type != 'state' && type != 'shift' && type != 'fuel' && type != 'climate' && type != 'usage' && type != 'storage') &&
+                      <button
+                        className={styles.dropdownItem}
+                        onClick={() => updateValue(false, value, index)}>
+                        {t(value)} 
+                      </button>
+                    } 
+                  </div>
+                )) : null}
+                {!noMatchShown ? (
+                  <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
+                ) : null}
+              </div>
+            ) : (
+              <div className={styles.dropdownList}>
+                {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value, index) => (
+                  <div key={index}>   
                     <div className={styles.dropdownItemContainer}>
                       <button
                         className={styles.dropdownItem}
                         onClick={() => updateValue(appliedFiltersSVL[type][index] != value, value, index)}>
                         {t(value)} 
                       </button>
+                      <input
+                        className={styles.inputFieldLeft} 
+                        type="text"
+                        value={appliedFiltersSVL.numRepairs[0]}
+                        onChange={(e) => updateFilter(e.target.value, 'numRepairs', 0)}
+                        placeholder={t('Dashboard.Placeholders.since')}
+                      />
+                      <div className={styles.horizontalSeparator}></div>
+                      <input
+                        className={styles.inputFieldRight}
+                        type="text"
+                        value={appliedFiltersSVL.numRepairs[1]}
+                        onChange={(e) => updateFilter(e.target.value, 'numRepairs', 1)}
+                        placeholder={t('Dashboard.Placeholders.until')}
+                      />
                       <input
                         className={styles.dropdownItemCheckBox}
                         type="checkbox"
@@ -167,20 +218,13 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
                         onChange={(e) => updateValue(e.target.checked, value, index)}
                       />
                     </div>
-                  } 
-                  {(type != 'state' && type != 'shift' && type != 'fuel' && type != 'climate' && type != 'usage' && type != 'storage') &&
-                    <button
-                      className={styles.dropdownItem}
-                      onClick={() => updateValue(false, value, index)}>
-                      {t(value)} 
-                    </button>
-                  } 
-                </div>
-              )) : null}
-              {!noMatchShown ? (
-                <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
-              ) : null}
-            </div>
+                  </div>
+                )) : null}
+                {!noMatchShown ? (
+                  <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
+                ) : null}
+              </div>
+            )}
             <button 
               className={styles.cancelButton} 
               onClick={() => setIsOpen(false)}>

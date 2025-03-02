@@ -1,30 +1,38 @@
-.fieldContainer {
-  display: flex;
-  align-items: center;
-}
-
-.fieldLabel {
-  width: 150px;
-  color: var(--fieldLabelColor);
-}
-
 .filterContainer {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+.labelContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterLabel {
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  color: var(--navBarsSecondaryColor);
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+}
+
 .inputFieldContainer {
   display: flex;
-  gap: 5px;
+}
+
+.horizontalSeparator {
+  height: 39px;
+  width: 5px;
+  background-color: var(--navBarsPrimaryColor)
 }
 
 .inputField {
   border-radius: 10px;
   height: var(--fieldHeight);
-  width: 95px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  width: 200px;
   border: none;
   padding-left: 10px;
   font-size: var(--fielFontSize);
@@ -41,6 +49,62 @@
 }
 
 .inputField:focus {
+  background-color: white;
+  outline: none;
+}
+
+.inputFieldLeft {
+  border-radius: 10px;
+  height: var(--fieldHeight);
+  width: 92px;
+  border: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding-left: 10px;
+  font-size: var(--fielFontSize);
+  color: var(--fieldDataColor);
+  background-color: var(--fieldBackgroundColor);
+}
+
+.inputFieldLeft::placeholder {
+  color: var(--fieldPlaceholderColor);
+}
+
+.inputFieldLeft:disabled {
+  cursor: default;
+}
+
+.inputFieldLeft:focus {
+  background-color: white;
+  outline: none;
+}
+
+.inputFieldRight {
+  border-radius: 10px;
+  height: var(--fieldHeight);
+  width: 92px;
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding-left: 10px;
+  font-size: var(--fielFontSize);
+  color: var(--fieldDataColor);
+  background-color: var(--fieldBackgroundColor);
+}
+
+.inputFieldRight::placeholder {
+  color: var(--fieldPlaceholderColor);
+}
+
+.inputFieldRight:disabled {
+  cursor: default;
+}
+
+.inputFieldRight:focus {
   background-color: white;
   outline: none;
 }
@@ -71,5 +135,69 @@
   color:  var(--navBarsPrimaryColor);
   background-color: var(--navBarsSecondaryColor);
   width: fit-content;
+  cursor: pointer;
+}
+
+.leftButton {
+  height: var(--buttonHeight);
+  border: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-size: var(--buttonFontSize);
+  color: var(--navBarsSecondaryColor);
+  border-right: solid black 1px;
+  background-color: var(--navBarsPrimaryColor);
+}
+
+.leftButton:hover {
+  cursor: pointer;
+  background-color: var(--fieldBackgroundColor);
+  color: black;
+}
+
+.leftButtonSelected {
+  height: var(--buttonHeight);
+  border: none;
+  background-color: var(--fieldBackgroundColor);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-size: var(--buttonFontSize);
+  color: var(--fieldDataColor);
+  border-right: solid black 1px;
+}
+
+.leftButtonSelected:hover {
+  cursor: pointer;
+}
+
+.rightButton {
+  height: var(--buttonHeight);
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-size: var(--buttonFontSize);
+  color: var(--navBarsSecondaryColor);
+  border-left: solid black 1px;
+  background-color: var(--navBarsPrimaryColor);
+}
+
+.rightButton:hover {
+  cursor: pointer;
+  background-color: var(--fieldBackgroundColor);
+  color: black;
+}
+
+.rightButtonSelected {
+  height: var(--buttonHeight);
+  border: none;
+  background-color: var(--fieldBackgroundColor);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-size: var(--buttonFontSize);
+  color: var(--fieldDataColor);
+  border-left: solid black 1px;
+}
+
+.rightButtonSelected:hover {
   cursor: pointer;
 }

@@ -53,7 +53,9 @@
       "autonomy": "Autonomy",
       "climate": "Climate",
       "usage": "Usage",
-      "storage": "Storage"
+      "storage": "Storage",
+      "since": "Desde",
+      "until": "Hasta"
     }
   },
   "DataSVL": {
