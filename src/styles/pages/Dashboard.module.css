@@ -2,13 +2,15 @@
   height: var(--vh, 100vh);
   display: flex;
   flex-direction: column;
-  gap: 50px;
+
   background-color: var(--backgroundColor);
-  overflow-y: hidden;
 }
 
 .dashboardInformation {
+  margin-top: 40px;
   display: flex;
+  overflow-y: auto;
+  padding-bottom: 40px;
 }
 
 .filterContainer {
@@ -16,7 +18,7 @@
   margin-right: 10px;
   padding: 10px;
   height: fit-content;
-  width: fit-content;
+  width: 210px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -24,3 +26,32 @@
   background-color: var(--dataPanelBackgroundColor);
 }
 
+.fullFiltersToggleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 5px;
+}
+
+.toggleText {
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.toggleFullFilters {
+  width: 50px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
+  font-size: medium;
+}
+
+.toggleFullFilters:hover {
+  cursor: pointer;
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
+}

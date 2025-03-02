@@ -10,9 +10,10 @@ type DropdownMenuFilterProps = {
   appliedFiltersSVL: FilterSVLsInterface;
   setAppliedFiltersSVL: React.Dispatch<FilterSVLsInterface>;
   type: string;
+  defectList: string[];
 };
 
-const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: DropdownMenuFilterProps) => {
+const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, defectList }: DropdownMenuFilterProps) => {
   
   const { t } = useTranslation();
 
@@ -87,6 +88,29 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
       setIsOpen(false);
     }
 
+  }
+
+  const updateValueDefects = (checked: boolean, value: string, defectIndex: number, typeDefectIndex: number) => {
+    //va el error es solo de typescript y no se como quitarlo
+    console.log("gfggw");
+    if (typeDefectIndex == 0) {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        defects: {
+          ...prevAppliedFiltersSVL.defects,
+          [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex]].map((item, i) => (i === typeDefectIndex ? checked : item))
+        }
+      }));
+    }
+    else {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        defects: {
+          ...prevAppliedFiltersSVL.defects,
+          [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex]].map((item, i) => (i === typeDefectIndex ? value : item))
+        }
+      }));
+    }
   }
 
   const hadleOpenDropdownMenu = () => {
@@ -186,37 +210,39 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type }: D
                 ) : null}
               </div>
             ) : (
-              <div className={styles.dropdownList}>
+              <div className={styles.dropdownListDefects}>
                 {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value, index) => (
                   <div key={index}>   
-                    <div className={styles.dropdownItemContainer}>
+                    <div className={styles.dropdownItemContainerDefects}>
                       <button
                         className={styles.dropdownItem}
-                        onClick={() => updateValue(appliedFiltersSVL[type][index] != value, value, index)}>
+                        onClick={() => updateValueDefects(!appliedFiltersSVL[type][defectList[index]][0], value, index, 0)}>
                         {t(value)} 
                       </button>
-                      <input
-                        className={styles.inputFieldLeft} 
-                        type="text"
-                        value={appliedFiltersSVL.numRepairs[0]}
-                        onChange={(e) => updateFilter(e.target.value, 'numRepairs', 0)}
-                        placeholder={t('Dashboard.Placeholders.since')}
-                      />
-                      <div className={styles.horizontalSeparator}></div>
-                      <input
-                        className={styles.inputFieldRight}
-                        type="text"
-                        value={appliedFiltersSVL.numRepairs[1]}
-                        onChange={(e) => updateFilter(e.target.value, 'numRepairs', 1)}
-                        placeholder={t('Dashboard.Placeholders.until')}
-                      />
-                      <input
-                        className={styles.dropdownItemCheckBox}
-                        type="checkbox"
-                        id="checkbox"
-                        checked={appliedFiltersSVL[type][index] == value}
-                        onChange={(e) => updateValue(e.target.checked, value, index)}
-                      />
+                      <div className={styles.inputFieldsContainer}>
+                        <input
+                          className={styles.inputFieldLeft} 
+                          type="text"
+                          value={appliedFiltersSVL[type][defectList[index]][1]}
+                          onChange={(e) => updateValueDefects(true, e.target.value, index, 1)}
+                          placeholder={t('Dashboard.Placeholders.since')}
+                        />
+                        <div className={styles.horizontalSeparator}></div>
+                        <input
+                          className={styles.inputFieldRight}
+                          type="text"
+                          value={appliedFiltersSVL[type][defectList[index]][2]}
+                          onChange={(e) => updateValueDefects(true, e.target.value, index, 2)}
+                          placeholder={t('Dashboard.Placeholders.until')}
+                        />                        
+                        <input
+                          className={styles.dropdownItemCheckBox}
+                          type="checkbox"
+                          id="checkbox"
+                          checked={appliedFiltersSVL[type][defectList[index]][0]}
+                          onChange={(e) => updateValueDefects(e.target.checked, '', index, 0)}
+                        />
+                      </div>
                     </div>
                   </div>
                 )) : null}

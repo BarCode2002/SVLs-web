@@ -141,6 +141,59 @@
   margin-left: 5px;
 }
 
+.searchInputDefects {
+  width: 210px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 15px;
+  border-radius: 10px;
+  padding-left: 10px;
+  border: none;
+  font-size: 1rem;
+  color: var(--fieldDataColor);
+  background-color: white;
+}
+
+.searchInputDefects::placeholder {
+  color: var(--fieldPlaceholderColor);
+}
+
+.searchInputDefects:focus {
+  outline: none;
+}
+
+.dropdownListDefects {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 235px;
+  max-height: 150px;
+  padding-left: 15px;
+  border-left: none;
+  overflow-y: auto;
+}
+
+.dropdownItemContainerDefects {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+.inputFieldsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.horizontalSeparator {
+  height: 20px;
+  width: 2px;
+  background-color: var(--navBarsPrimaryColor)
+}
+
 .inputFieldLeft {
   border-radius: 10px;
   width: 40px;
@@ -152,7 +205,7 @@
   padding-left: 10px;
   font-size: var(--fielFontSize);
   color: var(--fieldDataColor);
-  background-color: var(--fieldBackgroundColor);
+  background-color: white;
 }
 
 .inputFieldLeft::placeholder {
@@ -179,7 +232,8 @@
   padding-left: 10px;
   font-size: var(--fielFontSize);
   color: var(--fieldDataColor);
-  background-color: var(--fieldBackgroundColor);
+  background-color: white;
+  margin-right: 10px;
 }
 
 .inputFieldRight::placeholder {
@@ -195,3 +249,21 @@
   outline: none;
 }
 
+.dropdownItem {
+  background-color: var(--fieldBackgroundColor);
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.dropdownItem:hover {
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.dropdownItemCheckBox{
+  background-color: var(--fieldBackgroundColor);
+  border: none;
+  font-size: 1rem;
+}

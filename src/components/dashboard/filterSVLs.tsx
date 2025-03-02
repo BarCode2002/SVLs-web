@@ -79,7 +79,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
           placeholder={t('Dashboard.Placeholders.until')}
         />
       </div>
-      <div className={styles.filterLabel}>
+      <div className={styles.filterLabel1}>
         {t('Dashboard.Placeholders.numMaintenances')}
       </div>
       <div className={styles.inputFieldContainer}>
@@ -99,7 +99,9 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
           placeholder={t('Dashboard.Placeholders.until')}
         />
       </div>
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'defects'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'defects'} 
+        defectList={['cosmetic', 'minor', 'moderate', 'important', 'critical']}
+      />
       <div className={styles.filterLabel}>
         {t('Dashboard.Placeholders.numRepairs')}
       </div>
@@ -127,8 +129,8 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
         onChange={(e) => updateFilter(e.target.value, 'vin', -1)}
         placeholder={t('Dashboard.Placeholders.vin')}
       />
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'brand'} />
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'model'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'brand'} defectList={[]} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'model'} defectList={[]} />
       <div className={styles.filterLabel}>
         {t('Dashboard.Placeholders.year')}
       </div>
@@ -181,7 +183,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
           placeholder={t('Dashboard.Placeholders.until')}
         />
       </div>
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'state'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'state'} defectList={[]} />
       <div className={styles.labelContainer}>
         <div className={styles.filterLabel}>
           {t('Dashboard.Placeholders.power')}
@@ -214,8 +216,8 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
           placeholder={t('Dashboard.Placeholders.until')}
         />
       </div>
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'shift'} />
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'fuel'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'shift'} defectList={[]} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'fuel'} defectList={[]} />
       <div className={styles.labelContainer}>
         <div className={styles.filterLabel}>
           {t('Dashboard.Placeholders.autonomy')}
@@ -248,9 +250,9 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
           placeholder={t('Dashboard.Placeholders.until')}
         />
       </div>
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'climate'} />
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'usage'} />
-      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'storage'} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'climate'} defectList={[]} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'usage'} defectList={[]} />
+      <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'storage'} defectList={[]} />
       <button
         className={filterSVLs == 2 ? styles.buttonSelected : styles.button}
         onClick={handleSearch}>

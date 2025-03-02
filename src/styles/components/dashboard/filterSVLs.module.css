@@ -19,6 +19,14 @@
   justify-content: center;
 }
 
+.filterLabel1 {
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  color: var(--navBarsSecondaryColor);
+  display: flex;
+  justify-content: center;
+}
+
 .inputFieldContainer {
   display: flex;
 }

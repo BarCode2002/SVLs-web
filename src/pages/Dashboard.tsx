@@ -41,6 +41,7 @@ const Dashboard = (): JSX.Element => {
     usage: ['Dashboard.Placeholders.usage', '', '', ''],
     storage: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
   });
+  const [appliedFiltersSVLShrinked, setAppliedFiltersSVLShrinked] = useState(false);
 
   useEffect(() => {
     const initializedwallet = getWallet();
@@ -59,6 +60,11 @@ const Dashboard = (): JSX.Element => {
   }
   window.addEventListener('resize', updateViewportHeight);
 
+  const updatFullFilterSVL = () => {
+    if (appliedFiltersSVLShrinked) setAppliedFiltersSVLShrinked(false);
+    else setAppliedFiltersSVLShrinked(true);
+  }
+
   return (
     <div>
       {myAddress == undefined ? (
@@ -72,7 +78,20 @@ const Dashboard = (): JSX.Element => {
             <div className={styles.filterContainer}>
               <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
-              <FilterSVLs filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} search={search} setSearch={setSearch} />
+              <div className={styles.fullFiltersToggleContainer}>
+                <div className={styles.toggleText}>
+                  {appliedFiltersSVLShrinked == true && 'Show full filters'}
+                  {appliedFiltersSVLShrinked == false && 'Hide full filters'}
+                </div>
+                <button
+                  className={styles.toggleFullFilters}
+                  onClick={updatFullFilterSVL}>
+                  {appliedFiltersSVLShrinked == false ? '⬆' : '⬇'}
+                </button>
+              </div>
+              {appliedFiltersSVLShrinked == false &&
+                <FilterSVLs filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} search={search} setSearch={setSearch} />
+              }
             </div>
             <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} appliedFiltersSVL={appliedFiltersSVL} search={search} />
           </div>
