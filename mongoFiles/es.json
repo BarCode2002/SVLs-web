@@ -32,13 +32,15 @@
       "cancel": "Cancela",
       "sloganFirstPart": "Historiales de vehiculo atemporales",
       "sloganSecondPart": "para vehiculos atemporales",
-      "search": "Busca"
+      "search": "Busca",
+      "showDetailedFilters": "Filtros detallados",
+      "hideDetailedFilters": "Filtros detallados"
     },
     "Placeholders": {
       "numOwners": "Número de propietarios",
       "numMaintenances": "Número de mantenimientos",
       "numDefects": "Número de defectos",
-      "defectChoosenLevel": "Importancia de los defectos",
+      "defectChoosenLevel": "Defectos",
       "numRepairs": "Número de reparaciones",
       "vin": "VIN",
       "brand": "Marca",

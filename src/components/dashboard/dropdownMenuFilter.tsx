@@ -92,7 +92,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
 
   const updateValueDefects = (checked: boolean, value: string, defectIndex: number, typeDefectIndex: number) => {
     //va el error es solo de typescript y no se como quitarlo
-    console.log("gfggw");
     if (typeDefectIndex == 0) {
       setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
         ...prevAppliedFiltersSVL,
@@ -103,13 +102,18 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
       }));
     }
     else {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
-        ...prevAppliedFiltersSVL,
-        defects: {
-          ...prevAppliedFiltersSVL.defects,
-          [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex]].map((item, i) => (i === typeDefectIndex ? value : item))
-        }
-      }));
+      let re: RegExp;
+      re = /^(0|[1-9]\d*)$/;
+      if (value == '' || re.test(value)) {
+        //va el error es solo de typescript y no se como quitarlo
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+          ...prevAppliedFiltersSVL,
+          defects: {
+            ...prevAppliedFiltersSVL.defects,
+            [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex]].map((item, i) => (i === typeDefectIndex ? value : item))
+          }
+        }));
+      }
     }
   }
 

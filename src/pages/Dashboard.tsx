@@ -9,8 +9,11 @@ import RequestedSVLsButton from '../components/dashboard/requestedSVLsButton';
 import FilterSVLs from '../components/dashboard/filterSVLs';
 import PreviewSVLs from '../components/dashboard/previewSVLs';
 import { FilterSVLsInterface } from '../utils/interfaces';
+import { useTranslation } from 'react-i18next';
 
 const Dashboard = (): JSX.Element => {
+
+  const { t } = useTranslation();
 
   const [myAddress, setMyAddress] = useState<string | undefined>(undefined);
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
@@ -80,8 +83,8 @@ const Dashboard = (): JSX.Element => {
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
               <div className={styles.fullFiltersToggleContainer}>
                 <div className={styles.toggleText}>
-                  {appliedFiltersSVLShrinked == true && 'Show full filters'}
-                  {appliedFiltersSVLShrinked == false && 'Hide full filters'}
+                  {appliedFiltersSVLShrinked == true && t('Dashboard.Labels.showDetailedFilters')}
+                  {appliedFiltersSVLShrinked == false && t('Dashboard.Labels.hideDetailedFilters')}
                 </div>
                 <button
                   className={styles.toggleFullFilters}

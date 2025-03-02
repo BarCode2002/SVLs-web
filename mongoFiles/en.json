@@ -32,13 +32,15 @@
       "cancel": "Cancel",
       "sloganFirstPart": "Timeless vehicle records",
       "sloganSecondPart": "for timeless vehicles",
-      "search": "Search"
+      "search": "Search",
+      "showDetailedFilters": "Detailed filters",
+      "hideDetailedFilters": "Detailed filters"
     },
     "Placeholders": {
       "numOwners": "Number of owners",
       "numMaintenances": "Number of maintenances",
       "numDefects": "Number of defects",
-      "defectChoosenLevel": "Defects importance",
+      "defectChoosenLevel": "Defects",
       "numRepairs": "Number of repairs",
       "vin": "VIN",
       "brand": "Brand",
@@ -50,12 +52,12 @@
       "power": "Power",
       "shift": "Shift",
       "fuel": "Fuel",
-      "autonomy": "Autonomy",
+      "autonomy": "Range",
       "climate": "Climate",
       "usage": "Usage",
       "storage": "Storage",
-      "since": "Desde",
-      "until": "Hasta"
+      "since": "From",
+      "until": "To"
     }
   },
   "DataSVL": {
@@ -97,7 +99,7 @@
       "color": "Color:",
       "engine": "Engine:",
       "power": "Power:",
-      "autonomy": "Autonomy:",
+      "autonomy": "Range:",
       "shift": "Shift:",
       "fuel": "Fuel:",
       "usage": "Usage:",
@@ -154,7 +156,7 @@
       "engine": "Vehicle engine",
       "power": "Vehicle power",
       "comments": "General comments about the vehicle",
-      "autonomy": "Vehicle autonomy",
+      "autonomy": "Vehicle range",
       "me": "Me",
       "mechanic": "Mechanical",
       "proof": "proof",
