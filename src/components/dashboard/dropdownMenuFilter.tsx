@@ -173,13 +173,15 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
         </div>
         {isOpen && (
           <div ref={refScrollIntoView} className={styles.dropdownMenu}>
-            <input
-              className={styles.searchInput}
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(t(e.target.value))}
-              placeholder={searchBarPlaceholder}
-            />
+            {(type == 'brand' || type == 'model') &&
+              <input
+                className={styles.searchInput}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(t(e.target.value))}
+                placeholder={searchBarPlaceholder}
+              />
+            }
             {type != 'defects' ? (
               <div className={styles.dropdownList}>
                 {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value, index) => (

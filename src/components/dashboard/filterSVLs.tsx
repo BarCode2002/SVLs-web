@@ -18,6 +18,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
 
   //va el error es solo de typescript y no se como quitarlo
   const updateFilter = (value: string, type: string, index: number) => {
+    console.log("fewgfr");
     if (type == 'numOwners' || type == 'numMaintenances' || type == 'numRepairs' || type == 'year') {
       let re: RegExp;
       re = /^(0|[1-9]\d*)$/;
@@ -49,6 +50,9 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
         }));
       }
     }
+    localStorage.setItem('appliedFiltersSVL', String(appliedFiltersSVL));
+    console.log(String(appliedFiltersSVL));
+
   }
 
   const handleSearch = () => {
