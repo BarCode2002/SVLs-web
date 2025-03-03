@@ -21,8 +21,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   const [searchQuery, setSearchQuery] = useState('');
   const [noMatchShown, setNoMatchShown] = useState(false);
   const [list, setList] = useState<string[]>([]);
-  const cancelButtonText = t('DataSVL.Placeholders.cancel');
-  const searchBarPlaceholder = t('DataSVL.Placeholders.search');
   const [prevBrand, setPrevBrand] = useState('');
 
   useEffect(() => {
@@ -184,7 +182,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(t(e.target.value))}
-                placeholder={searchBarPlaceholder}
+                placeholder={t('DataSVL.Placeholders.search')}
               />
             }
             {type != 'defects' ? (
@@ -262,11 +260,18 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                 ) : null}
               </div>
             )}
-            <button 
-              className={styles.cancelButton} 
-              onClick={() => setIsOpen(false)}>
-              {cancelButtonText}
-            </button>
+            <div className={styles.confirmCancelContainer}>
+              <button 
+                className={styles.cancelConfirmButton} 
+                onClick={() => setIsOpen(false)}>
+                {t('DataSVL.Placeholders.confirm')}
+              </button>
+              <button 
+                className={styles.cancelConfirmButton} 
+                onClick={() => setIsOpen(false)}>
+                {t('DataSVL.Placeholders.cancel')}
+              </button>
+            </div>
           </div>
         )}
       </div>
