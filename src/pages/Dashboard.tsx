@@ -47,7 +47,7 @@ const Dashboard = (): JSX.Element => {
       storage: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
     }
   });
-  const [appliedFiltersSVLShrinked, setAppliedFiltersSVLShrinked] = useState(false);
+  const [appliedFiltersSVLShrinked, setAppliedFiltersSVLShrinked] = useState(true);
 
   useEffect(() => {
     const initializedwallet = getWallet();
