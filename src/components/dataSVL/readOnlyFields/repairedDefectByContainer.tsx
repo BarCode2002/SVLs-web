@@ -73,6 +73,9 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
             <div>{repairedDefect}</div>
           </div>
         ))}
+        {defectsRepaired.filter(repairedDefect => repairedDefect != '').length == 0 &&
+          <div>-</div>
+        }
       </div>
     </div>
   );
