@@ -25,7 +25,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                 ...item.group,
                 {
                   date: "",
-                  kilometers: "",
+                  kilometers: ['', 'km'],
                   name: "",
                   responsible: [null, "", null, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -58,7 +58,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                 ...item.group,
                 {
                   date: "",
-                  kilometers: "",
+                  kilometers: ['', 'km'],
                   name: "",
                   responsible: [null, "", null, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -91,7 +91,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                 ...item.group,
                 {
                   date: "",
-                  kilometers: "",
+                  kilometers: ['', 'km'],
                   cause: "",
                   type: Array.from({ length: 1 }, () => ({
                     level: t('DataSVL.Forms.level'),
@@ -118,7 +118,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                 ...item.group,
                 {
                   date: "",
-                  kilometers: "",
+                  kilometers: ['', 'km'],
                   name: "",
                   responsible: [null, "", null, ""],
                   pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
