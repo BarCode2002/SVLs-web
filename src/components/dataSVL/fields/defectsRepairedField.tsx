@@ -14,9 +14,10 @@ type DefectsRepairedFieldProps = {
   defects: any;
   prevOwnersDefects: any;
   editMode: boolean;
+  jsonUploaded: boolean;
 };
 
-const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, selectedGroup, repairs, setRepairs, defects, prevOwnersDefects, editMode }: DefectsRepairedFieldProps): JSX.Element => {
+const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, selectedGroup, repairs, setRepairs, defects, prevOwnersDefects, editMode, jsonUploaded }: DefectsRepairedFieldProps): JSX.Element => {
   
   const { t } = useTranslation();
 
@@ -128,7 +129,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
       setStep(updatedStep);
     }
     setReady(true);
-  }, [selectedOwner]);
+  }, [selectedOwner, jsonUploaded]);
 
   const handleRepairDefect = () => { 
     const updatedRepairs = [...repairs];

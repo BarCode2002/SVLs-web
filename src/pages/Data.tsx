@@ -33,6 +33,7 @@ const Data = (): JSX.Element => {
   const [newSVL, setNewSVL] = useState(true);
   const [mySVL, setMySVL] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [jsonUploaded, setJsonUploaded] = useState(false);
 
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: 1 }, () => ({
@@ -495,6 +496,7 @@ const Data = (): JSX.Element => {
             maintenances={maintenances} setMaintenances={setMaintenances} modifications={modifications} 
             setModifications={setModifications} defects={defects} setDefects={setDefects}
             repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk} ownershipSummary={ownershipSummary.current} mySVL={mySVL}
+            jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
           />
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
             generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} prevOwnersGeneralInformation={prevOwnersGeneralInformation.current}
@@ -502,7 +504,7 @@ const Data = (): JSX.Element => {
             modifications={modifications} setModifications={setModifications} prevOwnersModifications={prevOwnersModifications.current}
             defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects.current}
             repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
-            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType}
+            totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType} jsonUploaded={jsonUploaded}
           />
           
           <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 

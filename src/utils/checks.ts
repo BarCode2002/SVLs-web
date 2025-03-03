@@ -108,7 +108,7 @@ export const checks = (start: number, end: number, numPreviousOwners: number, ge
       }
     }
     for (let j = 0; j < repairs[i].group.length; j++) {
-      if (repairs[i].group[j].responsible[0] == null || modifications[i].group[j].responsible[2] == null) {
+      if (repairs[i].group[j].responsible[0] == null || repairs[i].group[j].responsible[2] == null) {
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.responsibleRepairs')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
         
       }

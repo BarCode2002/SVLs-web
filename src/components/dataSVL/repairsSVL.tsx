@@ -24,9 +24,10 @@ type RepairsSVLProps = {
   defects: Defects[];
   prevOwnersDefects: any;
   editMode: boolean;
+  jsonUploaded: boolean;
 };
 
-const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, defects, prevOwnersDefects, editMode }: RepairsSVLProps): JSX.Element => {
+const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, defects, prevOwnersDefects, editMode, jsonUploaded }: RepairsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -164,7 +165,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
               />
               <DefectsRepairedField numPreviousOwners={numPreviousOwners} fieldLabel={t('DataSVL.Labels.defectsRepaired')} 
                 selectedOwner={selectedOwner} selectedGroup={groupIndex} repairs={repairs} setRepairs={setRepairs} defects={defects} 
-                prevOwnersDefects={prevOwnersDefects} editMode={editMode}
+                prevOwnersDefects={prevOwnersDefects} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].pre} 

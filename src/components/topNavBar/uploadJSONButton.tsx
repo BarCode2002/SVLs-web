@@ -16,9 +16,11 @@ type UploadSONButtonProps = {
   setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
   setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  jsonUploaded?: boolean;
+  setJsonUploaded?: React.Dispatch<boolean>;
 };
 
-const UploadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs }: UploadSONButtonProps): JSX.Element => {
+const UploadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, jsonUploaded, setJsonUploaded }: UploadSONButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -66,7 +68,8 @@ const UploadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation
                 addAndSetRepairGroupType(setRepairs, selectedOwner-numPreviousOwners, i, ownerSVLData[4].repairs[i].type[j]);
               }
             }
-  
+            if (jsonUploaded) setJsonUploaded!(false);
+            else setJsonUploaded!(true);
           }
         } catch(error) {
           console.error(error);

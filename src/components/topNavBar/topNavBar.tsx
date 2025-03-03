@@ -43,9 +43,11 @@ type TopNavBarProps = {
   svl_pk?: string;
   ownershipSummary?: OwnershipSummary[];
   mySVL?: boolean;
+  jsonUploaded?: boolean;
+  setJsonUploaded?: React.Dispatch<boolean>;
 };
 
-const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL, jsonUploaded, setJsonUploaded }: TopNavBarProps): JSX.Element => {
 
   const [mintPrice, setMintPrice] = useState<string>('');
 
@@ -110,6 +112,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
                   setMaintenances={setMaintenances!} setModifications={setModifications!}
                   setDefects={setDefects!} setRepairs={setRepairs!}
+                  jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
                 />}
                 {viewType == 0 && <DownloadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!} 
                   generalInformation={generalInformation!} maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
