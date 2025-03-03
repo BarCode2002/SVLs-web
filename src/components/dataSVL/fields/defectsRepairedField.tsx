@@ -20,7 +20,6 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
   
   const { t } = useTranslation();
 
-  const [commonStep, setCommonStep] = useState(0);
   const [step, setStep] = useState<number[]>(Array(DEFECTS_REPAIRED_SIZE).fill(1));
   const [isOpen, setIsOpen] = useState<boolean[][]>( Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => [false, false, false]));
   const [searchQuery, setSearchQuery] = useState<string[][]>( Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ["", "", ""]));
@@ -77,8 +76,10 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
               }
               else {
                 const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
-                for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
-                  updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
+                if (defects[defectOwner].length > 0) {
+                  for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
+                    updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
+                  }
                 }
               }
               updatedDefectGroupTypesOwner.push(t('DataSVL.Placeholders.allDefects')); 
@@ -113,7 +114,6 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
           updatedStep[i] = 1;
         }
       }
-      setCommonStep(1);
       setStep(updatedStep);
       setSearchQuery(updatedSearchQuery);
     }
@@ -124,7 +124,6 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
         updatedSearchQuery[i] = ['', '', ''];
         updatedStep[i] = 1;
       }
-      setCommonStep(0); 
       setSearchQuery(updatedSearchQuery);
       setStep(updatedStep);
     }
@@ -133,16 +132,14 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
 
   const handleRepairDefect = () => { 
     const updatedRepairs = [...repairs];
-    if (commonStep == 0) {
+    if (repairs[selectedOwner].group[selectedGroup].numDefectsRepaired == 0) {
       updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired = 1;
-      setCommonStep(1);
     }
     else {
       for (let i = 0; i < updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired; i++) {
         updatedRepairs[selectedOwner].group[selectedGroup].defectsRepaired[i] = [-1, -1, -1];
       }
       updatedRepairs[selectedOwner].group[selectedGroup].numDefectsRepaired = 0;
-      setCommonStep(0);
       const updatedSearchQuery = [...searchQuery];
       const updatedIsOpen = [...isOpen];
       const updatedStep = [...step];
@@ -400,9 +397,9 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
                 className={styles.button} 
                 onClick={handleRepairDefect}
                 disabled={!editMode}>
-                {commonStep == 0 ? t('DataSVL.Labels.add') : t('DataSVL.Labels.eraseAll')}
+                {repairs[selectedOwner].group[selectedGroup].numDefectsRepaired == 0 ? t('DataSVL.Labels.add') : t('DataSVL.Labels.eraseAll')}
               </button>
-              {commonStep >= 1 &&  
+              {repairs[selectedOwner].group[selectedGroup].numDefectsRepaired >= 1 &&  
                 <button
                   className={styles.button} 
                   onClick={handleNewRepairedDefect}
@@ -421,7 +418,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
                     <button
                       className={styles.button} 
                       onClick={() => handleRemoveRepairedDefect(defectRepairedIndex)}
-                      disabled={!editMode || repairs[selectedOwner].group[selectedGroup].numDefectsRepaired == 1}>
+                      disabled={!editMode}>
                       -
                     </button>
                   }
