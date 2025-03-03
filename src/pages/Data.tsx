@@ -506,7 +506,6 @@ const Data = (): JSX.Element => {
             repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
             totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType} jsonUploaded={jsonUploaded}
           />
-          
           <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
             selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
             setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
