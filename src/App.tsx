@@ -5,9 +5,6 @@ import Help from './pages/Help.tsx';
 
 const App = (): JSX.Element => {
 
-  localStorage.setItem('filterSVLs', '0');
-  localStorage.setItem('VIN', '');
-
   return (
     <Router>
       <Routes>

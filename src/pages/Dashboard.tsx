@@ -18,7 +18,10 @@ const Dashboard = (): JSX.Element => {
   const [myAddress, setMyAddress] = useState<string | undefined>(undefined);
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
   const [search, setSearch] = useState(false);
-  const [filterSVLs, setFilterSVLs] = useState(0);
+  const [filterSVLs, setFilterSVLs] = useState(() => {
+    const savedfilterSVLs = localStorage.getItem("filterSVLs");
+    return savedfilterSVLs ? parseInt(savedfilterSVLs) : 0
+  });
   const [appliedFiltersSVL, setAppliedFiltersSVL] = useState<FilterSVLsInterface>(() => {
     const savedFilters = localStorage.getItem("appliedFiltersSVL");
     return savedFilters ? JSON.parse(savedFilters) : {
