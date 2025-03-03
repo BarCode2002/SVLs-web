@@ -20,14 +20,17 @@ const Welcome = ({ setMyAddress }: WelcomeProps): JSX.Element => {
       <div className={styles.helpContainer}>
         <HelpButton />
       </div>
-      <div className={styles.title}>
-        Secure Vehicle Logbook
+      <div className={styles.textContainer}>
+        <div className={styles.title}>
+          Secure Vehicle Logbook
+        </div>
+        <div className={styles.introduction}>
+          {t('Dashboard.Labels.sloganFirstPart')}
+        </div>
       </div>
-      <div className={styles.introduction}>
-        <div>{t('Dashboard.Labels.sloganFirstPart')}</div>
-        <div>{t('Dashboard.Labels.sloganSecondPart')}</div>
+      <div className={styles.connectWallet}>
+        <ConnectWalletButton setMyAddress={setMyAddress} />
       </div>
-      <ConnectWalletButton setMyAddress={setMyAddress} />
     </div>
   );
 }

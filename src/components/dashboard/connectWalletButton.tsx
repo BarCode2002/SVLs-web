@@ -20,7 +20,7 @@ const ConnectWalletButton = ({ setMyAddress }: ConnectWalletButtonProps): JSX.El
       <button
         className={styles.button}
         onClick={handleConnectWallet}>
-        {t('Dashboard.Labels.connectWallet')}
+        {t('Dashboard.Labels.discoverSVLs')}
       </button>
     </div>
   );

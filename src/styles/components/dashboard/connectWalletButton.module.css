@@ -4,6 +4,7 @@
   border: none;
   color: var(--navBarsSecondaryColor);
   background-color: var(--navBarsPrimaryColor);
+  padding: 10px;
 }
 
 .button:hover {
