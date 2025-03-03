@@ -47,7 +47,10 @@ const Dashboard = (): JSX.Element => {
       storage: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
     }
   });
-  const [appliedFiltersSVLShrinked, setAppliedFiltersSVLShrinked] = useState(true);
+  const [appliedFiltersSVLShrinked, setAppliedFiltersSVLShrinked] = useState(() => {
+    const savedShrinkedFilters = localStorage.getItem("fullFilterShrinked");
+    return savedShrinkedFilters ? JSON.parse(savedShrinkedFilters) : true
+  });
 
   useEffect(() => {
     const initializedwallet = getWallet();
@@ -67,8 +70,15 @@ const Dashboard = (): JSX.Element => {
   window.addEventListener('resize', updateViewportHeight);
 
   const updatFullFilterSVL = () => {
-    if (appliedFiltersSVLShrinked) setAppliedFiltersSVLShrinked(false);
-    else setAppliedFiltersSVLShrinked(true);
+    if (appliedFiltersSVLShrinked) {
+      setAppliedFiltersSVLShrinked(false);
+      localStorage.setItem('fullFilterShrinked', JSON.stringify(false));
+    }
+    else {
+      setAppliedFiltersSVLShrinked(true);
+      localStorage.setItem('fullFilterShrinked', JSON.stringify(true));
+
+    }
   }
 
   return (
@@ -86,8 +96,7 @@ const Dashboard = (): JSX.Element => {
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
               <div className={styles.fullFiltersToggleContainer}>
                 <div className={styles.toggleText}>
-                  {appliedFiltersSVLShrinked == true && t('Dashboard.Labels.showDetailedFilters')}
-                  {appliedFiltersSVLShrinked == false && t('Dashboard.Labels.hideDetailedFilters')}
+                  {t('Dashboard.Labels.showDetailedFilters')}
                 </div>
                 <button
                   className={styles.toggleFullFilters}

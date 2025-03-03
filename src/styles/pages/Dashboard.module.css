@@ -24,13 +24,14 @@
   gap: 10px;
   border-radius: 10px;
   background-color: var(--dataPanelBackgroundColor);
+  flex-shrink: 0;
 }
 
 .fullFiltersToggleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 5px;
+
 }
 
 .toggleText {
