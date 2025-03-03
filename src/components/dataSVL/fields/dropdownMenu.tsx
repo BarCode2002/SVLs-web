@@ -45,10 +45,11 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
   useEffect(() => {
     const getList = async () => {
       try {
-        if (prevBrand != '' && prevBrand != dataSVL[selectedOwner].brand) {
+        if (prevBrand != '' && prevBrand != 'DataSVL.Forms.brand' && prevBrand != dataSVL[selectedOwner].brand) {
           const updatedDataSVL = [...dataSVL];
           updatedDataSVL[selectedOwner].model = 'DataSVL.Forms.model';
           setDataSVL(updatedDataSVL);
+          setPrevBrand(dataSVL[selectedOwner].brand);
         }
         else setPrevBrand(dataSVL[selectedOwner].brand);
         if (type == 'model') {

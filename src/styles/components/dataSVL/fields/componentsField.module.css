@@ -36,7 +36,7 @@
   width: 25px;
   border: none;
   border-radius: 10px;
-  background-color: var(--fieldBackgroundColor);
+  background-color: var(--dataBackgroundColor);
   color: var(--buttonTextColor);
   font-size: var(--buttonFontSize);
 }
@@ -48,7 +48,6 @@
 
 .addComponentButton:disabled {
   cursor: default;
-  background-color: var(--fieldBackgroundColor);
 }
 
 .removeComponentButtonWrapper {

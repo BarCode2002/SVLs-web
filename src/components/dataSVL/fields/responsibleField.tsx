@@ -24,11 +24,8 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const urlIPFS = ipfsRetrieve;
 
-  const [step, setStep] = useState(0);
-  const [mechanic, setMechanic] = useState<boolean | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [proof, setProof] = useState<boolean | null>(null);
   const [showBig, setShowBig] = useState(false);
   const [imagesSaved, setImagesSaved] = useState(false);
 
@@ -41,36 +38,14 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   
   const mechanicsList = ['Pepe', 'Jaja', 'ewfgew', 'Camion', 'avion', 'pepa', 'pepo', 'pepin', 'pepapaa', 'pepeeee', 'pepitp'];
 
-  useEffect(() => {
-    if (value[0] != null) {
-      setStep(1);
-      setMechanic(value[0]);
-      if (value[0] == true && value[1] != '') {
-        setStep(2);
-        setSearchQuery(value[1]);
-      }
-      if (value[2] != null) {
-        setStep(3);
-        setProof(value[2]);
-      }
-    }
-    else {
-      setProof(null);
-      setMechanic(null);
-      setStep(0);
-      setSearchQuery('');
-    }
-  }, [selectedOwner]);
-
   const handleMeResponsible = () => {
     if (dataSVL[selectedOwner].group[selectedGroup].responsible[0] != false) {
       const updatedDataSVL = [...dataSVL];
       updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = false;  
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[2] = null;
       updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = '';  
       setDataSVL(updatedDataSVL);
-      setMechanic(false);
-      setProof(null);
-      setStep(2);
+      setSearchQuery('');
     }
   }
 
@@ -78,12 +53,10 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
     if (dataSVL[selectedOwner].group[selectedGroup].responsible[0] != true) {
       const updatedDataSVL = [...dataSVL];
       updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = true;    
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[2] = null;
       updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = '';
       setDataSVL(updatedDataSVL);
-      setMechanic(true);
-      setProof(null);
       setSearchQuery('');
-      setStep(1);
     }
   }
 
@@ -93,7 +66,6 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
       setSearchQuery(event.target.value);
     }
     else {
-      setStep(1);
       setSearchQuery('');
     }
   }
@@ -104,22 +76,18 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
     setDataSVL(updatedDataSVL);
     setSearchQuery(mechanic);
     setIsOpen(false);
-    if (step == 1) setStep(2);
   }
 
   const handleYesProof = () => {
     const updatedDataSVL = [...dataSVL];
     updatedDataSVL[selectedOwner].group[selectedGroup].responsible[2] = true;    
     setDataSVL(updatedDataSVL);
-    setProof(true);
-    setStep(3);
   }
 
   const handleNoProof = () => {
     const updatedDataSVL = [...dataSVL];
     updatedDataSVL[selectedOwner].group[selectedGroup].responsible[2] = false;    
     setDataSVL(updatedDataSVL);
-    setProof(false);
     removeUploadedImage();
   }
 
@@ -174,15 +142,15 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const renderQuestionProofTest = () => {
     if (type === 'maintenances') {
-      if (mechanic) return t('DataSVL.Placeholders.canYouProveItMaintenanancesMechanic');
+      if (value[0]) return t('DataSVL.Placeholders.canYouProveItMaintenanancesMechanic');
       else return t('DataSVL.Placeholders.canYouProveItMaintenanances');
     }
     if (type === 'modifications') {
-      if (mechanic) return t('DataSVL.Placeholders.canYouProveItModifiactionsMechanic');
+      if (value[0]) return t('DataSVL.Placeholders.canYouProveItModifiactionsMechanic');
       else return t('DataSVL.Placeholders.canYouProveItModifiactions');
     }
     else {
-      if (mechanic) return t('DataSVL.Placeholders.canYouProveItRepairsMechanic');
+      if (value[0]) return t('DataSVL.Placeholders.canYouProveItRepairsMechanic');
       else return t('DataSVL.Placeholders.canYouProveItRepairs');
     }
   };
@@ -194,23 +162,21 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
       </div>
       <div className={styles.dataContainer}>
         <div className={styles.dataContainerTopPart}>
-          {step >= 0 &&
-            <div>
-              <button
-                className={mechanic != false ? styles.leftButton : styles.leftButtonSelected}
-                onClick={handleMeResponsible}
-                disabled={!editMode}>
-                {t('DataSVL.Placeholders.me')}
-              </button>
-              <button
-                className={mechanic != true ? styles.rightButton : styles.rightButtonSelected}
-                onClick={handleMechanicResponsible}
-                disabled={!editMode}>
-                {t('DataSVL.Placeholders.mechanic')}
-              </button>
-            </div>
-          }
-          {step >= 1 && mechanic == true &&
+          <div>
+            <button
+              className={value[0] != false ? styles.leftButton : styles.leftButtonSelected}
+              onClick={handleMeResponsible}
+              disabled={!editMode}>
+              {t('DataSVL.Placeholders.me')}
+            </button>
+            <button
+              className={value[0] != true ? styles.rightButton : styles.rightButtonSelected}
+              onClick={handleMechanicResponsible}
+              disabled={!editMode}>
+              {t('DataSVL.Placeholders.mechanic')}
+            </button>
+          </div>
+          {value[0] == true &&
             <div className={styles.setMechanicContainer}>
               <input
                 className={styles.inputField}
@@ -243,26 +209,26 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
             </div>
           }
         </div>
-          {step >= 2 &&
+          {(value[0] == false || value[0] == true && value[1] != '')  &&
             <div className={styles.dataContainerBottomPart}>
               <div className={styles.questionProofContainer}>
                 <div className={styles.questionProofText}>
                   {renderQuestionProofTest()}
                 </div>
                 <button
-                  className={proof != true ? styles.leftButton : styles.leftButtonSelected}
+                  className={value[2] != true ? styles.leftButton : styles.leftButtonSelected}
                   onClick={handleYesProof}
                   disabled={!editMode}>
                   {t('DataSVL.Placeholders.yes')}
                 </button>
                 <button
-                  className={proof != false ? styles.rightButton : styles.rightButtonSelected}
+                  className={value[2] != false ? styles.rightButton : styles.rightButtonSelected}
                   onClick={handleNoProof}
                   disabled={!editMode}>
                   {t('DataSVL.Placeholders.no')}
                 </button>
               </div>
-              {step >= 3 && proof == true && 
+              {value[2] == true && 
                 <div>
                   <div>
                     <button 

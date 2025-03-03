@@ -29,7 +29,7 @@ export const checks = (start: number, end: number, numPreviousOwners: number, ge
       }
     }
     for (let j = 0; j < maintenances[i].group.length; j++) {
-      if (maintenances[i].group[j].responsible[0] == null) {
+      if (maintenances[i].group[j].responsible[0] == null || maintenances[i].group[j].responsible[2] == null) {
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.responsibleMaintenances')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
       }
       if (maintenances[i].group[j].responsible[3][4] == ':') {
@@ -63,7 +63,7 @@ export const checks = (start: number, end: number, numPreviousOwners: number, ge
       }
     }
     for (let j = 0; j < modifications[i].group.length; j++) {
-      if (modifications[i].group[j].responsible[0] == null) {
+      if (modifications[i].group[j].responsible[0] == null || modifications[i].group[j].responsible[2] == null) {
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.responsibleModifications')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
       }
       if (modifications[i].group[j].responsible[3][4] == ':') {
@@ -108,7 +108,7 @@ export const checks = (start: number, end: number, numPreviousOwners: number, ge
       }
     }
     for (let j = 0; j < repairs[i].group.length; j++) {
-      if (repairs[i].group[j].responsible[0] == null) {
+      if (repairs[i].group[j].responsible[0] == null || modifications[i].group[j].responsible[2] == null) {
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.responsibleRepairs')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
         
       }
