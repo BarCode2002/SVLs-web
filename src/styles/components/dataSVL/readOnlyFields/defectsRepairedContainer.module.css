@@ -6,6 +6,7 @@
 .fieldLabel {
   width: 150px;
   color: var(--fieldLabelColor);
+  flex-shrink: 0;
 }
 
 .defectsRepaired {

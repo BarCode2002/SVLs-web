@@ -42,6 +42,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
     if (dataSVL[selectedOwner].group[selectedGroup].responsible[0] != responsible) {
       const updatedDataSVL = [...dataSVL];
       updatedDataSVL[selectedOwner].group[selectedGroup].responsible[0] = responsible;  
+      updatedDataSVL[selectedOwner].group[selectedGroup].responsible[1] = '';  
       updatedDataSVL[selectedOwner].group[selectedGroup].responsible[2] = null;
       updatedDataSVL[selectedOwner].group[selectedGroup].responsible[3] = '';  
       setDataSVL(updatedDataSVL);
