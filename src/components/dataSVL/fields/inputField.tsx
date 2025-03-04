@@ -24,6 +24,9 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, sel
     else if (type == 'VIN') {
       re = /^[A-Z0-9-]+$/;
     }
+    else if (type == 'color') {
+      re = /^[A-Za-z\s]+$/;
+    }
     else if (type == 'engine' || type == 'name') {
       re = /^/;
     }
