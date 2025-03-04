@@ -187,7 +187,9 @@
       "descriptionDefect": "Descripción del defecto",
       "noMatch": "Sin coincidencias",
       "yes": "Si",
-      "no": "No"
+      "no": "No",
+      "reset": "Por defecto",
+      "unknown": "Desconocido"
     },
     "Forms": {
       "brand": "Selecciona la marca",

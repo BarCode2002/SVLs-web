@@ -25,8 +25,6 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
   const [searchQuery, setSearchQuery] = useState('');
   const [noMatchShown, setNoMatchShown] = useState(false);
   const [list, setList] = useState<string[]>([]);
-  const cancelButtonText = t('DataSVL.Placeholders.cancel');
-  const searchBarPlaceholder = t('DataSVL.Placeholders.search');
   const [prevBrand, setPrevBrand] = useState('');
 
   useEffect(() => {
@@ -77,6 +75,42 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
     setIsOpen(false);
   }
 
+  const getDefaultValue = () => {
+    switch (type) {
+      case "brand":
+        return 'DataSVL.Forms.brand';
+      case "model":
+        return 'DataSVL.Forms.model';
+      case "state":
+        return 'DataSVL.Forms.state';
+      case "shift":
+        return 'DataSVL.Forms.shift';
+      case "fuel":
+        return 'DataSVL.Forms.fuel';
+      case "climate":
+        return 'DataSVL.Forms.climate';
+      case "storage":
+        return 'DataSVL.Forms.storage';
+      case "usage":
+        return 'DataSVL.Forms.usage';
+      default:
+        return;
+    }
+  }
+
+  const defaultValue = () => {
+    const updateSVLdata = [...dataSVL];
+    const defaultValue = getDefaultValue();
+    if (selectedGroup == -1 && selectedGroupType == -1) {
+      updateSVLdata[selectedOwner][type] = defaultValue;
+    }
+    else {
+      updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type] = defaultValue;
+    }
+    setDataSVL(updateSVLdata);
+    setIsOpen(false);
+  }
+
   const hadleOpenDropdownMenu = () => {
     if (isOpen) setIsOpen(false);
     else {
@@ -121,7 +155,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(t(e.target.value))}
-              placeholder={searchBarPlaceholder}
+              placeholder={t('DataSVL.Placeholders.search')}
             />
             <div className={styles.dropdownList}>
               {list.length ? list.filter(value => t(value).toLowerCase().includes(searchQuery.toLowerCase())).map((value) => (
@@ -137,11 +171,18 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
                 <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
               ) : null}
             </div>
-            <button 
-              className={styles.cancelButton} 
-              onClick={() => setIsOpen(false)}>
-              {cancelButtonText}
-            </button>
+            <div className={styles.bottomContainer}>
+              <button 
+                className={styles.bottomButtons} 
+                onClick={defaultValue}>
+                {t('DataSVL.Placeholders.reset')}
+              </button>
+              <button 
+                className={styles.bottomButtons} 
+                onClick={() => setIsOpen(false)}>
+                {t('DataSVL.Placeholders.cancel')}
+              </button>
+            </div>
           </div>
         )}
       </div>

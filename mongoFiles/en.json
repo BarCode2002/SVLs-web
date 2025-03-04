@@ -186,7 +186,9 @@
       "descriptionDefect": "Description of the defect",
       "noMatch": "No matches",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "reset": "Reset",
+      "unknown": "Unknown"
     },
     "Forms": {
       "brand": "Select the brand",

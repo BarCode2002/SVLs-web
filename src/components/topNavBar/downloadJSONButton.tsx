@@ -22,8 +22,8 @@ const DownloadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformati
   const [invalidFieldsVisible, setInvalidFieldsVisible] = useState(false);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
 
-  const handleDownloadJSON = () => {
-    const updatedInvalidFields = checks(selectedOwner-numPreviousOwners, selectedOwner-numPreviousOwners+1 ,numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs); 
+  const handleDownloadJSON = async () => {
+    const updatedInvalidFields = await checks(selectedOwner-numPreviousOwners, selectedOwner-numPreviousOwners+1 ,numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs); 
     if (updatedInvalidFields.length > 0) {
       setInvalidFields(updatedInvalidFields);
       setInvalidFieldsVisible(true);

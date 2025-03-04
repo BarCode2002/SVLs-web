@@ -67,6 +67,44 @@
   cursor: default;
 }
 
+.middleButton {
+  height: var(--buttonHeight);
+  border: none;
+  font-size: var(--buttonFontSize);
+  color: var(--fieldDataColor);
+  border-left: solid black 1px;
+  border-right: solid black 1px;
+  background-color: var(--buttonSelectedBackgroundColor);
+}
+
+.middleButton:hover {
+  cursor: pointer;
+  background-color: var(--fieldBackgroundColor);
+}
+
+.middleButton:disabled {
+  cursor: default;
+  background-color: var(--buttonSelectedBackgroundColor);
+}
+
+.middleButtonSelected {
+  height: var(--buttonHeight);
+  border: none;
+  background-color: var(--fieldBackgroundColor);
+  font-size: var(--buttonFontSize);
+  color: var(--fieldDataColor);
+  border-right: solid black 1px;
+  border-left: solid black 1px;
+}
+
+.middleButtonSelected:hover {
+  cursor: pointer;
+}
+
+.middleButtonSelected:disabled {
+  cursor: default;
+}
+
 .rightButton {
   height: var(--buttonHeight);
   border: none;

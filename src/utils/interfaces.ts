@@ -35,7 +35,7 @@ export interface Maintenances {
     date: string;
     kilometers: [string, string];
     name: string;
-    responsible: [boolean | null, string, boolean | null, string];
+    responsible: [number | null, string, boolean | null, string];
     pre: string[],
     post: string[],
     type: Maintenance[];
@@ -58,7 +58,7 @@ export interface Modifications {
     date: string;
     kilometers: [string, string];
     name: string;
-    responsible: [boolean | null, string, boolean | null, string];
+    responsible: [number | null, string, boolean | null, string];
     pre: string[],
     post: string[],
     type: Modification[];
@@ -98,7 +98,7 @@ export interface Repairs {
     date: string;
     kilometers: [string, string];
     name: string;
-    responsible: [boolean | null, string, boolean | null, string];
+    responsible: [number | null, string, boolean | null, string];
     pre: string[],
     post: string[],
     defectsRepaired: [number, number, number][];
