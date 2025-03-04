@@ -6,7 +6,7 @@ import { ipfsRetrieve } from '../../../utils/ip';
 
 type ResponsibleContainerProps = {
   fieldLabel: string;
-  responsible: [boolean | null, string, boolean | null, string];
+  responsible: [number | null, string, boolean | null, string];
 }
 
 const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerProps) => {
@@ -28,10 +28,12 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>
-      {responsible[0] == false &&
+      {(responsible[0] == 0 || responsible[0] == 1 || responsible[0] == 3)&&
         <div className={styles.responsible}>
-          <div>{t('DataSVL.Labels.vehicleOwner')}.</div>
-          {responsible[2] == false &&
+          {responsible[0] == 0 && <div>{t('DataSVL.Labels.vehicleOwner')}.</div>}
+          {responsible[0] == 1 && <div>OEM.</div>}
+          {responsible[0] == 3 && <div>{t('DataSVL.Placeholders.unknown')}.</div>}
+          {responsible[0] == 0 && responsible[2] == false &&
             <div>{t('DataSVL.Labels.withOutProof')}.</div>
           }
           {responsible[2] == true &&
@@ -85,7 +87,7 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
           }
         </div>
       }
-      {responsible[0] == true &&
+      {responsible[0] == 2 &&
         <div className={styles.responsible}>
           {responsible[1] != '' &&
             <div>{t('DataSVL.Labels.inTheRepairShop')} {responsible[1]}.</div>

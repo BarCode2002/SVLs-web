@@ -210,7 +210,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
             </div>
           }
         </div>
-        {((value[0] == 0 || value[0] == 1 || value[0] == 3) || (value[0] == 2 && value[1] != ''))  &&
+        {((value[0] == 0) || (value[0] == 2 && value[1] != ''))  &&
           <div className={styles.dataContainerBottomPart}>
             <div className={styles.questionProofContainer}>
               <div className={styles.questionProofText}>
