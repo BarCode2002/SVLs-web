@@ -4,14 +4,20 @@
   flex-direction: column;
   background-color: var(--backgroundColor);
   justify-content: space-between;
+  transition: background-color 1s ease-in-out;
 }
 
 .dotContainer {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 4;
   display: flex;
   gap: 30px;
   justify-content: center;
   align-items: center;
+  background-color: white;
+  opacity: 1;
 }
 
 .dot {

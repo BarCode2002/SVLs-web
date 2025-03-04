@@ -31,8 +31,8 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
       {(responsible[0] == 0 || responsible[0] == 1 || responsible[0] == 3)&&
         <div className={styles.responsible}>
           {responsible[0] == 0 && <div>{t('DataSVL.Labels.vehicleOwner')}.</div>}
-          {responsible[0] == 1 && <div>OEM.</div>}
-          {responsible[0] == 3 && <div>{t('DataSVL.Placeholders.unknown')}.</div>}
+          {responsible[0] == 1 && <div>OEM</div>}
+          {responsible[0] == 3 && <div>{t('DataSVL.Placeholders.unknown')}</div>}
           {responsible[0] == 0 && responsible[2] == false &&
             <div>{t('DataSVL.Labels.withOutProof')}.</div>
           }
