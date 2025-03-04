@@ -38,7 +38,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
   }, []);
 
   const handleMintSVL = async () => {
-    const updatedInvalidFields = checks(0, totalOwners-numPreviousOwners, numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs); 
+    const updatedInvalidFields = await checks(0, totalOwners-numPreviousOwners, numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs); 
     if (updatedInvalidFields.length > 0) {
       setInvalidFields(updatedInvalidFields);
       setInvalidFieldsVisible(true);

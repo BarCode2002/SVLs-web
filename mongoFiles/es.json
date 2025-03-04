@@ -204,6 +204,18 @@
   "InvalidFields": {
     "owner": "Propietario",
     "mandatoryField": "Campo obligatorio.",
+    "same": "Asegurate de que sea igual.",
+    "notValidM": "no es valido.",
+    "notValidF": "no es valida.",
+    "to": "al",
+
+    "vinNotSame": "El VIN no es igual del propietario",
+    "brandNotSame": "La marca no es igual del propietario",
+    "modelNotSame": "El modelo no es igual del propietario",
+    "yearNotSame": "El año no es igual del propietario ",
+    "invalidBrand": "La marca introducida del propietario",
+    "invalidModel": "El modelo introducido del propietario",
+
     "VIN": "no ha definido el VIN en información general.",
     "brand": "no ha definido la marca en información general.",
     "model": "no ha definido el modelo en información general. ",

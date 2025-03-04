@@ -1,9 +1,54 @@
 import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
 import { PHOTOGRAPHS_SIZE } from "./constants";
 import i18n from 'i18next'; 
+import axios from "axios";
+import { mongoBrand, mongoList } from "./ip";
 
-export const checks = (start: number, end: number, numPreviousOwners: number, generalInformation: GeneralInformation[], maintenances: Maintenances[], modifications: Modifications[], defects: Defects[], repairs: Repairs[]) => {
+export const checks = async (start: number, end: number, numPreviousOwners: number, generalInformation: GeneralInformation[], maintenances: Maintenances[], modifications: Modifications[], defects: Defects[], repairs: Repairs[]) => {
   const invalidFields: string[] = [];
+  let wrongVinBrandModelYear = [false, false, false, false];
+  for (let i = start+1; i < end; i++) { 
+    if (wrongVinBrandModelYear[0] == false && generalInformation[i-1].VIN != generalInformation[i].VIN) {
+      invalidFields.push(`${i18n.t('InvalidFields.vinNotSame')} ${start+1} ${i18n.t('InvalidFields.to')} ${end}. ${i18n.t('InvalidFields.same')}`);
+      wrongVinBrandModelYear[0] = true;
+    }
+    if (wrongVinBrandModelYear[1] == false && generalInformation[i-1].brand != generalInformation[i].brand) {
+      invalidFields.push(`${i18n.t('InvalidFields.brandNotSame')} ${start+1} ${i18n.t('InvalidFields.to')} ${end}. ${i18n.t('InvalidFields.same')}`);
+      wrongVinBrandModelYear[1] = true;
+    }
+    if (wrongVinBrandModelYear[2] == false && generalInformation[i-1].model != generalInformation[i].model) {
+      invalidFields.push(`${i18n.t('InvalidFields.modelNotSame')} ${start+1} ${i18n.t('InvalidFields.to')} ${end}. ${i18n.t('InvalidFields.same')}`);
+      wrongVinBrandModelYear[2] = true;
+    }
+    if (wrongVinBrandModelYear[3] == false && generalInformation[i-1].year != generalInformation[i].year) {
+      invalidFields.push(`${i18n.t('InvalidFields.yearNotSame')} ${start+1} ${i18n.t('InvalidFields.to')} ${end}. ${i18n.t('InvalidFields.same')}`);
+      wrongVinBrandModelYear[3] = true;
+    }
+  }
+  const responseMongo = await axios.get(`${mongoList}brand`);
+  const brandList = responseMongo.data;
+  if (!brandList.includes(generalInformation[0].brand)) {
+    if (localStorage.getItem('language') == 'Lists.Language.en') {
+      invalidFields.push(`${i18n.t('InvalidFields.invalidBrand')} ${start+1} ${i18n.t('InvalidFields.to')} ${end} ${i18n.t('InvalidFields.notValid')}`);
+    }
+    else {
+      invalidFields.push(`${i18n.t('InvalidFields.invalidBrand')} ${start+1} ${i18n.t('InvalidFields.to')} ${end} ${i18n.t('InvalidFields.notValidF')}`);
+    }
+  }
+  else {
+    const responseMongo = await axios.get(`${mongoBrand}${generalInformation[0].brand}`);
+    const modelList = responseMongo.data;
+    if (!modelList.includes(generalInformation[0].model)) {
+      if (localStorage.getItem('language') == 'Lists.Language.en') {
+        invalidFields.push(`${i18n.t('InvalidFields.invalidModel')} ${start+1} ${i18n.t('InvalidFields.to')} ${end} ${i18n.t('InvalidFields.notValid')}`);
+      }
+      else {
+        invalidFields.push(`${i18n.t('InvalidFields.invalidModel')} ${start+1} ${i18n.t('InvalidFields.to')} ${end} ${i18n.t('InvalidFields.notValidM')}`);
+      }
+    }
+    
+  }
+  
   for (let i = start; i < end; i++) { 
     if (generalInformation[i].VIN == '') {
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.VIN')} ${i18n.t('InvalidFields.mandatoryField')}`);
@@ -15,9 +60,11 @@ export const checks = (start: number, end: number, numPreviousOwners: number, ge
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.model')} ${i18n.t('InvalidFields.mandatoryField')}`);
     }
     if (generalInformation[i].year == '') {
-      invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.year')} ${i18n.t('InvalidFields.mandatoryField')}`);    }
+      invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.year')} ${i18n.t('InvalidFields.mandatoryField')}`);    
+    }
     if (generalInformation[i].mainPhotograph == '') {
-      invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.mainPhotograph')} ${i18n.t('InvalidFields.mandatoryField')}`);    }
+      invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.mainPhotograph')} ${i18n.t('InvalidFields.mandatoryField')}`);    
+    }
     if (generalInformation[i].mainPhotograph[4] == ':') {
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.mainPhotographNotSaved')}`);      
     }

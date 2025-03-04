@@ -34,7 +34,7 @@ const Data = (): JSX.Element => {
   const [mySVL, setMySVL] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [jsonUploaded, setJsonUploaded] = useState(false);
-
+  
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: 1 }, () => ({
       VIN: '',
