@@ -23,9 +23,10 @@ type DefectsSVLProps = {
   setDefects: React.Dispatch<SetStateAction<Defects[]>>;
   repairs: Repairs[];
   editMode: boolean;
+  mySVL: boolean;
 };
 
-const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode }: DefectsSVLProps): JSX.Element => {
+const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode, mySVL }: DefectsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -146,8 +147,8 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].cause} 
                 setDataSVL={setDefects} type={'cause'} editMode={editMode}
               />
-              <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} selectedOwner={selectedOwner+numPreviousOwners} 
-                selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
+              <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairsL')} repairs={repairs} selectedOwner={selectedOwner+numPreviousOwners} 
+                selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} view={'ownerView'}
               />
             </div>
           }

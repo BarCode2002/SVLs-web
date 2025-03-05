@@ -49,7 +49,7 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
             {prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].level != 'DataSVL.Forms.level' ? (
-              <div>{prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].level}</div>
+              <div>{t(prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].level)}</div>
             ) : (
               <div>{t('DataSVL.Placeholders.noDefectLevelSelected')}</div>
             )}
@@ -57,7 +57,7 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
           </div>
           {!shrinked[selectedOwner][groupIndex].type[typeIndex] && checkIfSomeDataInType(selectedOwner, groupIndex, typeIndex, false) &&
             <div className={styles.groupTypeBottomPart}>
-              {prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].photographs.filter((image: string) => image != '').length > 0 &&
+              {prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].photographs.filter((image: string) => image != '').length > 0 &&
                 <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].photographs} />
               }
               {prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].description != '' &&
@@ -99,8 +99,9 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
                 {prevOwnersDefects[selectedOwner].defects[groupIndex].cause != '' &&
                   <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].cause} />
                 }
-                <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs}  
+                <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairsL')} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs}  
                   selectedOwner={selectedOwner} selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
+                  mySVL={mySVL} view={'summaryView'}
                 />
               </div>
             }
@@ -132,7 +133,7 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
             {defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].level != 'DataSVL.Forms.level' ? (
-              <div>{defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].level}</div>
+              <div>{t(defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].level)}</div>
             ) : (
               <div>{t('DataSVL.Placeholders.noDefectLevelSelected')}</div>
             )}
@@ -184,8 +185,8 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
                   <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].kilometers} />
                 }
                 <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].cause} />
-                <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} selectedOwner={selectedOwner} 
-                  selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
+                <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairsL')} repairs={repairs} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} view={'summaryView'}
                 />
               </div>
             }
@@ -213,7 +214,7 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
     <div key={selectedOwner}>
       {!mySVL || selectedOwner < numPreviousOwners ? (
         <div>        
-          {prevOwnersDefects[selectedOwner].group.length > 0 ? (        
+          {prevOwnersDefects[selectedOwner].defects.length > 0 ? (        
             <div>{listPreviousGroupDefects(selectedOwner)}</div>
           ) : (
             <div className={styles.noData}>

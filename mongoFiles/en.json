@@ -117,6 +117,7 @@
       "modifications": "Modifications",
       "defects": "Defects",
       "repairs": "Repairs",
+      "repairsL": "Repairs:",
       "add": "Add",
       "eraseAll": "Delete all",
       "save": "Save",

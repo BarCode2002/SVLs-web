@@ -12,9 +12,11 @@ type RepairedDefectsByContainerProps = {
   selectedGroup: number;
   numPreviousOwners: number;
   totalOwners: number;
+  mySVL: boolean;
+  view: string;
 }
 
-const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, selectedOwner, selectedGroup, numPreviousOwners, totalOwners }: RepairedDefectsByContainerProps) => {
+const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, selectedOwner, selectedGroup, numPreviousOwners, totalOwners, mySVL, view }: RepairedDefectsByContainerProps) => {
 
   const [defectsRepaired, setDefectsRepaired] = useState<string[]>(Array(DEFECTS_REPAIRED_SIZE).fill(''));
 
@@ -24,7 +26,7 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
     const updatedDR = Array(DEFECTS_REPAIRED_SIZE).fill('');
     let numDR = 0;
     for (let i = selectedOwner; i < totalOwners; i++) { 
-      if (i < numPreviousOwners) {
+      if (!mySVL || i < numPreviousOwners) {
         for (let j = 0; j < prevOwnersRepairs[i].repairs.length; j++) {
           for (let l = 0; l < prevOwnersRepairs[i].repairs[j].numDefectsRepaired; l++) {
             if (prevOwnersRepairs[i].repairs[j].defectsRepaired[l][0] == selectedOwner && 
@@ -42,7 +44,6 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
         }
       }
       else {
-        console.log("hola")
         for (let j = 0; j < repairs[i-numPreviousOwners].group.length; j++) {
           for (let l = 0; l < repairs[i-numPreviousOwners].group[j].numDefectsRepaired; l++) {
             if (repairs[i-numPreviousOwners].group[j].defectsRepaired[l][0] == selectedOwner && 
@@ -63,7 +64,26 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
     setDefectsRepaired(updatedDR);
   }, [selectedOwner]);
 
-  if (defectsRepaired.filter(repairedDefect => repairedDefect != '').length > 0) {
+  if (view == 'ownerView') {
+    return (
+      <div className={styles.repairedDefectByContainer}>
+        <div className={styles.fieldLabel}>
+          {fieldLabel}
+        </div>
+        <div className={styles.repairedDefects}>
+          {defectsRepaired.filter(repairedDefect => repairedDefect != '').map((repairedDefect, index) => (
+            <div key={`${repairedDefect}-${index}`}>
+              <div>{repairedDefect}</div>
+            </div>
+          ))}
+          {defectsRepaired.filter(repairedDefect => repairedDefect != '').length == 0 &&
+            <div>-</div>
+          }
+        </div>
+      </div>
+    );
+  }
+  else if (defectsRepaired.filter(repairedDefect => repairedDefect != '').length > 0) {
     return (
       <div className={styles.repairedDefectByContainer}>
         <div className={styles.fieldLabel}>

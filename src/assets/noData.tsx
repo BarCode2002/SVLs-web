@@ -6,8 +6,8 @@ export const NoDataMaintenances = () => {
       <path d="M6 2H14L20 8V22C20 22.5523 19.5523 23 19 23H5C4.44772 23 4 22.5523 4 22V4C4 2.89543 4.89543 2 6 2Z" 
         stroke="black" strokeWidth="2" fill="none"/>
       <path d="M14 2V8H20" stroke="black" strokeWidth="2" fill="none"/>
-      <text x="9" y="13" font-size="4" fill="black"  dominantBaseline="middle" font-family="Arial" font-weight="bold">{i18n.t('DataSVL.Placeholders.No')}</text>
-      <text x="6.5" y="18" font-size="4" fill="black" dominantBaseline="middle" font-family="Arial" font-weight="bold">{i18n.t('DataSVL.Placeholders.NoMaintenances')}</text>
+      <text x="9" y="13" fontSize="4" fill="black"  dominantBaseline="middle" fontFamily="Arial" fontWeight="bold">{i18n.t('DataSVL.Placeholders.No')}</text>
+      <text x="6.5" y="18" fontSize="4" fill="black" dominantBaseline="middle" fontFamily="Arial" fontWeight="bold">{i18n.t('DataSVL.Placeholders.NoMaintenances')}</text>
 		</svg>
 	);
 };
@@ -18,8 +18,8 @@ export const NoDataModifications = () => {
       <path d="M6 2H14L20 8V22C20 22.5523 19.5523 23 19 23H5C4.44772 23 4 22.5523 4 22V4C4 2.89543 4.89543 2 6 2Z" 
         stroke="black" strokeWidth="2" fill="none"/>
       <path d="M14 2V8H20" stroke="black" strokeWidth="2" fill="none"/>
-      <text x="9" y="13" font-size="4" fill="black"  dominantBaseline="middle" font-family="Arial" font-weight="bold">{i18n.t('DataSVL.Placeholders.No')}</text>
-      <text x="6.5" y="18" font-size="4" fill="black" dominantBaseline="middle" font-family="Arial" font-weight="bold">{i18n.t('DataSVL.Placeholders.NoModifications')}</text>
+      <text x="9" y="13" fontSize="4" fill="black"  dominantBaseline="middle" fontFamily="Arial" fontWeight="bold">{i18n.t('DataSVL.Placeholders.No')}</text>
+      <text x="6.5" y="18" fontSize="4" fill="black" dominantBaseline="middle" fontFamily="Arial" fontWeight="bold">{i18n.t('DataSVL.Placeholders.NoModifications')}</text>
 		</svg>
 	);
 };
@@ -30,8 +30,8 @@ export const NoDataDefects = () => {
       <path d="M6 2H14L20 8V22C20 22.5523 19.5523 23 19 23H5C4.44772 23 4 22.5523 4 22V4C4 2.89543 4.89543 2 6 2Z" 
         stroke="black" strokeWidth="2" fill="none"/>
       <path d="M14 2V8H20" stroke="black" strokeWidth="2" fill="none"/>
-      <text x="9" y="13" font-size="4" fill="black"  dominantBaseline="middle" font-family="Arial" font-weight="bold">{i18n.t('DataSVL.Placeholders.No')}</text>
-      <text x="6.5" y="18" font-size="4" fill="black" dominantBaseline="middle" font-family="Arial" font-weight="bold">{i18n.t('DataSVL.Placeholders.NoDefects')}</text>
+      <text x="9" y="13" fontSize="4" fill="black"  dominantBaseline="middle" fontFamily="Arial" fontWeight="bold">{i18n.t('DataSVL.Placeholders.No')}</text>
+      <text x="6.5" y="18" fontSize="4" fill="black" dominantBaseline="middle" fontFamily="Arial" fontWeight="bold">{i18n.t('DataSVL.Placeholders.NoDefects')}</text>
 		</svg>
 	);
 };
@@ -42,8 +42,8 @@ export const NoDataRepairs = () => {
       <path d="M6 2H14L20 8V22C20 22.5523 19.5523 23 19 23H5C4.44772 23 4 22.5523 4 22V4C4 2.89543 4.89543 2 6 2Z" 
         stroke="black" strokeWidth="2" fill="none"/>
       <path d="M14 2V8H20" stroke="black" strokeWidth="2" fill="none"/>
-      <text x="9" y="13" font-size="4" fill="black"  dominantBaseline="middle" font-family="Arial" font-weight="bold">{i18n.t('DataSVL.Placeholders.No')}</text>
-      <text x="6.5" y="18" font-size="4" fill="black" dominantBaseline="middle" font-family="Arial" font-weight="bold">{i18n.t('DataSVL.Placeholders.NoRepairs')}</text>
+      <text x="9" y="13" fontSize="4" fill="black"  dominantBaseline="middle" fontFamily="Arial" fontWeight="bold">{i18n.t('DataSVL.Placeholders.No')}</text>
+      <text x="6.5" y="18" fontSize="4" fill="black" dominantBaseline="middle" fontFamily="Arial" fontWeight="bold">{i18n.t('DataSVL.Placeholders.NoRepairs')}</text>
 		</svg>
 	);
 };

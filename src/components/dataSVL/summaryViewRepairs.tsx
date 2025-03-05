@@ -247,7 +247,7 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
     <div key={selectedOwner}>
       {!mySVL || selectedOwner < numPreviousOwners ? (
         <div>          
-          {repairs[selectedOwner].group.length > 0 ? (      
+          {prevOwnersRepairs[selectedOwner].repairs.length > 0 ? (      
             <div>{listPreviousGroupRepairs(selectedOwner)}</div>
           ) : (
             <div className={styles.noData}>

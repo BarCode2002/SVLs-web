@@ -15,9 +15,10 @@ type PrevOwnersDefectsSVLProps = {
   prevOwnersDefects: any;
   prevOwnersRepairs: any;
   repairs: Repairs[];
+  mySVL: boolean;
 };
 
-const PrevOwnersDefectsSVL = ({ selectedOwner, numPreviousOwners, totalOwners, shrinked, setShrinked, prevOwnersDefects, prevOwnersRepairs, repairs }: PrevOwnersDefectsSVLProps): JSX.Element => {
+const PrevOwnersDefectsSVL = ({ selectedOwner, numPreviousOwners, totalOwners, shrinked, setShrinked, prevOwnersDefects, prevOwnersRepairs, repairs, mySVL }: PrevOwnersDefectsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -61,8 +62,9 @@ const PrevOwnersDefectsSVL = ({ selectedOwner, numPreviousOwners, totalOwners, s
               <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].date} />
               <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].kilometers} />
               <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].cause} />
-              <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs} 
+              <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairsL')} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs} 
                 selectedOwner={selectedOwner} selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
+                mySVL={mySVL} view={'ownerView'}
               />
             </div>
           }
