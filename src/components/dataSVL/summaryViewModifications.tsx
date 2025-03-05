@@ -33,10 +33,10 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
       else return false;
     }
     else {
-      if (prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].numComponents > 0 ||
-        prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
-        prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
-        prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+      if (prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].numComponents > 0 ||
+        prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
+        prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
+        prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].comments != '') return true;
       else return false;
     }
   };

@@ -62,23 +62,22 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
     setDefectsRepaired(updatedDR);
   }, [selectedOwner]);
 
-  return (
-    <div className={styles.repairedDefectByContainer}>
-      <div className={styles.fieldLabel}>
-        {fieldLabel}
+  if (defectsRepaired.filter(repairedDefect => repairedDefect != '').length > 0) {
+    return (
+      <div className={styles.repairedDefectByContainer}>
+        <div className={styles.fieldLabel}>
+          {fieldLabel}
+        </div>
+        <div className={styles.repairedDefects}>
+          {defectsRepaired.filter(repairedDefect => repairedDefect != '').map((repairedDefect, index) => (
+            <div key={`${repairedDefect}-${index}`}>
+              <div>{repairedDefect}</div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className={styles.repairedDefects}>
-        {defectsRepaired.filter(repairedDefect => repairedDefect != '').map((repairedDefect, index) => (
-          <div key={`${repairedDefect}-${index}`}>
-            <div>{repairedDefect}</div>
-          </div>
-        ))}
-        {defectsRepaired.filter(repairedDefect => repairedDefect != '').length == 0 &&
-          <div>-</div>
-        }
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default RepairedDefectsByContainer;

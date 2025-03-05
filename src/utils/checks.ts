@@ -145,6 +145,9 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
     }
     foundNotSaved = false;
     for (let j = 0; j < defects[i].group.length; j++) {
+      if (defects[i].group[j].cause == '') {
+        invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.causeDefect')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
+      }
       for (let l = 0; l < defects[i].group[j].type.length; l++) {
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
           if (defects[i].group[j].type[l].photographs[z][4] == ':' && !foundNotSaved) {

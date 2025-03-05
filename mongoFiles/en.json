@@ -17,7 +17,7 @@
       "blocked": "Blocked",
       "requesterAddress": "Requester's key",
       "ownerAddress": "Owner's key",
-      "ownerMe": "My password",
+      "ownerMe": "My key",
       "acceptRequest": "Accept",
       "denyRequest": "Deny",
       "request": "Request",
@@ -189,7 +189,10 @@
       "yes": "Yes",
       "no": "No",
       "reset": "Reset",
-      "unknown": "Unknown"
+      "unknown": "Unknown",
+      "noDateSelected": "Date not defined",
+      "noDefectLevelSelected": "Severity not defined",
+      "noNameSelected": "Name not defined"
     },
     "Forms": {
       "brand": "Select the brand",
@@ -200,7 +203,7 @@
       "fuel": "Select fuel type",
       "climate": "Select the climate",
       "storage": "Select vehicle storage",
-      "level": "Select defect importance"
+      "level": "Select defect severity"
     }
   },
   "InvalidFields": {
@@ -241,7 +244,8 @@
     "previousImagesModification": "has not saved the pre modifications images",
     "postImagesModification": "has not saved post modification images",
 
-    "imagesDefect": "has not not saved the defect images",
+    "causeDefect": "has not defined the cause for the defect group",
+    "imagesDefect": "has not saved the defect images",
     "defectGroup": "belonging to the defect group",
 
     "responsibleRepairs": "has not defined the person responsible for the repair group",

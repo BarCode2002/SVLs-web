@@ -33,10 +33,10 @@ const SummaryViewMaintenances = ({ prevOwnersMaintenances, maintenances, setMain
       else return false;
     }
     else {
-      if (prevOwnersMaintenances[selectedOwner].group[groupIndex].type[typeIndex].numComponents > 0 ||
-        prevOwnersMaintenances[selectedOwner].group[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
-        prevOwnersMaintenances[selectedOwner].group[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
-        prevOwnersMaintenances[selectedOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+      if (prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].numComponents > 0 ||
+        prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
+        prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
+        prevOwnersMaintenances[selectedOwner].maintenances[groupIndex].type[typeIndex].comments != '') return true;
       else return false;
     }
   };

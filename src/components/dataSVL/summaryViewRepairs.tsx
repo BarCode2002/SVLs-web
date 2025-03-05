@@ -34,10 +34,10 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
       else return false;
     }
     else {
-      if (prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].numComponents > 0 ||
-        prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
-        prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
-        prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+      if (prevOwnersRepairs[selectedOwner].repairs[groupIndex].type[typeIndex].numComponents > 0 ||
+        prevOwnersRepairs[selectedOwner].repairs[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
+        prevOwnersRepairs[selectedOwner].repairs[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
+        prevOwnersRepairs[selectedOwner].repairs[groupIndex].type[typeIndex].comments != '') return true;
       else return false;
     }
   };

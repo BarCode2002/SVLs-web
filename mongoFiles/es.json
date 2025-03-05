@@ -190,7 +190,10 @@
       "yes": "Si",
       "no": "No",
       "reset": "Por defecto",
-      "unknown": "Desconocido"
+      "unknown": "Desconocido",
+      "noDateSelected": "Fecha sin definir",
+      "noDefectLevelSelected": "Gravedad sin definir",
+      "noNameSelected": "Nombre sin definir"
     },
     "Forms": {
       "brand": "Selecciona la marca",
@@ -201,7 +204,7 @@
       "fuel": "Selecciona el tipo de combustible",
       "climate": "Selecciona el clima",
       "storage": "Selecciona el almacenamiento del vehículo",
-      "level": "Selecciona la importancia del defecto"
+      "level": "Selecciona la gravedad del defecto"
     }
   },
   "InvalidFields": {
@@ -243,6 +246,7 @@
     "previousImagesModification": "no ha guardado las imágenes previas a la modificación",
     "postImagesModification": "no ha guardado las imágenes posteriores a la modificación",
 
+    "causeDefect": "no ha definido las causas del grupo de defectos",
     "imagesDefect": "no ha guardado las imágenes del defecto",
     "defectGroup": "perteneciente al grupo de defectos",
 

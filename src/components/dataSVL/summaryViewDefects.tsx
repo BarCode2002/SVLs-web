@@ -23,19 +23,19 @@ type SummaryViewDefectsProps = {
 
 const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRepairs, setDefects, shrinked, setShrinked, numPreviousOwners, totalOwners, mySVL }: SummaryViewDefectsProps): JSX.Element => {
 
-  const { t } = useTranslation();//mirar como mirar los si los defects repaired esta vacia y hacer cause en defect obligatoria para que haya siempre algo escrito
+  const { t } = useTranslation();
 
   const checkIfSomeDataInType = (selectedOwner: number, groupIndex: number, typeIndex: number, actual: boolean) => {
     if (actual) {
-      if (defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].level == 'DataSVL.Forms.level' ||
+      if (defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].level != 'DataSVL.Forms.level' ||
         defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].photographs.filter(image => image != '').length > 0 ||
         defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].description != '') return true;
       else return false;
     }
     else {
-      if (prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].level == 'DataSVL.Forms.level' ||
-        prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].photographs.filter((image: string) => image != '').length > 0 ||
-        prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].description != '') return true;
+      if (prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].level == 'DataSVL.Forms.level' ||
+        prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].photographs.filter((image: string) => image != '').length > 0 ||
+        prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].description != '') return true;
       else return false;
     }
   };
@@ -182,9 +182,7 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
                 {defects[selectedOwner-numPreviousOwners].group[groupIndex].kilometers[0] != '' &&
                   <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].kilometers} />
                 }
-                {defects[selectedOwner-numPreviousOwners].group[groupIndex].cause != '' &&
-                  <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].cause} />
-                }
+                <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={defects[selectedOwner-numPreviousOwners].group[groupIndex].cause} />
                 <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairs')} repairs={repairs} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
                 />
