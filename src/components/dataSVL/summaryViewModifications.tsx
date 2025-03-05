@@ -31,11 +31,11 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
+            <div>{prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].name}</div>
             <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={typeIndex} />
           </div>
           {shrinked[selectedOwner][groupIndex].type[typeIndex] == false &&
             <div className={styles.groupTypeBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].name} />
               <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].components} />
               <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].pre} />
               <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].post} />
@@ -61,12 +61,12 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
           <div className={styles.topPart}>
             <div className={styles.toggleVisibilityRemoveGroup}>
               # {groupIndex + 1}
+              <div>{prevOwnersModifications[selectedOwner].modifications[groupIndex].name}</div>
               <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={-1} />
             </div>
             {shrinked[selectedOwner][groupIndex].group == false &&
               <div className={styles.topBottomPart}>
                 <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].kilometers} />
-                <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].name} />
                 <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={prevOwnersModifications[selectedOwner].modifications[groupIndex].responsible} />
                 <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].date} />
                 <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].pre} />
@@ -100,17 +100,25 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
+            <div>{modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].name}</div>
             <ToggleVisibilityButton dataSVL={modifications} setDataSVL={setModifications} selectedOwner={selectedOwner-numPreviousOwners} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
           </div>
           {modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].name} />
-              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].components} />
-              <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].pre} />
-              <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].post} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].comments} />
+              {modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].numComponents > 0 &&
+                <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].components} />
+              }
+              {modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].pre.filter(image => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].pre} />
+              }
+              {modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].post.filter(image => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].post} />
+              }
+              {modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].comments != '' &&
+                <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={modifications[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].comments} />
+              }
             </div>
           }
         </div>
@@ -132,6 +140,7 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
           <div className={styles.topPart}>
             <div className={styles.toggleVisibilityRemoveGroup}>
               # {groupIndex + 1}
+              <div>{modifications[selectedOwner-numPreviousOwners].group[groupIndex].name}</div>
               <ToggleVisibilityButton dataSVL={modifications} setDataSVL={setModifications} selectedOwner={selectedOwner-numPreviousOwners} 
                 selectedGroup={groupIndex} selectedGroupType={-1}
               />
@@ -139,7 +148,6 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
             {modifications[selectedOwner-numPreviousOwners].group[groupIndex].shrinked == false &&
               <div className={styles.topBottomPart}>
                 <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={modifications[selectedOwner-numPreviousOwners].group[groupIndex].kilometers} />
-                <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={modifications[selectedOwner-numPreviousOwners].group[groupIndex].name} />
                 <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={modifications[selectedOwner-numPreviousOwners].group[groupIndex].responsible} />
                 <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={modifications[selectedOwner-numPreviousOwners].group[groupIndex].date} />
                 <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={modifications[selectedOwner-numPreviousOwners].group[groupIndex].pre} />

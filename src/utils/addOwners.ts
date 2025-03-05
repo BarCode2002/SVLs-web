@@ -97,7 +97,7 @@ export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<M
         type: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 1,
+          numComponents: 0,
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",
@@ -123,7 +123,7 @@ export const addModifications = (setModifications: React.Dispatch<SetStateAction
         type: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 1,
+          numComponents: 0,
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",
@@ -172,7 +172,7 @@ export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<Repairs[]>>
         type: Array.from({ length: 1 }, () => ({
           name: "",
           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 1,
+          numComponents: 0,
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           comments: "",

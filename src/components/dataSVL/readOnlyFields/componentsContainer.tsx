@@ -15,7 +15,7 @@ const ComponentsContainer = ({ fieldLabel, components }: ComponentsContainerProp
       <div className={styles.components}>
         {components.filter(url => url != '').map((component, index) => (
           <div key={index} className={styles.components}>
-            {component}
+            {component} /
           </div>
         ))}
         {components.filter(url => url != '').length == 0 &&

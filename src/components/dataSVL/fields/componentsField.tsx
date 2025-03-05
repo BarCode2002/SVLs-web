@@ -37,7 +37,7 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
     for (let i = indexComponent; i < dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents; i++) {
       updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i+1];
     }
-    if (dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents > 1) {
+    if (dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents > 0) {
       const updateSVLdata = [...dataSVL];
       updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents - 1;
       setDataSVL(updateSVLdata);
@@ -54,30 +54,29 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
         onChange={(e) => updateValue(e, index)}
         disabled={!editMode}
       />
-      {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents > 1 &&
-        <div className={styles.removeComponentButtonWrapper}>
-          <button
-            className={styles.removeComponentButton}
-            onClick={() => removeComponent(index)}
-            disabled={!editMode}>
-            <TrashIconBlackSmall />
-          </button>
-        </div>
-      }
-      {index+1 == dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents &&
+      <div className={styles.removeComponentButtonWrapper}>
         <button
-          className={styles.addComponentButton}
-          onClick={addComponent}
+          className={styles.removeComponentButton}
+          onClick={() => removeComponent(index)}
           disabled={!editMode}>
-          +
+          <TrashIconBlackSmall />
         </button>
-      }
+      </div>
     </div>
   ));
 
   return (
     <div className={styles.componentsFieldContainer}>
       {listComponents}
+      {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents == 0 &&
+        'Add component'
+      }
+      <button
+        className={styles.addComponentButton}
+        onClick={addComponent}
+        disabled={!editMode}>
+        +
+      </button>
     </div>
   );
 };
