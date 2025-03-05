@@ -20,9 +20,10 @@ type ModificationsSVLProps = {
   modifications: Modifications[];
   setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
   editMode: boolean;
+  jsonUploaded: boolean;
 };
 
-const ModificationsSVL = ({ selectedOwner, modifications, setModifications, editMode }: ModificationsSVLProps): JSX.Element => {
+const ModificationsSVL = ({ selectedOwner, modifications, setModifications, editMode, jsonUploaded }: ModificationsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -153,7 +154,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
               />
               <ResponsibleField fieldLabel={t('DataSVL.Labels.responsible')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 dataSVL={modifications} value={modifications[selectedOwner].group[groupIndex].responsible} 
-                setDataSVL={setModifications} type={'modifications'} editMode={editMode}
+                setDataSVL={setModifications} type={'modifications'} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={modifications} setDataSVL={setModifications} type={'date'} editMode={editMode}

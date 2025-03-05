@@ -2,7 +2,6 @@ import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../../utils/constants';
 import { Maintenances, Modifications, Defects, Repairs } from '../../../utils/interfaces';
-import { useTranslation } from "react-i18next";
 
 type AddGroupButtonProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
@@ -12,8 +11,6 @@ type AddGroupButtonProps = {
 };
 
 const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupButtonProps): JSX.Element => {
-
-  const { t } = useTranslation();
 
   const addMaintenanceGroup = () => {
     setDataSVL((prevDataSVL: Maintenances[]) =>
@@ -33,7 +30,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                   type: Array.from({ length: 1 }, () => ({
                     name: "",
                     components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-                    numComponents: 1,
+                    numComponents: 0,
                     pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                     post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                     comments: "",
@@ -66,7 +63,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                   type: Array.from({ length: 1 }, () => ({
                     name: "",
                     components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-                    numComponents: 1,
+                    numComponents: 0,
                     pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                     post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                     comments: "",
@@ -94,7 +91,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                   kilometers: ['', 'km'],
                   cause: "",
                   type: Array.from({ length: 1 }, () => ({
-                    level: t('DataSVL.Forms.level'),
+                    level: 'DataSVL.Forms.level',
                     photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                     description: "",
                     shrinked: false,
@@ -128,7 +125,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
                   type: Array.from({ length: 1 }, () => ({
                     name: "",
                     components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-                    numComponents: 1,
+                    numComponents: 0,
                     pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                     post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                     comments: "",

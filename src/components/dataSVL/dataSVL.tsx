@@ -151,13 +151,13 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
             <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={prevOwnersMaintenances} />
           }
           {selectedSVLData == 1 && selectedOwner >= weird &&
-            <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} />
+            <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} jsonUploaded={jsonUploaded} />
           }
           {shrinkedReady && selectedSVLData == 2 && selectedOwner < weird &&
             <PrevOwnersModificationsSVL selectedOwner={selectedOwner} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} prevOwnersModifications={prevOwnersModifications} />
           }
           {selectedSVLData == 2 && selectedOwner >= weird &&
-            <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} />
+            <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} jsonUploaded={jsonUploaded} />
           }
           {shrinkedReady && selectedSVLData == 3 && selectedOwner < weird &&
             <PrevOwnersDefectsSVL selectedOwner={selectedOwner} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={prevOwnersDefects} prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} />

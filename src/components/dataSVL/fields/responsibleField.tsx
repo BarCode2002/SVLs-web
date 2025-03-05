@@ -16,9 +16,10 @@ type ResponsibleFieldProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
   editMode: boolean;
+  jsonUploaded?: boolean;
 }
 
-const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL, type, editMode }: ResponsibleFieldProps) => {
+const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, value, setDataSVL, type, editMode, jsonUploaded }: ResponsibleFieldProps) => {
 
   const { t } = useTranslation();
 
@@ -32,7 +33,8 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   useEffect(() => {
     if (value[3][4] == ':') setImagesSaved(false);
     else setImagesSaved(true);
-  }, []);
+    setSearchQuery(value[1]);
+  }, [jsonUploaded]);
 
   const imageInputId = `${selectedGroup}`;
   

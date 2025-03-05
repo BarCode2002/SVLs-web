@@ -31,7 +31,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                         {
                           name: "",
                           components: Array.from({ length: COMPONENTS_SIZE }, () => ""),
-                          numComponents: 1,
+                          numComponents: 0,
                           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ""),
                           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ""),
                           comments: "",
@@ -62,7 +62,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                         {
                           name: "",
                           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-                          numComponents: 1,
+                          numComponents: 0,
                           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                           comments: "",
@@ -121,7 +121,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                         {
                           name: "",
                           components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-                          numComponents: 1,
+                          numComponents: 0,
                           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
                           comments: "",

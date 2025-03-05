@@ -34,12 +34,13 @@
 }
 
 .addComponentButton {
-  width: 25px;
+  width: fit-content;
   border: none;
   border-radius: 10px;
   background-color: var(--dataBackgroundColor);
   color: var(--buttonTextColor);
   font-size: var(--buttonFontSize);
+  height: 37px;
 }
 
 .addComponentButton:hover {

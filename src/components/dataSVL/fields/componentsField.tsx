@@ -2,6 +2,7 @@ import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/fields/componentsField.module.css';
 import { COMPONENTS_SIZE } from '../../../utils/constants';
 import { TrashIconBlackSmall } from '../../../assets/trash';
+import { t } from 'i18next';
 
 type ComponentsFieldProps = {
   placeholder: string;
@@ -68,14 +69,11 @@ const ComponentsField = ({ placeholder, selectedOwner, selectedGroup, selectedGr
   return (
     <div className={styles.componentsFieldContainer}>
       {listComponents}
-      {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents == 0 &&
-        'Add component'
-      }
       <button
         className={styles.addComponentButton}
         onClick={addComponent}
         disabled={!editMode}>
-        +
+        {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].numComponents == 0 ? t('DataSVL.Labels.addComponent') : '+'}
       </button>
     </div>
   );

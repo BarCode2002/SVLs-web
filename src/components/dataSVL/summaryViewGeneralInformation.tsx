@@ -23,7 +23,7 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
       </div>
       <div className={styles.dataWrapperSummary}>
         {!mySVL || selectedOwner < numPreviousOwners ? (
-          <div className={styles.data}>          
+          <div className={styles.data}>   
             <TextContainer fieldLabel={t('DataSVL.Labels.vin')} text={prevOwnersGeneralInformation[selectedOwner].VIN} />
             <TextContainer fieldLabel={t('DataSVL.Labels.brand')} text={prevOwnersGeneralInformation[selectedOwner].brand} />
             <TextContainer fieldLabel={t('DataSVL.Labels.model')} text={prevOwnersGeneralInformation[selectedOwner].model} />
