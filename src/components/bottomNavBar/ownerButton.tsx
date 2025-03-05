@@ -40,23 +40,23 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
   };
   
   const removeGeneralInformation = () => {
-    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => prevGeneralInformation.filter((_, index) => index != selectedOwner-numPreviousOwners));
+    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => prevGeneralInformation.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeMaintenances = () => {
-    setMaintenances((prevMaintenances: Maintenances[]) => prevMaintenances.filter((_, index) => index != selectedOwner-numPreviousOwners));
+    setMaintenances((prevMaintenances: Maintenances[]) => prevMaintenances.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeModifications = () => {
-    setModifications((prevModifications: Modifications[]) => prevModifications.filter((_, index) => index != selectedOwner-numPreviousOwners));
+    setModifications((prevModifications: Modifications[]) => prevModifications.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeDefects = () => {
-    setDefects((prevDefects: Defects[]) => prevDefects.filter((_, index) => index != selectedOwner-numPreviousOwners));
+    setDefects((prevDefects: Defects[]) => prevDefects.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeRepairs = () => {
-    setRepairs((prevRepairs: Repairs[]) => prevRepairs.filter((_, index) => index != selectedOwner-numPreviousOwners));
+    setRepairs((prevRepairs: Repairs[]) => prevRepairs.filter((_, i) => i != index-numPreviousOwners));
   }
   
   const handleOwnerRemoval = () => {
