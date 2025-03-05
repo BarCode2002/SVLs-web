@@ -22,7 +22,7 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
 
   const { t } = useTranslation();
 
-  useEffect(() => {//esta mal pq cuando el SVL no es tuyo lee en repairs en cambio que prevOwnersRepairs
+  useEffect(() => {
     const updatedDR = Array(DEFECTS_REPAIRED_SIZE).fill('');
     let numDR = 0;
     for (let i = selectedOwner; i < totalOwners; i++) { 
