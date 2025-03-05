@@ -20,11 +20,11 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
 
   const { t } = useTranslation();
 
-  useEffect(() => {
+  useEffect(() => {//esta mal pq cuando el SVL no es tuyo lee en repairs en cambio que prevOwnersRepairs
     const updatedDR = Array(DEFECTS_REPAIRED_SIZE).fill('');
     let numDR = 0;
     for (let i = selectedOwner; i < totalOwners; i++) { 
-      if (i < numPreviousOwners) { //comprobar que esto funciona(deberia)
+      if (i < numPreviousOwners) {
         for (let j = 0; j < prevOwnersRepairs[i].repairs.length; j++) {
           for (let l = 0; l < prevOwnersRepairs[i].repairs[j].numDefectsRepaired; l++) {
             if (prevOwnersRepairs[i].repairs[j].defectsRepaired[l][0] == selectedOwner && 
@@ -42,6 +42,7 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
         }
       }
       else {
+        console.log("hola")
         for (let j = 0; j < repairs[i-numPreviousOwners].group.length; j++) {
           for (let l = 0; l < repairs[i-numPreviousOwners].group[j].numDefectsRepaired; l++) {
             if (repairs[i-numPreviousOwners].group[j].defectsRepaired[l][0] == selectedOwner && 

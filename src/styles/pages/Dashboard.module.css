@@ -31,7 +31,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
 }
 
 .toggleText {
@@ -39,6 +38,7 @@
   background-color: var(--navBarsPrimaryColor);
   font-size: 1rem;
   font-weight: 600;
+  margin-left: 5px;
 }
 
 .toggleFullFilters {

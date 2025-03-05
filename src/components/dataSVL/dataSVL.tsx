@@ -131,7 +131,6 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
       }))
     );
     setPrevRepairsShrinked(updatedShrinkedRepairs);
-    console.log(mySVL);
     if (!mySVL) setWeird(totalOwners);
     else setWeird(numPreviousOwners);
     setShrinkedReady(true);
