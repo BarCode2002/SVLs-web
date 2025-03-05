@@ -54,8 +54,8 @@ const OwnershipSummaryButton = ({ ownershipSummary }: OwnershipSummaryButtonProp
           <div className={styles.ownershipSummaryInformationContainer}>
             {ownershipSummary.map((owner, index) => (
               <div key={index} className={styles.ownershipInformation}>
-                <div>{owner.ownerAddress}</div>
                 <div>{owner.transferDate}</div>
+                <div>{owner.ownerAddress}</div>
                 <div className={styles.ownersContainer}>
                   {owner.owners.map((ownerI, i) => (
                     <div key={i}>

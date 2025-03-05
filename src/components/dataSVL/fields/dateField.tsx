@@ -18,7 +18,8 @@ const DateField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, data
 
   const handleDateSelected = (date: any) => {
     const updateSVLdata = [...dataSVL];
-    updateSVLdata[selectedOwner].group[selectedGroup][type] = date;
+    if (selectedGroup == -1) updateSVLdata[selectedOwner][type] = date;
+    else updateSVLdata[selectedOwner].group[selectedGroup][type] = date;
     setDataSVL(updateSVLdata);
   };
 
@@ -31,7 +32,7 @@ const DateField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, data
         <DatePicker 
           portalId="react-datepicker-popper"
           className={styles.date}
-          selected={dataSVL[selectedOwner].group[selectedGroup][type]} 
+          selected={type == 'transferDate' ? dataSVL[selectedOwner][type] : dataSVL[selectedOwner].group[selectedGroup][type]} 
           onChange={handleDateSelected} 
           dateFormat="dd-MM-yyyy" 
           placeholderText={placeholder}

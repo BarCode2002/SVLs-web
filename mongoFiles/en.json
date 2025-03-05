@@ -135,7 +135,8 @@
       "hasProofButNotUploaded": "The owner has proof but did not upload it",
       "proof": "Proof:",
       "firstOwnerFields": "Only the first owner can modify it, check it carefully.",
-      "addComponent": "Add components"
+      "addComponent": "Add components",
+      "acquisitionDate": "Acquired on:"
     },
     "Placeholders": {
       "vin": "VIN",
@@ -192,7 +193,12 @@
       "unknown": "Unknown",
       "noDateSelected": "Date not defined",
       "noDefectLevelSelected": "Severity not defined",
-      "noNameSelected": "Name not defined"
+      "noNameSelected": "Name not defined",
+      "No": "No",
+      "NoMaintenances": "Maint.",
+      "NoModifications": "Modif.",
+      "NoDefects": "Defec.",
+      "NoRepairs": "Repai."
     },
     "Forms": {
       "brand": "Select the brand",

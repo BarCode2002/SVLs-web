@@ -6,6 +6,7 @@ import DropdownMenu from './fields/dropdownMenu.tsx';
 import ImagesField from './fields/imagesField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
 import { useTranslation } from "react-i18next";
+import DateField from './fields/dateField.tsx';
 
 type GeneralInformationSVLProps = {
   selectedOwner: number;
@@ -40,7 +41,10 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
           <InputField fieldLabel={t('DataSVL.Labels.year')} placeholder={t('DataSVL.Placeholders.year')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].year} 
             setDataSVL={setGeneralInformation} type={'year'} editMode={editMode}
-          />       
+          />    
+          <DateField fieldLabel={t('DataSVL.Labels.acquisitionDate')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
+            selectedGroup={-1} dataSVL={generalInformation} setDataSVL={setGeneralInformation} type={'transferDate'} editMode={editMode}
+          />   
           <InputField fieldLabel={t('DataSVL.Labels.kilometers')} placeholder={t('DataSVL.Placeholders.kilometers')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 
             setDataSVL={setGeneralInformation} type={'kilometers'} editMode={editMode}

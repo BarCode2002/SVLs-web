@@ -7,6 +7,7 @@ import ToggleVisibilityButton from './buttons/toggleVisibilityButton.tsx';
 import ToggleVisibilityRDButton from './readOnlyFields/toggleVisibilityRDButton.tsx';
 import { useTranslation } from "react-i18next";
 import { SetStateAction } from 'react';
+import { NoDataDefects } from '../../assets/noData.tsx';
 
 type SummaryViewDefectsProps = {
   prevOwnersDefects: any;
@@ -211,12 +212,24 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
   const listDefects = Array.from({length: totalOwners }, (_, selectedOwner) => (
     <div key={selectedOwner}>
       {!mySVL || selectedOwner < numPreviousOwners ? (
-        <div>          
-          {listPreviousGroupDefects(selectedOwner)}
+        <div>        
+          {prevOwnersDefects[selectedOwner].group.length > 0 ? (        
+            <div>{listPreviousGroupDefects(selectedOwner)}</div>
+          ) : (
+            <div className={styles.noData}>
+              {t('DataSVL.Placeholders.owner')} {selectedOwner+1} - <NoDataDefects />
+            </div>
+          )}
         </div>
       ) : (
-        <div>          
-          {listActualGroupDefects(selectedOwner)}
+        <div>         
+          {defects[selectedOwner].group.length > 0 ? (      
+            <div>{listActualGroupDefects(selectedOwner)}</div>
+          ) : (
+            <div className={styles.noData}>
+              {t('DataSVL.Placeholders.owner')} {selectedOwner+1} - <NoDataDefects />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -125,3 +125,11 @@
   margin-top: 10px;
   padding-right: 25px;
 }
+
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 2rem;
+}

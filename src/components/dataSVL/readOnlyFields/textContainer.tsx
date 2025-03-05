@@ -34,7 +34,7 @@ const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>
-      {noData == false && fieldLabel == t('DataSVL.Labels.date') &&
+      {noData == false && (fieldLabel == t('DataSVL.Labels.date') || fieldLabel == t('DataSVL.Labels.acquisitionDate')) &&
         <div className={styles.text}>
           {new Date(text).toLocaleDateString("en-GB")}
         </div>
@@ -44,7 +44,7 @@ const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
           {text[0]} {text[1]}
         </div>
       }
-      {noData == false && fieldLabel != t('DataSVL.Labels.kilometers') && fieldLabel != t('DataSVL.Labels.weight') && fieldLabel != t('DataSVL.Labels.power') && fieldLabel != t('DataSVL.Labels.autonomy') && fieldLabel != t('DataSVL.Labels.date') &&
+      {noData == false && fieldLabel != t('DataSVL.Labels.kilometers') && fieldLabel != t('DataSVL.Labels.weight') && fieldLabel != t('DataSVL.Labels.power') && fieldLabel != t('DataSVL.Labels.autonomy') && fieldLabel != t('DataSVL.Labels.date') && fieldLabel != t('DataSVL.Labels.acquisitionDate') &&
         <div className={styles.text}> 
           {t(text)}
         </div>

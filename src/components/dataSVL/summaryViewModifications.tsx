@@ -6,6 +6,7 @@ import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';
 import ComponentsContainer from './readOnlyFields/componentsContainer.tsx';
 import ToggleVisibilityButton from './buttons/toggleVisibilityButton.tsx';
 import ToggleVisibilityRDButton from './readOnlyFields/toggleVisibilityRDButton.tsx';
+import { NoDataModifications } from '../../assets/noData.tsx';
 import { useTranslation } from "react-i18next";
 import { SetStateAction } from 'react';
 
@@ -235,11 +236,23 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
     <div key={selectedOwner}>
       {!mySVL || selectedOwner < numPreviousOwners ? (
         <div>          
-          {listPreviousGroupModifications(selectedOwner)}
+          {prevOwnersModifications[selectedOwner].group.length > 0 ? (       
+            <div>{listPreviousGroupModifications(selectedOwner)}</div>
+          ) : (
+            <div className={styles.noData}>
+              {t('DataSVL.Placeholders.owner')} {selectedOwner+1} - <NoDataModifications />
+            </div>
+          )}
         </div>
       ) : (
-        <div>          
-          {listActualGroupModifications(selectedOwner)}
+        <div>      
+          {modifications[selectedOwner].group.length > 0 ? (       
+            <div>{listActualGroupModifications(selectedOwner)}</div>
+          ) : (
+            <div className={styles.noData}>
+              {t('DataSVL.Placeholders.owner')} {selectedOwner+1} - <NoDataModifications />
+            </div>
+          )}
         </div>
       )}
     </div>

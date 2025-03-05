@@ -8,6 +8,7 @@ export const createJSON = (selectedOwner: number, generalInformation: GeneralInf
       brand: item.brand,
       model: item.model,
       year: item.year,
+      transferDate: item.transferDate,
       kilometers: item.kilometers,
       mainPhotograph: item.mainPhotograph,
       state: item.state,

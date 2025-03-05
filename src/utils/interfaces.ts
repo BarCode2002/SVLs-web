@@ -4,6 +4,7 @@ export interface GeneralInformation {
   model: string;
   year: string;
   kilometers: [string, string];
+  transferDate: string;
   mainPhotograph: string;
   state: string;
   photographs: string[];

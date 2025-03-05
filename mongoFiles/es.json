@@ -136,7 +136,8 @@
       "proof": "Prueba:",
       "firstOwnerFields": "Solo el primer propietario puede modificarlo, verifícalo bien.",
       "search": "Busca",
-      "addComponent": "Añade componentes"
+      "addComponent": "Añade componentes",
+      "acquisitionDate": "Comprado el"
     },
     "Placeholders": {
       "vin": "VIN",
@@ -193,7 +194,12 @@
       "unknown": "Desconocido",
       "noDateSelected": "Fecha sin definir",
       "noDefectLevelSelected": "Gravedad sin definir",
-      "noNameSelected": "Nombre sin definir"
+      "noNameSelected": "Nombre sin definir",
+      "No": "No",
+      "NoMaintenances": "Mant.",
+      "NoModifications": "Modif.",
+      "NoDefects": "Defec.",
+      "NoRepairs": "Repar."
     },
     "Forms": {
       "brand": "Selecciona la marca",

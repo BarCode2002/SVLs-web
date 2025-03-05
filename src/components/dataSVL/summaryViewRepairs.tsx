@@ -9,6 +9,7 @@ import ToggleVisibilityButton from './buttons/toggleVisibilityButton.tsx';
 import ToggleVisibilityRDButton from './readOnlyFields/toggleVisibilityRDButton.tsx';
 import { useTranslation } from "react-i18next";
 import { SetStateAction } from 'react';
+import { NoDataRepairs } from '../../assets/noData.tsx';
 
 type SummaryViewRepairsProps = {
   prevOwnersRepairs: any;
@@ -246,11 +247,23 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
     <div key={selectedOwner}>
       {!mySVL || selectedOwner < numPreviousOwners ? (
         <div>          
-          {listPreviousGroupRepairs(selectedOwner)}
+          {repairs[selectedOwner].group.length > 0 ? (      
+            <div>{listPreviousGroupRepairs(selectedOwner)}</div>
+          ) : (
+            <div className={styles.noData}>
+              {t('DataSVL.Placeholders.owner')} {selectedOwner+1} - <NoDataRepairs />
+            </div>
+          )}
         </div>
       ) : (
         <div>          
-          {listActualGroupRepairs(selectedOwner)}
+          {repairs[selectedOwner].group.length > 0 ? (      
+            <div>{listActualGroupRepairs(selectedOwner)}</div>
+          ) : (
+            <div className={styles.noData}>
+              {t('DataSVL.Placeholders.owner')} {selectedOwner+1} - <NoDataRepairs />
+            </div>
+          )}
         </div>
       )}
     </div>
