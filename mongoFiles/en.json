@@ -72,7 +72,7 @@
       "downloadJSON": "Download owner",
       "mintSVL": "Create SVL",
       "editSVL": "Edit SVL",
-      "ownershipSummary": "Ownership Summary",
+      "ownershipSummary": "SVL owners",
       "close": "Close",
       "mintDate": "Created on:",
       "acquisitionDate": "Acquired on:"
@@ -116,7 +116,7 @@
       "maintenances": "Maintenances",
       "modifications": "Modifications",
       "defects": "Defects",
-      "repairs": "Repairs:",
+      "repairs": "Repairs",
       "add": "Add",
       "eraseAll": "Delete all",
       "save": "Save",
