@@ -124,7 +124,7 @@
       "level": "Damage:",
       "description": "Description:",
       "components": "Components:",
-      "warningRemoveOwner": "Are you sure you want to remove the owner",
+      "warningRemoveOwner": "Are you sure you want to remove owner",
       "warningRemoveOwnerLostData": "All information entered will be lost.",
       "allDefectsRepaired": "has repaired all defects",
       "defectRepaired": "has repaired the defect",
