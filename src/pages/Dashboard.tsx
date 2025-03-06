@@ -15,7 +15,7 @@ const Dashboard = (): JSX.Element => {
 
   const { t } = useTranslation();
 
-  const GROUP_SIZE = 1;
+
 
   const [myAddress, setMyAddress] = useState<string | undefined>(undefined);
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
@@ -58,6 +58,9 @@ const Dashboard = (): JSX.Element => {
   });
   const [page, setPage] = useState(0);
   const [numPreviewSVLs, setNumPreviewSVLs] = useState(0);
+  const GROUP_SIZE = 1;
+  const [numGroupsPages, setNumGroupPages] = useState(0);
+  const [visibleGroupPagesInButton, setVisibleGroupPagesInButton] = useState(1);
 
   useEffect(() => {
     const initializedwallet = getWallet();
@@ -87,6 +90,15 @@ const Dashboard = (): JSX.Element => {
 
     }
   }
+
+  useEffect(() => {
+    setNumGroupPages(numPreviewSVLs / GROUP_SIZE);
+  }, [numPreviewSVLs]);
+
+  useEffect(() => {
+    if (page % 10 == 9 && visibleGroupPagesInButton <= numGroupsPages) setVisibleGroupPagesInButton(visibleGroupPagesInButton+1);
+    else if (page % 10 == 0 && visibleGroupPagesInButton > 1) setVisibleGroupPagesInButton(visibleGroupPagesInButton-1);
+  }, [page]);
 
   const handleSVLsShown = (action: string, pageClicked: number) => {
     if (action == 'next' && page < numPreviewSVLs-1) setPage(page+1);
@@ -124,109 +136,29 @@ const Dashboard = (): JSX.Element => {
             <div className={styles.previewSVLsAndManageContainer}>
               <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} appliedFiltersSVL={appliedFiltersSVL} search={search} page={page} setNumPreviewSVLs={setNumPreviewSVLs} />
               <div className={styles.manangeShownSVLsContainer}>
-                <button 
-                  className={styles.pageButton}
-                  onClick={() => handleSVLsShown('prev', -1)}
-                  disabled={page == 0}>
-                  ←
-                </button>
-                {page == 0 &&
-                  <div>
-                    <button 
-                      className={styles.pageButtonSelected}
-                      onClick={() => handleSVLsShown('specific', 0)}>
-                      {1}
-                    </button>
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', 1)}>
-                      {page+2}
-                    </button>
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', 2)}>
-                      {page+3}
-                    </button>
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', 3)}>
-                      {page+4}
-                    </button>
-                    ...
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-1)}>
-                      {numPreviewSVLs}
-                    </button>
-                  </div>
+                {(numPreviewSVLs / GROUP_SIZE) > 10 &&
+                  <button 
+                    className={styles.pageButton}
+                    onClick={() => handleSVLsShown('prev', -1)}
+                    disabled={page == 0}>
+                    ←
+                  </button>
                 }
-                {page > 0 && page < numPreviewSVLs-1 &&
-                  <div>
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', 0)}>
-                      {1}
-                    </button>
-                    ...
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', 0)}>
-                      {page}
-                    </button>
-                    <button 
-                      className={styles.pageButtonSelected}
-                      onClick={() => handleSVLsShown('specific', 0)}>
-                      {page+1}
-                    </button>
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', 0)}>
-                      {page+2}
-                    </button>
-                    ...
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-1)}>
-                      {numPreviewSVLs}
-                    </button>
-                  </div>
+                {Array.from({ length: Math.min(10, numGroupsPages) }, (_, i) => (
+                  <button 
+                    className={page == (i)+(visibleGroupPagesInButton*GROUP_SIZE)-1 ? styles.pageButtonSelected : styles.pageButton}
+                    onClick={() => handleSVLsShown('specific', (i)+(visibleGroupPagesInButton*GROUP_SIZE)-1)}>
+                    {(i)+(visibleGroupPagesInButton*GROUP_SIZE)}
+                  </button>
+                ))}        
+                {(numPreviewSVLs / GROUP_SIZE) > 10 &&
+                  <button 
+                    className={styles.pageButton}
+                    onClick={() => handleSVLsShown('next', -1)}
+                    disabled={page+1 == (numPreviewSVLs / GROUP_SIZE)}>
+                    →
+                  </button>
                 }
-                {page == numPreviewSVLs-1 &&
-                  <div>
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', 0)}>
-                      {1}
-                    </button>
-                    ...
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-4)}>
-                      {numPreviewSVLs-3}
-                    </button>
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-3)}>
-                      {numPreviewSVLs-2}
-                    </button>
-                    <button 
-                      className={styles.pageButton}
-                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-2)}>
-                      {numPreviewSVLs-1}
-                    </button>
-                    <button 
-                      className={styles.pageButtonSelected}
-                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-1)}>
-                      {numPreviewSVLs}
-                    </button>
-                  </div>
-                }
-                <button 
-                  className={styles.pageButton}
-                  onClick={() => handleSVLsShown('next', -1)}
-                  disabled={page+1 == (numPreviewSVLs / GROUP_SIZE)}>
-                  →
-                </button>
               </div>
             </div>
           </div>
