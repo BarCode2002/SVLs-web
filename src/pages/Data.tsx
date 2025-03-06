@@ -330,31 +330,37 @@ const Data = (): JSX.Element => {
                 }
                 try {
                   const owners = [];
+                  let justTransferred = true;
                   for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
-                    try {
-                      const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
-                        responseType: "arraybuffer",
-                      });
-                      const compressedIPFSData = new Uint8Array(responseIPFS.data);
-                      const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
-                      const parsedIPFSData = JSON.parse(decompressedIPFSData);
-                      prevOwnersGeneralInformation.current.push(parsedIPFSData[0]);
-                      prevOwnersMaintenances.current.push(parsedIPFSData[1]);
-                      prevOwnersModifications.current.push(parsedIPFSData[2]);
-                      prevOwnersDefects.current.push(parsedIPFSData[3]);
-                      prevOwnersRepairs.current.push(parsedIPFSData[4]);
-                      ++numPreviousOwners; 
-                      owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
-                    } catch (error: any | AxiosError) {
-                      console.error("Unexpected error:", error);
+                    if (responseIndexer.data[0].current_owner_info[i] != '') {
+                      justTransferred = false;;
+                      try {
+                        const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
+                          responseType: "arraybuffer",
+                        });
+                        const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                        const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                        const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                        prevOwnersGeneralInformation.current.push(parsedIPFSData[0]);
+                        prevOwnersMaintenances.current.push(parsedIPFSData[1]);
+                        prevOwnersModifications.current.push(parsedIPFSData[2]);
+                        prevOwnersDefects.current.push(parsedIPFSData[3]);
+                        prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                        ++numPreviousOwners; 
+                        owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
+                      } catch (error: any | AxiosError) {
+                        console.error("Unexpected error:", error);
+                      }
                     }
                   }
-                  const ownershipInfo = {
-                    ownerAddress: responseIndexer.data[0].owner_address,
-                    owners: owners,
-                    transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${lastTransferDate}`,
+                  if (!justTransferred) {
+                    const ownershipInfo = {
+                      ownerAddress: responseIndexer.data[0].owner_address,
+                      owners: owners,
+                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${lastTransferDate}`,
+                    }
+                    ownershipSummary.current.push(ownershipInfo);
                   }
-                  ownershipSummary.current.push(ownershipInfo);
                   setTotalOwners(numPreviousOwners);
                 } catch (error: any | AxiosError) {
                   console.error("Unexpected error:", error);

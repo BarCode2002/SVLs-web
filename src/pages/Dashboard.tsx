@@ -55,7 +55,10 @@ const Dashboard = (): JSX.Element => {
     const savedShrinkedFilters = localStorage.getItem("fullFilterShrinked");
     return savedShrinkedFilters ? JSON.parse(savedShrinkedFilters) : true
   });
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(() => {
+    const savedPage = localStorage.getItem("page");
+    return savedPage ? JSON.parse(savedPage) : 0
+  });
   const [numPreviewSVLs, setNumPreviewSVLs] = useState(0);
   const [numGroupsPages, setNumGroupPages] = useState(0);
   const [visibleGroupPagesInButton, setVisibleGroupPagesInButton] = useState(0);
@@ -99,9 +102,18 @@ const Dashboard = (): JSX.Element => {
   }, [page]);
 
   const handleSVLsShown = (action: string, pageClicked: number) => {
-    if (action == 'next' && page < numPreviewSVLs-1) setPage(page+1);
-    else if (action == 'prev' && page > 0) setPage(page-1);
-    else if (action == 'specific') setPage(pageClicked);
+    if (action == 'next' && page < numPreviewSVLs-1) {
+      setPage(page+1);
+      localStorage.setItem('page', JSON.stringify(page+1));
+    }
+    else if (action == 'prev' && page > 0) {
+      setPage(page-1);
+      localStorage.setItem('page', JSON.stringify(page-1));
+    }
+    else if (action == 'specific') {
+      setPage(pageClicked);
+      localStorage.setItem('page', JSON.stringify(pageClicked));
+    }
   }
 
   return (
