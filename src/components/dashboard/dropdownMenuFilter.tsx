@@ -131,10 +131,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     }
   }
 
-  const refClickOutside = DetectClickOutsideComponent(() => { 
-    if (isOpen) setIsOpen(false); 
-  });
-
   const refScrollIntoView = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -151,7 +147,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   }, [isOpen]);
 
   return (
-    <div ref={refClickOutside} className={styles.dropdownMenuContainer}>
+    <div className={styles.dropdownMenuContainer}>
       <div className={styles.dropDownPosition}>
         <div className={styles.selectedAndOptionalContainer}>
           <button
