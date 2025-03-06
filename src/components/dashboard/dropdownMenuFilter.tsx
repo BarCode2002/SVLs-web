@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { DetectClickOutsideComponent } from '../varied/detectClickOutsideComponent';
 import { mongoBrand, mongoList } from '../../utils/ip';
 import { FilterSVLsInterface } from '../../utils/interfaces';
+import { createPortal } from "react-dom";
 
 type DropdownMenuFilterProps = {
   appliedFiltersSVL: FilterSVLsInterface;
@@ -22,6 +23,8 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   const [noMatchShown, setNoMatchShown] = useState(false);
   const [list, setList] = useState<string[]>([]);
   const [prevBrand, setPrevBrand] = useState('');
+  const [position, setPosition] = useState(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const getList = async () => {
@@ -138,6 +141,13 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     if (isOpen && refScrollIntoView.current) {
       refScrollIntoView.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
+    if (isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setPosition({
+        top: rect.bottom + window.scrollY,
+        left: rect.right + window.scrollX,
+      });
+    }
   }, [isOpen]);
 
   return (
@@ -145,6 +155,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
       <div className={styles.dropDownPosition}>
         <div className={styles.selectedAndOptionalContainer}>
           <button
+            ref={buttonRef}
             className={styles.selected}
             onClick={hadleOpenDropdownMenu}>
             {type == 'state' &&
@@ -174,8 +185,8 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
             <span>{(isOpen) ? '←' : '→'}</span>
           </button>
         </div>
-        {isOpen && (
-          <div ref={refScrollIntoView} className={styles.dropdownMenu}>
+        {isOpen && position && createPortal (
+          <div ref={refScrollIntoView} style={{ top: position.top, left: position.left }} className={styles.dropdownMenu}>
             {(type == 'brand' || type == 'model') &&
               <input
                 className={styles.searchInput}
@@ -272,7 +283,8 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                 {t('DataSVL.Placeholders.cancel')}
               </button>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
     </div>

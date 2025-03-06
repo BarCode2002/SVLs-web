@@ -1,4 +1,7 @@
 .filterContainer {
+  max-height: calc(100vh - 250px);
+  width: 240px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -38,6 +41,8 @@
 }
 
 .inputField {
+  display: flex;
+  flex-shrink: 0;
   border-radius: 10px;
   height: var(--fieldHeight);
   width: 200px;
@@ -211,6 +216,8 @@
 }
 
 .bottomButtons {
+  width: 90%;
   display: flex;
   justify-content: space-between;
+
 }

@@ -10,12 +10,11 @@ import FilterSVLs from '../components/dashboard/filterSVLs';
 import PreviewSVLs from '../components/dashboard/previewSVLs';
 import { FilterSVLsInterface } from '../utils/interfaces';
 import { useTranslation } from 'react-i18next';
+import { GROUP_SIZE } from '../utils/constants';
 
 const Dashboard = (): JSX.Element => {
 
   const { t } = useTranslation();
-
-
 
   const [myAddress, setMyAddress] = useState<string | undefined>(undefined);
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
@@ -58,9 +57,8 @@ const Dashboard = (): JSX.Element => {
   });
   const [page, setPage] = useState(0);
   const [numPreviewSVLs, setNumPreviewSVLs] = useState(0);
-  const GROUP_SIZE = 1;
   const [numGroupsPages, setNumGroupPages] = useState(0);
-  const [visibleGroupPagesInButton, setVisibleGroupPagesInButton] = useState(1);
+  const [visibleGroupPagesInButton, setVisibleGroupPagesInButton] = useState(0);
 
   useEffect(() => {
     const initializedwallet = getWallet();
@@ -92,12 +90,12 @@ const Dashboard = (): JSX.Element => {
   }
 
   useEffect(() => {
-    setNumGroupPages(numPreviewSVLs / GROUP_SIZE);
+    setNumGroupPages(numPreviewSVLs / GROUP_SIZE+1);
   }, [numPreviewSVLs]);
 
   useEffect(() => {
-    if (page % 10 == 9 && visibleGroupPagesInButton <= numGroupsPages) setVisibleGroupPagesInButton(visibleGroupPagesInButton+1);
-    else if (page % 10 == 0 && visibleGroupPagesInButton > 1) setVisibleGroupPagesInButton(visibleGroupPagesInButton-1);
+    if (page % 10 == 9 && visibleGroupPagesInButton < numGroupsPages) setVisibleGroupPagesInButton(visibleGroupPagesInButton+1);
+    else if (page % 10 == 0 && visibleGroupPagesInButton > 0) setVisibleGroupPagesInButton(visibleGroupPagesInButton-1);
   }, [page]);
 
   const handleSVLsShown = (action: string, pageClicked: number) => {
@@ -116,7 +114,7 @@ const Dashboard = (): JSX.Element => {
         <div className={styles.mainContainer}>
           <TopNavBar page={'Dashboard'} myAddress={myAddress} setMyAddress={setMyAddress} />
           <div className={styles.dashboardInformation}>
-            <div className={styles.filterContainer}>
+            <div className={styles.mainFilterContainer}>
               <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
               <div className={styles.fullFiltersToggleContainer}>
@@ -146,9 +144,10 @@ const Dashboard = (): JSX.Element => {
                 }
                 {Array.from({ length: Math.min(10, numGroupsPages) }, (_, i) => (
                   <button 
-                    className={page == (i)+(visibleGroupPagesInButton*GROUP_SIZE)-1 ? styles.pageButtonSelected : styles.pageButton}
-                    onClick={() => handleSVLsShown('specific', (i)+(visibleGroupPagesInButton*GROUP_SIZE)-1)}>
-                    {(i)+(visibleGroupPagesInButton*GROUP_SIZE)}
+                    key={i}
+                    className={page == (i)+(visibleGroupPagesInButton*numGroupsPages) ? styles.pageButtonSelected : styles.pageButton}
+                    onClick={() => handleSVLsShown('specific', (i)+(visibleGroupPagesInButton*numGroupsPages))}>
+                    {(i+1)+(visibleGroupPagesInButton*numGroupsPages)}
                   </button>
                 ))}        
                 {(numPreviewSVLs / GROUP_SIZE) > 10 &&

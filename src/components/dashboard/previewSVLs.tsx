@@ -11,6 +11,7 @@ import axios, { AxiosError } from "axios";
 import { useNavigate } from 'react-router-dom'; 
 import pako from "pako";
 import { ipfsRetrieve, indexer } from '../../utils/ip';
+import { GROUP_SIZE } from '../../utils/constants';
 
 type PreviewSVLsProps = {
   myAddress: string;
@@ -47,7 +48,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
   }, [filterSVL, search, page]);
 
   const [previewSVLsInfo, setPreviewSVLsInfo] = useState<PreviewSVLsInfo[]>(
-    Array.from({ length: 10 }, () => ({
+    Array.from({ length: GROUP_SIZE }, () => ({
       pk: '',
       price: 0,
       mySVL: null,
@@ -91,7 +92,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
           const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
           const parsedIPFSData = JSON.parse(decompressedIPFSData);
           updatedPreviewSVLsInfo[i].pk = responseIndexer.data[0][i].svl_key;
-          updatedPreviewSVLsInfo[i].price = responseIndexer.data[i][0].svl_price.slice(0, -6);
+          updatedPreviewSVLsInfo[i].price = responseIndexer.data[0][i].svl_price.slice(0, -6);
           updatedPreviewSVLsInfo[i].mainPhotograph = parsedIPFSData[0].mainPhotograph;
           updatedPreviewSVLsInfo[i].brand = responseIndexer.data[0][i].brand;
           updatedPreviewSVLsInfo[i].model = responseIndexer.data[0][i].model;
