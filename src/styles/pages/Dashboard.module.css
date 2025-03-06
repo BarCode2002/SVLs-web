@@ -92,6 +92,12 @@
   cursor: pointer;
 }
 
+.pageButton:disabled {
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+  cursor: default;
+}
+
 .pageButtonSelected {
   height: var(--buttonHeight);
   font-size: var(--buttonFontSize);

@@ -126,11 +126,12 @@ const Dashboard = (): JSX.Element => {
               <div className={styles.manangeShownSVLsContainer}>
                 <button 
                   className={styles.pageButton}
-                  onClick={() => handleSVLsShown('prev', -1)}>
+                  onClick={() => handleSVLsShown('prev', -1)}
+                  disabled={page == 0}>
                   ←
                 </button>
                 {page == 0 &&
-                  <div className={styles.pageButtonsContainer}>
+                  <div>
                     <button 
                       className={styles.pageButtonSelected}
                       onClick={() => handleSVLsShown('specific', 0)}>
@@ -222,7 +223,8 @@ const Dashboard = (): JSX.Element => {
                 }
                 <button 
                   className={styles.pageButton}
-                  onClick={() => handleSVLsShown('next', -1)}>
+                  onClick={() => handleSVLsShown('next', -1)}
+                  disabled={page+1 == (numPreviewSVLs / GROUP_SIZE)}>
                   →
                 </button>
               </div>
