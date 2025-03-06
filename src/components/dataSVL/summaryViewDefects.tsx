@@ -224,7 +224,7 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
         </div>
       ) : (
         <div>         
-          {defects[selectedOwner].group.length > 0 ? (      
+          {defects[selectedOwner-numPreviousOwners].group.length > 0 ? (      
             <div>{listActualGroupDefects(selectedOwner)}</div>
           ) : (
             <div className={styles.noData}>

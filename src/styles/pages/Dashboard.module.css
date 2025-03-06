@@ -2,15 +2,13 @@
   height: var(--vh, 100vh);
   display: flex;
   flex-direction: column;
-
   background-color: var(--backgroundColor);
 }
 
 .dashboardInformation {
-  margin-top: 40px;
+  margin-top: 20px;
   display: flex;
-  overflow-y: auto;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 
 .filterContainer {
@@ -53,6 +51,53 @@
 
 .toggleFullFilters:hover {
   cursor: pointer;
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
+}
+
+.previewSVLsAndManageContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+.manangeShownSVLsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  background-color: var(--navBarsPrimaryColor);
+  color: var(--navBarsSecondaryColor);
+  padding: 10px;
+  border-radius: 10px;;
+}
+
+.pageButton {
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  border: none;
+  border-radius: 10px;
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
+}
+
+.pageButton:hover {
+  background-color: var(--navBarsSecondaryColor);
+  color: var(--navBarsPrimaryColor);
+  cursor: pointer;
+}
+
+.pageButtonSelected {
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  border: none;
+  border-radius: 10px;
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
 }

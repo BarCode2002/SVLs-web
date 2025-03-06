@@ -36,7 +36,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
     else if (type == 'vin') {
       let re: RegExp;
       re = /^[A-Z0-9-]+$/;
-      if (re.test(value)) {
+      if (value == '' || re.test(value)) {
         setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
           ...prevAppliedFiltersSVL,
           [type]: value,
@@ -90,6 +90,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
     if (search) setSearch(false);
     else setSearch(true);
     setFilterSVLs(2);
+    localStorage.setItem('filterSVLs', '2');
   }
 
   return (

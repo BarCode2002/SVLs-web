@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../styles/components/dashboard/previewSVLs.module.css';
 import { FilterSVLsInterface, PreviewSVLsInfo } from '../../utils/interfaces';
 import { useTranslation } from 'react-i18next';
@@ -17,9 +17,11 @@ type PreviewSVLsProps = {
   filterSVL: number;
   appliedFiltersSVL: FilterSVLsInterface;
   search: boolean;
+  page: number;
+  setNumPreviewSVLs: React.Dispatch<SetStateAction<number>>;
 };
 
-const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search }: PreviewSVLsProps): JSX.Element => {
+const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, setNumPreviewSVLs }: PreviewSVLsProps): JSX.Element => {
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -31,7 +33,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search }: Previe
   const ownerAddressLabel = t('Dashboard.Labels.ownerAddress');
   const ownerMeLabel = t('Dashboard.Labels.ownerMe');
 
-  const [numPreviewSVLs, setNumPreviewSVLs] = useState(0);
+  const [numGroupPreviewSVLs, setNumGroupPreviewSVLs] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const urlIPFS = ipfsRetrieve;
@@ -42,10 +44,10 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search }: Previe
     }, 1000);
     setIsLoading(true);
     return () => clearTimeout(timer);
-  }, [filterSVL, search]);
+  }, [filterSVL, search, page]);
 
   const [previewSVLsInfo, setPreviewSVLsInfo] = useState<PreviewSVLsInfo[]>(
-    Array.from({ length: 20 }, () => ({
+    Array.from({ length: 10 }, () => ({
       pk: '',
       price: 0,
       mySVL: null,
@@ -60,9 +62,9 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search }: Previe
   
   const getSVLPreview = async () => {
     let url;
-    if (filterSVL == 0) url = `${indexer}holder/owner_address/${myAddress}`;
-    else if (filterSVL == 1) url = `${indexer}holder/requested_svls?requester_address=${myAddress}`;
-    else url = `${indexer}holder/filterSVL?owner_address=${myAddress}`;
+    if (filterSVL == 0) url = `${indexer}holder/my_svls?owner_address=${myAddress}&page=${page}`;
+    else if (filterSVL == 1) url = `${indexer}holder/requested_svls?requester_address=${myAddress}&page=${page}`;
+    else url = `${indexer}holder/filterSVL?owner_address=${myAddress}&page=${page}`;
     try {
       let responseIndexer;
       if (filterSVL == 0 ||  filterSVL == 1) responseIndexer = await axios.get(url);
@@ -73,13 +75,14 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search }: Previe
           },
         });
       }
+      setNumPreviewSVLs(responseIndexer.data[1]);
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
-      for (let i = 0; i < responseIndexer.data.length; i++) {
+      for (let i = 0; i < responseIndexer.data[0].length; i++) {
         let latestCid;
-        if (responseIndexer.data[i].current_owner_info[0] == '') {
-          latestCid = responseIndexer.data[i].previous_owners_info[0].cids[responseIndexer.data[i].previous_owners_info[0].cids.length-1];
+        if (responseIndexer.data[0][i].current_owner_info[0] == '') {
+          latestCid = responseIndexer.data[0][i].previous_owners_info[0].cids[responseIndexer.data[0][i].previous_owners_info[0].cids.length-1];
         }
-        else latestCid = responseIndexer.data[i].current_owner_info[responseIndexer.data[i].current_owner_info.length-1];
+        else latestCid = responseIndexer.data[0][i].current_owner_info[responseIndexer.data[0][i].current_owner_info.length-1];
         try {
           const responseIPFS = await axios.get(`${urlIPFS}${latestCid}`, {
             responseType: "arraybuffer",
@@ -87,43 +90,43 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search }: Previe
           const compressedIPFSData = new Uint8Array(responseIPFS.data);
           const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
           const parsedIPFSData = JSON.parse(decompressedIPFSData);
-          updatedPreviewSVLsInfo[i].pk = responseIndexer.data[i].svl_key;
-          updatedPreviewSVLsInfo[i].price = responseIndexer.data[i].svl_price.slice(0, -6);
+          updatedPreviewSVLsInfo[i].pk = responseIndexer.data[0][i].svl_key;
+          updatedPreviewSVLsInfo[i].price = responseIndexer.data[i][0].svl_price.slice(0, -6);
           updatedPreviewSVLsInfo[i].mainPhotograph = parsedIPFSData[0].mainPhotograph;
-          updatedPreviewSVLsInfo[i].brand = responseIndexer.data[i].brand;
-          updatedPreviewSVLsInfo[i].model = responseIndexer.data[i].model;
-          updatedPreviewSVLsInfo[i].year = responseIndexer.data[i].year;
-          if (myAddress == responseIndexer.data[i].owner_address) {
-            if (myAddress == responseIndexer.data[i].requester_address) updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; 
-            else updatedPreviewSVLsInfo[i].stateMySVL = [true, responseIndexer.data[i].requester_address, responseIndexer.data[i].request_accepted]; 
+          updatedPreviewSVLsInfo[i].brand = responseIndexer.data[0][i].brand;
+          updatedPreviewSVLsInfo[i].model = responseIndexer.data[0][i].model;
+          updatedPreviewSVLsInfo[i].year = responseIndexer.data[0][i].year;
+          if (myAddress == responseIndexer.data[0][i].owner_address) {
+            if (myAddress == responseIndexer.data[0][i].requester_address) updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; 
+            else updatedPreviewSVLsInfo[i].stateMySVL = [true, responseIndexer.data[0][i].requester_address, responseIndexer.data[0][i].request_accepted]; 
             updatedPreviewSVLsInfo[i].stateNotMySVL = [false, '', '', false]; 
             updatedPreviewSVLsInfo[i].mySVL = true;
           }
           else {
-            if (responseIndexer.data[i].owner_address != responseIndexer.data[i].requester_address) {
-              updatedPreviewSVLsInfo[i].stateNotMySVL = [true, responseIndexer.data[i].owner_address, responseIndexer.data[i].requester_address, responseIndexer.data[i].request_accepted]; 
+            if (responseIndexer.data[0][i].owner_address != responseIndexer.data[0][i].requester_address) {
+              updatedPreviewSVLsInfo[i].stateNotMySVL = [true, responseIndexer.data[0][i].owner_address, responseIndexer.data[0][i].requester_address, responseIndexer.data[0][i].request_accepted]; 
             }
-            else updatedPreviewSVLsInfo[i].stateNotMySVL = [false, responseIndexer.data[i].owner_address, '', false]; 
+            else updatedPreviewSVLsInfo[i].stateNotMySVL = [false, responseIndexer.data[0][i].owner_address, '', false]; 
             updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; 
             updatedPreviewSVLsInfo[i].mySVL = false;
           }
         } catch (error) {
-          //console.log("Error retriving JSON:", error);
+          console.log("Error retriving JSON:", error);
         }
       }
       setPreviewSVLsInfo(updatedPreviewSVLsInfo);
-      setNumPreviewSVLs(responseIndexer.data.length);
+      setNumGroupPreviewSVLs(responseIndexer.data[0].length);
     } catch (error: any | AxiosError) {
       if (axios.isAxiosError(error)) {
-        if (error.status == 404) setNumPreviewSVLs(0);
+        if (error.status == 404) setNumGroupPreviewSVLs(0);
       }
-      //console.error("Unexpected error:", error);
+      console.error("Unexpected error:", error);
     }
   };
 
   useEffect(() => {
     getSVLPreview();
-  }, [filterSVL, search, myAddress]);
+  }, [filterSVL, search, page, myAddress]);
 
   const viewSVLInDetail = (svl_pk: string) => {
     navigate(`/data/${svl_pk}`); 
@@ -142,7 +145,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search }: Previe
         </div>
       ) :
         <div className={styles.previewSVLsContainer}>
-          {previewSVLsInfo.slice(0, numPreviewSVLs).map((dataPreviewSVL, index) => (
+          {previewSVLsInfo.slice(0, numGroupPreviewSVLs).map((dataPreviewSVL, index) => (
             <div key={`${index}`}>
               <div className={styles.previewSVLContainer}>
                 {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == true &&

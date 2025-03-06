@@ -246,7 +246,7 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
         </div>
       ) : (
         <div>      
-          {modifications[selectedOwner].group.length > 0 ? (       
+          {modifications[selectedOwner-numPreviousOwners].group.length > 0 ? (       
             <div>{listActualGroupModifications(selectedOwner)}</div>
           ) : (
             <div className={styles.noData}>

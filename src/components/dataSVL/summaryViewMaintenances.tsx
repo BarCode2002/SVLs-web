@@ -233,6 +233,8 @@ const SummaryViewMaintenances = ({ prevOwnersMaintenances, maintenances, setMain
     );
   };
 
+  console.log(maintenances[0].group);
+
   const listMaintenances = Array.from({length: totalOwners }, (_, selectedOwner) => (
     <div key={selectedOwner}>
       {!mySVL || selectedOwner < numPreviousOwners ? (
@@ -247,7 +249,7 @@ const SummaryViewMaintenances = ({ prevOwnersMaintenances, maintenances, setMain
         </div>
       ) : (
         <div>    
-          {maintenances[selectedOwner].group.length > 0 ? (          
+          {maintenances[selectedOwner-numPreviousOwners].group.length > 0 ? (          
             <div>{listActualGroupMaintenances(selectedOwner)}</div>
           ) : (
             <div className={styles.noData}>

@@ -15,6 +15,8 @@ const Dashboard = (): JSX.Element => {
 
   const { t } = useTranslation();
 
+  const GROUP_SIZE = 1;
+
   const [myAddress, setMyAddress] = useState<string | undefined>(undefined);
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
   const [search, setSearch] = useState(false);
@@ -54,6 +56,8 @@ const Dashboard = (): JSX.Element => {
     const savedShrinkedFilters = localStorage.getItem("fullFilterShrinked");
     return savedShrinkedFilters ? JSON.parse(savedShrinkedFilters) : true
   });
+  const [page, setPage] = useState(0);
+  const [numPreviewSVLs, setNumPreviewSVLs] = useState(0);
 
   useEffect(() => {
     const initializedwallet = getWallet();
@@ -84,6 +88,12 @@ const Dashboard = (): JSX.Element => {
     }
   }
 
+  const handleSVLsShown = (action: string, pageClicked: number) => {
+    if (action == 'next' && page < numPreviewSVLs-1) setPage(page+1);
+    else if (action == 'prev' && page > 0) setPage(page-1);
+    else if (action == 'specific') setPage(pageClicked);
+  }
+
   return (
     <div>
       {myAddress == undefined ? (
@@ -104,14 +114,119 @@ const Dashboard = (): JSX.Element => {
                 <button
                   className={styles.toggleFullFilters}
                   onClick={updatFullFilterSVL}>
-                  {appliedFiltersSVLShrinked == false ? '⬆' : '⬇'}
+                  {!appliedFiltersSVLShrinked ? '⬆' : '⬇'}
                 </button>
               </div>
-              {appliedFiltersSVLShrinked == false &&
+              {!appliedFiltersSVLShrinked &&
                 <FilterSVLs filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} search={search} setSearch={setSearch} />
               }
             </div>
-            <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} appliedFiltersSVL={appliedFiltersSVL} search={search} />
+            <div className={styles.previewSVLsAndManageContainer}>
+              <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} appliedFiltersSVL={appliedFiltersSVL} search={search} page={page} setNumPreviewSVLs={setNumPreviewSVLs} />
+              <div className={styles.manangeShownSVLsContainer}>
+                <button 
+                  className={styles.pageButton}
+                  onClick={() => handleSVLsShown('prev', -1)}>
+                  ←
+                </button>
+                {page == 0 &&
+                  <div className={styles.pageButtonsContainer}>
+                    <button 
+                      className={styles.pageButtonSelected}
+                      onClick={() => handleSVLsShown('specific', 0)}>
+                      {1}
+                    </button>
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', 1)}>
+                      {page+2}
+                    </button>
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', 2)}>
+                      {page+3}
+                    </button>
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', 3)}>
+                      {page+4}
+                    </button>
+                    ...
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-1)}>
+                      {numPreviewSVLs}
+                    </button>
+                  </div>
+                }
+                {page > 0 && page < numPreviewSVLs-1 &&
+                  <div>
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', 0)}>
+                      {1}
+                    </button>
+                    ...
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', 0)}>
+                      {page}
+                    </button>
+                    <button 
+                      className={styles.pageButtonSelected}
+                      onClick={() => handleSVLsShown('specific', 0)}>
+                      {page+1}
+                    </button>
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', 0)}>
+                      {page+2}
+                    </button>
+                    ...
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-1)}>
+                      {numPreviewSVLs}
+                    </button>
+                  </div>
+                }
+                {page == numPreviewSVLs-1 &&
+                  <div>
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', 0)}>
+                      {1}
+                    </button>
+                    ...
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-4)}>
+                      {numPreviewSVLs-3}
+                    </button>
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-3)}>
+                      {numPreviewSVLs-2}
+                    </button>
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-2)}>
+                      {numPreviewSVLs-1}
+                    </button>
+                    <button 
+                      className={styles.pageButtonSelected}
+                      onClick={() => handleSVLsShown('specific', numPreviewSVLs-1)}>
+                      {numPreviewSVLs}
+                    </button>
+                  </div>
+                }
+                <button 
+                  className={styles.pageButton}
+                  onClick={() => handleSVLsShown('next', -1)}>
+                  →
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}   
