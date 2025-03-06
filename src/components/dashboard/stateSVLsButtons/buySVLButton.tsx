@@ -31,10 +31,10 @@ const BuySVLButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: BuySVLButt
       const op = await contract.methodsObject.transfer(svl_pk).send({amount: mutezPrice});
       await op.confirmation();
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
-      for (let i = 0; i < 20-1; i++) {
+      for (let i = 0; i < 10-1; i++) {
         updatedPreviewSVLsInfo[i] = updatedPreviewSVLsInfo[i+1]
       }
-      updatedPreviewSVLsInfo[19] = {
+      updatedPreviewSVLsInfo[9] = {
         pk: '',
         price: 0,
         mySVL: null,

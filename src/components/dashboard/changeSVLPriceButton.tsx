@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent';
 import axios from "axios";
 import { mongoSmartContract } from '../../utils/ip';
+import { TezosLogo } from '../../assets/tezos';
 
 type ChangeSVLPriceButtonProps = {
   previewSVLsInfo: PreviewSVLsInfo[];
@@ -108,7 +109,7 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
             />
           ) : (
             <div className={styles.price}>
-              {previewSVLsInfo[index].price} tezos
+              <div>{previewSVLsInfo[index].price}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
             </div>
           )}
           <div className={styles.buttonsContainer}>
@@ -139,12 +140,12 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
         </div>
       ) : (
         <div className={styles.priceRequestFeeContainer}>
-          <div>
-            {t('Dashboard.Labels.price')} {previewSVLsInfo[index].price} tezos
+          <div className={styles.subContainer}>
+            <div>{t('Dashboard.Labels.price')} {previewSVLsInfo[index].price}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
           </div>
           {previewSVLsInfo[index].stateNotMySVL[0] == false &&
-            <div>
-              {t('Dashboard.Labels.requestFee')} {requestFee} tezos
+            <div className={styles.subContainer}>
+              <div>{t('Dashboard.Labels.requestFee')} {requestFee}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
             </div>
           }
         </div>

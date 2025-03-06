@@ -134,7 +134,7 @@ const Dashboard = (): JSX.Element => {
             <div className={styles.previewSVLsAndManageContainer}>
               <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} appliedFiltersSVL={appliedFiltersSVL} search={search} page={page} setNumPreviewSVLs={setNumPreviewSVLs} />
               <div className={styles.manangeShownSVLsContainer}>
-                {(numPreviewSVLs / GROUP_SIZE) > 10 &&
+                {(numPreviewSVLs / GROUP_SIZE) + 1 > 10 &&
                   <button 
                     className={styles.pageButton}
                     onClick={() => handleSVLsShown('prev', -1)}
@@ -150,7 +150,7 @@ const Dashboard = (): JSX.Element => {
                     {(i+1)+(visibleGroupPagesInButton*numGroupsPages)}
                   </button>
                 ))}        
-                {(numPreviewSVLs / GROUP_SIZE) > 10 &&
+                {(numPreviewSVLs / GROUP_SIZE) + 1 > 10 &&
                   <button 
                     className={styles.pageButton}
                     onClick={() => handleSVLsShown('next', -1)}

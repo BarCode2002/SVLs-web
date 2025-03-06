@@ -34,6 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
 }
 
 .buttonsContainer {
@@ -71,4 +72,14 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.subContainer {
+  display: flex;
+  gap: 5px;
+}
+
+.tezosLogo {
+  width: 14px;
+  height: 18px;
 }

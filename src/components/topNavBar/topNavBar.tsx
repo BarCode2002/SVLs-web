@@ -17,6 +17,7 @@ import { OwnershipSummary } from '../../utils/interfaces';
 import { SetStateAction, useEffect, useState } from 'react';
 import axios from "axios";
 import { mongoSmartContract } from '../../utils/ip';
+import { TezosLogo } from '../../assets/tezos';
 
 type TopNavBarProps = {
   page: string;
@@ -96,7 +97,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 }
                 {newSVL &&
                   <div className={styles.mintPrice}>
-                    {mintPrice} tezos
+                     <div>{mintPrice}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
                   </div>
                 }
                 <HelpButton />
@@ -123,7 +124,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                       maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} 
                     />}
                     <div className={styles.mintPrice}>
-                      {mintPrice} tezos
+                      <div>{mintPrice}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
                     </div>
                   </div>
                 }
