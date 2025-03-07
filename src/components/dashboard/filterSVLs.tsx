@@ -60,6 +60,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
     const defaultState: FilterSVLsInterface = {
       numOwners: ['0', ''],
       numMaintenances: ['0', ''],
+      numModifications: ['0', ''],
       defects: {
         cosmetic: [false, '0', ''],
         minor: [false, '0', ''],
@@ -132,6 +133,26 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
           type="text"
           value={appliedFiltersSVL.numMaintenances[1]}
           onChange={(e) => updateFilter(e.target.value, 'numMaintenances', 1)}
+          placeholder={t('Dashboard.Placeholders.until')}
+        />
+      </div>
+      <div className={styles.filterLabel1}>
+        {t('Dashboard.Placeholders.numModifications')}
+      </div>
+      <div className={styles.inputFieldContainer}>
+        <input
+          className={styles.inputFieldLeft} 
+          type="text"
+          value={appliedFiltersSVL.numModifications[0]}
+          onChange={(e) => updateFilter(e.target.value, 'numModifications', 0)}
+          placeholder={t('Dashboard.Placeholders.since')}
+        />
+        <div className={styles.horizontalSeparator}></div>
+        <input
+          className={styles.inputFieldRight}
+          type="text"
+          value={appliedFiltersSVL.numModifications[1]}
+          onChange={(e) => updateFilter(e.target.value, 'numModifications', 1)}
           placeholder={t('Dashboard.Placeholders.until')}
         />
       </div>

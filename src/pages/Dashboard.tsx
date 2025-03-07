@@ -28,6 +28,7 @@ const Dashboard = (): JSX.Element => {
     return savedFilters ? JSON.parse(savedFilters) : {
       numOwners: ['0', ''],
       numMaintenances: ['0', ''],
+      numModifications: ['0', ''],
       defects: {
         cosmetic: [false, '0', ''],
         minor: [false, '0', ''],

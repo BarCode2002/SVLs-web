@@ -40,6 +40,7 @@
     "Placeholders": {
       "numOwners": "Número de propietarios",
       "numMaintenances": "Número de mantenimientos",
+      "numModifications": "Número de modificaciones",
       "numDefects": "Número de defectos",
       "defectChoosenLevel": "Defectos",
       "numRepairs": "Número de reparaciones",

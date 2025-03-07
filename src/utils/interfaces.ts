@@ -132,6 +132,7 @@ export interface OwnershipSummary {
 export interface FilterSVLsInterface {
   numOwners: string[];
   numMaintenances: string[]; 
+  numModifications: string[]; 
   defects: {
     cosmetic: [boolean, string, string],
     minor: [boolean, string, string],
