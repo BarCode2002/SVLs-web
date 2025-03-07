@@ -16,8 +16,10 @@ import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } fro
 import { OwnershipSummary } from '../../utils/interfaces';
 import { SetStateAction, useEffect, useState } from 'react';
 import axios from "axios";
-import { mongoSmartContract } from '../../utils/ip';
+import { indexer, mongoSmartContract } from '../../utils/ip';
 import { TezosLogo } from '../../assets/tezos';
+import BuySVLButton from './buySVLButton';
+import RequestSVLButton from './requestSVLButton';
 
 type TopNavBarProps = {
   page: string;
@@ -51,6 +53,8 @@ type TopNavBarProps = {
 const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL, jsonUploaded, setJsonUploaded }: TopNavBarProps): JSX.Element => {
 
   const [mintPrice, setMintPrice] = useState<string>('');
+  const [canBuy, setCanBuy] = useState(false);
+  const [state, setState] = useState(0);
 
   useEffect(() => {
     const getMintPrice = async () => {
@@ -62,7 +66,26 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
       }
     };
     getMintPrice();
-  }, []);
+    const checkIfCanBuy = async () => {
+      try {
+        const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
+        if (responseIndexer.data[0].requester_address == localStorage.getItem('address') && responseIndexer.data[0].request_accepted) setCanBuy(true);
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+    };
+    checkIfCanBuy();
+    const checkState = async () => {
+      try {
+        const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
+        if (responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address == localStorage.getItem('address')) setState(1); //requested
+        else if (responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address != localStorage.getItem('address')) setState(2); //blocked
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+    };
+    checkState();
+  }, [state]);
 
   return (
     <div>
@@ -99,6 +122,12 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   <div className={styles.mintPrice}>
                      <div>{mintPrice}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
                   </div>
+                }
+                {!mySVL && !canBuy &&
+                  <RequestSVLButton svl_pk={svl_pk!} state={state} />
+                }
+                {!mySVL && canBuy &&
+                  <BuySVLButton svl_pk={svl_pk!} />
                 }
                 <HelpButton />
               </div>

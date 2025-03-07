@@ -13,3 +13,27 @@
   color: var(--navBarsPrimaryColor);
   cursor: pointer;
 }
+
+.actionContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.price {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+
+}
+
+.tezosLogo {
+  width: 14px;
+  height: 14px;
+}

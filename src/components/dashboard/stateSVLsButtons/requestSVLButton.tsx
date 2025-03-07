@@ -5,6 +5,7 @@ import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { getsmartContractAddress, getTezos } from '../../../utils/wallet.ts';
 import { useEffect, useState } from 'react';
 import axios from "axios";
+import { mongoSmartContract } from '../../../utils/ip.ts';
 
 type RequestSVLButtonProps = {
   requested: boolean;
@@ -30,7 +31,7 @@ const RequestSVLButton = ({ requested, previewSVLsInfo, setPreviewSVLsInfo, inde
     let requestFee;
     if (!requested) {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/mongo/smartcontract");
+        const response = await axios.get(mongoSmartContract);
         requestFee = response.data.requestFee;
       } catch (error) {
         console.error("Upload failed:", error);
