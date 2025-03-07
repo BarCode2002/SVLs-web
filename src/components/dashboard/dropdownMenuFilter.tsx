@@ -146,6 +146,58 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     }
   }, [isOpen]);
 
+  const defaultValue = () => {
+    //va el error es solo de typescript y no se como quitarlo
+    if (type == 'brand') {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: 'Dashboard.Placeholders.brand',
+      }));
+    }
+    else if (type == 'model') {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: 'Dashboard.Placeholders.model',
+      }));
+    }
+    else if (type == 'state') {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: ['Dashboard.Placeholders.state', '', '', '', '', '', ''],
+      }))
+    }
+    else if (type == 'shift') {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: ['Dashboard.Placeholders.shift', ''],
+      }));
+    }
+    else if (type == 'fuel') {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: ['Dashboard.Placeholders.fuel', '', '', '', '', '', ''],
+      }));
+    }
+    else if (type == 'climate') {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: ['Dashboard.Placeholders.climate', '', '', '', '', '', ''],
+      }));
+    }
+    else if (type == 'usage') {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: ['Dashboard.Placeholders.usage', '', '', ''],
+      }));
+    }
+    else {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        [type]: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
+      }));
+    }
+  }
+
   return (
     <div className={styles.dropdownMenuContainer}>
       <div className={styles.dropDownPosition}>
@@ -275,8 +327,13 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
               </button>
               <button 
                 className={styles.cancelConfirmButton} 
+                onClick={defaultValue}>
+                {t('DataSVL.Placeholders.reset')}
+              </button>
+              <button 
+                className={styles.cancelConfirmButton} 
                 onClick={() => setIsOpen(false)}>
-                {t('DataSVL.Placeholders.cancel')}
+                {t('DataSVL.Placeholders.close')}
               </button>
             </div>
           </div>,
