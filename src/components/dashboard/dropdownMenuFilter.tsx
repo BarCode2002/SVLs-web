@@ -123,12 +123,11 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     }
   }
 
-  const hadleOpenDropdownMenu = () => {
-    if (isOpen) setIsOpen(false);
-    else {
-      setSearchQuery('');
-      setIsOpen(true);
-    }
+  const hadleOpenDropdownMenu = (action: boolean) => {
+    if (!isOpen) setIsOpen(true);
+    else setIsOpen(false);
+    //if (!isOpen) setIsOpen(true);
+    //else setIsOpen(false);
   }
 
   const refScrollIntoView = useRef<HTMLDivElement>(null);
@@ -198,6 +197,10 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     }
   }
 
+  const ref = DetectClickOutsideComponent(() => { 
+    setIsOpen(false);
+  });
+
   return (
     <div className={styles.dropdownMenuContainer}>
       <div className={styles.dropDownPosition}>
@@ -205,7 +208,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
           <button
             ref={buttonRef}
             className={styles.selected}
-            onClick={hadleOpenDropdownMenu}>
+            onClick={() => hadleOpenDropdownMenu(isOpen)}>
             {type == 'state' &&
               <span>{t('Dashboard.Placeholders.state')}</span>
             }
@@ -234,7 +237,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
           </button>
         </div>
         {isOpen && position && createPortal (
-          <div ref={refScrollIntoView} style={{ top: position.top, left: position.left }} className={styles.dropdownMenu}>
+          <div ref={ref} style={{ top: position.top, left: position.left }} className={styles.dropdownMenu}>
             {(type == 'brand' || type == 'model') &&
               <input
                 className={styles.searchInput}
@@ -304,7 +307,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                           placeholder={t('Dashboard.Placeholders.until')}
                         />                        
                         <input
-                          className={styles.dropdownItemCheckBox}
                           type="checkbox"
                           id="checkbox"
                           checked={appliedFiltersSVL[type][defectList[index]][0]}
@@ -320,11 +322,11 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
               </div>
             )}
             <div className={styles.confirmCancelContainer}>
-              <button 
+              {/*<button 
                 className={styles.cancelConfirmButton} 
                 onClick={() => setIsOpen(false)}>
                 {t('DataSVL.Placeholders.confirm')}
-              </button>
+              </button>*/}
               <button 
                 className={styles.cancelConfirmButton} 
                 onClick={defaultValue}>

@@ -33,7 +33,7 @@
       "sloganFirstPart": "Historial de vehiculo atemporal",
       "sloganSecondPart": "para vehiculos atemporales",
       "search": "Busca",
-      "reset": "Resetea",
+      "reset": "Restablecer",
       "showDetailedFilters": "Filtros detallados",
       "hideDetailedFilters": "Filtros detallados"
     },
@@ -192,7 +192,7 @@
       "noMatch": "Sin coincidencias",
       "yes": "Si",
       "no": "No",
-      "reset": "Por defecto",
+      "reset": "Restablecer",
       "unknown": "Desconocido",
       "noDateSelected": "Fecha sin definir",
       "noDefectLevelSelected": "Gravedad sin definir",

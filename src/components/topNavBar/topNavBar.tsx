@@ -57,34 +57,36 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
   const [state, setState] = useState(0);
 
   useEffect(() => {
-    const getMintPrice = async () => {
-      try {
-        const response = await axios.get(mongoSmartContract);
-        setMintPrice(response.data.mintPrice);
-      } catch (error) {
-        console.error("Upload failed:", error);
-      }
-    };
-    getMintPrice();
-    const checkIfCanBuy = async () => {
-      try {
-        const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
-        if (responseIndexer.data[0].requester_address == localStorage.getItem('address') && responseIndexer.data[0].request_accepted) setCanBuy(true);
-      } catch (error) {
-        console.error("Upload failed:", error);
-      }
-    };
-    checkIfCanBuy();
-    const checkState = async () => {
-      try {
-        const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
-        if (responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address == localStorage.getItem('address')) setState(1); //requested
-        else if (responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address != localStorage.getItem('address')) setState(2); //blocked
-      } catch (error) {
-        console.error("Upload failed:", error);
-      }
-    };
-    checkState();
+    if (svl_pk) {
+      const getMintPrice = async () => {
+        try {
+          const response = await axios.get(mongoSmartContract);
+          setMintPrice(response.data.mintPrice);
+        } catch (error) {
+          console.error("Upload failed:", error);
+        }
+      };
+      getMintPrice();
+      const checkIfCanBuy = async () => {
+        try {
+          const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
+          if (responseIndexer.data[0].requester_address == localStorage.getItem('address') && responseIndexer.data[0].request_accepted) setCanBuy(true);
+        } catch (error) {
+          console.error("Upload failed:", error);
+        }
+      };
+      checkIfCanBuy();
+      const checkState = async () => {
+        try {
+          const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
+          if (responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address == localStorage.getItem('address')) setState(1); //requested
+          else if (responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address != localStorage.getItem('address')) setState(2); //blocked
+        } catch (error) {
+          console.error("Upload failed:", error);
+        }
+      };
+      checkState();
+    }
   }, [state]);
 
   return (

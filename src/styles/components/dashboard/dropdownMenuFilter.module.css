@@ -48,7 +48,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: var(--fieldBackgroundColor);
+  background-color: var(--navBarsPrimaryColor);
   border-radius: 10px;
   z-index: 23;
   padding: 10px;
@@ -62,7 +62,7 @@
   border: none;
   font-size: 1rem;
   color: var(--fieldDataColor);
-  background-color: white;
+  background-color: var(--fieldBackgroundColor);
 }
 
 .searchInput::placeholder {
@@ -71,6 +71,7 @@
 
 .searchInput:focus {
   outline: none;
+  background-color: white;
 }
 
 .dropdownList {
@@ -83,7 +84,6 @@
   margin-bottom: 10px;
   width: 250px;
   max-height: 150px;
-  
   border-left: none;
   overflow-y: auto;
 }
@@ -95,21 +95,26 @@
 }
 
 .dropdownItem {
-  background-color: var(--fieldBackgroundColor);
+  background-color: var(--navBarsPrimaryColor);
+  color: white;
   border: none;
   text-align: left;
   font-size: 1rem;
+  font-weight: 500;
   margin-right: 2px;
 }
 
 .dropdownItem:hover {
-  background-color: white;
+  color: var(--navBarsPrimaryColor);
+  background-color: var(--navBarsSecondaryColor);
   border-radius: 10px;
   cursor: pointer;
 }
 
 .noMatch {
   font-size: 1rem;
+  font-weight: 500;
+  color: white;
 }
 
 .firstOwnersFields {
@@ -137,18 +142,13 @@
 .inputFieldsContainer {
   display: flex;
   align-items: center;
-}
-
-.horizontalSeparator {
-  height: 25px;
-  width: 2px;
-  background-color: var(--fieldBackgroundColor)
+  gap: 2px;
 }
 
 .inputFieldLeft {
   border-radius: 10px;
   width: 50px;
-  height: 26px;
+  height: 25px;
   border: none;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -157,7 +157,7 @@
   padding-left: 5px;
   font-size: var(--fieldFontSize);
   color: var(--fieldDataColor);
-  background-color: white;
+  background-color: var(--fieldBackgroundColor);
 }
 
 .inputFieldLeft::placeholder {
@@ -185,7 +185,7 @@
   padding-left: 5px;
   font-size: var(--fieldFontSize);
   color: var(--fieldDataColor);
-  background-color: white;
+  background-color: var(--fieldBackgroundColor);
   margin-right: 10px;
 }
 
@@ -202,12 +202,6 @@
   outline: none;
 }
 
-.dropdownItemCheckBox {
-  background-color: var(--fieldBackgroundColor);
-  border: none;
-  font-size: 1rem;
-}
-
 .confirmCancelContainer {
   display: flex;
   width: 100%;
@@ -215,14 +209,17 @@
 }
 
 .cancelConfirmButton {
-  color: black;
   height: var(--buttonHeight);
-  background-color: white;
-  border-radius: 10px;
   font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
   border: none;
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
 }
 
 .cancelConfirmButton:hover {
+  background-color: var(--navBarsSecondaryColor);
+  border-radius: 10px;
+  color: var(--navBarsPrimaryColor);
   cursor: pointer;
 }
