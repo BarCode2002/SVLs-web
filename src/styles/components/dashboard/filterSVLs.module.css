@@ -1,5 +1,5 @@
 .filterContainer {
-  max-height: calc(100vh - 250px);
+  max-height: calc(100vh - 260px);
   width: 240px;
   overflow-y: auto;
   display: flex;

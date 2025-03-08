@@ -34,8 +34,8 @@
       "sloganSecondPart": "para vehiculos atemporales",
       "search": "Busca",
       "reset": "Restablecer",
-      "showDetailedFilters": "Filtros detallados",
-      "hideDetailedFilters": "Filtros detallados"
+      "showDetailedFilters": "Filtros detallados ⬇",
+      "hideDetailedFilters": "Filtros detallados ⬆"
     },
     "Placeholders": {
       "numOwners": "Número de propietarios",

@@ -317,7 +317,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
           {t('Dashboard.Labels.reset')}
         </button>
         <button
-          className={filterSVLs == 2 ? styles.buttonSelected : styles.button}
+          className={styles.button}
           onClick={handleSearch}>
           {t('Dashboard.Labels.search')}
         </button>

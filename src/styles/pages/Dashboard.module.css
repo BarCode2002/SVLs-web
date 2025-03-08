@@ -31,28 +31,31 @@
   justify-content: space-between;
 }
 
-.toggleText {
+.toggleFullFilters {
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  border: none;
   color: var(--navBarsSecondaryColor);
   background-color: var(--navBarsPrimaryColor);
-  font-size: 1rem;
-  font-weight: 600;
-  margin-left: 5px;
 }
 
-.toggleFullFilters {
-  width: 50px;
-  height: 30px;
+.toggleFullFiltersSelected {
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
   border: none;
+  color: var(--navBarsPrimaryColor);
+  background-color: var(--navBarsSecondaryColor);
+  cursor: pointer;
   border-radius: 10px;
-  color: var(--navBarsSecondaryColor);
-  background-color: var(--navBarsPrimaryColor);
-  font-size: medium;
 }
 
 .toggleFullFilters:hover {
-  cursor: pointer;
   background-color: var(--navBarsSecondaryColor);
+  border-radius: 10px;
   color: var(--navBarsPrimaryColor);
+  cursor: pointer;
 }
 
 .previewSVLsAndManageContainer {

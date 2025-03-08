@@ -135,13 +135,10 @@ const Dashboard = (): JSX.Element => {
               <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
               <div className={styles.fullFiltersToggleContainer}>
-                <div className={styles.toggleText}>
-                  {t('Dashboard.Labels.showDetailedFilters')}
-                </div>
                 <button
-                  className={styles.toggleFullFilters}
+                  className={appliedFiltersSVLShrinked ? styles.toggleFullFilters : styles.toggleFullFiltersSelected}
                   onClick={updatFullFilterSVL}>
-                  {!appliedFiltersSVLShrinked ? '⬆' : '⬇'}
+                  {appliedFiltersSVLShrinked ? t('Dashboard.Labels.showDetailedFilters') : t('Dashboard.Labels.hideDetailedFilters')}
                 </button>
               </div>
               {!appliedFiltersSVLShrinked &&
