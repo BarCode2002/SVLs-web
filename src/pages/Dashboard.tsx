@@ -1,5 +1,5 @@
 import styles from '../styles/pages/Dashboard.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getWallet, setWalletConnection } from '../utils/wallet';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import TopNavBar from '../components/topNavBar/topNavBar';
@@ -98,8 +98,10 @@ const Dashboard = (): JSX.Element => {
     setNumGroupPages(Math.ceil(numPreviewSVLs / GROUP_SIZE));
   }, [numPreviewSVLs]);
 
+  const hasMounted = useRef(false);
   useEffect(() => {
-    setPage(0);
+    if (hasMounted.current) setPage(0);
+    else hasMounted.current = true;
   }, [filterSVLs]);
 
   useEffect(() => {
