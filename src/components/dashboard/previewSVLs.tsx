@@ -34,7 +34,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
   const ownerAddressLabel = t('Dashboard.Labels.ownerAddress');
   const ownerMeLabel = t('Dashboard.Labels.ownerMe');
 
-  const [numGroupPreviewSVLs, setNumGroupPreviewSVLs] = useState(0);
+  //const [numGroupPreviewSVLs, setNumGroupPreviewSVLs] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const urlIPFS = ipfsRetrieve;
@@ -116,12 +116,12 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
         }
       }
       setPreviewSVLsInfo(updatedPreviewSVLsInfo);
-      setNumGroupPreviewSVLs(responseIndexer.data[0].length);
+      //setNumGroupPreviewSVLs(responseIndexer.data[0].length);
     } catch (error: any | AxiosError) {
       if (axios.isAxiosError(error)) {
         if (error.status == 404) {
           setNumPreviewSVLs(0);
-          setNumGroupPreviewSVLs(0);
+          //setNumGroupPreviewSVLs(0);
         }
       }
       console.error("Unexpected error:", error);
@@ -129,6 +129,17 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
   };
 
   useEffect(() => {
+    setPreviewSVLsInfo(Array.from({ length: GROUP_SIZE }, () => ({
+      pk: '',
+      price: 0,
+      mySVL: null,
+      mainPhotograph: '',
+      brand: '',
+      model: '',
+      year: '',
+      stateMySVL: [null, '', null],
+      stateNotMySVL: [null, '', '', null],
+    })));
     getSVLPreview();
   }, [filterSVL, search, page, myAddress]);
 
@@ -149,7 +160,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
         </div>
       ) :
         <div className={styles.previewSVLsContainer}>
-          {previewSVLsInfo.slice(0, numGroupPreviewSVLs).map((dataPreviewSVL, index) => (
+          {previewSVLsInfo.filter(preview => preview.pk != '').map((dataPreviewSVL, index) => (
             <div key={`${index}`}>
               <div className={styles.previewSVLContainer}>
                 {dataPreviewSVL.mySVL == true && dataPreviewSVL.stateMySVL[0] == true &&

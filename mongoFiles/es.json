@@ -139,7 +139,7 @@
       "firstOwnerFields": "Solo el primer propietario puede modificarlo, verifícalo bien.",
       "search": "Busca",
       "addComponent": "Añade componentes",
-      "acquisitionDate": "Comprado el"
+      "acquisitionDate": "Fecha de compra:"
     },
     "Placeholders": {
       "vin": "VIN",

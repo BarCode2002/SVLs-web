@@ -94,8 +94,12 @@ const Dashboard = (): JSX.Element => {
   }
 
   useEffect(() => {
-    setNumGroupPages(numPreviewSVLs / GROUP_SIZE+1);
+    setNumGroupPages(Math.ceil(numPreviewSVLs / GROUP_SIZE));
   }, [numPreviewSVLs]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [filterSVLs]);
 
   useEffect(() => {
     if (page % 10 == 9 && visibleGroupPagesInButton < numGroupsPages) setVisibleGroupPagesInButton(visibleGroupPagesInButton+1);
@@ -146,32 +150,35 @@ const Dashboard = (): JSX.Element => {
             </div>
             <div className={styles.previewSVLsAndManageContainer}>
               <PreviewSVLs myAddress={myAddress} filterSVL={filterSVLs} appliedFiltersSVL={appliedFiltersSVL} search={search} page={page} setNumPreviewSVLs={setNumPreviewSVLs} />
-              <div className={styles.manangeShownSVLsContainer}>
-                {(numPreviewSVLs / GROUP_SIZE) + 1 > 10 &&
-                  <button 
-                    className={styles.pageButton}
-                    onClick={() => handleSVLsShown('prev', -1)}
-                    disabled={page == 0}>
-                    ←
-                  </button>
-                }
-                {Array.from({ length: Math.min(10, numGroupsPages) }, (_, i) => (
-                  <button 
-                    key={i}
-                    className={page == (i)+(visibleGroupPagesInButton*numGroupsPages) ? styles.pageButtonSelected : styles.pageButton}
-                    onClick={() => handleSVLsShown('specific', (i)+(visibleGroupPagesInButton*numGroupsPages))}>
-                    {(i+1)+(visibleGroupPagesInButton*numGroupsPages)}
-                  </button>
-                ))}        
-                {(numPreviewSVLs / GROUP_SIZE) + 1 > 10 &&
-                  <button 
-                    className={styles.pageButton}
-                    onClick={() => handleSVLsShown('next', -1)}
-                    disabled={page+1 == (numPreviewSVLs / GROUP_SIZE)}>
-                    →
-                  </button>
-                }
-              </div>
+              {numGroupsPages > 0 &&
+                <div className={styles.manangeShownSVLsContainer}>
+                  {numGroupsPages >= 10 &&
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('prev', -1)}
+                      disabled={page == 0}>
+                      ←
+                    </button>
+                  }
+                  
+                  {Array.from({ length: Math.min(10, numGroupsPages) }, (_, i) => (
+                    <button 
+                      key={i}
+                      className={page == (i)+(visibleGroupPagesInButton*numGroupsPages) ? styles.pageButtonSelected : styles.pageButton}
+                      onClick={() => handleSVLsShown('specific', (i)+(visibleGroupPagesInButton*numGroupsPages))}>
+                      {(i+1)+(visibleGroupPagesInButton*numGroupsPages)}
+                    </button>
+                  ))}        
+                  {numGroupsPages >= 10 &&
+                    <button 
+                      className={styles.pageButton}
+                      onClick={() => handleSVLsShown('next', -1)}
+                      disabled={page+1 == numGroupsPages}>
+                      →
+                    </button>
+                  }
+                </div>
+              }
             </div>
           </div>
         </div>

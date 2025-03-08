@@ -4,6 +4,7 @@ import { PreviewSVLsInfo } from '../../../utils/interfaces';
 import { getsmartContractAddress, getTezos } from '../../../utils/wallet';
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { useEffect, useState } from 'react';
+import { GROUP_SIZE } from '../../../utils/constants';
 
 type BuySVLButtonProps = {
   previewSVLsInfo: PreviewSVLsInfo[];
@@ -31,10 +32,10 @@ const BuySVLButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: BuySVLButt
       const op = await contract.methodsObject.transfer(svl_pk).send({amount: mutezPrice});
       await op.confirmation();
       const updatedPreviewSVLsInfo = [...previewSVLsInfo];
-      for (let i = 0; i < 10-1; i++) {
+      for (let i = 0; i < GROUP_SIZE-1; i++) {
         updatedPreviewSVLsInfo[i] = updatedPreviewSVLsInfo[i+1]
       }
-      updatedPreviewSVLsInfo[9] = {
+      updatedPreviewSVLsInfo[GROUP_SIZE-1] = {
         pk: '',
         price: 0,
         mySVL: null,
