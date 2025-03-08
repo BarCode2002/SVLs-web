@@ -57,16 +57,19 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
   const [state, setState] = useState(0);
 
   useEffect(() => {
+    const getMintPrice = async () => {
+      try {
+        const response = await axios.get(mongoSmartContract);
+        setMintPrice(response.data.mintPrice);
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+    };
+    getMintPrice();
+  }, []);  
+
+  useEffect(() => {
     if (svl_pk) {
-      const getMintPrice = async () => {
-        try {
-          const response = await axios.get(mongoSmartContract);
-          setMintPrice(response.data.mintPrice);
-        } catch (error) {
-          console.error("Upload failed:", error);
-        }
-      };
-      getMintPrice();
       const checkIfCanBuy = async () => {
         try {
           const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
@@ -80,14 +83,14 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
         try {
           const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
           if (responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address == localStorage.getItem('address')) setState(1); //requested
-          else if (responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address != localStorage.getItem('address')) setState(2); //blocked
+          else if ((responseIndexer.data[0].owner_address != responseIndexer.data[0].requester_address && responseIndexer.data[0].requester_address != localStorage.getItem('address')) || (responseIndexer.data[0].current_owner_info[0] == '')) setState(2); //blocked
         } catch (error) {
           console.error("Upload failed:", error);
         }
       };
       checkState();
     }
-  }, [state]);
+  }, [state]);  
 
   return (
     <div>

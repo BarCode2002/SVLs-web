@@ -41,7 +41,7 @@ const RequestSVLButton = ({ requested, previewSVLsInfo, setPreviewSVLsInfo, inde
         const op = await contract.methodsObject.requestTransfer(svl_pk).send({amount: requestFee});
         await op.confirmation();
         const ownerAddress = updatedPreviewSVLsInfo[index].stateNotMySVL[1];
-        updatedPreviewSVLsInfo[index].stateNotMySVL = [true, ownerAddress, localStorage.getItem('address')!, false];
+        updatedPreviewSVLsInfo[index].stateNotMySVL = [true, ownerAddress, localStorage.getItem('address')!, false, false];
       } catch (error) {
         console.log('error:', error);
       }  
@@ -52,7 +52,7 @@ const RequestSVLButton = ({ requested, previewSVLsInfo, setPreviewSVLsInfo, inde
         const op = await contract.methodsObject.requesterClearTransferRequest(svl_pk).send();
         await op.confirmation();
         const ownerAddress = updatedPreviewSVLsInfo[index].stateNotMySVL[1];
-        updatedPreviewSVLsInfo[index].stateNotMySVL = [false, ownerAddress, '', false];
+        updatedPreviewSVLsInfo[index].stateNotMySVL = [false, ownerAddress, '', false, false];
       } catch (error) {
         console.log('error:', error);
       }  

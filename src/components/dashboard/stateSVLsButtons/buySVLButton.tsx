@@ -44,7 +44,7 @@ const BuySVLButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: BuySVLButt
         model: '',
         year: '',
         stateMySVL: [null, '', null],
-        stateNotMySVL: [null, '', '', null],
+        stateNotMySVL: [null, '', '', null, null],
       }
       setPreviewSVLsInfo(updatedPreviewSVLsInfo);
     } catch (error) {

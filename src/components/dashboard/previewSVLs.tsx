@@ -57,14 +57,14 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
       model: '',
       year: '',
       stateMySVL: [null, '', null],
-      stateNotMySVL: [null, '', '', null],
+      stateNotMySVL: [null, '', '', null, null],
     }))
   );
   
   const getSVLPreview = async () => {
     const updatedPreviewSVLsInfo = [...previewSVLsInfo];
     for (let i = 0; i < GROUP_SIZE; i++) {
-      updatedPreviewSVLsInfo[i] = {
+      updatedPreviewSVLsInfo[i] = {//hacer algo para no poder comprar svls con curr_owner_info vacios
         pk: '',
         price: 0,
         mySVL: null,
@@ -73,7 +73,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
         model: '',
         year: '',
         stateMySVL: [null, '', null],
-        stateNotMySVL: [null, '', '', null],
+        stateNotMySVL: [null, '', '', null, null],
       }
     }
     let url;
@@ -110,18 +110,21 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
           updatedPreviewSVLsInfo[i].brand = responseIndexer.data[0][i].brand;
           updatedPreviewSVLsInfo[i].model = responseIndexer.data[0][i].model;
           updatedPreviewSVLsInfo[i].year = responseIndexer.data[0][i].year;
-          if (myAddress == responseIndexer.data[0][i].owner_address) {
-            if (myAddress == responseIndexer.data[0][i].requester_address) updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; 
-            else updatedPreviewSVLsInfo[i].stateMySVL = [true, responseIndexer.data[0][i].requester_address, responseIndexer.data[0][i].request_accepted]; 
-            updatedPreviewSVLsInfo[i].stateNotMySVL = [false, '', '', false]; 
+          if (myAddress == responseIndexer.data[0][i].owner_address) { //my SVL
+            if (myAddress == responseIndexer.data[0][i].requester_address) updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; //not requested
+            else updatedPreviewSVLsInfo[i].stateMySVL = [true, responseIndexer.data[0][i].requester_address, responseIndexer.data[0][i].request_accepted]; //requested and set if request accepted or not
+            updatedPreviewSVLsInfo[i].stateNotMySVL = [false, '', '', false, false]; //whatever
             updatedPreviewSVLsInfo[i].mySVL = true;
           }
           else {
-            if (responseIndexer.data[0][i].owner_address != responseIndexer.data[0][i].requester_address) {
-              updatedPreviewSVLsInfo[i].stateNotMySVL = [true, responseIndexer.data[0][i].owner_address, responseIndexer.data[0][i].requester_address, responseIndexer.data[0][i].request_accepted]; 
+            if (responseIndexer.data[0][i].current_owner_info[0] == '') { //not my SVL
+              updatedPreviewSVLsInfo[i].stateNotMySVL = [false, responseIndexer.data[0][i].owner_address, '', false, true]; //check if just transferred -> blocked
             }
-            else updatedPreviewSVLsInfo[i].stateNotMySVL = [false, responseIndexer.data[0][i].owner_address, '', false]; 
-            updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; 
+            else if (responseIndexer.data[0][i].owner_address != responseIndexer.data[0][i].requester_address) { //requested, save the requester address and if it has been accepted
+              updatedPreviewSVLsInfo[i].stateNotMySVL = [true, responseIndexer.data[0][i].owner_address, responseIndexer.data[0][i].requester_address, responseIndexer.data[0][i].request_accepted, false]; 
+            }
+            else updatedPreviewSVLsInfo[i].stateNotMySVL = [false, responseIndexer.data[0][i].owner_address, '', false, false];  //not requested but not just transferred
+            updatedPreviewSVLsInfo[i].stateMySVL = [false, '', false]; //whatever
             updatedPreviewSVLsInfo[i].mySVL = false;
           }
         } catch (error) {
@@ -233,7 +236,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
                   <div className={styles.rightSepartor}></div>
                 </div>
                 {(dataPreviewSVL.mySVL == false) ? (
-                  dataPreviewSVL.stateNotMySVL[0] == true && dataPreviewSVL.stateNotMySVL[2] != '' && dataPreviewSVL.stateNotMySVL[2] != myAddress ? (
+                  ((dataPreviewSVL.stateNotMySVL[0] == true && dataPreviewSVL.stateNotMySVL[2] != '' && dataPreviewSVL.stateNotMySVL[2] != myAddress) || (dataPreviewSVL.stateNotMySVL[4] == true)) ? (
                     <div>
                       <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
                       <div className={styles.separator}>

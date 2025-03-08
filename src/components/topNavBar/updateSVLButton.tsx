@@ -60,23 +60,24 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
             "Content-Type": "multipart/form-data",
           },
         });
-        //console.log("Upload successful:", response.data.cids);
         cids = response.data.cids;
+        if (cids.length > 0) {
+          try {
+            const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
+            const op = await contract.methodsObject.update({
+              svl_key: svl_pk, 
+              VIN: generalInformation[0].VIN,
+              curr_owner_info: cids,
+            }).send();
+            await op.confirmation();   
+          } catch (error) {
+            console.log('error:', error);
+          }
+        }
       } catch (error) {
         console.error("Upload failed:", error);
       }
-    }
-    else cids = [''];
-    try {
-      const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
-      const op = await contract.methodsObject.update({
-        svl_key: svl_pk, 
-        VIN: generalInformation[0].VIN,
-        curr_owner_info: cids,
-      }).send();
-      await op.confirmation();   
-    } catch (error) {
-      console.log('error:', error);
+      
     }
   };
 

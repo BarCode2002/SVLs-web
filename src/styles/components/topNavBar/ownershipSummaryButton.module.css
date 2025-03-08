@@ -26,7 +26,8 @@
   padding: 10px;
   position: absolute;
   width: fit-content;
-  height: fit-content;
+  max-height: 400px;
+  overflow-y: auto;
   background-color: var(--dataPanelBackgroundColor);
   z-index: 1;
 }

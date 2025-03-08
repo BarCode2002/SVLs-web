@@ -119,8 +119,8 @@ export interface PreviewSVLsInfo {
   year: string;
   stateMySVL: [boolean | null, string, boolean | null];
   //requested or not / requester address / request accepted or not
-  stateNotMySVL: [boolean | null, string, string, boolean | null];
-  //requested or not / owner address / requester address / request accepted or not
+  stateNotMySVL: [boolean | null, string, string, boolean | null, boolean | null];
+  //requested or not / owner address / requester address / request accepted or not / just transferred(curr_owner_info == '') or not 
 }
 
 export interface OwnershipSummary {

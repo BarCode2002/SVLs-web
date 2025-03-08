@@ -68,21 +68,22 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
     } catch (error) {
       console.error("Upload failed:", error);
     }
-    try {
-      const now = new Date();
-      const formattedUTC = formatInTimeZone(now, 'UTC', "dd MM yyyy HH:mm:ss");
-      const svl_key = `${formattedUTC} ${localStorage.getItem('address')}`;
-      const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
-      const op = await contract.methodsObject.mint({
-        svl_key: svl_key, 
-        VIN: generalInformation[0].VIN,
-        curr_owner_info: cids,
-      }).send({amount: mintPrice});
-      await op.confirmation();   
-    } catch (error) {
-      console.log('error:', error);
+    if (cids.length > 0) {
+      try {
+        const now = new Date();
+        const formattedUTC = formatInTimeZone(now, 'UTC', "dd MM yyyy HH:mm:ss");
+        const svl_key = `${formattedUTC} ${localStorage.getItem('address')}`;
+        const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
+        const op = await contract.methodsObject.mint({
+          svl_key: svl_key, 
+          VIN: generalInformation[0].VIN,
+          curr_owner_info: cids,
+        }).send({amount: mintPrice});
+        await op.confirmation();   
+      } catch (error) {
+        console.log('error:', error);
+      }
     }
-    
   };
 
   return (
