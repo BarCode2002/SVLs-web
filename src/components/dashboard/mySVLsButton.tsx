@@ -17,6 +17,7 @@ const MySVLsButton = ({ filterSVLs, setFilterSVLs, setSearch, setAppliedFiltersS
     localStorage.setItem('filterSVLs', '0');
     setSearch(false);
     setAppliedFiltersSVLShrinked(true);
+    localStorage.setItem('fullFilterShrinked', JSON.stringify(true));
   };
 
   return (
