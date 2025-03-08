@@ -85,11 +85,12 @@ const Dashboard = (): JSX.Element => {
     if (appliedFiltersSVLShrinked) {
       setAppliedFiltersSVLShrinked(false);
       localStorage.setItem('fullFilterShrinked', JSON.stringify(false));
+      setFilterSVLs(2);
+      localStorage.setItem('filterSVLs', '2');
     }
     else {
       setAppliedFiltersSVLShrinked(true);
       localStorage.setItem('fullFilterShrinked', JSON.stringify(true));
-
     }
   }
 
@@ -132,8 +133,8 @@ const Dashboard = (): JSX.Element => {
           <TopNavBar page={'Dashboard'} myAddress={myAddress} setMyAddress={setMyAddress} />
           <div className={styles.dashboardInformation}>
             <div className={styles.mainFilterContainer}>
-              <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
-              <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} />
+              <MySVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} setAppliedFiltersSVLShrinked={setAppliedFiltersSVLShrinked} />
+              <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} setAppliedFiltersSVLShrinked={setAppliedFiltersSVLShrinked} />
               <div className={styles.fullFiltersToggleContainer}>
                 <button
                   className={appliedFiltersSVLShrinked ? styles.toggleFullFilters : styles.toggleFullFiltersSelected}

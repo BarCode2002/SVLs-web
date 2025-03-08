@@ -5,9 +5,10 @@ type RequestedSVLsButtonProps = {
   filterSVLs: number;
   setFilterSVLs: React.Dispatch<number>;
   setSearch: React.Dispatch<boolean>;
+  setAppliedFiltersSVLShrinked: React.Dispatch<boolean>;
 };
 
-const RequestedSVLsButton = ({ filterSVLs, setFilterSVLs, setSearch }: RequestedSVLsButtonProps): JSX.Element => {
+const RequestedSVLsButton = ({ filterSVLs, setFilterSVLs, setSearch, setAppliedFiltersSVLShrinked }: RequestedSVLsButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -15,6 +16,7 @@ const RequestedSVLsButton = ({ filterSVLs, setFilterSVLs, setSearch }: Requested
     setFilterSVLs(1);
     localStorage.setItem('filterSVLs', '1');
     setSearch(false);
+    setAppliedFiltersSVLShrinked(true);
   };
 
   return (

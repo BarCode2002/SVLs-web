@@ -5,9 +5,10 @@ type MySVLsButtonProps = {
   filterSVLs: number;
   setFilterSVLs: React.Dispatch<number>;
   setSearch: React.Dispatch<boolean>;
+  setAppliedFiltersSVLShrinked: React.Dispatch<boolean>;
 };
 
-const MySVLsButton = ({ filterSVLs, setFilterSVLs, setSearch }: MySVLsButtonProps): JSX.Element => {
+const MySVLsButton = ({ filterSVLs, setFilterSVLs, setSearch, setAppliedFiltersSVLShrinked }: MySVLsButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -15,6 +16,7 @@ const MySVLsButton = ({ filterSVLs, setFilterSVLs, setSearch }: MySVLsButtonProp
     setFilterSVLs(0);
     localStorage.setItem('filterSVLs', '0');
     setSearch(false);
+    setAppliedFiltersSVLShrinked(true);
   };
 
   return (
