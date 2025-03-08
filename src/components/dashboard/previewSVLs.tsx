@@ -62,6 +62,20 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
   );
   
   const getSVLPreview = async () => {
+    const updatedPreviewSVLsInfo = [...previewSVLsInfo];
+    for (let i = 0; i < GROUP_SIZE; i++) {
+      updatedPreviewSVLsInfo[i] = {
+        pk: '',
+        price: 0,
+        mySVL: null,
+        mainPhotograph: '',
+        brand: '',
+        model: '',
+        year: '',
+        stateMySVL: [null, '', null],
+        stateNotMySVL: [null, '', '', null],
+      }
+    }
     let url;
     if (filterSVL == 0) url = `${indexer}holder/my_svls?owner_address=${myAddress}&page=${page}`;
     else if (filterSVL == 1) url = `${indexer}holder/requested_svls?requester_address=${myAddress}&page=${page}`;
@@ -77,7 +91,6 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
         });
       }
       setNumPreviewSVLs(responseIndexer.data[1]);
-      const updatedPreviewSVLsInfo = [...previewSVLsInfo];
       for (let i = 0; i < responseIndexer.data[0].length; i++) {
         let latestCid;
         if (responseIndexer.data[0][i].current_owner_info[0] == '') {
@@ -115,7 +128,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
           console.log("Error retriving JSON:", error);
         }
       }
-      setPreviewSVLsInfo(updatedPreviewSVLsInfo);
+     
       //setNumGroupPreviewSVLs(responseIndexer.data[0].length);
     } catch (error: any | AxiosError) {
       if (axios.isAxiosError(error)) {
@@ -126,20 +139,10 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
       }
       console.error("Unexpected error:", error);
     }
+    setPreviewSVLsInfo(updatedPreviewSVLsInfo);
   };
 
   useEffect(() => {
-    setPreviewSVLsInfo(Array.from({ length: GROUP_SIZE }, () => ({
-      pk: '',
-      price: 0,
-      mySVL: null,
-      mainPhotograph: '',
-      brand: '',
-      model: '',
-      year: '',
-      stateMySVL: [null, '', null],
-      stateNotMySVL: [null, '', '', null],
-    })));
     getSVLPreview();
   }, [filterSVL, search, page, myAddress]);
 
