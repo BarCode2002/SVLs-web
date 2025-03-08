@@ -160,7 +160,6 @@ const Dashboard = (): JSX.Element => {
                       ←
                     </button>
                   }
-                  
                   {Array.from({ length: Math.min(10, numGroupsPages) }, (_, i) => (
                     <button 
                       key={i}
