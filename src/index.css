@@ -7,7 +7,7 @@
 
   --backgroundColor: white;
   --dataPanelBackgroundColor: #002244;
-  --dataBackgroundColor: #abb4be;
+  --dataBackgroundColor: #bcc0c4;
 
   --fieldBackgroundColor: #E1EBEE;
   --fieldLabelColor: black;
@@ -16,12 +16,12 @@
   --fieldHeight: 37px;
   --fieldFontSize: 1rem;
 
-  --buttonBackgroundColor: #abb4be;
+  --buttonBackgroundColor: #bcc0c4;
   --buttonTextColor: black;
   --buttonHeight: 37px;
   --buttonFontWeight: 600;
   --buttonFontSize: 1rem;
-  --buttonSelectedBackgroundColor:#abb4be;
+  --buttonSelectedBackgroundColor:#bcc0c4;
 
   --navBarsPrimaryColor: #002244;
   --navBarsSecondaryColor: white;

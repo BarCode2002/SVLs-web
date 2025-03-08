@@ -249,9 +249,9 @@ const Data = (): JSX.Element => {
         if (svl_pk) {
           try {
             const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
-            if (responseIndexer.data[0].owner_address != localStorage.getItem('address')) {
+            if (responseIndexer.data[0].owner_address != localStorage.getItem('address')) { //SVL not owned
               setMySVL(false);
-              if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') {
+              if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') { //SVL has not been transferred
                 try {
                   setTotalOwners(responseIndexer.data[0].current_owner_info.length);
                   setNumPreviousOwners(0);
@@ -270,7 +270,7 @@ const Data = (): JSX.Element => {
                     prevOwnersRepairs.current.push(parsedIPFSData[4]);
                     owners.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`);
                   }
-                  const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
+                  const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date()); //get the SVL creation date from the SVL key
                   const transferDate = format(date, "dd/MM/yyyy");
                   const ownershipInfo = {
                     ownerAddress: responseIndexer.data[0].owner_address,
@@ -283,12 +283,12 @@ const Data = (): JSX.Element => {
                 }
                 setSelectedOwner(0);
               }
-              else {
+              else { //SVL has been transferred
                 let numPreviousOwners = 0;
-                let lastTransferDate;
-                for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) {
+                let prevTransfeDate;
+                for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) { //traverse the previous owners information from the least recent to the most recent
                   const owners = [];
-                  for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
+                  for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) { //inside a previous owner traverse from the least recent to the most recent
                     try {
                       const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].previous_owners_info[i].cids[j]}`, {
                         responseType: "arraybuffer",
@@ -307,32 +307,33 @@ const Data = (): JSX.Element => {
                       console.error("Unexpected error:", error);
                     }
                   }
-                  if (i == responseIndexer.data[0].previous_owners_info.length-1) {
+                  if (i == responseIndexer.data[0].previous_owners_info.length-1) { //for the first SVL owner get the creation date from the SVL key
                     const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
                     const transferDate = format(date, "dd/MM/yyyy");
+                    prevTransfeDate = transferDate;
                     const ownershipInfo = {
                       ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
                       owners: owners,
                       transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
                     }
-                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
+                    prevTransfeDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
                     ownershipSummary.current.push(ownershipInfo);
                   }
-                  else {
+                  else { //for the rest get transfer date from the previous owners before their owner
                     const ownershipInfo = {
                       ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
                       owners: owners,
-                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy")}`,
+                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransfeDate}`,
                     }
-                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
+                    prevTransfeDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
                     ownershipSummary.current.push(ownershipInfo);
                   }
                 }
                 try {
                   const owners = [];
                   let justTransferred = true;
-                  for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
-                    if (responseIndexer.data[0].current_owner_info[i] != '') {
+                  for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) { //check for the information of the current owner
+                    if (responseIndexer.data[0].current_owner_info[i] != '') { //do not check it if SVL has just been transferred and the new owner has not introduced new information
                       justTransferred = false;;
                       try {
                         const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
@@ -357,7 +358,7 @@ const Data = (): JSX.Element => {
                     const ownershipInfo = {
                       ownerAddress: responseIndexer.data[0].owner_address,
                       owners: owners,
-                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${lastTransferDate}`,
+                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransfeDate}`,
                     }
                     ownershipSummary.current.push(ownershipInfo);
                   }
@@ -368,9 +369,9 @@ const Data = (): JSX.Element => {
                 setSelectedOwner(0);
               }
             }
-            else {
+            else { //SVL owned
               let numPreviousOwners = 0;
-              let lastTransferDate;
+              let prevTransferDate;
               if (responseIndexer.data[0].previous_owners_info[0].cids[0] != '') {
                 for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) {
                   const owners = [];
@@ -401,16 +402,16 @@ const Data = (): JSX.Element => {
                       owners: owners,
                       transferDate: `${t('DataSVL.TopBar.mintDate')} ${transferDate}`,
                     }
-                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
+                    prevTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
                     ownershipSummary.current.push(ownershipInfo);
                   }
                   else {
                     const ownershipInfo = {
                       ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
                       owners: owners,
-                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy")}`,
+                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransferDate}`,
                     }
-                    lastTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
+                    prevTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
                     ownershipSummary.current.push(ownershipInfo);
                   }
                 }
@@ -441,7 +442,7 @@ const Data = (): JSX.Element => {
                   const ownershipInfo = {
                     ownerAddress: responseIndexer.data[0].owner_address,
                     owners: owners,
-                    transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${lastTransferDate}`,
+                    transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransferDate}`,
                   }
                   ownershipSummary.current.push(ownershipInfo);
                 }

@@ -119,7 +119,10 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
       setNumGroupPreviewSVLs(responseIndexer.data[0].length);
     } catch (error: any | AxiosError) {
       if (axios.isAxiosError(error)) {
-        if (error.status == 404) setNumGroupPreviewSVLs(0);
+        if (error.status == 404) {
+          setNumPreviewSVLs(0);
+          setNumGroupPreviewSVLs(0);
+        }
       }
       console.error("Unexpected error:", error);
     }

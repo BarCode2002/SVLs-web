@@ -4,7 +4,7 @@ import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } fro
 import { TezosToolkit, WalletContract } from "@taquito/taquito";
 import { getTezos, getsmartContractAddress } from '../../utils/wallet.ts'
 import { createJSON } from '../../utils/createJSON.ts';
-import { format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 import axios from "axios";
 import { useEffect, useState } from 'react';
 import { checks } from '../../utils/checks.ts';
@@ -69,8 +69,9 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
       console.error("Upload failed:", error);
     }
     try {
-      const time = format(new Date(), 'dd MM yyyy HH:mm:ss');
-      const svl_key = `${time} ${localStorage.getItem('address')}`;
+      const now = new Date();
+      const formattedUTC = formatInTimeZone(now, 'UTC', "dd MM yyyy HH:mm:ss");
+      const svl_key = `${formattedUTC} ${localStorage.getItem('address')}`;
       const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
       const op = await contract.methodsObject.mint({
         svl_key: svl_key, 

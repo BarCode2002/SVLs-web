@@ -76,7 +76,7 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
     }
     for (let j = 0; j < maintenances[i].group.length; j++) {
-      if (maintenances[i].group[j].responsible[0] == null || maintenances[i].group[j].responsible[2] == null) {
+      if (maintenances[i].group[j].responsible[0] == null || (maintenances[i].group[j].responsible[2] == null && (maintenances[i].group[j].responsible[0] == 0 || maintenances[i].group[j].responsible[0] == 2))) {
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.responsibleMaintenances')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
       }
       if (maintenances[i].group[j].responsible[3][4] == ':') {
@@ -110,7 +110,7 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
     }
     for (let j = 0; j < modifications[i].group.length; j++) {
-      if (modifications[i].group[j].responsible[0] == null || modifications[i].group[j].responsible[2] == null) {
+      if (modifications[i].group[j].responsible[0] == null || (modifications[i].group[j].responsible[2] == null && (modifications[i].group[j].responsible[0] == 0 || modifications[i].group[j].responsible[0] == 2))) {
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.responsibleModifications')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
       }
       if (modifications[i].group[j].responsible[3][4] == ':') {
@@ -158,7 +158,7 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
     }
     for (let j = 0; j < repairs[i].group.length; j++) {
-      if (repairs[i].group[j].responsible[0] == null || repairs[i].group[j].responsible[2] == null) {
+      if (repairs[i].group[j].responsible[0] == null || (repairs[i].group[j].responsible[2] == null && (repairs[i].group[j].responsible[0] == 0 || repairs[i].group[j].responsible[0] == 2))) {
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.responsibleRepairs')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
         
       }
