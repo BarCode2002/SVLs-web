@@ -43,6 +43,7 @@ const Dashboard = (): JSX.Element => {
       year: ['0', ''],
       kilometers: ['0', '', 'km'],
       state: ['Dashboard.Placeholders.state', '', '', '', '', '', ''],
+      weight: ['0', '', 'kg'],
       power: ['0', '', 'cv'],
       shift: ['Dashboard.Placeholders.shift', ''],
       fuel: ['Dashboard.Placeholders.fuel', '', '', '', '', '', ''],
@@ -145,7 +146,7 @@ const Dashboard = (): JSX.Element => {
                 </button>
               </div>
               {!appliedFiltersSVLShrinked &&
-                <FilterSVLs filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} search={search} setSearch={setSearch} />
+                <FilterSVLs setFilterSVLs={setFilterSVLs} appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} search={search} setSearch={setSearch} />
               }
             </div>
             <div className={styles.previewSVLsAndManageContainer}>

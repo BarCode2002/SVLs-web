@@ -5,7 +5,6 @@ import DropdownMenuFilter from './dropdownMenuFilter';
 import { useEffect } from 'react';
 
 type FilterSVLsProps = {
-  filterSVLs: number;
   setFilterSVLs: React.Dispatch<number>;
   appliedFiltersSVL: FilterSVLsInterface;
   setAppliedFiltersSVL: React.Dispatch<FilterSVLsInterface>;
@@ -13,7 +12,7 @@ type FilterSVLsProps = {
   setSearch: React.Dispatch<boolean>;
 };
 
-const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setAppliedFiltersSVL, setSearch }: FilterSVLsProps): JSX.Element => {
+const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFiltersSVL, setSearch }: FilterSVLsProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -43,7 +42,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
         }));
       }
     }
-    else if (type == 'kilometers' || type == 'power' || type == 'autonomy') {
+    else if (type == 'kilometers' || type == 'power' || type == 'autonomy' || type == 'weight') {
       let re: RegExp;
       re = /^(0|[1-9]\d*)$/;
       if (index == 2) re = /.*/;
@@ -75,6 +74,7 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
       year: ['0', ''],
       kilometers: ['0', '', 'km'],
       state: ['Dashboard.Placeholders.state', '', '', '', '', '', ''],
+      weight: ['0', '', 'kg'],
       power: ['0', '', 'cv'],
       shift: ['Dashboard.Placeholders.shift', ''],
       fuel: ['Dashboard.Placeholders.fuel', '', '', '', '', '', ''],
@@ -241,6 +241,38 @@ const FilterSVLs = ({ filterSVLs, setFilterSVLs, search, appliedFiltersSVL, setA
         />
       </div>
       <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'state'} defectList={[]} />
+      <div className={styles.labelContainer}>
+        <div className={styles.filterLabel}>
+          {t('Dashboard.Placeholders.weight')}
+        </div>
+        <button
+          className={appliedFiltersSVL.weight[2] != 'kg' ? styles.leftButton : styles.leftButtonSelected}
+          onClick={() => updateFilter('kg', 'weight', 2)}>
+          kg
+        </button>
+        <button
+          className={appliedFiltersSVL.weight[2] != 'lb' ? styles.rightButton : styles.rightButtonSelected}
+          onClick={() => updateFilter('lb', 'weight', 2)}>
+          lb
+        </button>
+      </div>
+      <div className={styles.inputFieldContainer}>
+        <input
+          className={styles.inputFieldLeft} 
+          type="text"
+          value={appliedFiltersSVL.weight[0]}
+          onChange={(e) => updateFilter(e.target.value, 'weight', 0)}
+          placeholder={t('Dashboard.Placeholders.since')}
+        />
+        <div className={styles.horizontalSeparator}></div>
+        <input
+          className={styles.inputFieldRight}
+          type="text"
+          value={appliedFiltersSVL.weight[1]}
+          onChange={(e) => updateFilter(e.target.value, 'weight', 1)}
+          placeholder={t('Dashboard.Placeholders.until')}
+        />
+      </div>
       <div className={styles.labelContainer}>
         <div className={styles.filterLabel}>
           {t('Dashboard.Placeholders.power')}

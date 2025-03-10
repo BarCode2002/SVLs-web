@@ -50,6 +50,7 @@
       "year": "Year",
       "kilometers": "Mileage",
       "state": "State",
+      "weight": "Weight",
       "color": "Color",
       "power": "Power",
       "shift": "Shift",

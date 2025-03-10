@@ -147,6 +147,7 @@ export interface FilterSVLsInterface {
   year: string[];
   kilometers: string[];
   state: string[];
+  weight: string[];
   power: string[];
   shift: string[];
   fuel: string[];
