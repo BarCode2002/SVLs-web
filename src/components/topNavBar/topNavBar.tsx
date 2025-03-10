@@ -142,17 +142,17 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   <OwnershipSummaryButton ownershipSummary={ownershipSummary!} />
                 }
                 <ViewTypeButton viewType={viewType!} setViewType={setViewType!} />
-                {viewType == 0 && <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />}
-                {viewType == 0 && <UploadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!}
+                {selectedOwner! >= numPreviousOwners! && viewType == 0 && <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />}
+                {selectedOwner! >= numPreviousOwners! && viewType == 0 && <UploadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!}
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
                   setMaintenances={setMaintenances!} setModifications={setModifications!}
                   setDefects={setDefects!} setRepairs={setRepairs!}
                   jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
                 />}
-                {viewType == 0 && <DownloadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!} 
+                {selectedOwner! >= numPreviousOwners! && viewType == 0 && <DownloadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!} 
                   generalInformation={generalInformation!} maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
                 />}
-                {newSVL == true && viewType == 0 && 
+                {selectedOwner! >= numPreviousOwners! && newSVL == true && viewType == 0 && 
                   <div className={styles.mintPriceContainer}>
                     {viewType == 0 && <MintSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
                       maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} 
@@ -162,11 +162,11 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                     </div>
                   </div>
                 }
-                {newSVL == false && viewType == 0 &&
+                {selectedOwner! >= numPreviousOwners! && newSVL == false && viewType == 0 &&
                   <EditSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
                     maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} 
                   />
-                }
+                } 
                 <HelpButton />
               </div>
             )}

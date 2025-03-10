@@ -76,7 +76,8 @@
       "ownershipSummary": "Propietarios SVL",
       "close": "Cierra",
       "mintDate": "Creado él:",
-      "acquisitionDate": "Adquirido él:"
+      "acquisitionDate": "Adquirido él:",
+      "justTransferred": "Sin actualizar"
     },
     "BottomBar": {
       "generalInformation": "Información general",

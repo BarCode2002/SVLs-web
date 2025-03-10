@@ -334,7 +334,7 @@ const Data = (): JSX.Element => {
                   let justTransferred = true;
                   for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) { //check for the information of the current owner
                     if (responseIndexer.data[0].current_owner_info[i] != '') { //do not check it if SVL has just been transferred and the new owner has not introduced new information
-                      justTransferred = false;;
+                      justTransferred = false;
                       try {
                         const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
                           responseType: "arraybuffer",
@@ -358,6 +358,14 @@ const Data = (): JSX.Element => {
                     const ownershipInfo = {
                       ownerAddress: responseIndexer.data[0].owner_address,
                       owners: owners,
+                      transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransfeDate}`,
+                    }
+                    ownershipSummary.current.push(ownershipInfo);
+                  }
+                  else {
+                    const ownershipInfo = {
+                      ownerAddress: responseIndexer.data[0].owner_address,
+                      owners: [t('DataSVL.TopBar.justTransferred')],
                       transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransfeDate}`,
                     }
                     ownershipSummary.current.push(ownershipInfo);
