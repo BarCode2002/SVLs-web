@@ -58,15 +58,29 @@ const RequestSVLButton = ({ svl_pk, state }: RequestSVLButtonProps): JSX.Element
 
   return (
     <div className={styles.actionContainer}>
-      <button 
-        className={styles.button}
-        onClick={handleRequestorUnrequestSVL}>
-        {state == 0 ? t('Dashboard.Labels.request') : state == 1 ? t('Dashboard.Labels.unrequest') : t('Dashboard.Labels.blocked')}
-      </button>
+      {state == 0 &&
+        <button 
+          className={styles.button}
+          onClick={handleRequestorUnrequestSVL}>
+          {t('Dashboard.Labels.request')}
+        </button>
+      }
       {state == 0 &&
         <div className={styles.priceContainer}>
           <div className={styles.price}>{requestFee}</div>
           <div className={styles.tezosLogo}><TezosLogo /></div>
+        </div>
+      }
+      {state == 1 &&
+        <button 
+          className={styles.button}
+          onClick={handleRequestorUnrequestSVL}>
+          {t('Dashboard.Labels.unrequest')}
+        </button>
+      }
+      {state == 2 &&
+        <div className={styles.blocked}>
+          {t('Dashboard.Labels.blocked')}
         </div>
       }
     </div>
