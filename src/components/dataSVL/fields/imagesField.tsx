@@ -114,6 +114,13 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
               imageIndex: i-1,
             }));
           }
+          else if (showType.showBig && showType.imageIndex > imageRemovedIndex) {
+            setShowType((prevState) => ({
+              ...prevState,
+              showBig: true,
+              imageIndex: showType.imageIndex-1,
+            }));
+          }
         }
       }
       else if (selectedGroup != -1 && selectedGroupType == -1) {
@@ -132,6 +139,13 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             imageIndex: i-1,
           }));
         }
+        else if (showType.showBig && showType.imageIndex > imageRemovedIndex) {
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: true,
+            imageIndex: showType.imageIndex-1,
+          }));
+        }
       }
       else {
         updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i+1];
@@ -147,6 +161,13 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             ...prevState,
             showBig: true,
             imageIndex: i-1,
+          }));
+        }
+        else if (showType.showBig && showType.imageIndex > imageRemovedIndex) {
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: true,
+            imageIndex: showType.imageIndex-1,
           }));
         }
       }
@@ -426,4 +447,3 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
 };
 
 export default ImagesField;
-

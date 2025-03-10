@@ -23,13 +23,13 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [noMatchShown, setNoMatchShown] = useState(false);
   const [list, setList] = useState<string[]>([]);
   const [prevBrand, setPrevBrand] = useState('');
 
   useEffect(() => {
     const getList = async () => {
       try {
+        if (dataSVL[selectedOwner].brand == 'DataSVL.Forms.brand') setList([]);
         if (prevBrand != '' && prevBrand != 'DataSVL.Forms.brand' && prevBrand != dataSVL[selectedOwner].brand) {
           const updatedDataSVL = [...dataSVL];
           updatedDataSVL[selectedOwner].model = 'DataSVL.Forms.model';
@@ -55,13 +55,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
     }
     getList();
   }, [dataSVL[selectedOwner].brand]);
-  
-  useEffect(() => {
-    if (list.length > 0) {
-      if (list.some(value => t(value).toLowerCase().includes(searchQuery.toLowerCase()))) setNoMatchShown(true);
-      else setNoMatchShown(false);
-    }
-  }, [list, searchQuery]);
+
 
   const updateValue = (value: string) => {
     const updateSVLdata = [...dataSVL];
@@ -140,13 +134,24 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
       }
       <div className={styles.dropDownPosition}>
         <div className={styles.selectedAndOptionalContainer}>
-          <button
-            className={styles.selected}
-            onClick={hadleOpenDropdownMenu}
-            disabled={!editMode}>
-            <span>{t(value)}</span>
-            <span>{(isOpen) ? '←' : '→'}</span>
-          </button>
+          {type == 'model' &&
+            <button
+              className={styles.selected}
+              onClick={hadleOpenDropdownMenu}
+              disabled={!editMode || dataSVL[selectedOwner].brand == 'DataSVL.Forms.brand'}>
+              <span>{t(value)}</span>
+              <span>{(isOpen) ? '←' : '→'}</span>
+            </button>
+          }
+          {type != 'model' &&
+            <button
+              className={styles.selected}
+              onClick={hadleOpenDropdownMenu}
+              disabled={!editMode}>
+              <span>{t(value)}</span>
+              <span>{(isOpen) ? '←' : '→'}</span>
+            </button>
+          }
         </div>
         {isOpen && (
           <div ref={refScrollIntoView} className={styles.dropdownMenu}>
@@ -167,9 +172,6 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
                   </button>
                 </div>
               )) : null}
-              {!noMatchShown ? (
-                <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
-              ) : null}
             </div>
             <div className={styles.bottomContainer}>
               <button 

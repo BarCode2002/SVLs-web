@@ -37,7 +37,7 @@
   width: fit-content;
   border: none;
   border-radius: 10px;
-  background-color: var(--dataBackgroundColor);
+  background-color: var(--fieldBackgroundColor);
   color: var(--buttonTextColor);
   font-size: var(--buttonFontSize);
   height: 37px;

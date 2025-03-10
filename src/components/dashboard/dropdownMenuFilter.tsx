@@ -20,7 +20,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [noMatchShown, setNoMatchShown] = useState(false);
   const [list, setList] = useState<string[]>([]);
   const [prevBrand, setPrevBrand] = useState('');
   const [position, setPosition] = useState(null);
@@ -55,13 +54,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     }
     getList();
   }, [appliedFiltersSVL.brand]);
-  
-  useEffect(() => {
-    if (list.length > 0) {
-      if (list.some(value => t(value).toLowerCase().includes(searchQuery.toLowerCase()))) setNoMatchShown(true);
-      else setNoMatchShown(false);
-    }
-  }, [list, searchQuery]);
 
   useEffect(() => {
     localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
@@ -123,11 +115,9 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     }
   }
 
-  const hadleOpenDropdownMenu = (action: boolean) => {
+  const hadleOpenDropdownMenu = () => {
     if (!isOpen) setIsOpen(true);
     else setIsOpen(false);
-    //if (!isOpen) setIsOpen(true);
-    //else setIsOpen(false);
   }
 
   const refScrollIntoView = useRef<HTMLDivElement>(null);
@@ -208,7 +198,8 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
           <button
             ref={buttonRef}
             className={styles.selected}
-            onClick={() => hadleOpenDropdownMenu(isOpen)}>
+            onClick={hadleOpenDropdownMenu}
+            disabled={type == 'model' && appliedFiltersSVL.brand == 'Dashboard.Placeholders.brand'}>
             {type == 'state' &&
               <span>{t('Dashboard.Placeholders.state')}</span>
             }
@@ -276,9 +267,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                     } 
                   </div>
                 )) : null}
-                {!noMatchShown ? (
-                  <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
-                ) : null}
               </div>
             ) : (
               <div className={styles.dropdownListDefects}>
@@ -316,17 +304,9 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                     </div>
                   </div>
                 )) : null}
-                {!noMatchShown ? (
-                  <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
-                ) : null}
               </div>
             )}
             <div className={styles.confirmCancelContainer}>
-              {/*<button 
-                className={styles.cancelConfirmButton} 
-                onClick={() => setIsOpen(false)}>
-                {t('DataSVL.Placeholders.confirm')}
-              </button>*/}
               <button 
                 className={styles.cancelConfirmButton} 
                 onClick={defaultValue}>

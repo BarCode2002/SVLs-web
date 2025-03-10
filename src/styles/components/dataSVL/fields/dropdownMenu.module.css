@@ -104,7 +104,9 @@
 }
 
 .noMatch {
-  font-size: 1rem;
+  margin-left: 0px;
+  margin-top: 2px;
+  font-size: 0,9rem;
 }
 
 .bottomContainer {
