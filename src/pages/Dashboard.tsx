@@ -23,35 +23,41 @@ const Dashboard = (): JSX.Element => {
     const savedfilterSVLs = localStorage.getItem("filterSVLs");
     return savedfilterSVLs ? parseInt(savedfilterSVLs) : 0
   });
+  const defaultAppliedFilterSVL: FilterSVLsInterface = {
+    key: "v1",
+    numOwners: ['0', ''],
+    numMaintenances: ['0', ''],
+    numModifications: ['0', ''],
+    defects: {
+      cosmetic: [false, '0', ''],
+      minor: [false, '0', ''],
+      moderate: [false, '0', ''],
+      important: [false, '0', ''],
+      critical: [false, '0', '']
+    },
+    numRepairs: ['0', ''],
+    vin: '',
+    brand: 'Dashboard.Placeholders.brand',
+    model: 'Dashboard.Placeholders.model',
+    year: ['0', ''],
+    kilometers: ['0', '', 'km'],
+    state: ['Dashboard.Placeholders.state', '', '', '', '', '', ''],
+    weight: ['0', '', 'kg'],
+    power: ['0', '', 'cv'],
+    shift: ['Dashboard.Placeholders.shift', ''],
+    fuel: ['Dashboard.Placeholders.fuel', '', '', '', '', '', ''],
+    autonomy: ['0', '', 'km'],
+    climate: ['Dashboard.Placeholders.climate', '', '', '', '', '', ''],
+    usage: ['Dashboard.Placeholders.usage', '', '', ''],
+    storage: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
+  }
   const [appliedFiltersSVL, setAppliedFiltersSVL] = useState<FilterSVLsInterface>(() => {
     const savedFilters = localStorage.getItem("appliedFiltersSVL");
-    return savedFilters ? JSON.parse(savedFilters) : {
-      numOwners: ['0', ''],
-      numMaintenances: ['0', ''],
-      numModifications: ['0', ''],
-      defects: {
-        cosmetic: [false, '0', ''],
-        minor: [false, '0', ''],
-        moderate: [false, '0', ''],
-        important: [false, '0', ''],
-        critical: [false, '0', '']
-      },
-      numRepairs: ['0', ''],
-      vin: '',
-      brand: 'Dashboard.Placeholders.brand',
-      model: 'Dashboard.Placeholders.model',
-      year: ['0', ''],
-      kilometers: ['0', '', 'km'],
-      state: ['Dashboard.Placeholders.state', '', '', '', '', '', ''],
-      weight: ['0', '', 'kg'],
-      power: ['0', '', 'cv'],
-      shift: ['Dashboard.Placeholders.shift', ''],
-      fuel: ['Dashboard.Placeholders.fuel', '', '', '', '', '', ''],
-      autonomy: ['0', '', 'km'],
-      climate: ['Dashboard.Placeholders.climate', '', '', '', '', '', ''],
-      usage: ['Dashboard.Placeholders.usage', '', '', ''],
-      storage: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
+    const parsedSavedFilters = savedFilters ? JSON.parse(savedFilters) : null;
+    if (parsedSavedFilters && parsedSavedFilters.key === defaultAppliedFilterSVL.key) {
+      return parsedSavedFilters;
     }
+    else return defaultAppliedFilterSVL; 
   });
   const [appliedFiltersSVLShrinked, setAppliedFiltersSVLShrinked] = useState(() => {
     const savedShrinkedFilters = localStorage.getItem("fullFilterShrinked");

@@ -130,6 +130,7 @@ export interface OwnershipSummary {
 }
 
 export interface FilterSVLsInterface {
+  key: string;
   numOwners: string[];
   numMaintenances: string[]; 
   numModifications: string[]; 

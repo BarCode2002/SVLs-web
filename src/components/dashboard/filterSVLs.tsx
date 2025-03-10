@@ -57,6 +57,7 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
 
   const handleResetFilters = () => {
     const defaultState: FilterSVLsInterface = {
+      key: "v1",
       numOwners: ['0', ''],
       numMaintenances: ['0', ''],
       numModifications: ['0', ''],
