@@ -26,6 +26,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
   const { t } = useTranslation();
   
   const urlIPFS = ipfsRetrieve;
+  const imagePreviewContainer = useRef(null);
 
   let imageInputId;
   if (selectedGroup == -1) {
@@ -175,6 +176,30 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     setDataSVL(updatedDataSVL);
   }
 
+  const updateScrollPosition = (scrollContainerRef: any) => {
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      const selectedImage = scrollContainer.children[showType.imageIndex];
+      if (selectedImage) {
+        const containerWidth = scrollContainer.clientWidth;
+        const imageLeft = selectedImage.offsetLeft;
+        const imageWidth = selectedImage.clientWidth;
+  
+        // Scroll so that the selected image is centered in the container
+        const scrollLeft = imageLeft - (containerWidth / 2) + (imageWidth / 2);
+  
+        scrollContainer.scrollTo({
+          left: scrollLeft,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (showType.showBig) updateScrollPosition(imagePreviewContainer);
+  }), [showType.showBig];
+  
   const changeImageSize = (size: string, index: number) => {
     if (size == 'big') {
       setShowType((prevState) => ({
@@ -182,7 +207,6 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         showBig: true,
         imageIndex: index,
       }));
-      updateScrollPosition(imagePreviewContainer);
     }
     else {
       setShowType((prevState) => ({
@@ -190,13 +214,6 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         showBig: false,
         imageIndex: index,
       }));
-    }
-  }
-
-  const updateScrollPosition = (scrollContainerRef: any) => {
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      scrollContainer.scrollLeft = scrollContainer.scrollWidth * (showType.imageIndex / selectedImages.length);
     }
   }
 
@@ -329,8 +346,6 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     }
   }
 
-  const imagePreviewContainer = useRef(null);
-
   return (
     <div>
       <div className={styles.imageFieldContainer}>
@@ -397,7 +412,8 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             {selectedImages.filter(url => url != '').length > 1 &&
               <button
                 className={styles.previousImageButton}
-                onClick={() => previousImage(showType.imageIndex)}>
+                onClick={() => previousImage(showType.imageIndex)}
+                disabled={showType.imageIndex == 0}>
                 ←
               </button>
             }
@@ -408,7 +424,8 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
             {selectedImages.filter(url => url != '').length > 1 &&
               <button
                 className={styles.nextImageButton}
-                onClick={() => nextImage(showType.imageIndex)}>
+                onClick={() => nextImage(showType.imageIndex)}
+                disabled={showType.imageIndex == selectedImages.filter(url => url != '').length-1}>
                 →
               </button>
             }

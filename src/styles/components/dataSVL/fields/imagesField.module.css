@@ -200,6 +200,11 @@
   opacity: 1;
 }
 
+.previousImageButton:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
 .nextImageButton {
   position: absolute;
   top: 42%;
@@ -221,6 +226,11 @@
 .nextImageButton:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+.nextImageButton:disabled {
+  cursor: default;
+  opacity: 0.5;
 }
 
 .imagePreviewContainer {

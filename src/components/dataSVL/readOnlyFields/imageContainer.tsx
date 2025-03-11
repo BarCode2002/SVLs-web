@@ -11,10 +11,9 @@ type ImageContainerProps = {
 const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
 
   const urlIPFS = ipfsRetrieve;
-
   const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
-
   const [noImages, setNoImages] = useState(false);
+  const imagePreviewContainer = useRef(null);
 
   const checkNoImages = () => {
     if (images.filter(url => url != '').length == 0) setNoImages(true);
@@ -25,6 +24,30 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
     checkNoImages();
   }), [];
 
+  const updateScrollPosition = (scrollContainerRef: any) => {
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      const selectedImage = scrollContainer.children[showType.imageIndex];
+      if (selectedImage) {
+        const containerWidth = scrollContainer.clientWidth;
+        const imageLeft = selectedImage.offsetLeft;
+        const imageWidth = selectedImage.clientWidth;
+  
+        // Scroll so that the selected image is centered in the container
+        const scrollLeft = imageLeft - (containerWidth / 2) + (imageWidth / 2);
+  
+        scrollContainer.scrollTo({
+          left: scrollLeft,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (showType.showBig) updateScrollPosition(imagePreviewContainer);
+  }), [showType.showBig];
+
   const changeImageSize = (size: string, index: number) => {
     if (size == 'big') {
       setShowType((prevState) => ({
@@ -32,7 +55,6 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
         showBig: true,
         imageIndex: index,
       }));
-      updateScrollPosition(imagePreviewContainer);
     }
     else {
       setShowType((prevState) => ({
@@ -40,13 +62,6 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
         showBig: false,
         imageIndex: index,
       }));
-    }
-  }
-
-  const updateScrollPosition = (scrollContainerRef: any) => {
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      scrollContainer.scrollLeft = scrollContainer.scrollWidth * (showType.imageIndex / images.length);
     }
   }
 
@@ -72,8 +87,6 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
       updateScrollPosition(imagePreviewContainer);
     }
   }
-
-  const imagePreviewContainer = useRef(null);
 
   return (
     <div className={styles.imageContainer}>
@@ -107,7 +120,8 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
             {images.filter(url => url != '').length > 1 &&
               <button
                 className={styles.previousImageButton}
-                onClick={() => previousImage(showType.imageIndex)}>
+                onClick={() => previousImage(showType.imageIndex)}
+                disabled={showType.imageIndex == 0}>
                 ←
               </button>
             }
@@ -118,7 +132,8 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
             {images.filter(url => url != '').length > 1 &&
               <button
                 className={styles.nextImageButton}
-                onClick={() => nextImage(showType.imageIndex)}>
+                onClick={() => nextImage(showType.imageIndex)}
+                disabled={showType.imageIndex == images.filter(url => url != '').length-1}>
                 →
               </button>
             }
