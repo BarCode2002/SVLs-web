@@ -99,12 +99,12 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
                 selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].pre} 
-                setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode}
+                setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
                 selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].post} 
-                setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode}
+                setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsModifications')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
@@ -161,11 +161,11 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
               />
               <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].pre} 
-                setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode}
+                setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].post} 
-                setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode}
+                setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
             </div>
           }

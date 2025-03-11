@@ -24,9 +24,10 @@ type DefectsSVLProps = {
   repairs: Repairs[];
   editMode: boolean;
   mySVL: boolean;
+  jsonUploaded: boolean;
 };
 
-const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode, mySVL }: DefectsSVLProps): JSX.Element => {
+const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode, mySVL, jsonUploaded }: DefectsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -96,7 +97,7 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
                 selectedImages={defects[selectedOwner].group[groupIndex].type[typeIndex].photographs} 
-                setDataSVL={setDefects} type={'photographs'} allowMultipleImages={true} editMode={editMode}
+                setDataSVL={setDefects} type={'photographs'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.descriptionDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 

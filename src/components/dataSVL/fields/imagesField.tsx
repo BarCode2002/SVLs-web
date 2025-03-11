@@ -19,9 +19,10 @@ type ImagesFieldProps = {
   type: string;
   allowMultipleImages: boolean;
   editMode: boolean;
+  jsonUploaded: boolean;
 }
 
-const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages, editMode }: ImagesFieldProps) => {
+const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, selectedGroupType, dataSVL, selectedImages, setDataSVL, type, allowMultipleImages, editMode, jsonUploaded }: ImagesFieldProps) => {
 
   const { t } = useTranslation();
   
@@ -46,7 +47,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
       }
     }
     setImagesSaved(true);
-  }, [selectedOwner]);
+  }, [selectedOwner, jsonUploaded]);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {

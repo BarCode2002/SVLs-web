@@ -249,9 +249,9 @@ const Data = (): JSX.Element => {
         if (svl_pk) {
           try {
             const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
-            if (responseIndexer.data[0].owner_address != localStorage.getItem('address')) { //SVL not owned
+            if (responseIndexer.data[0].first_owner != localStorage.getItem('address')) { //SVL not owned
               setMySVL(false);
-              if (responseIndexer.data[0].previous_owners_info[0].cids[0] == '') { //SVL has not been transferred
+              if (responseIndexer.data[0].first_owner) { //SVL has not been transferred
                 try {
                   setTotalOwners(responseIndexer.data[0].current_owner_info.length);
                   setNumPreviousOwners(0);
@@ -380,7 +380,7 @@ const Data = (): JSX.Element => {
             else { //SVL owned
               let numPreviousOwners = 0;
               let prevTransferDate;
-              if (responseIndexer.data[0].previous_owners_info[0].cids[0] != '') {
+              if (responseIndexer.data[0].first_owner) { //SVL has not been transferred
                 for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) {
                   const owners = [];
                   for (let j = 0; j < responseIndexer.data[0].previous_owners_info[i].cids.length; j++) {
@@ -413,7 +413,7 @@ const Data = (): JSX.Element => {
                     prevTransferDate = format(responseIndexer.data[0].previous_owners_info[i].transferDate, "dd/MM/yyyy");
                     ownershipSummary.current.push(ownershipInfo);
                   }
-                  else {
+                  else { //SVL has been transferred
                     const ownershipInfo = {
                       ownerAddress: responseIndexer.data[0].previous_owners_info[i].address,
                       owners: owners,

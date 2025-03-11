@@ -77,7 +77,6 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
       } catch (error) {
         console.error("Upload failed:", error);
       }
-      
     }
   };
 

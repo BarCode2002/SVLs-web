@@ -13,9 +13,10 @@ type GeneralInformationSVLProps = {
   generalInformation: GeneralInformation[];
   setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
   editMode: boolean;
+  jsonUploaded: boolean;
 };
 
-const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralInformation, editMode }: GeneralInformationSVLProps): JSX.Element => {
+const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralInformation, editMode, jsonUploaded }: GeneralInformationSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -51,11 +52,11 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
           /> 
           <ImagesField fieldLabel={t('DataSVL.Labels.mainImage')} placeholder={t('DataSVL.Placeholders.mainImage')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={[generalInformation[selectedOwner].mainPhotograph]} 
-            setDataSVL={setGeneralInformation} type={'mainPhotograph'} allowMultipleImages={false} editMode={editMode}
+            setDataSVL={setGeneralInformation} type={'mainPhotograph'} allowMultipleImages={false} editMode={editMode} jsonUploaded={jsonUploaded}
           />
           <ImagesField fieldLabel={t('DataSVL.Labels.images')} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].photographs} 
-            setDataSVL={setGeneralInformation} type={'photographs'} allowMultipleImages={true} editMode={editMode}
+            setDataSVL={setGeneralInformation} type={'photographs'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
           />        
           <DropdownMenu fieldLabel={t('DataSVL.Labels.state')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].state} 
