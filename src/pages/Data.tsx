@@ -249,7 +249,7 @@ const Data = (): JSX.Element => {
         if (svl_pk) {
           try {
             const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
-            if (responseIndexer.data[0].first_owner != localStorage.getItem('address')) { //SVL not owned
+            if (responseIndexer.data[0].owner_address != localStorage.getItem('address')) { //SVL not owned
               setMySVL(false);
               if (responseIndexer.data[0].first_owner) { //SVL has not been transferred
                 const owners = [];
