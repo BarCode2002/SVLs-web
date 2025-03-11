@@ -66,7 +66,6 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
             const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
             const op = await contract.methodsObject.update({
               svl_key: svl_pk, 
-              VIN: generalInformation[0].VIN,
               curr_owner_info: cids,
             }).send();
             await op.confirmation();   

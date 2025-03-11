@@ -137,6 +137,35 @@
   border-bottom-left-radius: 10px;
 }
 
+.fixContainer {
+  height: 101px;
+  width: 374px;
+  background-color: var(--navBarsPrimaryColor);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 5px;
+}
+
+.fixButton {
+  width: 100%;
+  height: 100%;
+  color: var(--navBarsSecondaryColor);
+  background-color: var(--navBarsPrimaryColor);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  border: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.fixButton:hover {
+  width: 100%;
+  height: 100%;
+  color: var(--navBarsPrimaryColor);
+  background-color: var(--navBarsSecondaryColor);
+  cursor: pointer;
+}
+
 .previewSVLsContainerLoading {
   width: 75vw;
   display: flex;

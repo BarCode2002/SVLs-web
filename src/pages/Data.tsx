@@ -426,13 +426,16 @@ const Data = (): JSX.Element => {
                   }
                 }
               }
+              console.log(responseIndexer.data[0].current_owner_info);
               //add owners in the use state variable(there is always one owner by default)
               for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 addOwners();
               }
               const owners = [];
               if (responseIndexer.data[0].current_owner_info.length == 1 && responseIndexer.data[0].current_owner_info[0] == '') { //the SVL has not been updated by the current_owner
-                fillOwnerSVLData(0, [], prevOwnersGeneralInformation.current[numPreviousOwners-1], true);
+                if (prevOwnersGeneralInformation.current.length > 0) {
+                  fillOwnerSVLData(0, [], prevOwnersGeneralInformation.current[numPreviousOwners-1], true);
+                }
                 owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners+1}`);
               }
               else { //the SVL has been updated by the current owner
@@ -461,7 +464,9 @@ const Data = (): JSX.Element => {
               }
               else { //SVL not transferred
                 const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
-                const transferDate = format(date, "dd/MM/yyyy");
+                let transferDate;
+                if (!date.getTime()) transferDate = 'Invalid data'
+                else transferDate = format(date, "dd/MM/yyyy");
                 const ownershipInfo = {
                   ownerAddress: responseIndexer.data[0].owner_address,
                   owners: owners,
