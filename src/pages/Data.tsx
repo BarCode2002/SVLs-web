@@ -153,17 +153,11 @@ const Data = (): JSX.Element => {
   const prevOwnersModifications = useRef<Modifications[]>([]);
   const prevOwnersDefects = useRef<Defects[]>([]);
   const prevOwnersRepairs = useRef<Repairs[]>([]);
-  const didRun = useRef(false);//en teoria solo necesario para el development por el strict mode
+  const didRun = useRef(false);//en teoria y sin teoria solo necesario para el development por el strict mode
 
   const ownershipSummary = useRef<OwnershipSummary[]>([]);
 
   const fillOwnerSVLData = (so: number, responseIPFS: any, prevOwnerGeneralInformation: any, justTransferred: boolean)=> {
-    //console.log(generalInformation);
-    //console.log(maintenances.length);
-    //console.log(modifications.length);
-    //console.log(defects.length);
-    //console.log(repairs.length);
-
     if (justTransferred) {
       const updatedGeneralInformation = [...generalInformation];
       updatedGeneralInformation[0] = {
@@ -355,9 +349,9 @@ const Data = (): JSX.Element => {
                   transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransfeDate}`,
                 }
                 ownershipSummary.current.push(ownershipInfo);
+                setTotalOwners(numPreviousOwners);          
+                setSelectedOwner(0);
               }
-              setTotalOwners(numPreviousOwners);          
-              setSelectedOwner(0);
             }
             else { //SVL owned
               let numPreviousOwners = 0;

@@ -136,6 +136,8 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     setShrinkedReady(true);
   }, []);
 
+
+
   return (
     <div className={styles.dataSVLContainer}>
       {viewType == 0 ? (
