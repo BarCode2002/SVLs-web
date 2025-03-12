@@ -267,11 +267,6 @@ const Data = (): JSX.Element => {
                     prevOwnersDefects.current.push(parsedIPFSData[3]);
                     prevOwnersRepairs.current.push(parsedIPFSData[4]);
                   } catch (error: any | AxiosError) {
-                    prevOwnersGeneralInformation.current.push();
-                    prevOwnersMaintenances.current.push();
-                    prevOwnersModifications.current.push();
-                    prevOwnersDefects.current.push();
-                    prevOwnersRepairs.current.push();
                     console.error("Unexpected error:", error);
                   }
                   owners.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`);
@@ -309,11 +304,6 @@ const Data = (): JSX.Element => {
                       ++numPreviousOwners; 
                       owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                     } catch (error: any | AxiosError) {
-                      prevOwnersGeneralInformation.current.push();
-                      prevOwnersMaintenances.current.push();
-                      prevOwnersModifications.current.push();
-                      prevOwnersDefects.current.push();
-                      prevOwnersRepairs.current.push();
                       console.error("Unexpected error:", error);
                     }
                   }
@@ -356,11 +346,6 @@ const Data = (): JSX.Element => {
                     ++numPreviousOwners; 
                     owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                   } catch (error: any | AxiosError) {
-                    prevOwnersGeneralInformation.current.push();
-                    prevOwnersMaintenances.current.push();
-                    prevOwnersModifications.current.push();
-                    prevOwnersDefects.current.push();
-                    prevOwnersRepairs.current.push();
                     console.error("Unexpected error:", error);
                   }
                 }
@@ -393,12 +378,7 @@ const Data = (): JSX.Element => {
                       prevOwnersModifications.current.push(parsedIPFSData[2]);
                       prevOwnersDefects.current.push(parsedIPFSData[3]);
                       prevOwnersRepairs.current.push(parsedIPFSData[4]);
-                    } catch (error: any | AxiosError) { //in case CID is not valid add an empty position
-                      prevOwnersGeneralInformation.current.push();
-                      prevOwnersMaintenances.current.push();
-                      prevOwnersModifications.current.push();
-                      prevOwnersDefects.current.push();
-                      prevOwnersRepairs.current.push();
+                    } catch (error: any | AxiosError) {
                       console.error("Unexpected error:", error);
                     }
                     owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
@@ -432,10 +412,8 @@ const Data = (): JSX.Element => {
                 addOwners();
               }
               const owners = [];
-              if (responseIndexer.data[0].current_owner_info.length == 1 && responseIndexer.data[0].current_owner_info[0] == '') { //the SVL has not been updated by the current_owner
-                if (prevOwnersGeneralInformation.current.length > 0) {
-                  fillOwnerSVLData(0, [], prevOwnersGeneralInformation.current[numPreviousOwners-1], true);
-                }
+              if (responseIndexer.data[0].current_owner_info[0] == '') { //the SVL has been transferred and not updated by the current_owner
+                fillOwnerSVLData(0, [], prevOwnersGeneralInformation.current[numPreviousOwners-1], true);
                 owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners+1}`);
               }
               else { //the SVL has been updated by the current owner
@@ -464,9 +442,7 @@ const Data = (): JSX.Element => {
               }
               else { //SVL not transferred
                 const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
-                let transferDate;
-                if (!date.getTime()) transferDate = 'Invalid data'
-                else transferDate = format(date, "dd/MM/yyyy");
+                const transferDate = format(date, "dd/MM/yyyy");
                 const ownershipInfo = {
                   ownerAddress: responseIndexer.data[0].owner_address,
                   owners: owners,
