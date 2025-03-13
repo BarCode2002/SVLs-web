@@ -1,5 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
+import { TopArrowWide, BottomArrowWide } from '../../../assets/directionArrows';
 
 type ToggleVisibilityRDButtonProps = {
   shrinked: any;
@@ -30,13 +31,13 @@ const ToggleVisibilityRDButton = ({ shrinked, setShrinked, selectedOwner, select
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {shrinked[selectedOwner][selectedGroup].group == false ? '⬆' : '⬇'}
+          {shrinked[selectedOwner][selectedGroup].group == false ? <TopArrowWide /> : <BottomArrowWide />}
         </button>
       ) : (
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {shrinked[selectedOwner][selectedGroup].type[selectedGroupType] == false ? '⬆' : '⬇'}
+          {shrinked[selectedOwner][selectedGroup].type[selectedGroupType] == false ? <TopArrowWide /> : <BottomArrowWide />}
         </button>
       )}
     </div>
