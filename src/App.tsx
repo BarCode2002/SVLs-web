@@ -11,7 +11,7 @@ const App = (): JSX.Element => {
 
   const handleLogin = (e: any) => {
     e.preventDefault();
-    if (password === 'pepito11') {
+    if (password === '') {
       setIsAuthenticated(true);
     } else {
       alert('Invalid password');
@@ -22,7 +22,6 @@ const App = (): JSX.Element => {
     <Router>
       {!isAuthenticated ? (
         <div>
-          <h2>Please enter the password</h2>
           <form onSubmit={handleLogin}>
             <input
               type="password"
