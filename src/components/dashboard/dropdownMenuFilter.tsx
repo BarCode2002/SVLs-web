@@ -6,6 +6,7 @@ import { DetectClickOutsideComponent } from '../varied/detectClickOutsideCompone
 import { mongoBrand, mongoList } from '../../utils/ip';
 import { FilterSVLsInterface } from '../../utils/interfaces';
 import { createPortal } from "react-dom";
+import { LeftArrow, RightArrow } from '../../assets/directionArrows';
 
 type DropdownMenuFilterProps = {
   appliedFiltersSVL: FilterSVLsInterface;
@@ -224,7 +225,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
             {(type != 'state' && type != 'shift' && type != 'fuel' && type != 'climate' && type != 'usage' && type != 'storage' && type != 'defects') &&
               <span>{t(appliedFiltersSVL[type])}</span>
             }
-            <span>{(isOpen) ? '←' : '→'}</span>
+            <span>{(isOpen) ? <LeftArrow /> : <RightArrow />}</span>
           </button>
         </div>
         {isOpen && position && createPortal (

@@ -1,5 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
+import { TopArrowWide, BottomArrowWide } from '../../../assets/directionArrows';
 
 type ToggleVisibilityButtonProps = {
   dataSVL: any;
@@ -30,13 +31,13 @@ const ToggleVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGr
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {dataSVL[selectedOwner].group[selectedGroup].shrinked == false ? '⬆' : '⬇'}
+          {dataSVL[selectedOwner].group[selectedGroup].shrinked == false ? <TopArrowWide /> : <BottomArrowWide />}
         </button>
       ) : (
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked == false ? '⬆' : '⬇'}
+          {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked == false ? <TopArrowWide /> : <BottomArrowWide />}
         </button>
       )}
     </div>

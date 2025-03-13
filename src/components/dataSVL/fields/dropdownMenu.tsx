@@ -4,6 +4,8 @@ import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComp
 import axios, { AxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 import { mongoBrand, mongoList } from '../../../utils/ip';
+import { RightArrow } from '../../../assets/directionArrows';
+import { LeftArrow } from '../../../assets/directionArrows';
 
 type DropdownMenuProps = {
   fieldLabel: string;
@@ -140,7 +142,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
               onClick={hadleOpenDropdownMenu}
               disabled={!editMode || dataSVL[selectedOwner].brand == 'DataSVL.Forms.brand'}>
               <span>{t(value)}</span>
-              <span>{(isOpen) ? '←' : '→'}</span>
+              <span>{(isOpen) ? <LeftArrow /> : <RightArrow />}</span>
             </button>
           }
           {type != 'model' &&
@@ -149,7 +151,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
               onClick={hadleOpenDropdownMenu}
               disabled={!editMode}>
               <span>{t(value)}</span>
-              <span>{(isOpen) ? '←' : '→'}</span>
+              <span>{(isOpen) ? <LeftArrow /> : <RightArrow />}</span>
             </button>
           }
         </div>

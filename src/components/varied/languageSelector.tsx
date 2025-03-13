@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import axios, { AxiosError } from "axios";
 import { DetectClickOutsideComponent } from './detectClickOutsideComponent';
 import { mongoList } from '../../utils/ip';
+import { BottomArrowWhite, BottomArrowBlack, TopArrow } from '../../assets/directionArrows';
 
 const LanguageSelector = (): JSX.Element => {
 
@@ -15,6 +16,7 @@ const LanguageSelector = (): JSX.Element => {
   const [list, setList] = useState<string[]>([]);
   const cancelButtonText = t('DataSVL.Placeholders.cancel');
   const searchBarPlaceholder = t('DataSVL.Placeholders.search');
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const getLanguageList = async () => {
@@ -57,10 +59,12 @@ const LanguageSelector = (): JSX.Element => {
     <div ref={refClickOutside} className={styles.dropdownMenuContainer}>
       <div className={styles.dropDownPosition}>
         <button
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           className={isOpen ? styles.selectedOpen : styles.selected}
           onClick={hadleOpenDropdownMenu}>
           <span>{t(localStorage.getItem('language')!)}</span>
-          <span>{(isOpen) ? '↑' : '↓'}</span>
+          <span>{(isOpen) ? <TopArrow /> : isHovered ? <BottomArrowBlack /> : <BottomArrowWhite />}</span>
         </button>
         {isOpen && (
           <div className={styles.dropdownMenu}>
