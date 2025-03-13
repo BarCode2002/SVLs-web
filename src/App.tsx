@@ -11,7 +11,7 @@ const App = (): JSX.Element => {
 
   const handleLogin = (e: any) => {
     e.preventDefault();
-    if (password === '') {
+    if (password === 'w&7Dm]Uo`Qyg') {
       setIsAuthenticated(true);
     } else {
       alert('Invalid password');
