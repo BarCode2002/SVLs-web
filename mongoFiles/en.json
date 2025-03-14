@@ -34,8 +34,7 @@
       "sloganSecondPart": "for timeless vehicles",
       "search": "Search",
       "reset": "Reset",
-      "showDetailedFilters": "Detailed filters ⬇",
-      "hideDetailedFilters": "Detailed filters ⬆"
+      "detailedFilters": "Detailed filters"
     },
     "Placeholders": {
       "numOwners": "Number of owners",
