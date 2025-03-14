@@ -11,11 +11,13 @@ import PreviewSVLs from '../components/dashboard/previewSVLs';
 import { FilterSVLsInterface } from '../utils/interfaces';
 import { useTranslation } from 'react-i18next';
 import { GROUP_SIZE } from '../utils/constants';
+import { BottomArrowWide, BottomArrowWideWhite, TopArrowWide, TopArrowWideWhite } from '../assets/directionArrows';
 
 const Dashboard = (): JSX.Element => {
 
   const { t } = useTranslation();
 
+  const [isHovered, setIsHovered] = useState(false);
   const [myAddress, setMyAddress] = useState<string | undefined>(undefined);
   const [wallet, setWallet] = useState<BeaconWallet | undefined>(undefined);
   const [search, setSearch] = useState(false);
@@ -146,9 +148,19 @@ const Dashboard = (): JSX.Element => {
               <RequestedSVLsButton filterSVLs={filterSVLs} setFilterSVLs={setFilterSVLs} setSearch={setSearch} setAppliedFiltersSVLShrinked={setAppliedFiltersSVLShrinked} />
               <div className={styles.fullFiltersToggleContainer}>
                 <button
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                   className={filterSVLs == 2 ? styles.toggleFullFiltersSelected : styles.toggleFullFilters}
                   onClick={updatFullFilterSVL}>
-                  {t('Dashboard.Labels.detailedFilters')}
+                  
+                  {t('Dashboard.Labels.detailedFilters')} 
+                  {isHovered && filterSVLs != 2 
+                    ? <BottomArrowWide />
+                    : appliedFiltersSVLShrinked 
+                      ? (filterSVLs == 2 ? <BottomArrowWide /> : <BottomArrowWideWhite />) 
+                      : (filterSVLs == 2 ? <TopArrowWide /> : <TopArrowWideWhite />)
+                  }
+
                 </button>
               </div>
               {!appliedFiltersSVLShrinked &&

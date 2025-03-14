@@ -96,3 +96,27 @@ export const BottomArrowWide = () => {
     </svg>
 	);
 };
+
+export const TopArrowWideWhite = () => {
+	return (
+    <svg fill="#ffffff" height="18px" width="18px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 280">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path id="XMLID_27_" d="M165,15L45,135h75v165c0,8.284,6.716,15,15,15h60c8.284,0,15-6.716,15-15V135h75L165,15z" />
+      </g>
+    </svg>
+	);
+};
+
+export const BottomArrowWideWhite = () => {
+	return (
+    <svg fill="#ffffff" height="18px" width="18px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 280">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path id="XMLID_27_" d="M165,315L45,195h75V30c0-8.284,6.716-15,15-15h60c8.284,0,15,6.716,15,15v165h75L165,315z" />
+      </g>
+    </svg>
+	);
+};
