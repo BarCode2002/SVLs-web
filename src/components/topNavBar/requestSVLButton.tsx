@@ -10,9 +10,10 @@ import { TezosLogo } from '../../assets/tezos';
 type RequestSVLButtonProps = {
   svl_pk: string;
   state: number;
+  setState: React.Dispatch<number>;
 };
 
-const RequestSVLButton = ({ svl_pk, state }: RequestSVLButtonProps): JSX.Element => {
+const RequestSVLButton = ({ svl_pk, state, setState }: RequestSVLButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
   const contractAddress = getsmartContractAddress();
@@ -25,8 +26,7 @@ const RequestSVLButton = ({ svl_pk, state }: RequestSVLButtonProps): JSX.Element
     const getRequestFee = async () => {
       try {
         const response = await axios.get(mongoSmartContract);
-        const requestFee = response.data.requestFee;
-        setRequestFee(requestFee);
+        setRequestFee(response.data.requestFee);
       } catch (error) {
         console.error("Upload failed:", error);
       }
@@ -35,12 +35,12 @@ const RequestSVLButton = ({ svl_pk, state }: RequestSVLButtonProps): JSX.Element
   }, []);
 
   const handleRequestorUnrequestSVL = async () => { 
-    let requestFee;
     if (state == 0) {
       try {
         const contract: WalletContract = await Tezos!.wallet.at(contractAddress);
         const op = await contract.methodsObject.requestTransfer(svl_pk).send({amount: requestFee});
         await op.confirmation();
+        setState(1);
       } catch (error) {
         console.log('error:', error);
       }  
@@ -50,6 +50,7 @@ const RequestSVLButton = ({ svl_pk, state }: RequestSVLButtonProps): JSX.Element
         const contract: WalletContract = await Tezos!.wallet.at(contractAddress);
         const op = await contract.methodsObject.requesterClearTransferRequest(svl_pk).send();
         await op.confirmation();
+        setState(0);
       } catch (error) {
         console.log('error:', error);
       }  

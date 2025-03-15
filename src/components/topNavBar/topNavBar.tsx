@@ -129,7 +129,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                   </div>
                 }
                 {!mySVL && !canBuy &&
-                  <RequestSVLButton svl_pk={svl_pk!} state={state} />
+                  <RequestSVLButton svl_pk={svl_pk!} state={state} setState={setState} />
                 }
                 {!mySVL && canBuy &&
                   <BuySVLButton svl_pk={svl_pk!} />
