@@ -375,8 +375,8 @@ const Data = (): JSX.Element => {
                     } catch (error: any | AxiosError) {
                       console.error("Unexpected error:", error);
                     }
-                    owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                     ++numPreviousOwners; 
+                    owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                   }
                   if (i == responseIndexer.data[0].previous_owners_info.length-1) { //for the first SVL owner get the creation date from the SVL key
                     const date = parse(svl_pk.split("tz")[0], "dd MM yyyy HH:mm:ss", new Date());
