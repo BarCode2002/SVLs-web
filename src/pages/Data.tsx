@@ -180,7 +180,7 @@ const Data = (): JSX.Element => {
         climate: 'DataSVL.Forms.climate',
         usage: 'DataSVL.Forms.usage',
         storage: 'DataSVL.Forms.storage',
-        comments: 'DataSVL.Forms.comments',
+        comments: '',
       },
       setGeneralInformation(updatedGeneralInformation);
     }
@@ -400,7 +400,6 @@ const Data = (): JSX.Element => {
                   }
                 }
               }
-              console.log(responseIndexer.data[0].current_owner_info);
               //add owners in the use state variable(there is always one owner by default)
               for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 addOwners();

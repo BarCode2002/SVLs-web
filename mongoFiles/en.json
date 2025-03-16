@@ -233,6 +233,7 @@
     "brand": "has not defined the brand in general information.",
     "model": "has not defined the model in general information.",
     "year": "has not defined the year in general information.",
+    "transferDate": "has not defined the acquisition date in general information.",
     "mainPhotograph": "main image has not been uploaded in general information.",
     "mainPhotographNotSaved": "main image has not been saved in general information.",
     "photographsNotSaved": "images have not been saved in general information.",

@@ -62,6 +62,9 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
     if (generalInformation[i].year == '') {
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.year')} ${i18n.t('InvalidFields.mandatoryField')}`);    
     }
+    if (generalInformation[i].transferDate == '') {
+      invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.transferDate')} ${i18n.t('InvalidFields.mandatoryField')}`);    
+    }
     if (generalInformation[i].mainPhotograph == '') {
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.mainPhotograph')} ${i18n.t('InvalidFields.mandatoryField')}`);    
     }

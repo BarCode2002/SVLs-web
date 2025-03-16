@@ -65,7 +65,8 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
     removeModifications();
     removeDefects();
     removeRepairs();
-    if (selectedOwner > 0) setSelectedOwner(selectedOwner-1);
+    if (selectedOwner > 0 && selectedOwner == index) setSelectedOwner(selectedOwner-1);
+    else if (selectedOwner > index) setSelectedOwner(selectedOwner-1);
     setTotalOwners(totalOwners-1);
     setWarningRemoveOwner(false);
   }
