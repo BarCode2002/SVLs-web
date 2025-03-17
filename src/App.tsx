@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Data from './pages/Data.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 import Help from './pages/Help.tsx';
+import { useState } from 'react';
 
 const App = (): JSX.Element => {
 
