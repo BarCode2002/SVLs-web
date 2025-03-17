@@ -10,27 +10,28 @@ import { LeftArrow, RightArrow } from '../../assets/directionArrows';
 
 type DropdownMenuFilterProps = {
   appliedFiltersSVL: FilterSVLsInterface;
-  setAppliedFiltersSVL: React.Dispatch<FilterSVLsInterface>;
+  setAppliedFiltersSVL: React.Dispatch<React.SetStateAction<FilterSVLsInterface>>
   type: string;
   defectList: string[];
 };
+
 
 const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, defectList }: DropdownMenuFilterProps) => {
   
   const { t } = useTranslation();
 
+  type DefectKeys = keyof typeof appliedFiltersSVL.defects;
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [list, setList] = useState<string[]>([]);
   const [prevBrand, setPrevBrand] = useState('');
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const getList = async () => {
       try {
         if (prevBrand != '' && prevBrand != appliedFiltersSVL.brand) {
-          //va el error es solo de typescript y no se como quitarlo
           setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
             ...prevAppliedFiltersSVL,
             model: 'Dashboard.Placeholders.model',
@@ -63,14 +64,12 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   const updateValue = (checked: boolean, value: string, index: number) => {
     if (type == 'state' || type == 'shift' || type == 'fuel' || type == 'climate' || type == 'usage' || type == 'storage') {
       if (checked) {
-        //va el error es solo de typescript y no se como quitarlo
-        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
-          ...prevAppliedFiltersSVL,
-          [type]: prevAppliedFiltersSVL[type].map((item, i) => (index == i ? value : item)),
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface): FilterSVLsInterface => ({ 
+          ...prevAppliedFiltersSVL, 
+          [type]: prevAppliedFiltersSVL[type].map((item, i) => (index === i ? value : item)) 
         }));
       }
       else {
-        //va el error es solo de typescript y no se como quitarlo
         setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
           ...prevAppliedFiltersSVL,
           [type]: prevAppliedFiltersSVL[type].map((item, i) => (index == i ? '' : item)),
@@ -78,7 +77,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
       }
     }
     else {
-      //va el error es solo de typescript y no se como quitarlo
       setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
         ...prevAppliedFiltersSVL,
         [type]: value,
@@ -88,27 +86,25 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   }
 
   const updateValueDefects = (checked: boolean, value: string, defectIndex: number, typeDefectIndex: number) => {
-    //va el error es solo de typescript y no se como quitarlo
     if (typeDefectIndex == 0) {
       setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
         ...prevAppliedFiltersSVL,
         defects: {
           ...prevAppliedFiltersSVL.defects,
-          [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex]].map((item, i) => (i === typeDefectIndex ? checked : item))
+          [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[type as DefectKeys].map((item, i) => (i === typeDefectIndex ? checked : item))
         }
-      }));
+      }));appliedFiltersSVL.defects[type as DefectKeys][0]
       localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
     }
     else {
       let re: RegExp;
       re = /^(0|[1-9]\d*)$/;
       if (value == '' || re.test(value)) {
-        //va el error es solo de typescript y no se como quitarlo
         setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
           ...prevAppliedFiltersSVL,
           defects: {
             ...prevAppliedFiltersSVL.defects,
-            [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex]].map((item, i) => (i === typeDefectIndex ? value : item))
+            [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[type as DefectKeys].map((item, i) => (i === typeDefectIndex ? value : item))
           }
         }));
        
@@ -137,7 +133,6 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   }, [isOpen]);
 
   const defaultValue = () => {
-    //va el error es solo de typescript y no se como quitarlo
     if (type == 'brand') {
       setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
         ...prevAppliedFiltersSVL,
@@ -222,8 +217,11 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
             {type == 'defects' &&
               <span>{t('Dashboard.Placeholders.defectChoosenLevel')}</span>
             }
-            {(type != 'state' && type != 'shift' && type != 'fuel' && type != 'climate' && type != 'usage' && type != 'storage' && type != 'defects') &&
-              <span>{t(appliedFiltersSVL[type])}</span>
+            {type == 'brand' &&
+              <span>{t(appliedFiltersSVL.brand)}</span>
+            }
+            {type == 'model' &&
+              <span>{t(appliedFiltersSVL.model)}</span>
             }
             <span>{(isOpen) ? <LeftArrow /> : <RightArrow />}</span>
           </button>
@@ -276,14 +274,14 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                     <div className={styles.dropdownItemContainerDefects}>
                       <button
                         className={styles.dropdownItem}
-                        onClick={() => updateValueDefects(!appliedFiltersSVL[type][defectList[index]][0], value, index, 0)}>
+                        onClick={() => updateValueDefects(!appliedFiltersSVL.defects[type as DefectKeys][0], value, index, 0)}>
                         {t(value)} 
                       </button>
                       <div className={styles.inputFieldsContainer}>
                         <input
                           className={styles.inputFieldLeft} 
                           type="text"
-                          value={appliedFiltersSVL[type][defectList[index]][1]}
+                          value={appliedFiltersSVL.defects[type as DefectKeys][1]}
                           onChange={(e) => updateValueDefects(true, e.target.value, index, 1)}
                           placeholder={t('Dashboard.Placeholders.since')}
                         />
@@ -291,14 +289,14 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                         <input
                           className={styles.inputFieldRight}
                           type="text"
-                          value={appliedFiltersSVL[type][defectList[index]][2]}
+                          value={appliedFiltersSVL.defects[type as DefectKeys][2]}
                           onChange={(e) => updateValueDefects(true, e.target.value, index, 2)}
                           placeholder={t('Dashboard.Placeholders.until')}
                         />                        
                         <input
                           type="checkbox"
                           id="checkbox"
-                          checked={appliedFiltersSVL[type][defectList[index]][0]}
+                          checked={appliedFiltersSVL.defects[type as DefectKeys][0]}
                           onChange={(e) => updateValueDefects(e.target.checked, '', index, 0)}
                         />
                       </div>

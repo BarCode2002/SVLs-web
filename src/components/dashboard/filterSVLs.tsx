@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 type FilterSVLsProps = {
   setFilterSVLs: React.Dispatch<number>;
   appliedFiltersSVL: FilterSVLsInterface;
-  setAppliedFiltersSVL: React.Dispatch<FilterSVLsInterface>;
+  setAppliedFiltersSVL: React.Dispatch<React.SetStateAction<FilterSVLsInterface>>
   search: boolean;
   setSearch: React.Dispatch<boolean>;
 };
@@ -20,7 +20,6 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
     localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
   }, [appliedFiltersSVL]);
 
-  //va el error es solo de typescript y no se como quitarlo
   const updateFilter = (value: string, type: string, index: number) => {
     if (type == 'numOwners' || type == 'numMaintenances' || type == 'numRepairs' || type == 'year') {
       let re: RegExp;
