@@ -37,6 +37,9 @@ export const createJSON = (selectedOwner: number, generalInformation: GeneralInf
     ...repairs.slice(selectedOwner, selectedOwner+1).map((item) => ({
       repairs: item.group,
     })),
+    {
+      version: "base"
+    }
   ];
   return JSON.stringify(dataSVL, null, 2);  
 }
