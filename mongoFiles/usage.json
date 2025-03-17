@@ -1,9 +1,0 @@
-{ 
-  "type": "usage",
-  "usage": [
-    "Lists.Usage.daily",
-    "Lists.Usage.weekender",
-    "Lists.Usage.racing",
-    "Lists.Usage.work"
-  ]
-}
