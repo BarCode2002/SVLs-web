@@ -12,7 +12,6 @@ const LanguageSelector = (): JSX.Element => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [noMatchShown, setNoMatchShown] = useState(false);
   const [list, setList] = useState<string[]>([]);
   const cancelButtonText = t('DataSVL.Placeholders.cancel');
   const searchBarPlaceholder = t('DataSVL.Placeholders.search');
@@ -29,13 +28,6 @@ const LanguageSelector = (): JSX.Element => {
     }
     getLanguageList();
   }, []);
-
-  useEffect(() => {
-    if (list.length > 0) {
-      if (list.some(language => t(language).toLowerCase().includes(searchQuery.toLowerCase()))) setNoMatchShown(true);
-      else setNoMatchShown(false);
-    }
-  }, [list, searchQuery]);
 
   const handleLanguageChange = (newLanguage: string) => {
     i18n.changeLanguage(newLanguage.split(".").pop());
@@ -63,7 +55,7 @@ const LanguageSelector = (): JSX.Element => {
           onMouseLeave={() => setIsHovered(false)}
           className={isOpen ? styles.selectedOpen : styles.selected}
           onClick={hadleOpenDropdownMenu}>
-          <span>{t(localStorage.getItem('language')!)}</span>
+          <span>{t(localStorage.getItem('language') || 'Lists.Language.es')}</span>
           <span>{(isOpen) ? <TopArrow /> : isHovered ? <BottomArrowBlack /> : <BottomArrowWhite />}</span>
         </button>
         {isOpen && (
@@ -85,9 +77,6 @@ const LanguageSelector = (): JSX.Element => {
                   </button>
                 </div>
               )) : null}
-              {!noMatchShown ? (
-                <span className={styles.noMatch}>{t('DataSVL.Placeholders.noMatch')}</span>
-              ) : null}
             </div>
             <button 
               className={styles.cancelButton} 

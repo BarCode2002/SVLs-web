@@ -91,9 +91,9 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
         ...prevAppliedFiltersSVL,
         defects: {
           ...prevAppliedFiltersSVL.defects,
-          [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[type as DefectKeys].map((item, i) => (i === typeDefectIndex ? checked : item))
+          [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex] as DefectKeys].map((item, i) => (i === typeDefectIndex ? checked : item))
         }
-      }));appliedFiltersSVL.defects[type as DefectKeys][0]
+      }));
       localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
     }
     else {
@@ -104,10 +104,10 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
           ...prevAppliedFiltersSVL,
           defects: {
             ...prevAppliedFiltersSVL.defects,
-            [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[type as DefectKeys].map((item, i) => (i === typeDefectIndex ? value : item))
+            [defectList[defectIndex]]: prevAppliedFiltersSVL.defects[defectList[defectIndex] as DefectKeys].map((item, i) => (i === typeDefectIndex ? value : item))
           }
         }));
-       
+        localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
       }
     }
   }
@@ -133,7 +133,19 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   }, [isOpen]);
 
   const defaultValue = () => {
-    if (type == 'brand') {
+    if (type == 'defects') {
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        ...prevAppliedFiltersSVL,
+        defects: {
+          cosmetic: [false, "0", ""],
+          minor: [false, "0", ""],
+          moderate: [false, "0", ""],
+          important: [false, "0", ""],
+          critical: [false, "0", ""],
+        },
+      }));
+    }
+    else if (type == 'brand') {
       setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
         ...prevAppliedFiltersSVL,
         [type]: 'Dashboard.Placeholders.brand',
@@ -181,6 +193,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
         [type]: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
       }));
     }
+    localStorage.setItem('appliedFiltersSVL', JSON.stringify(appliedFiltersSVL));
   }
 
   const ref = DetectClickOutsideComponent(() => { 
@@ -274,14 +287,14 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                     <div className={styles.dropdownItemContainerDefects}>
                       <button
                         className={styles.dropdownItem}
-                        onClick={() => updateValueDefects(!appliedFiltersSVL.defects[type as DefectKeys][0], value, index, 0)}>
+                        onClick={() => updateValueDefects(!appliedFiltersSVL.defects[defectList[index] as DefectKeys][0], value, index, 0)}>
                         {t(value)} 
                       </button>
                       <div className={styles.inputFieldsContainer}>
                         <input
                           className={styles.inputFieldLeft} 
                           type="text"
-                          value={appliedFiltersSVL.defects[type as DefectKeys][1]}
+                          value={appliedFiltersSVL.defects[defectList[index] as DefectKeys][1]}
                           onChange={(e) => updateValueDefects(true, e.target.value, index, 1)}
                           placeholder={t('Dashboard.Placeholders.since')}
                         />
@@ -289,14 +302,14 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
                         <input
                           className={styles.inputFieldRight}
                           type="text"
-                          value={appliedFiltersSVL.defects[type as DefectKeys][2]}
+                          value={appliedFiltersSVL.defects[defectList[index] as DefectKeys][2]}
                           onChange={(e) => updateValueDefects(true, e.target.value, index, 2)}
                           placeholder={t('Dashboard.Placeholders.until')}
                         />                        
                         <input
                           type="checkbox"
                           id="checkbox"
-                          checked={appliedFiltersSVL.defects[type as DefectKeys][0]}
+                          checked={appliedFiltersSVL.defects[defectList[index] as DefectKeys][0]}
                           onChange={(e) => updateValueDefects(e.target.checked, '', index, 0)}
                         />
                       </div>
