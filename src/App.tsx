@@ -5,13 +5,39 @@ import Help from './pages/Help.tsx';
 
 const App = (): JSX.Element => {
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+
+  const handleLogin = (e: any) => {
+    e.preventDefault();
+    if (password === 'alonso') {
+      setIsAuthenticated(true);
+    } else {
+      alert('Invalid password');
+    }
+  };
+  
   return (
     <Router>
-      <Routes>
-        <Route path='/' element={<Dashboard />} />
-        <Route path='/help' element={<Help />} />
-        <Route path='/data/:svl_pk?' element={<Data />} />
-      </Routes>
+      {!isAuthenticated ? (
+        <div>
+          <form onSubmit={handleLogin}>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      ) : (
+        <Routes>
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/help' element={<Help />} />
+          <Route path='/data/:svl_pk?' element={<Data />} />
+        </Routes>
+      )}
     </Router>
   );
 };

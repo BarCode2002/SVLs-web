@@ -1,7 +1,0 @@
-{ 
-  "type": "shift",
-  "shift": [
-    "Lists.Shift.manual",
-    "Lists.Shift.automatic"
-  ]
-}
