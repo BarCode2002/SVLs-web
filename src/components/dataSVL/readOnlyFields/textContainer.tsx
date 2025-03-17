@@ -34,7 +34,7 @@ const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
       <div className={styles.fieldLabel}>
         {fieldLabel}
       </div>
-      {noData == false && (fieldLabel == t('DataSVL.Labels.date') || fieldLabel == t('DataSVL.Labels.acquisitionDate')) &&
+      {typeof text == 'string' && noData == false && (fieldLabel == t('DataSVL.Labels.date') || fieldLabel == t('DataSVL.Labels.acquisitionDate')) &&
         <div className={styles.text}>
           {new Date(text).toLocaleDateString("en-GB")}
         </div>
