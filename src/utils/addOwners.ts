@@ -148,7 +148,6 @@ export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>
         cause: "",
         type: Array.from({ length: 1 }, () => ({
           level: 'DataSVL.Forms.level',
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
           photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",
           shrinked: false,
