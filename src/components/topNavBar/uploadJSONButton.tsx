@@ -32,7 +32,6 @@ const UploadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation
           const result = e.target?.result;
           if (typeof result == "string") {
             const ownerSVLData = JSON.parse(result);
-            console.log(ownerSVLData[ownerSVLData.length-1].version);
 
             const updatedGeneralInformation = [...generalInformation];
             updatedGeneralInformation[selectedOwner-numPreviousOwners] = ownerSVLData[0];

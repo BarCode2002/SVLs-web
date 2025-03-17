@@ -59,7 +59,6 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
         },
       });
       cids = response.data.cids;
-      console.log(cids);
     } catch (error) {
       console.error("Upload failed:", error);
     }
