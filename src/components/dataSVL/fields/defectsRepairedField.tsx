@@ -15,9 +15,10 @@ type DefectsRepairedFieldProps = {
   prevOwnersDefects: any;
   editMode: boolean;
   jsonUploaded: boolean;
+  totalOwners: number;
 };
 
-const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, selectedGroup, repairs, setRepairs, defects, prevOwnersDefects, editMode, jsonUploaded }: DefectsRepairedFieldProps): JSX.Element => {
+const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, selectedGroup, repairs, setRepairs, defects, prevOwnersDefects, editMode, jsonUploaded, totalOwners }: DefectsRepairedFieldProps): JSX.Element => {
   
   const { t } = useTranslation();
 
@@ -57,8 +58,10 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
             }
             else {
               const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
-              for (let i = 0; i < defects[defectOwner].group.length; ++i) {
-                updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
+              if (defectOwner < totalOwners) {
+                for (let i = 0; i < defects[defectOwner].group.length; ++i) {
+                  updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
+                }
               }
             }
             setDefectGroupsOwner(updatedDefectGroupsOwner);
@@ -77,9 +80,11 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
               }
               else {
                 const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
-                if (defects[defectOwner].length > 0) {
-                  for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
-                    updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
+                if (defectOwner < totalOwners) {
+                  if (defects[defectOwner].length > 0) {
+                    for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
+                      updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
+                    }
                   }
                 }
               }

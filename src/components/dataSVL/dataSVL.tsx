@@ -170,7 +170,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
             <PrevOwnersRepairsSVL selectedOwner={selectedOwner} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={prevOwnersRepairs} />
           }
           {selectedSVLData == 4 && selectedOwner >= weird &&
-            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} jsonUploaded={jsonUploaded} />
+            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} jsonUploaded={jsonUploaded} totalOwners={totalOwners} />
           }
         </div>
       ) : (
