@@ -6,6 +6,7 @@ import { TrashIconRed } from '../../../assets/trash';
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
 import { ipfsRetrieve, ipfsUpload } from '../../../utils/ip';
+import { LeftArrowImages, RightArrowImages } from '../../../assets/directionArrows';
 
 type ImagesFieldProps = {
   fieldLabel: string;
@@ -415,7 +416,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                 className={styles.previousImageButton}
                 onClick={() => previousImage(showType.imageIndex)}
                 disabled={showType.imageIndex == 0}>
-                ←
+                <LeftArrowImages />
               </button>
             }
             <img
@@ -427,7 +428,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
                 className={styles.nextImageButton}
                 onClick={() => nextImage(showType.imageIndex)}
                 disabled={showType.imageIndex == selectedImages.filter(url => url != '').length-1}>
-                →
+                <RightArrowImages />
               </button>
             }
           </div>

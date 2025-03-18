@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/readOnlyFields/imageContainer.module.css';
 import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { ipfsRetrieve } from '../../../utils/ip';
+import { LeftArrowImages, RightArrowImages } from '../../../assets/directionArrows';
 
 type ImageContainerProps = {
   fieldLabel: string;
@@ -122,7 +123,7 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
                 className={styles.previousImageButton}
                 onClick={() => previousImage(showType.imageIndex)}
                 disabled={showType.imageIndex == 0}>
-                ←
+                <LeftArrowImages />
               </button>
             }
             <img
@@ -134,7 +135,7 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
                 className={styles.nextImageButton}
                 onClick={() => nextImage(showType.imageIndex)}
                 disabled={showType.imageIndex == images.filter(url => url != '').length-1}>
-                →
+                <RightArrowImages />
               </button>
             }
           </div>
