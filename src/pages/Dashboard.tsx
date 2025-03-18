@@ -23,7 +23,8 @@ const Dashboard = (): JSX.Element => {
   const [search, setSearch] = useState(false);
   const [filterSVLs, setFilterSVLs] = useState(() => {
     const savedfilterSVLs = localStorage.getItem("filterSVLs");
-    return savedfilterSVLs ? parseInt(savedfilterSVLs) : 0
+    if (savedfilterSVLs == null) return 0;
+    else return parseInt(savedfilterSVLs);
   });
   const defaultAppliedFilterSVL: FilterSVLsInterface = {
     key: "v1",
@@ -76,8 +77,6 @@ const Dashboard = (): JSX.Element => {
   useEffect(() => {
     const initializedwallet = getWallet();
     setWallet(initializedwallet);
-    const filterSVLs = localStorage.getItem('filterSVLs');
-    setFilterSVLs(parseInt(filterSVLs!));    
   }, []);
 
   useEffect(() => {
