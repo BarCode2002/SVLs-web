@@ -25,11 +25,11 @@ WORKDIR /usr/share/nginx/html
 # Copy the SSL certificates into the container
 COPY /ssl /etc/nginx/ssl/
 
+# Copy the custom Nginx config into the container
 COPY nginx-config.conf /etc/nginx/conf.d/default.conf
 
-# Remove default Nginx content and copy your React build
-RUN rm -rf ./*
-COPY dist .
+# Copy the React build from the build stage
+COPY --from=build /app/dist .
 
 # Expose port 443 to access the website
 EXPOSE 443
