@@ -151,7 +151,6 @@ const Dashboard = (): JSX.Element => {
                   onMouseLeave={() => setIsHovered(false)}
                   className={filterSVLs == 2 ? styles.toggleFullFiltersSelected : styles.toggleFullFilters}
                   onClick={updatFullFilterSVL}>
-                  
                   {t('Dashboard.Labels.detailedFilters')} 
                   {isHovered && filterSVLs != 2 
                     ? <BottomArrowWide />
@@ -159,7 +158,6 @@ const Dashboard = (): JSX.Element => {
                       ? (filterSVLs == 2 ? <BottomArrowWide /> : <BottomArrowWideWhite />) 
                       : (filterSVLs == 2 ? <TopArrowWide /> : <TopArrowWideWhite />)
                   }
-
                 </button>
               </div>
               {!appliedFiltersSVLShrinked &&
