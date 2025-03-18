@@ -23,7 +23,6 @@ const Dashboard = (): JSX.Element => {
   const [search, setSearch] = useState(false);
   const [filterSVLs, setFilterSVLs] = useState(() => {
     const savedfilterSVLs = localStorage.getItem("filterSVLs");
-    console.log(savedfilterSVLs)
     if (savedfilterSVLs == null) return 0;
     else return parseInt(savedfilterSVLs);
   });
