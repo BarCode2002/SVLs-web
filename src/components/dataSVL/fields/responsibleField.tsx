@@ -5,7 +5,7 @@ import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { useTranslation } from "react-i18next";
 import { TrashIconRed } from '../../../assets/trash';
 import axios from "axios";
-import { ipfsRetrieve } from '../../../utils/ip';
+import { ipfsRetrieve, mongoList } from '../../../utils/ip';
 
 type ResponsibleFieldProps = {
   fieldLabel: string;
@@ -29,6 +29,19 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   const [searchQuery, setSearchQuery] = useState('');
   const [showBig, setShowBig] = useState(false);
   const [imagesSaved, setImagesSaved] = useState(false);
+  const [mechanicsList, setMechanicsList] = useState<string[]>(['']);
+
+  useEffect(() => {
+    const getMechanics = async () => {
+      try {
+        const responseMongo = await axios.get(`${mongoList}mechanic`);
+        setMechanicsList(responseMongo.data);
+      } catch (error) {
+        console.error("Unexpected error:", error);
+      }
+    }
+    getMechanics();
+  }, []);
 
   useEffect(() => {
     if (value[3][4] == ':') setImagesSaved(false);
@@ -37,8 +50,6 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
   }, [jsonUploaded]);
 
   const imageInputId = `${selectedGroup}`;
-  
-  const mechanicsList = [''];
 
   const handleResponsible = (responsible: number) => {
     if (dataSVL[selectedOwner].group[selectedGroup].responsible[0] != responsible) {

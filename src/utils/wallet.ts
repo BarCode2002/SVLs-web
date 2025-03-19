@@ -1,19 +1,31 @@
 import { TezosToolkit } from '@taquito/taquito';
 import { BeaconWallet } from '@taquito/beacon-wallet';
 import { BeaconEvent, NetworkType } from '@airgap/beacon-dapp';
+import { mongoSmartContract } from './ip';
+import axios from "axios";
 
-const smartContractAddress = "KT1DGBLfwUanFuxxibqc1cziov53GnZmcqjd";
+let responseMongo;
+try {
+  responseMongo = await axios.get(`${mongoSmartContract}`);
+} catch (error) {
+  console.error("Unexpected error:", error);
+}
 
+console.log(responseMongo?.data)
+
+const smartContractAddress = responseMongo?.data.address;
 export const getsmartContractAddress = () => {
   return smartContractAddress;
 }
 
-const rpcUrl = "https://ghostnet.tezos.ecadinfra.com";
-const netType = NetworkType.GHOSTNET;
+const rpcUrl = responseMongo?.data.rpcUrl;
+let netType;
+if (responseMongo?.data.netType == 'ghostnet') netType = NetworkType.GHOSTNET;
+else netType = NetworkType.MAINNET;
 
 const Tezos = new TezosToolkit(rpcUrl);
 const wallet = new BeaconWallet({
-  name: 'SVL DApp',
+  name: responseMongo?.data.name,
   preferredNetwork: netType,
 });
 Tezos.setWalletProvider(wallet);

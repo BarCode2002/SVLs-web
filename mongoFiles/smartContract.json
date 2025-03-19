@@ -1,6 +1,10 @@
 { 
+  "name": "SVL DApp",
+  "address": "KT1DGBLfwUanFuxxibqc1cziov53GnZmcqjd",
+  "rpcUrl": "https://ghostnet.tezos.ecadinfra.com",
+  "netType": "ghostnet",
   "mintPrice": "10",
-  "minTransferPrice": "30",
+  "minTransferPrice": "25",
   "requestFee": "1",
   "split": 0.5
 }
