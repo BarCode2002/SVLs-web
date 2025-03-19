@@ -1,5 +1,6 @@
 { 
   "mintPrice": "10",
   "minTransferPrice": "30",
-  "requestFee": "1"
+  "requestFee": "1",
+  "split": 0.5
 }

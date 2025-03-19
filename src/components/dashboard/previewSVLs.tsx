@@ -10,7 +10,7 @@ import ChangeSVLPriceButton from './changeSVLPriceButton';
 import axios, { AxiosError } from "axios";
 import { useNavigate } from 'react-router-dom'; 
 import pako from "pako";
-import { ipfsRetrieve, indexer } from '../../utils/ip';
+import { ipfsRetrieve, indexer, mongoSmartContract } from '../../utils/ip';
 import { GROUP_SIZE } from '../../utils/constants';
 
 type PreviewSVLsProps = {
@@ -36,6 +36,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
 
   //const [numGroupPreviewSVLs, setNumGroupPreviewSVLs] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [split, setSplit] = useState(1);
 
   const urlIPFS = ipfsRetrieve;
 
@@ -62,6 +63,12 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
   );
   
   const getSVLPreview = async () => {
+    try {
+      const responseMongo = await axios.get(`${mongoSmartContract}`);
+      setSplit(responseMongo.data.split);
+    } catch (error: any | AxiosError) {
+      console.error("Unexpected error:", error);
+    }
     const updatedPreviewSVLsInfo = [...previewSVLsInfo];
     for (let i = 0; i < GROUP_SIZE; i++) {
       updatedPreviewSVLsInfo[i] = {
@@ -238,7 +245,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
                 {(dataPreviewSVL.mySVL == false) ? (
                   ((dataPreviewSVL.stateNotMySVL[0] == true && dataPreviewSVL.stateNotMySVL[2] != '' && dataPreviewSVL.stateNotMySVL[2] != myAddress) || (dataPreviewSVL.stateNotMySVL[4] == true)) ? (
                     <div>
-                      <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                      <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} split={split} />
                       <div className={styles.separator}>
                         <div className={styles.leftSepartor}></div>
                         <div className={styles.middleSepartor}></div>
@@ -252,7 +259,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
                     <div>
                       {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == '' &&
                         <div>
-                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} split={split} />
                           <div className={styles.separator}>
                             <div className={styles.leftSepartor}></div>
                             <div className={styles.middleSepartor}></div>
@@ -265,7 +272,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
                       }
                       {dataPreviewSVL.stateNotMySVL[3] == false && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
                         <div>
-                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} split={split} />
                           <div className={styles.separator}>
                             <div className={styles.leftSepartor}></div>
                             <div className={styles.middleSepartor}></div>
@@ -278,7 +285,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
                       }
                       {dataPreviewSVL.stateNotMySVL[3] == true && dataPreviewSVL.stateNotMySVL[2] == myAddress &&
                         <div>
-                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                          <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} split={split} />
                           <div className={styles.separator}>
                             <div className={styles.leftSepartor}></div>
                             <div className={styles.middleSepartor}></div>
@@ -295,7 +302,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
                 ) : (
                   dataPreviewSVL.stateMySVL[0] == false ? (
                     <div>
-                      <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                      <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} split={split} />
                       <div className={styles.separator}>
                         <div className={styles.leftSepartor}></div>
                         <div className={styles.middleSepartor}></div>
@@ -308,7 +315,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
                   ) : (
                     dataPreviewSVL.stateMySVL[2] == false ? (
                       <div>
-                        <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} split={split} />
                         <div className={styles.separator}>
                           <div className={styles.leftSepartor}></div>
                           <div className={styles.middleSepartor}></div>
@@ -321,7 +328,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
                       </div>
                     ) : (
                       <div>
-                        <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} />
+                        <ChangeSVLPriceButton previewSVLsInfo={previewSVLsInfo} setPreviewSVLsInfo={setPreviewSVLsInfo} index={index} split={split} />
                         <div className={styles.separator}>
                           <div className={styles.leftSepartor}></div>
                           <div className={styles.middleSepartor}></div>
