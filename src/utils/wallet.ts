@@ -4,28 +4,42 @@ import { BeaconEvent, NetworkType } from '@airgap/beacon-dapp';
 import { mongoSmartContract } from './ip';
 import axios from "axios";
 
-let responseMongo;
-try {
-  responseMongo = await axios.get(`${mongoSmartContract}`);
-} catch (error) {
-  console.error("Unexpected error:", error);
+interface SmartContractInfo {
+  name: string;
+  address: string;
+  rpcUrl: string;
+  netType: string;
+  mintPrice: string;
+  minTransferPrice: string;
+  requestFee: string;
+  split: number;
 }
 
-console.log(responseMongo?.data)
+const getSmartContractInfo = async (): Promise<SmartContractInfo> => {
+  try {
+    const responseMongo = await axios.get(`${mongoSmartContract}`);
+    return responseMongo.data;
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    throw error;
+  }
+};
 
-const smartContractAddress = responseMongo?.data.address;
+const responseMongo = await getSmartContractInfo();
+
+const smartContractAddress = responseMongo.address;
 export const getsmartContractAddress = () => {
   return smartContractAddress;
 }
 
-const rpcUrl = responseMongo?.data.rpcUrl;
+const rpcUrl = responseMongo.rpcUrl;
 let netType;
-if (responseMongo?.data.netType == 'ghostnet') netType = NetworkType.GHOSTNET;
+if (responseMongo.netType == 'ghostnet') netType = NetworkType.GHOSTNET;
 else netType = NetworkType.MAINNET;
 
 const Tezos = new TezosToolkit(rpcUrl);
 const wallet = new BeaconWallet({
-  name: responseMongo?.data.name,
+  name: responseMongo.name,
   preferredNetwork: netType,
 });
 Tezos.setWalletProvider(wallet);
