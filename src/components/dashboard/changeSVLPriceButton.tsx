@@ -8,14 +8,16 @@ import InvalidFieldsComponent from '../varied/invalidFieldsComponent';
 import axios from "axios";
 import { mongoSmartContract } from '../../utils/ip';
 import { TezosLogo } from '../../assets/tezos';
+import {CrossIcon, CrossIconHovered, TickIcon, TickIconHovered } from '../../assets/tickCross';
 
 type ChangeSVLPriceButtonProps = {
   previewSVLsInfo: PreviewSVLsInfo[];
   setPreviewSVLsInfo: React.Dispatch<React.SetStateAction<PreviewSVLsInfo[]>>;
   index: number;
+  split: number;
 };
 
-const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: ChangeSVLPriceButtonProps): JSX.Element => { 
+const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index, split }: ChangeSVLPriceButtonProps): JSX.Element => { 
 
   const { t } = useTranslation();
 
@@ -26,6 +28,8 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
   const [invalidFieldsVisible, setInvalidFieldsVisible] = useState(false);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [requestFee, setRequestFee] = useState<string>('');
+  const [tickHovered, setTickHovered] = useState(false);
+  const [crossHovered, setCrossHovered] = useState(false);
 
   useEffect(() => {
     const initializedTezos = getTezos();
@@ -108,31 +112,41 @@ const ChangeSVLPriceButton = ({ previewSVLsInfo, setPreviewSVLsInfo, index }: Ch
               disabled={step == 0}
             />
           ) : (
-            <div className={styles.price}>
-              <div>{previewSVLsInfo[index].price}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
-            </div>
-          )}
-          <div className={styles.buttonsContainer}>
-            {step == 0 ? (
+            <div className={styles.priceContainer}>
+              <div className={styles.price}>
+                <div>{previewSVLsInfo[index].price}</div>
+                <div className={styles.tezosLogo}><TezosLogo /></div>
+              </div>
               <button 
-                className={styles.button}
+                className={styles.changeButton}
                 onClick={handleChangeSVLPrice}>
                 {t('Dashboard.Labels.change')}
               </button>
-            ) : (
+            </div>
+          )}
+          {step > 0 &&
+            <div className={styles.buttonsContainer}>
               <div className={styles.confirmCancelButtonContainer}>
                 <button 
+                  onMouseEnter={() => setTickHovered(true)}
+                  onMouseLeave={() => setTickHovered(false)}
                   className={styles.button}
                   onClick={handleChangeSVLPrice}>
-                  {t('Dashboard.Labels.confirm')}
+                  {tickHovered ? <TickIconHovered /> : <TickIcon />}
                 </button>
                 <button 
+                  onMouseEnter={() => setCrossHovered(true)}
+                  onMouseLeave={() => setCrossHovered(false)}
                   className={styles.button}
                   onClick={handleCancel}>
-                  {t('Dashboard.Labels.cancel')}
+                  {crossHovered ? <CrossIconHovered /> : <CrossIcon />}
                 </button>
               </div>
-            )}
+            </div>
+          }
+          <div className={styles.fee}>
+            <div>{t('Dashboard.Labels.fee')} {split * previewSVLsInfo[index].price}</div>
+            <div className={styles.tezosLogo}><TezosLogo /></div>
           </div>
           {invalidFieldsVisible &&
             <InvalidFieldsComponent invalidFields={invalidFields} setInvalidFieldsVisible={setInvalidFieldsVisible} />

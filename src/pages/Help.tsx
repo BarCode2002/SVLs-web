@@ -11,7 +11,6 @@ const Help = (): JSX.Element => {
   useEffect(() => {
     const getPdf = async () => {
       try {
-        console.log(language);
         const responseMongo = await axios.get(`${mongoList}pdf`);
         if (language == 'en') setCid(responseMongo.data[0].en)
         else setCid(responseMongo.data[1].es)

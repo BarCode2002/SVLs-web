@@ -28,9 +28,7 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
             <TextContainer fieldLabel={t('DataSVL.Labels.brand')} text={prevOwnersGeneralInformation[selectedOwner].brand} />
             <TextContainer fieldLabel={t('DataSVL.Labels.model')} text={prevOwnersGeneralInformation[selectedOwner].model} />
             <TextContainer fieldLabel={t('DataSVL.Labels.year')} text={prevOwnersGeneralInformation[selectedOwner].year} />
-            {prevOwnersGeneralInformation[selectedOwner].transferDate != '' &&
-              <TextContainer fieldLabel={t('DataSVL.Labels.acquisitionDate')} text={prevOwnersGeneralInformation[selectedOwner].transferDate} />
-            }
+            <TextContainer fieldLabel={t('DataSVL.Labels.acquisitionDate')} text={prevOwnersGeneralInformation[selectedOwner].transferDate} />
             {prevOwnersGeneralInformation[selectedOwner].kilometers[0] != '' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersGeneralInformation[selectedOwner].kilometers} />
             }
@@ -81,11 +79,9 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
             <TextContainer fieldLabel={t('DataSVL.Labels.brand')} text={generalInformation[selectedOwner-numPreviousOwners].brand} />
             <TextContainer fieldLabel={t('DataSVL.Labels.model')} text={generalInformation[selectedOwner-numPreviousOwners].model} />
             <TextContainer fieldLabel={t('DataSVL.Labels.year')} text={generalInformation[selectedOwner-numPreviousOwners].year} />
+            <TextContainer fieldLabel={t('DataSVL.Labels.acquisitionDate')} text={generalInformation[selectedOwner-numPreviousOwners].transferDate} />
             {generalInformation[selectedOwner-numPreviousOwners].kilometers[0] != '' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={generalInformation[selectedOwner-numPreviousOwners].kilometers} />
-            }
-            {generalInformation[selectedOwner-numPreviousOwners].transferDate != '' &&
-              <TextContainer fieldLabel={t('DataSVL.Labels.acquisitionDate')} text={generalInformation[selectedOwner-numPreviousOwners].transferDate} />
             }
             <ImageContainer fieldLabel={t('DataSVL.Labels.mainImage')} images={[generalInformation[selectedOwner-numPreviousOwners].mainPhotograph]} />
             {generalInformation[selectedOwner-numPreviousOwners].photographs.filter(image => image != '').length > 0 &&

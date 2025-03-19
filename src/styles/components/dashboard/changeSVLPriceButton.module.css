@@ -14,26 +14,36 @@
 }
 
 .inputField {
-  margin-left: 10px;
   margin-right: 10px;
   padding-left: 5px;
   outline: none;
   border: none;
   height: 25px;
-  width: 100%;
+  width: 40px;
   border-radius: 10px;
   font-size: var(--buttonFontSize);
 }
 
-.price {
-  width: 384px;
+.priceContainer {
   background-color: var(--navBarsPrimaryColor);
   color: var(--navBarsSecondaryColor);
   font-weight: 450;
   height: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+.price {
+  display: flex;
+  gap: 5px;
+  margin-right: 10px;
+}
+
+.fee {
+  width: 140px;
+  display: flex;
+  flex-direction: row;
   gap: 5px;
 }
 
@@ -42,6 +52,16 @@
 }
 
 .button {
+  height: 40px;
+  border: none;
+  background-color: transparent;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.changeButton {
   border: none;
   border-radius: 10px;
   background-color: var(--navBarsPrimaryColor);
@@ -50,19 +70,23 @@
   font-weight: 450;
 }
 
-.button:hover {
+.changeButton:hover {
   background-color: var(--navBarsSecondaryColor);
   color: var(--navBarsPrimaryColor);
   cursor: pointer;
 }
 
 .confirmCancelButtonContainer {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-around;
+  gap: 5px;
 }
 
 .priceRequestFeeContainer {
+  align-items: center;
   width: 384px;
   background-color: var(--navBarsPrimaryColor);
   color: var(--navBarsSecondaryColor);
