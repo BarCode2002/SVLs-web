@@ -77,7 +77,8 @@
       "close": "Cierra",
       "mintDate": "Creado él:",
       "acquisitionDate": "Adquirido él:",
-      "justTransferred": "Sin actualizar"
+      "justTransferred": "Sin actualizar",
+      "help": "Ayuda"
     },
     "BottomBar": {
       "generalInformation": "Información general",

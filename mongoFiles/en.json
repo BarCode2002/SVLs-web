@@ -77,7 +77,8 @@
       "close": "Close",
       "mintDate": "Created on:",
       "acquisitionDate": "Acquired on:",
-      "justTransferred": "Not updated"
+      "justTransferred": "Not updated",
+      "help": "Help"
     },
     "BottomBar": {
       "generalInformation": "General information",
