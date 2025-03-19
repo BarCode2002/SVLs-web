@@ -1,14 +1,17 @@
 import { t } from 'i18next';
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
-import { useState } from 'react';
 import { NewTabIcon, NewTabIconHovered } from '../../assets/newTab';
+import { useState } from 'react';
 
 const HelpButton = (): JSX.Element => {
 
   const [hovered, isHovered] = useState(false);
 
   const handleOpenHelp = async () => {
-    window.open('/help', '_blank');
+    let language = localStorage.getItem('language');
+    if (language != null) language = language.split(".").pop()!;
+    else language = 'es';
+    window.open(`/help/${language}`, '_blank');
   };
 
   return (
