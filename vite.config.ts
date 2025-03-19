@@ -6,7 +6,11 @@ import removeConsole from 'vite-plugin-remove-console'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), nodePolyfills(), removeConsole()],
+  build: {
+    target: 'esnext'
+  },
   esbuild: {
     drop: ['console', 'debugger'],
+    target: 'esnext'
   },
 })
