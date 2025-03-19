@@ -23,6 +23,7 @@
 }
 
 .filterLabel1 {
+  margin-left: -17px;
   font-size: var(--buttonFontSize);
   font-weight: var(--buttonFontWeight);
   color: var(--navBarsSecondaryColor);

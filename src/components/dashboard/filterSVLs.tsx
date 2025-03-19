@@ -188,7 +188,7 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
       />
       <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'brand'} defectList={[]} />
       <DropdownMenuFilter appliedFiltersSVL={appliedFiltersSVL} setAppliedFiltersSVL={setAppliedFiltersSVL} type={'model'} defectList={[]} />
-      <div className={styles.filterLabel}>
+      <div className={styles.filterLabel1}>
         {t('Dashboard.Placeholders.year')}
       </div>
       <div className={styles.inputFieldContainer}>
