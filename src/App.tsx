@@ -9,7 +9,7 @@ const App = (): JSX.Element => {
     <Router>
       <Routes>
         <Route path='/' element={<Dashboard />} />
-        <Route path='/help' element={<Help />} />
+        <Route path='/help/:language' element={<Help />} />
         <Route path='/data/:svl_pk?' element={<Data />} />
       </Routes>
     </Router>
