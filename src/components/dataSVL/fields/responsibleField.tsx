@@ -38,7 +38,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
 
   const imageInputId = `${selectedGroup}`;
   
-  const mechanicsList = ['Pepe', 'Jaja', 'ewfgew', 'Camion', 'avion', 'pepa', 'pepo', 'pepin', 'pepapaa', 'pepeeee', 'pepitp'];
+  const mechanicsList = [''];
 
   const handleResponsible = (responsible: number) => {
     if (dataSVL[selectedOwner].group[selectedGroup].responsible[0] != responsible) {
