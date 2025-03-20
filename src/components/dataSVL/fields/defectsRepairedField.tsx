@@ -30,7 +30,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
   const [defectGroupTypesOwner, setDefectGroupTypesOwner] = useState<string[]>([]);
   const [ready, setReady] = useState(false);
 
-  useEffect(() => { //revisar esto pq peta a veces
+  useEffect(() => {
     const updatedOwnersWithDefects = [];
     for (let i = 0; i < selectedOwner+numPreviousOwners+1; i++) {
       if (i < numPreviousOwners) {
