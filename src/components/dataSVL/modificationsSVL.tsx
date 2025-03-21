@@ -163,7 +163,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].pre} 
                 setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
-              <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
+              <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].post} 
                 setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
