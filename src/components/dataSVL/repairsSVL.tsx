@@ -172,7 +172,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].pre} 
                 setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
-              <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
+              <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].post} 
                 setDataSVL={setRepairs} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
