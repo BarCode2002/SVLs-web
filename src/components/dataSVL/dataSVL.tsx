@@ -16,6 +16,7 @@ import SummaryViewMaintenances from './summaryViewMaintenances.tsx';
 import SummaryViewModifications from './summaryViewModifications.tsx';
 import SummaryViewDefects from './summaryViewDefects.tsx';
 import SummaryViewRepairs from './summaryViewRepairs.tsx';
+import { EnterFullScreenIcon, ExitFullScreenIcon } from '../../assets/fullScreen.tsx';
 
 type ShrinkedType = {
   group: boolean;
@@ -48,9 +49,11 @@ type DataSVLProps = {
   mySVL: boolean;
   viewType: number;
   jsonUploaded: boolean;
+  fullScreen: number;
+  setFullScreen: React.Dispatch<SetStateAction<number>>
 };
 
-const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL, viewType, jsonUploaded }: DataSVLProps): JSX.Element => {
+const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL, viewType, jsonUploaded, fullScreen, setFullScreen }: DataSVLProps): JSX.Element => {
 
   const [prevMaintenancesShrinked, setPrevMaintenancesShrinked] = useState<MainShrinkedType[]>([]);
   const [prevModificationsShrinked, setPrevModificationsShrinked] = useState<MainShrinkedType[]>([]);
@@ -136,10 +139,24 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     setShrinkedReady(true);
   }, []);
 
-
+  const toggleFullScreen = () => {
+    if (fullScreen == 0) {
+      setFullScreen(1);
+      localStorage.setItem('fullScreen', '1')
+    }
+    else {
+      setFullScreen(0);
+      localStorage.setItem('fullScreen', '0')
+    }
+  }
 
   return (
     <div className={styles.dataSVLContainer}>
+      <button 
+        className={styles.fullScreenIcon}
+        onClick={toggleFullScreen}>
+        {fullScreen == 0 ? <EnterFullScreenIcon /> : <ExitFullScreenIcon />}
+      </button>
       {viewType == 0 ? (
         <div>
           {selectedSVLData == 0 && selectedOwner < weird &&

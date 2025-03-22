@@ -127,7 +127,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
       const blob = await response.blob();     
       const fileExtension = value[3].split('.').pop()?.toLowerCase();
       formData.append("file", blob, `image/${fileExtension}`);
-      const uploadResponse = await axios.post("http://127.0.0.1:3000/upload", formData, {
+      const uploadResponse = await axios.post(ipfsRetrieve, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
