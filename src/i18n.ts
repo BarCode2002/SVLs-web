@@ -23,7 +23,9 @@ i18n
     },
   })
   .then(() => {
-    i18n.changeLanguage(savedLanguge.split(".").pop());
+    if (savedLanguge != null) {
+      i18n.changeLanguage(savedLanguge.split(".").pop());
+    }
   });
 
 export default i18n;
