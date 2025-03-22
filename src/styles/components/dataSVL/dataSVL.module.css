@@ -3,3 +3,19 @@
   overflow-y: auto;
   margin-bottom: 10px;
 }
+
+.fullScreenIcon {
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+  margin-top: 60px;
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  padding-top: 4px;
+}
+
+.fullScreenIcon:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}

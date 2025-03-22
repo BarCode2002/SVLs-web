@@ -34,6 +34,11 @@ const Data = (): JSX.Element => {
   const [mySVL, setMySVL] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [jsonUploaded, setJsonUploaded] = useState(false);
+  const [fullScreen, setFullScreen] = useState(() => {
+    const savedFullScreen = localStorage.getItem("fullScreen");
+    if (savedFullScreen == null) return 0;
+    else return parseInt(savedFullScreen);
+  });
   
   const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
     Array.from({ length: 1 }, () => ({
@@ -482,14 +487,16 @@ const Data = (): JSX.Element => {
         </div>
       ) :
         <div className={styles.mainContainer}>
-          <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
-            setViewType={setViewType} selectedOwner={selectedOwner} totalOwners={totalOwners} numPreviousOwners={numPreviousOwners}
-            generalInformation={generalInformation} setGeneralInformation={setGeneralInformation}
-            maintenances={maintenances} setMaintenances={setMaintenances} modifications={modifications} 
-            setModifications={setModifications} defects={defects} setDefects={setDefects}
-            repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk} ownershipSummary={ownershipSummary.current} mySVL={mySVL}
-            jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
-          />
+          {fullScreen == 0 &&
+            <TopNavBar page={'Data'} newSVL={newSVL} editMode={editMode} setEditMode={setEditMode} viewType={viewType} 
+              setViewType={setViewType} selectedOwner={selectedOwner} totalOwners={totalOwners} numPreviousOwners={numPreviousOwners}
+              generalInformation={generalInformation} setGeneralInformation={setGeneralInformation}
+              maintenances={maintenances} setMaintenances={setMaintenances} modifications={modifications} 
+              setModifications={setModifications} defects={defects} setDefects={setDefects}
+              repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk} ownershipSummary={ownershipSummary.current} mySVL={mySVL}
+              jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
+            />
+          }
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
             generalInformation={generalInformation} setGeneralInformation={setGeneralInformation} prevOwnersGeneralInformation={prevOwnersGeneralInformation.current}
             maintenances={maintenances} setMaintenances={setMaintenances} prevOwnersMaintenances={prevOwnersMaintenances.current}
@@ -497,14 +504,17 @@ const Data = (): JSX.Element => {
             defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects.current}
             repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
             totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType} jsonUploaded={jsonUploaded}
+            fullScreen={fullScreen} setFullScreen={setFullScreen}
           />
-          <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
-            selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
-            setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
-            setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
-            totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
-            viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current} mySVL={mySVL}
-          />
+          {fullScreen == 0 &&
+            <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
+              selectedOwner={selectedOwner} setSelectedOwner={setSelectedOwner} numPreviousOwners={numPreviousOwners}
+              setGeneralInformation={setGeneralInformation} setMaintenances={setMaintenances}
+              setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
+              totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
+              viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current} mySVL={mySVL}
+            />
+          }
         </div>
       }
     </div>
