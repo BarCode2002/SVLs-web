@@ -5,7 +5,6 @@ import { OwnershipSummary } from '../utils/commonTypes.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
-import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../utils/constants.ts';
 import { useTranslation } from "react-i18next";
 import { useParams } from 'react-router-dom';
 import axios, { AxiosError } from "axios";
@@ -17,6 +16,7 @@ import { addGeneralInformationDefault, addMaintenances, addModifications, addDef
 import { parse, format } from "date-fns";
 import pako from "pako";
 import { indexer, ipfsRetrieve } from '../utils/ip.ts';
+import { defaultBaseDefects, defaultBaseGeneralInformaion, defaultBaseMaintenances, defaultBaseModifications, defaultBaseRepairs } from '../utils/defaultBase.ts';
 
 const Data = (): JSX.Element => {
 
@@ -41,116 +41,33 @@ const Data = (): JSX.Element => {
   });
   
   const [generalInformation, setGeneralInformation] = useState<GeneralInformationBase[]>(
-    Array.from({ length: 1 }, () => ({
-      VIN: '',
-      brand: 'DataSVL.Forms.brand',
-      model: 'DataSVL.Forms.model',
-      year: '',
-      kilometers: ['', 'km'],
-      transferDate: '',
-      mainPhotograph: '',
-      state: 'DataSVL.Forms.state',
-      photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-      weight: ['', 'kg'],
-      color: '',
-      engine: '',
-      power: ['', 'cv'],
-      shift: 'DataSVL.Forms.shift',
-      fuel: 'DataSVL.Forms.fuel',
-      autonomy: ['', 'km'],
-      climate: 'DataSVL.Forms.climate',
-      usage: 'DataSVL.Forms.usage',
-      storage: 'DataSVL.Forms.storage',
-      comments: '',
-    }))
+    Array.from({ length: 1 }, () => ( 
+      defaultBaseGeneralInformaion
+    ))
   );
 
   const [maintenances, setMaintenances] = useState<MaintenancesBase[]>(
-    Array.from({ length: 1 }, () => ({
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        type: Array.from({ length: 1 }, () => ({
-          name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
-          shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    }))
+    Array.from({ length: 1 }, () => (
+      defaultBaseMaintenances
+    ))
   );
   
   const [modifications, setModifications] = useState<ModificationsBase[]>(
-    Array.from({ length: 1 }, () => ({
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        type: Array.from({ length: 1 }, () => ({
-          name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
-          shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    }))
+    Array.from({ length: 1 }, () => (
+      defaultBaseModifications
+    ))
   );
 
   const [defects, setDefects] = useState<DefectsBase[]>(
-    Array.from({ length: 1 }, () => ({
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        cause: "",
-        type: Array.from({ length: 1 }, () => ({
-          level: 'DataSVL.Forms.level',
-          photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          description: "",
-          shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    }))
+    Array.from({ length: 1 }, () => (
+      defaultBaseDefects  
+    ))
   );
 
   const [repairs, setRepairs] = useState<RepairsBase[]>(
-    Array.from({ length: 1 }, () => ({
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
-        numDefectsRepaired: 0,
-        type: Array.from({ length: 1 }, () => ({
-          name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
-          shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    }))
+    Array.from({ length: 1 }, () => (
+      defaultBaseRepairs  
+    ))
   );
 
   const prevOwnersGeneralInformation = useRef<GeneralInformationBase[]>([]);
