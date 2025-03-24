@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/dataSVL/generalInformationSVL.module.css';
-import { GeneralInformation } from '../../utils/interfaces.ts';
+import { GeneralInformationBase } from '../../utils/baseTypes.ts';
 import InputField from './fields/inputField.tsx';
 import DropdownMenu from './fields/dropdownMenu.tsx';
 import ImagesField from './fields/imagesField.tsx';
@@ -10,8 +10,8 @@ import DateField from './fields/dateField.tsx';
 
 type GeneralInformationSVLProps = {
   selectedOwner: number;
-  generalInformation: GeneralInformation[];
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
+  generalInformation: GeneralInformationBase[];
+  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
   editMode: boolean;
   jsonUploaded: boolean;
 };

@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../styles/components/dashboard/previewSVLs.module.css';
-import { FilterSVLsInterface, PreviewSVLsInfo } from '../../utils/interfaces';
+import { FilterSVLsType, PreviewSVLsInfo } from '../../utils/commonTypes';
 import { useTranslation } from 'react-i18next';
 import AcceptSVLRequestButton from './stateSVLsButtons/acceptSVLRequestButton';
 import DenySVLRequestButton from './stateSVLsButtons/denySVLRequestButton';
@@ -16,7 +16,7 @@ import { GROUP_SIZE } from '../../utils/constants';
 type PreviewSVLsProps = {
   myAddress: string;
   filterSVL: number;
-  appliedFiltersSVL: FilterSVLsInterface;
+  appliedFiltersSVL: FilterSVLsType;
   search: boolean;
   page: number;
   setNumPreviewSVLs: React.Dispatch<SetStateAction<number>>;

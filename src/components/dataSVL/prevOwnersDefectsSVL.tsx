@@ -1,5 +1,5 @@
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { /*Defects*/ Repairs } from '../../utils/interfaces.ts';
+import { RepairsBase } from '../../utils/baseTypes.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import RepairedDefectsByContainer from './readOnlyFields/repairedDefectByContainer.tsx';
@@ -14,7 +14,7 @@ type PrevOwnersDefectsSVLProps = {
   setShrinked: any;
   prevOwnersDefects: any;
   prevOwnersRepairs: any;
-  repairs: Repairs[];
+  repairs: RepairsBase[];
   mySVL: boolean;
 };
 

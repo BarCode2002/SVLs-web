@@ -1,12 +1,12 @@
 import styles from '../../styles/components/dataSVL/generalInformationSVL.module.css';
-import { GeneralInformation } from '../../utils/interfaces.ts';
+import { GeneralInformationBase } from '../../utils/baseTypes.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import { useTranslation } from "react-i18next";
 
 type PrevOwnersGeneralInformationSVLProps = {
   selectedOwner: number;
-  prevOwnersGeneralInformation: GeneralInformation[];
+  prevOwnersGeneralInformation: GeneralInformationBase[];
 };
 
 const PrevOwnersGeneralInformationSVL = ({ selectedOwner, prevOwnersGeneralInformation }: PrevOwnersGeneralInformationSVLProps): JSX.Element => {

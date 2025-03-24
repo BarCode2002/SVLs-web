@@ -1,17 +1,17 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes';
 import { TrashIconWhite, TrashIconDarkBronco } from '../../assets/trash';
 import { useTranslation } from "react-i18next";
 
 type OwnerButtonProps = {
   index: number;
   ownersContainerRef: any;
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
-  setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
-  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
+  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
+  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
+  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
+  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
   selectedOwner: number;
   setSelectedOwner: React.Dispatch<SetStateAction<number>>;
   numPreviousOwners: number;
@@ -40,23 +40,23 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
   };
   
   const removeGeneralInformation = () => {
-    setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => prevGeneralInformation.filter((_, i) => i != index-numPreviousOwners));
+    setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => prevGeneralInformation.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeMaintenances = () => {
-    setMaintenances((prevMaintenances: Maintenances[]) => prevMaintenances.filter((_, i) => i != index-numPreviousOwners));
+    setMaintenances((prevMaintenances: MaintenancesBase[]) => prevMaintenances.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeModifications = () => {
-    setModifications((prevModifications: Modifications[]) => prevModifications.filter((_, i) => i != index-numPreviousOwners));
+    setModifications((prevModifications: ModificationsBase[]) => prevModifications.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeDefects = () => {
-    setDefects((prevDefects: Defects[]) => prevDefects.filter((_, i) => i != index-numPreviousOwners));
+    setDefects((prevDefects: DefectsBase[]) => prevDefects.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeRepairs = () => {
-    setRepairs((prevRepairs: Repairs[]) => prevRepairs.filter((_, i) => i != index-numPreviousOwners));
+    setRepairs((prevRepairs: RepairsBase[]) => prevRepairs.filter((_, i) => i != index-numPreviousOwners));
   }
   
   const handleOwnerRemoval = () => {

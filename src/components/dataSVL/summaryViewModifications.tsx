@@ -1,5 +1,5 @@
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Modifications } from '../../utils/interfaces.ts';
+import { ModificationsBase } from '../../utils/baseTypes.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';
@@ -12,8 +12,8 @@ import { SetStateAction } from 'react';
 
 type SummaryViewModificationsProps = {
   prevOwnersModifications: any;
-  modifications: Modifications[];
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
+  modifications: ModificationsBase[];
+  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
   shrinked: any;
   setShrinked: any;
   numPreviousOwners: number;

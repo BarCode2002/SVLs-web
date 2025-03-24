@@ -1,5 +1,5 @@
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes';
 import { createJSON } from '../../utils/createJSON';
 import { useTranslation } from "react-i18next";
 import { checks } from '../../utils/checks';
@@ -9,11 +9,11 @@ import { useState } from 'react';
 type DownloadJSONButtonProps = {
   selectedOwner: number;
   numPreviousOwners: number;
-  generalInformation: GeneralInformation[];
-  maintenances: Maintenances[];
-  modifications: Modifications[];
-  defects: Defects[];
-  repairs: Repairs[];
+  generalInformation: GeneralInformationBase[];
+  maintenances: MaintenancesBase[];
+  modifications: ModificationsBase[];
+  defects: DefectsBase[];
+  repairs: RepairsBase[];
 };
 
 const DownloadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs }: DownloadJSONButtonProps): JSX.Element => {

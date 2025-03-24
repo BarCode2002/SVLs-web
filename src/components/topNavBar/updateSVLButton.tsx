@@ -4,7 +4,7 @@ import { checks } from '../../utils/checks.ts';
 import { useTranslation } from "react-i18next";
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { getsmartContractAddress, getTezos } from '../../utils/wallet.ts';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 import { createJSON } from '../../utils/createJSON.ts';
 import axios from "axios";
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent.tsx';
@@ -13,11 +13,11 @@ import { ipfsUpload } from '../../utils/ip.ts';
 type UpdateSVLButtonProps = {
   numPreviousOwners: number;
   totalOwners: number;
-  generalInformation: GeneralInformation[];
-  maintenances: Maintenances[];
-  modifications: Modifications[];
-  defects: Defects[];
-  repairs: Repairs[];
+  generalInformation: GeneralInformationBase[];
+  maintenances: MaintenancesBase[];
+  modifications: ModificationsBase[];
+  defects: DefectsBase[];
+  repairs: RepairsBase[];
   svl_pk: string;
 };
 

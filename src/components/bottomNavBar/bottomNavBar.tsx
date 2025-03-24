@@ -3,7 +3,7 @@ import styles from '../../styles/components/bottomNavBar/bottomNavBar.module.css
 import ChooseDataSVLButtons from './chooseDataSVLButtons.tsx';
 import AddOwnerButton from './addOwnerButton.tsx';
 import OwnerButton from './ownerButton.tsx';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 
 type BottomNavBarProps = {
   selectedSVLData: number;
@@ -11,16 +11,16 @@ type BottomNavBarProps = {
   selectedOwner: number;
   setSelectedOwner: React.Dispatch<SetStateAction<number>>;
   numPreviousOwners: number;
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
-  setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
-  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
+  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
+  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
+  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
+  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<SetStateAction<number>>;
   editMode: boolean;
   viewType: number;
-  prevOwnersGeneralInformation: GeneralInformation[];
+  prevOwnersGeneralInformation: GeneralInformationBase[];
   mySVL: boolean;
 };
 

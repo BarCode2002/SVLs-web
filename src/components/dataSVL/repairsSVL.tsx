@@ -1,6 +1,6 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Repairs, Defects } from '../../utils/interfaces.ts';
+import { RepairsBase, DefectsBase } from '../../utils/baseTypes.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -19,9 +19,9 @@ import { useTranslation } from "react-i18next";
 type RepairsSVLProps = {
   selectedOwner: number;
   numPreviousOwners: number;
-  repairs: Repairs[];
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
-  defects: Defects[];
+  repairs: RepairsBase[];
+  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
+  defects: DefectsBase[];
   prevOwnersDefects: any;
   editMode: boolean;
   jsonUploaded: boolean;

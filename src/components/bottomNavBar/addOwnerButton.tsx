@@ -1,20 +1,20 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 import { addGeneralInformationPrev, addGeneralInformation, addMaintenances, addModifications, addDefects, addRepairs } from '../../utils/addOwners.ts';
 
 type AddOwnerButtonProps = {
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
-  setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
-  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
+  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
+  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
+  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
+  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
   setSelectedOwner: React.Dispatch<React.SetStateAction<number>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<React.SetStateAction<number>>;
   numPreviousOwners: number;
   editMode: boolean;
-  prevOwnersGeneralInformation: GeneralInformation[];
+  prevOwnersGeneralInformation: GeneralInformationBase[];
 };
 
 const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, setSelectedOwner, totalOwners, setTotalOwners, numPreviousOwners, editMode, prevOwnersGeneralInformation }: AddOwnerButtonProps): JSX.Element => {

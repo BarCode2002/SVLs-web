@@ -1,6 +1,6 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
-import { Maintenances, Modifications, Defects, Repairs } from '../../../utils/interfaces';
+import { MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../../utils/baseTypes';
 import { TrashIconDarkBronco, TrashIconWhite } from '../../../assets/trash';
 
 type RemoveGroupButtonProps = {
@@ -15,7 +15,7 @@ const RemoveGroupButton = ({ setDataSVL, selectedOwner, selectedGroup, editMode 
   const [trashHovered, setTrashHovered] = useState(false);
 
   const handleRemoveGroup = () => {
-    setDataSVL((prevDataSVL: Maintenances[] | Modifications[] | Defects[] | Repairs[]) =>
+    setDataSVL((prevDataSVL: MaintenancesBase[] | ModificationsBase[] | DefectsBase[] | RepairsBase[]) =>
       prevDataSVL.map((item, index) =>
         index === selectedOwner
           ? {

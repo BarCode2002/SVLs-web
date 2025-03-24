@@ -1,5 +1,5 @@
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Maintenances } from '../../utils/interfaces.ts';
+import { MaintenancesBase } from '../../utils/baseTypes.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';
@@ -12,8 +12,8 @@ import { SetStateAction } from 'react';
 
 type SummaryViewMaintenancesProps = {
   prevOwnersMaintenances: any;
-  maintenances: Maintenances[];
-  setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
+  maintenances: MaintenancesBase[];
+  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
   shrinked: any;
   setShrinked: any;
   numPreviousOwners: number;

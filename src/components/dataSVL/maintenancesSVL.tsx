@@ -1,6 +1,6 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Maintenances } from '../../utils/interfaces.ts';
+import { MaintenancesBase } from '../../utils/baseTypes.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -17,8 +17,8 @@ import { useTranslation } from "react-i18next";
 
 type MainteancesSVLProps = {
   selectedOwner: number;
-  maintenances: Maintenances[];
-  setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
+  maintenances: MaintenancesBase[];
+  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
   editMode: boolean;
   jsonUploaded: boolean;
 };

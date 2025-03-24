@@ -1,6 +1,6 @@
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
 import { useTranslation } from "react-i18next";
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 import { TezosToolkit, WalletContract } from "@taquito/taquito";
 import { getTezos, getsmartContractAddress } from '../../utils/wallet.ts'
 import { createJSON } from '../../utils/createJSON.ts';
@@ -14,11 +14,11 @@ import { ipfsUpload, mongoSmartContract } from '../../utils/ip.ts';
 type MintSVLButtonProps = {
   numPreviousOwners: number;
   totalOwners: number;
-  generalInformation: GeneralInformation[];
-  maintenances: Maintenances[];
-  modifications: Modifications[];
-  defects: Defects[];
-  repairs: Repairs[];
+  generalInformation: GeneralInformationBase[];
+  maintenances: MaintenancesBase[];
+  modifications: ModificationsBase[];
+  defects: DefectsBase[];
+  repairs: RepairsBase[];
 };
 
 const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs }: MintSVLButtonProps): JSX.Element => {

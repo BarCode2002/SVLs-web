@@ -1,5 +1,4 @@
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-//import { Repairs } from '../../utils/interfaces.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';

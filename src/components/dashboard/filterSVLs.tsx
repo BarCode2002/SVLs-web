@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import styles from '../../styles/components/dashboard/filterSVLs.module.css';
-import { FilterSVLsInterface } from '../../utils/interfaces';
+import { FilterSVLsType } from '../../utils/commonTypes';
 import DropdownMenuFilter from './dropdownMenuFilter';
 import { useEffect } from 'react';
 
 type FilterSVLsProps = {
   setFilterSVLs: React.Dispatch<number>;
-  appliedFiltersSVL: FilterSVLsInterface;
-  setAppliedFiltersSVL: React.Dispatch<React.SetStateAction<FilterSVLsInterface>>
+  appliedFiltersSVL: FilterSVLsType;
+  setAppliedFiltersSVL: React.Dispatch<React.SetStateAction<FilterSVLsType>>
   search: boolean;
   setSearch: React.Dispatch<boolean>;
 };
@@ -25,7 +25,7 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
       let re: RegExp;
       re = /^(0|[1-9]\d*)$/;
       if (value == '' || re.test(value)) {
-        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
           ...prevAppliedFiltersSVL,
           [type]: prevAppliedFiltersSVL[type].map((item, i) => (index == i ? value : item)),
         }));
@@ -35,7 +35,7 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
       let re: RegExp;
       re = /^[A-Z0-9-]+$/;
       if (value == '' || re.test(value)) {
-        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
           ...prevAppliedFiltersSVL,
           [type]: value,
         }));
@@ -46,7 +46,7 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
       re = /^(0|[1-9]\d*)$/;
       if (index == 2) re = /.*/;
       if (value == '' || re.test(value)) {
-        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
           ...prevAppliedFiltersSVL,
           [type]: prevAppliedFiltersSVL[type].map((item, i) => (index == i ? value : item)),
         }));
@@ -55,7 +55,7 @@ const FilterSVLs = ({ setFilterSVLs, search, appliedFiltersSVL, setAppliedFilter
   }
 
   const handleResetFilters = () => {
-    const defaultState: FilterSVLsInterface = {
+    const defaultState: FilterSVLsType = {
       key: "v1",
       numOwners: ['0', ''],
       numMaintenances: ['0', ''],

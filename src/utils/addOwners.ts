@@ -1,9 +1,9 @@
 import { SetStateAction } from "react";
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from "./baseTypes";
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from "./constants";
 
-export const addGeneralInformationPrev = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>, prevOwnersGeneralInformation: GeneralInformation[], numPreviousOwners: number) => {
-  setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
+export const addGeneralInformationPrev = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>, prevOwnersGeneralInformation: GeneralInformationBase[], numPreviousOwners: number) => {
+  setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => [
     ...prevGeneralInformation,
     {
       VIN: prevOwnersGeneralInformation[numPreviousOwners-1].VIN,
@@ -30,8 +30,8 @@ export const addGeneralInformationPrev = (setGeneralInformation: React.Dispatch<
   ]);
 }
 
-export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>) => {
-  setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
+export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>) => {
+  setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => [
     ...prevGeneralInformation,
     {
       VIN: prevGeneralInformation[prevGeneralInformation.length-1].VIN,
@@ -58,8 +58,8 @@ export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetS
   ]);
 }
 
-export const addGeneralInformationDefault = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>) => {
-  setGeneralInformation((prevGeneralInformation: GeneralInformation[]) => [
+export const addGeneralInformationDefault = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>) => {
+  setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => [
     ...prevGeneralInformation,
     {
       VIN: '',
@@ -86,8 +86,8 @@ export const addGeneralInformationDefault = (setGeneralInformation: React.Dispat
   ]);
 }
 
-export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>) => {
-  setMaintenances((prevMaintenances: Maintenances[]) => [
+export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>) => {
+  setMaintenances((prevMaintenances: MaintenancesBase[]) => [
     ...prevMaintenances,
     {
       group: Array.from({ length: 1 }, () => ({
@@ -112,8 +112,8 @@ export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<M
   ]);
 }
 
-export const addModifications = (setModifications: React.Dispatch<SetStateAction<Modifications[]>>) => {
-  setModifications((prevModifications: Modifications[]) => [
+export const addModifications = (setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>) => {
+  setModifications((prevModifications: ModificationsBase[]) => [
     ...prevModifications,
     {
       group: Array.from({ length: 1 }, () => ({
@@ -138,8 +138,8 @@ export const addModifications = (setModifications: React.Dispatch<SetStateAction
   ]);
 }
 
-export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>) => {
-  setDefects((prevDefects: Defects[]) => [
+export const addDefects = (setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>) => {
+  setDefects((prevDefects: DefectsBase[]) => [
     ...prevDefects,
     {
       group: Array.from({ length: 1 }, () => ({
@@ -158,8 +158,8 @@ export const addDefects = (setDefects: React.Dispatch<SetStateAction<Defects[]>>
   ]);
 }
 
-export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<Repairs[]>>) => {
-  setRepairs((prevRepairs: Repairs[]) => [
+export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>) => {
+  setRepairs((prevRepairs: RepairsBase[]) => [
     ...prevRepairs,
     {
       group: Array.from({ length: 1 }, () => ({

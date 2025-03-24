@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes';
 import { addAndSetMaintenanceGroup, addAndSetMaintenanceGroupType, setOwnerSVLDataToEmpty } from '../../utils/uploadJSON';
 import { addAndSetModificationGroup, addAndSetModificationGroupType } from '../../utils/uploadJSON';
 import { addAndSetDefectGroup, addAndSetDefectGroupType } from '../../utils/uploadJSON';
@@ -10,12 +10,12 @@ import { useTranslation } from "react-i18next";
 type UploadSONButtonProps = {
   selectedOwner: number;
   numPreviousOwners: number;
-  generalInformation: GeneralInformation[];
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
-  setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
-  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  generalInformation: GeneralInformationBase[];
+  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
+  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
+  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
+  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
+  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
   jsonUploaded?: boolean;
   setJsonUploaded?: React.Dispatch<boolean>;
 };

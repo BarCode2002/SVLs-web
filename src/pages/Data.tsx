@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/pages/Data.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../utils/interfaces.ts';
-import { OwnershipSummary } from '../utils/interfaces.ts';
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../utils/baseTypes.ts';
+import { OwnershipSummary } from '../utils/commonTypes.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
@@ -40,7 +40,7 @@ const Data = (): JSX.Element => {
     else return parseInt(savedFullScreen);
   });
   
-  const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
+  const [generalInformation, setGeneralInformation] = useState<GeneralInformationBase[]>(
     Array.from({ length: 1 }, () => ({
       VIN: '',
       brand: 'DataSVL.Forms.brand',
@@ -65,7 +65,7 @@ const Data = (): JSX.Element => {
     }))
   );
 
-  const [maintenances, setMaintenances] = useState<Maintenances[]>(
+  const [maintenances, setMaintenances] = useState<MaintenancesBase[]>(
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
@@ -88,7 +88,7 @@ const Data = (): JSX.Element => {
     }))
   );
   
-  const [modifications, setModifications] = useState<Modifications[]>(
+  const [modifications, setModifications] = useState<ModificationsBase[]>(
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
@@ -111,7 +111,7 @@ const Data = (): JSX.Element => {
     }))
   );
 
-  const [defects, setDefects] = useState<Defects[]>(
+  const [defects, setDefects] = useState<DefectsBase[]>(
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
@@ -128,7 +128,7 @@ const Data = (): JSX.Element => {
     }))
   );
 
-  const [repairs, setRepairs] = useState<Repairs[]>(
+  const [repairs, setRepairs] = useState<RepairsBase[]>(
     Array.from({ length: 1 }, () => ({
       group: Array.from({ length: 1 }, () => ({
         date: "",
@@ -153,11 +153,11 @@ const Data = (): JSX.Element => {
     }))
   );
 
-  const prevOwnersGeneralInformation = useRef<GeneralInformation[]>([]);
-  const prevOwnersMaintenances = useRef<Maintenances[]>([]);
-  const prevOwnersModifications = useRef<Modifications[]>([]);
-  const prevOwnersDefects = useRef<Defects[]>([]);
-  const prevOwnersRepairs = useRef<Repairs[]>([]);
+  const prevOwnersGeneralInformation = useRef<GeneralInformationBase[]>([]);
+  const prevOwnersMaintenances = useRef<MaintenancesBase[]>([]);
+  const prevOwnersModifications = useRef<ModificationsBase[]>([]);
+  const prevOwnersDefects = useRef<DefectsBase[]>([]);
+  const prevOwnersRepairs = useRef<RepairsBase[]>([]);
   const didRun = useRef(false);//en teoria y sin teoria solo necesario para el development por el strict mode
 
   const ownershipSummary = useRef<OwnershipSummary[]>([]);

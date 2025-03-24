@@ -1,6 +1,6 @@
 import styles from '../../../styles/components/dashboard/stateSVLButtons/stateSVLButtons.module.css';
 import { useTranslation } from 'react-i18next';
-import { PreviewSVLsInfo } from '../../../utils/interfaces.ts';
+import { PreviewSVLsInfo } from '../../../utils/commonTypes.ts';
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { getsmartContractAddress, getTezos } from '../../../utils/wallet.ts';
 import { useEffect, useState } from 'react';

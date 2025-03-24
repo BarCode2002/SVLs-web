@@ -1,10 +1,10 @@
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
+import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from "./baseTypes";
 import { PHOTOGRAPHS_SIZE } from "./constants";
 import i18n from 'i18next'; 
 import axios from "axios";
 import { mongoBrand, mongoList } from "./ip";
 
-export const checks = async (start: number, end: number, numPreviousOwners: number, generalInformation: GeneralInformation[], maintenances: Maintenances[], modifications: Modifications[], defects: Defects[], repairs: Repairs[]) => {
+export const checks = async (start: number, end: number, numPreviousOwners: number, generalInformation: GeneralInformationBase[], maintenances: MaintenancesBase[], modifications: ModificationsBase[], defects: DefectsBase[], repairs: RepairsBase[]) => {
   const invalidFields: string[] = [];
   let wrongVinBrandModelYear = [false, false, false, false];
   for (let i = start+1; i < end; i++) { 

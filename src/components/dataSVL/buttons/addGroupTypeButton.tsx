@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE } from '../../../utils/constants';
-import { Maintenances } from '../../../utils/interfaces';
+import { MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../../utils/baseTypes';
 import { useTranslation } from "react-i18next";
 
 type AddGroupTypeButtonProps = {
@@ -17,7 +17,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
   const { t } = useTranslation();
 
   const addMaintenanceGroupType = () => {
-    setDataSVL((prevDataSVL: Maintenances[]) =>
+    setDataSVL((prevDataSVL: MaintenancesBase[]) =>
       prevDataSVL.map((item, index) =>
         index === selectedOwner 
           ? {
@@ -48,7 +48,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
   }
 
   const addModificationGroupType = () => {
-    setDataSVL((prevDataSVL: Maintenances[]) =>
+    setDataSVL((prevDataSVL: ModificationsBase[]) =>
       prevDataSVL.map((item, index) =>
         index == selectedOwner 
           ? {
@@ -79,7 +79,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
   }
 
   const addDefectGroupType = () => {
-    setDataSVL((prevDataSVL: Maintenances[]) =>
+    setDataSVL((prevDataSVL: DefectsBase[]) =>
       prevDataSVL.map((item, index) =>
         index == selectedOwner 
           ? {
@@ -107,7 +107,7 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
   }
 
   const addRepairGroupType = () => {
-    setDataSVL((prevDataSVL: Maintenances[]) =>
+    setDataSVL((prevDataSVL: RepairsBase[]) =>
       prevDataSVL.map((item, index) =>
         index == selectedOwner 
           ? {

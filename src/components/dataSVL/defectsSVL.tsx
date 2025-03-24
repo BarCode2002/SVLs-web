@@ -1,6 +1,6 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Defects, Repairs } from '../../utils/interfaces.ts';
+import { DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -19,9 +19,9 @@ type DefectsSVLProps = {
   selectedOwner: number;
   totalOwners: number;
   numPreviousOwners: number;
-  defects: Defects[];
-  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  repairs: Repairs[];
+  defects: DefectsBase[];
+  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
+  repairs: RepairsBase[];
   editMode: boolean;
   mySVL: boolean;
   jsonUploaded: boolean;

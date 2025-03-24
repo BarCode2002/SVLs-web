@@ -1,7 +1,7 @@
 import { SetStateAction } from 'react';
 import styles from '../../../styles/components/dataSVL/buttons/dataSVLButtons.module.css';
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../../../utils/constants';
-import { Maintenances, Modifications, Defects, Repairs } from '../../../utils/interfaces';
+import { MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../../utils/baseTypes';
 
 type AddGroupButtonProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
@@ -13,7 +13,7 @@ type AddGroupButtonProps = {
 const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupButtonProps): JSX.Element => {
 
   const addMaintenanceGroup = () => {
-    setDataSVL((prevDataSVL: Maintenances[]) =>
+    setDataSVL((prevDataSVL: MaintenancesBase[]) =>
       prevDataSVL.map((item, index) =>
         index == selectedOwner
           ? {
@@ -46,7 +46,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
   }
 
   const addModificationGroup = () => {
-    setDataSVL((prevDataSVL: Modifications[]) =>
+    setDataSVL((prevDataSVL: ModificationsBase[]) =>
       prevDataSVL.map((item, index) =>
         index == selectedOwner
           ? {
@@ -79,7 +79,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
   }
 
   const addDefectGroup = () => {
-    setDataSVL((prevDataSVL: Defects[]) =>
+    setDataSVL((prevDataSVL: DefectsBase[]) =>
       prevDataSVL.map((item, index) =>
         index == selectedOwner
           ? {
@@ -106,7 +106,7 @@ const AddGroupButton = ({ setDataSVL, selectedOwner, type, editMode }: AddGroupB
   }
 
   const addRepairGroup = () => {
-    setDataSVL((prevDataSVL: Repairs[]) =>
+    setDataSVL((prevDataSVL: RepairsBase[]) =>
       prevDataSVL.map((item, index) =>
         index == selectedOwner
           ? {

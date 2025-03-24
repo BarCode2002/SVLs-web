@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import styles from '../../styles/components/topNavBar/ownershipSummaryButton.module.css';
 import { DetectClickOutsideComponent } from '../varied/detectClickOutsideComponent';
-import { OwnershipSummary } from '../../utils/interfaces';
+import { OwnershipSummary } from '../../utils/commonTypes';
 import { useTranslation } from "react-i18next";
 
 type OwnershipSummaryButtonProps = {

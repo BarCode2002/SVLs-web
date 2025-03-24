@@ -1,5 +1,5 @@
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Repairs } from '../../utils/interfaces.ts';
+import { RepairsBase } from '../../utils/baseTypes.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';
@@ -13,8 +13,8 @@ import { NoDataRepairs } from '../../assets/noData.tsx';
 
 type SummaryViewRepairsProps = {
   prevOwnersRepairs: any;
-  repairs: Repairs[];
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  repairs: RepairsBase[];
+  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
   shrinked: any;
   setShrinked: any;
   numPreviousOwners: number;

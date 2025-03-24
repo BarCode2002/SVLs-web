@@ -1,6 +1,6 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Modifications } from '../../utils/interfaces.ts';
+import { ModificationsBase } from '../../utils/baseTypes.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -17,8 +17,8 @@ import { useTranslation } from "react-i18next";
 
 type ModificationsSVLProps = {
   selectedOwner: number;
-  modifications: Modifications[];
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
+  modifications: ModificationsBase[];
+  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
   editMode: boolean;
   jsonUploaded: boolean;
 };
