@@ -1,17 +1,17 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/dataSVL/generalInformationSVL.module.css';
-import { GeneralInformationBase } from '../../utils/baseTypes.ts';
 import InputField from './fields/inputField.tsx';
 import DropdownMenu from './fields/dropdownMenu.tsx';
 import ImagesField from './fields/imagesField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
 import { useTranslation } from "react-i18next";
 import DateField from './fields/dateField.tsx';
+import { PossibleGeneralInformationJsonVersions } from '../../utils/commonTypes.ts';
 
 type GeneralInformationSVLProps = {
   selectedOwner: number;
-  generalInformation: GeneralInformationBase[];
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
+  generalInformation: PossibleGeneralInformationJsonVersions[];
+  setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
   editMode: boolean;
   jsonUploaded: boolean;
 };

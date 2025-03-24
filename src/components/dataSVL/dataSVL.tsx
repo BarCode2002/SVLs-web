@@ -1,6 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../styles/components/dataSVL/dataSVL.module.css';
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 import GeneralInformationSVL from './generalInformationSVL.tsx';
 import PrevOwnersGeneralInformationSVL from './prevOwnersGeneralInformationSVL.tsx';
 import MaintenancesSVL from './maintenancesSVL.tsx';
@@ -18,6 +17,7 @@ import SummaryViewDefects from './summaryViewDefects.tsx';
 import SummaryViewRepairs from './summaryViewRepairs.tsx';
 import { EnterFullScreenIcon, ExitFullScreenIcon } from '../../assets/fullScreen.tsx';
 import ChangeJsonVersion from './buttons/changeJsonVersion.tsx';
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type ShrinkedType = {
   group: boolean;
@@ -29,20 +29,20 @@ type MainShrinkedType = ShrinkedType[];
 type DataSVLProps = {
   selectedOwner: number;
   selectedSVLData: number;
-  generalInformation: GeneralInformationBase[];
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
+  generalInformation: PossibleGeneralInformationJsonVersions[];
+  setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
   prevOwnersGeneralInformation: any;
-  maintenances: MaintenancesBase[];
-  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
+  maintenances: PossibleMaintenancesJsonVersions[];
+  setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>;
   prevOwnersMaintenances: any;
-  modifications: ModificationsBase[];
-  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
+  modifications: PossibleModificationsJsonVersions[];
+  setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
   prevOwnersModifications: any;
-  defects: DefectsBase[];
-  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
+  defects: PossibleDefectsJsonVersions[];
+  setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
   prevOwnersDefects: any;
-  repairs: RepairsBase[];
-  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
+  repairs: PossibleRepairsJsonVersions[];
+  setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
   prevOwnersRepairs: any;
   totalOwners: number;
   editMode: boolean;

@@ -1,3 +1,26 @@
+import { DefectsBaseSimple, GeneralInformationBaseSimple, MaintenancesBaseSimple, ModificationsBaseSimple, RepairsBaseSimple } from "./baseSimpleTypes";
+import { DefectsBase, GeneralInformationBase, MaintenancesBase, ModificationsBase, RepairsBase } from "./baseTypes";
+
+export type PossibleGeneralInformationJsonVersions = 
+  GeneralInformationBase | GeneralInformationBaseSimple
+;
+
+export type PossibleMaintenancesJsonVersions = 
+  MaintenancesBase | MaintenancesBaseSimple
+;
+
+export type PossibleModificationsJsonVersions = 
+  ModificationsBase | ModificationsBaseSimple
+;
+
+export type PossibleDefectsJsonVersions = 
+  DefectsBase | DefectsBaseSimple
+;
+
+export type PossibleRepairsJsonVersions = 
+  RepairsBase | RepairsBaseSimple
+;
+
 export type PreviewSVLsInfo = {
   pk: string;
   price: number;

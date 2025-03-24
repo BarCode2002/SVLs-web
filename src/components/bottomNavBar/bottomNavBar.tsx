@@ -3,7 +3,7 @@ import styles from '../../styles/components/bottomNavBar/bottomNavBar.module.css
 import ChooseDataSVLButtons from './chooseDataSVLButtons.tsx';
 import AddOwnerButton from './addOwnerButton.tsx';
 import OwnerButton from './ownerButton.tsx';
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
+import { PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleDefectsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type BottomNavBarProps = {
   selectedSVLData: number;
@@ -11,16 +11,16 @@ type BottomNavBarProps = {
   selectedOwner: number;
   setSelectedOwner: React.Dispatch<SetStateAction<number>>;
   numPreviousOwners: number;
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
-  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
-  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
-  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
-  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
+  setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
+  setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>;
+  setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
+  setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
+  setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<SetStateAction<number>>;
   editMode: boolean;
   viewType: number;
-  prevOwnersGeneralInformation: GeneralInformationBase[];
+  prevOwnersGeneralInformation: PossibleGeneralInformationJsonVersions[];
   mySVL: boolean;
 };
 

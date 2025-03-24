@@ -1,8 +1,9 @@
 import { SetStateAction } from "react";
 import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from "./baseTypes";
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from "./constants";
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from "./commonTypes";
 
-export const addGeneralInformationPrev = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>, prevOwnersGeneralInformation: GeneralInformationBase[], numPreviousOwners: number) => {
+export const addGeneralInformationPrev = (setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>, prevOwnersGeneralInformation: GeneralInformationBase[], numPreviousOwners: number) => {
   setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => [
     ...prevGeneralInformation,
     {
@@ -30,7 +31,7 @@ export const addGeneralInformationPrev = (setGeneralInformation: React.Dispatch<
   ]);
 }
 
-export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>) => {
+export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>) => {
   setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => [
     ...prevGeneralInformation,
     {
@@ -58,7 +59,7 @@ export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetS
   ]);
 }
 
-export const addGeneralInformationDefault = (setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>) => {
+export const addGeneralInformationDefault = (setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>) => {
   setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => [
     ...prevGeneralInformation,
     {
@@ -86,7 +87,7 @@ export const addGeneralInformationDefault = (setGeneralInformation: React.Dispat
   ]);
 }
 
-export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>) => {
+export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>) => {
   setMaintenances((prevMaintenances: MaintenancesBase[]) => [
     ...prevMaintenances,
     {
@@ -112,7 +113,7 @@ export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<M
   ]);
 }
 
-export const addModifications = (setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>) => {
+export const addModifications = (setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>) => {
   setModifications((prevModifications: ModificationsBase[]) => [
     ...prevModifications,
     {
@@ -138,7 +139,7 @@ export const addModifications = (setModifications: React.Dispatch<SetStateAction
   ]);
 }
 
-export const addDefects = (setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>) => {
+export const addDefects = (setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>) => {
   setDefects((prevDefects: DefectsBase[]) => [
     ...prevDefects,
     {
@@ -158,7 +159,7 @@ export const addDefects = (setDefects: React.Dispatch<SetStateAction<DefectsBase
   ]);
 }
 
-export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>) => {
+export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>) => {
   setRepairs((prevRepairs: RepairsBase[]) => [
     ...prevRepairs,
     {

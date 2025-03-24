@@ -1,7 +1,8 @@
 import { SetStateAction } from "react";
 import { MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from "./baseTypes";
+import { PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleDefectsJsonVersions, PossibleRepairsJsonVersions } from "./commonTypes";
 
-export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>, selectedOwner: number, maintenanceGroup: any) => {
+export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>, selectedOwner: number, maintenanceGroup: any) => {
   setMaintenances((prevMaintenances: MaintenancesBase[]) =>
     prevMaintenances.map((item, index) =>
       index == selectedOwner
@@ -34,7 +35,7 @@ export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetSta
   );
 }
 
-export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>, selectedOwner: number, selectedGroup: number, maintenanceType: any) => {
+export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>, selectedOwner: number, selectedGroup: number, maintenanceType: any) => {
   setMaintenances((prevMaintenances: MaintenancesBase[]) =>
     prevMaintenances.map((item, index) =>
       index == selectedOwner 
@@ -65,7 +66,7 @@ export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<Se
   );
 }
 
-export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>, selectedOwner: number, modificationGroup: any) => {
+export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>, selectedOwner: number, modificationGroup: any) => {
   setModifications((prevModifications: ModificationsBase[]) =>
     prevModifications.map((item, index) =>
       index == selectedOwner
@@ -98,7 +99,7 @@ export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetS
   );
 }
 
-export const addAndSetModificationGroupType = (setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>, selectedOwner: number, selectedGroup: number, modificationType: any) => {
+export const addAndSetModificationGroupType = (setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>, selectedOwner: number, selectedGroup: number, modificationType: any) => {
   setModifications((prevModifications: ModificationsBase[]) =>
     prevModifications.map((item, index) =>
       index == selectedOwner 
@@ -129,7 +130,7 @@ export const addAndSetModificationGroupType = (setModifications: React.Dispatch<
   );
 }
 
-export const addAndSetDefectGroup = (setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>, selectedOwner: number, defectGroup: any) => {
+export const addAndSetDefectGroup = (setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>, selectedOwner: number, defectGroup: any) => {
   setDefects((prevDefects: DefectsBase[]) =>
     prevDefects.map((item, index) =>
       index == selectedOwner
@@ -156,7 +157,7 @@ export const addAndSetDefectGroup = (setDefects: React.Dispatch<SetStateAction<D
   );
 }
 
-export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>, selectedOwner: number, selectedGroup: number, defectType: any) => {
+export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>, selectedOwner: number, selectedGroup: number, defectType: any) => {
   setDefects((prevDefects: DefectsBase[]) =>
     prevDefects.map((item, index) =>
       index == selectedOwner 
@@ -184,7 +185,7 @@ export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateActi
   );
 }
 
-export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>, selectedOwner: number, repairGroup: any) => {
+export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>, selectedOwner: number, repairGroup: any) => {
   setRepairs((prevRepairs: RepairsBase[]) =>
     prevRepairs.map((item, index) =>
       index == selectedOwner
@@ -219,7 +220,7 @@ export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<R
   );
 }
 
-export const addAndSetRepairGroupType = (setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>, selectedOwner: number, selectedGroup: number, repairType: any) => {
+export const addAndSetRepairGroupType = (setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>, selectedOwner: number, selectedGroup: number, repairType: any) => {
   setRepairs((prevRepairs: RepairsBase[]) =>
     prevRepairs.map((item, index) =>
       index == selectedOwner 

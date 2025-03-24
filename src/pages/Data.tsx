@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/pages/Data.module.css';
 import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../utils/baseTypes.ts';
-import { OwnershipSummary } from '../utils/commonTypes.ts';
+import { OwnershipSummary, PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../utils/commonTypes.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
@@ -17,6 +17,7 @@ import { parse, format } from "date-fns";
 import pako from "pako";
 import { indexer, ipfsRetrieve } from '../utils/ip.ts';
 import { defaultBaseDefects, defaultBaseGeneralInformaion, defaultBaseMaintenances, defaultBaseModifications, defaultBaseRepairs } from '../utils/defaultBase.ts';
+import { defaultBaseSimpleDefects, defaultBaseSimpleGeneralInformaion, defaultBaseSimpleMaintenances, defaultBaseSimpleModifications, defaultBaseSimpleRepairs } from '../utils/defaultBaseSimple.ts';
 
 const Data = (): JSX.Element => {
 
@@ -39,41 +40,63 @@ const Data = (): JSX.Element => {
     if (savedFullScreen == null) return 0;
     else return parseInt(savedFullScreen);
   });
-  const [jsonVersion, setJsonVersion] = useState(() => {
+  const [jsonVersion, setJsonVersion] = useState(() => { //esto tendria que ser un la lista del tamaño de totalOwners para saber la version de cada json
     const savedJsonVersion = localStorage.getItem("jsonVersion");
     if (savedJsonVersion == null) return 'base';
     else return savedJsonVersion;
   });
   
-  const [generalInformation, setGeneralInformation] = useState<GeneralInformationBase[]>(
-    Array.from({ length: 1 }, () => ( 
-      defaultBaseGeneralInformaion
-    ))
+  const [generalInformation, setGeneralInformation] = useState<PossibleGeneralInformationJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion == 'base') return defaultBaseGeneralInformaion;
+      else return defaultBaseSimpleGeneralInformaion;
+    })
   );
 
-  const [maintenances, setMaintenances] = useState<MaintenancesBase[]>(
-    Array.from({ length: 1 }, () => (
-      defaultBaseMaintenances
-    ))
+  const [maintenances, setMaintenances] = useState<PossibleMaintenancesJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion == 'base') return defaultBaseMaintenances;
+      else return defaultBaseSimpleMaintenances;
+    })
   );
   
-  const [modifications, setModifications] = useState<ModificationsBase[]>(
-    Array.from({ length: 1 }, () => (
-      defaultBaseModifications
-    ))
+  const [modifications, setModifications] = useState<PossibleModificationsJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion == 'base') return defaultBaseModifications;
+      else return defaultBaseSimpleModifications;  
+    })
   );
 
-  const [defects, setDefects] = useState<DefectsBase[]>(
-    Array.from({ length: 1 }, () => (
-      defaultBaseDefects  
-    ))
+  const [defects, setDefects] = useState<PossibleDefectsJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion == 'base') return defaultBaseDefects;
+      else return defaultBaseSimpleDefects;  
+    })
   );
 
-  const [repairs, setRepairs] = useState<RepairsBase[]>(
-    Array.from({ length: 1 }, () => (
-      defaultBaseRepairs  
-    ))
+  const [repairs, setRepairs] = useState<PossibleRepairsJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion == 'base') return defaultBaseRepairs;
+      else return defaultBaseSimpleRepairs;  
+    })
   );
+
+  useEffect(() => {
+    if (jsonVersion == 'base') {
+      setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
+        const updatedMaintenaces = [...prevState];
+        updatedMaintenaces[selectedOwner] = defaultBaseMaintenances; 
+        return updatedMaintenaces;
+      });
+    }
+    else {
+      setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
+        const updatedMaintenaces = [...prevState];
+        updatedMaintenaces[selectedOwner] = defaultBaseSimpleMaintenances; 
+        return updatedMaintenaces;
+      });
+    }
+  }, [jsonVersion]);
 
   const prevOwnersGeneralInformation = useRef<GeneralInformationBase[]>([]);
   const prevOwnersMaintenances = useRef<MaintenancesBase[]>([]);
