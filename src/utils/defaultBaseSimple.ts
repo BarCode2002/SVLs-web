@@ -1,7 +1,7 @@
 import { GeneralInformationBaseSimple, MaintenancesBaseSimple, ModificationsBaseSimple, DefectsBaseSimple, RepairsBaseSimple } from "./baseSimpleTypes";
 import { DEFECTS_REPAIRED_SIZE, PHOTOGRAPHS_SIZE } from "./constants";
 
-export const defaultBaseSimpleGeneralInformaion: GeneralInformationBaseSimple = {
+export const defaultBaseSimpleGeneralInformation: GeneralInformationBaseSimple = {
   VIN: '',
   brand: 'DataSVL.Forms.brand',
   model: 'DataSVL.Forms.model',
@@ -65,7 +65,7 @@ export const defaultBaseSimpleDefects: DefectsBaseSimple = {
     cause: "",
     type: Array.from({ length: 1 }, () => ({
       level: 'DataSVL.Forms.level',
-      photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+      images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       description: "",
       shrinked: false,
     })),

@@ -10,7 +10,6 @@ export default defineConfig({
     target: 'esnext'
   },
   esbuild: {
-    drop: ['console', 'debugger'],
     target: 'esnext'
   },
 })

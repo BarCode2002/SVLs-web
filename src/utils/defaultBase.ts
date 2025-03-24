@@ -1,7 +1,7 @@
 import { DefectsBase, GeneralInformationBase, MaintenancesBase, ModificationsBase, RepairsBase } from "./baseTypes";
 import { COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE, PHOTOGRAPHS_SIZE } from "./constants";
 
-export const defaultBaseGeneralInformaion: GeneralInformationBase = {
+export const defaultBaseGeneralInformation: GeneralInformationBase = {
   VIN: '',
   brand: 'DataSVL.Forms.brand',
   model: 'DataSVL.Forms.model',

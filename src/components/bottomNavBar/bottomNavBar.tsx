@@ -22,9 +22,11 @@ type BottomNavBarProps = {
   viewType: number;
   prevOwnersGeneralInformation: PossibleGeneralInformationJsonVersions[];
   mySVL: boolean;
+  jsonVersion: string[];
+  setJsonVersion: React.Dispatch<SetStateAction<string[]>>;
 };
 
-const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode, viewType, prevOwnersGeneralInformation, mySVL }: BottomNavBarProps): JSX.Element => {
+const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setSelectedOwner, numPreviousOwners, setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs,  totalOwners, setTotalOwners, editMode, viewType, prevOwnersGeneralInformation, mySVL, jsonVersion, setJsonVersion }: BottomNavBarProps): JSX.Element => {
 
   const ownersContainerRef = useRef(null);
 
@@ -57,6 +59,7 @@ const BottomNavBar = ({ selectedSVLData, setSelectedSVLData, selectedOwner, setS
                   setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
                   setSelectedOwner={setSelectedOwner} totalOwners={totalOwners} setTotalOwners={setTotalOwners} 
                   numPreviousOwners={numPreviousOwners} editMode={editMode} prevOwnersGeneralInformation={prevOwnersGeneralInformation}
+                  jsonVersion={jsonVersion} selectedJsonVersion={jsonVersion[selectedOwner]} setJsonVersion={setJsonVersion}
                 />
               </div>
             }

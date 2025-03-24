@@ -16,8 +16,9 @@ import { addGeneralInformationDefault, addMaintenances, addModifications, addDef
 import { parse, format } from "date-fns";
 import pako from "pako";
 import { indexer, ipfsRetrieve } from '../utils/ip.ts';
-import { defaultBaseDefects, defaultBaseGeneralInformaion, defaultBaseMaintenances, defaultBaseModifications, defaultBaseRepairs } from '../utils/defaultBase.ts';
-import { defaultBaseSimpleDefects, defaultBaseSimpleGeneralInformaion, defaultBaseSimpleMaintenances, defaultBaseSimpleModifications, defaultBaseSimpleRepairs } from '../utils/defaultBaseSimple.ts';
+import { defaultBaseDefects, defaultBaseGeneralInformation, defaultBaseMaintenances, defaultBaseModifications, defaultBaseRepairs } from '../utils/defaultBase.ts';
+import { defaultBaseSimpleDefects, defaultBaseSimpleGeneralInformation, defaultBaseSimpleMaintenances, defaultBaseSimpleModifications, defaultBaseSimpleRepairs } from '../utils/defaultBaseSimple.ts';
+import { cloneDeep } from 'lodash';
 
 const Data = (): JSX.Element => {
 
@@ -46,36 +47,36 @@ const Data = (): JSX.Element => {
   
   const [generalInformation, setGeneralInformation] = useState<PossibleGeneralInformationJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion[0] == 'base') return defaultBaseGeneralInformaion;
-      else return defaultBaseSimpleGeneralInformaion;
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseGeneralInformation);
+      else return cloneDeep(defaultBaseSimpleGeneralInformation);
     })
   );
 
   const [maintenances, setMaintenances] = useState<PossibleMaintenancesJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion[0] == 'base') return defaultBaseMaintenances;
-      else return defaultBaseSimpleMaintenances;
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseMaintenances);
+      else return cloneDeep(defaultBaseSimpleMaintenances);
     })
   );
   
   const [modifications, setModifications] = useState<PossibleModificationsJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion[0] == 'base') return defaultBaseModifications;
-      else return defaultBaseSimpleModifications;  
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseModifications);
+      else return cloneDeep(defaultBaseSimpleModifications);  
     })
   );
 
   const [defects, setDefects] = useState<PossibleDefectsJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion[0] == 'base') return defaultBaseDefects;
-      else return defaultBaseSimpleDefects;  
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseDefects);
+      else return cloneDeep(defaultBaseSimpleDefects);  
     })
   );
 
   const [repairs, setRepairs] = useState<PossibleRepairsJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion[0] == 'base') return defaultBaseRepairs;
-      else return defaultBaseSimpleRepairs;  
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseRepairs);
+      else return cloneDeep(defaultBaseSimpleRepairs);  
     })
   );
 
@@ -83,34 +84,34 @@ const Data = (): JSX.Element => {
     if (jsonVersion[selectedOwner] == 'base') {
       setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
         const updated = [...prevState];
-        updated[selectedOwner] = defaultBaseMaintenances; 
+        updated[selectedOwner] = cloneDeep(defaultBaseMaintenances); 
         return updated;
       });
       setModifications((prevState: PossibleModificationsJsonVersions[]) => {
         const updated = [...prevState];
-        updated[selectedOwner] = defaultBaseModifications; 
+        updated[selectedOwner] = cloneDeep(defaultBaseModifications); 
         return updated;
       });
       setRepairs((prevState: PossibleRepairsJsonVersions[]) => {
         const updated = [...prevState];
-        updated[selectedOwner] = defaultBaseRepairs; 
+        updated[selectedOwner] = cloneDeep(defaultBaseRepairs); 
         return updated;
       });
     }
     else {
       setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
         const updated = [...prevState];
-        updated[selectedOwner] = defaultBaseSimpleMaintenances; 
+        updated[selectedOwner] = cloneDeep(defaultBaseSimpleMaintenances); 
         return updated;
       });
       setModifications((prevState: PossibleModificationsJsonVersions[]) => {
         const updated = [...prevState];
-        updated[selectedOwner] = defaultBaseSimpleModifications; 
+        updated[selectedOwner] = cloneDeep(defaultBaseSimpleModifications); 
         return updated;
       });
       setRepairs((prevState: PossibleRepairsJsonVersions[]) => {
         const updated = [...prevState];
-        updated[selectedOwner] = defaultBaseSimpleRepairs; 
+        updated[selectedOwner] = cloneDeep(defaultBaseSimpleRepairs); 
         return updated;
       });
     }
@@ -197,10 +198,10 @@ const Data = (): JSX.Element => {
 
   const addOwners = () => {
     addGeneralInformationDefault(setGeneralInformation);
-    addMaintenances(setMaintenances);
-    addModifications(setModifications);
+    addMaintenances(setMaintenances, jsonVersion[selectedOwner]);
+    addModifications(setModifications, jsonVersion[selectedOwner]);
     addDefects(setDefects);
-    addRepairs(setRepairs);
+    addRepairs(setRepairs, jsonVersion[selectedOwner]);
   }
 
   useEffect(() => {
@@ -476,6 +477,7 @@ const Data = (): JSX.Element => {
               setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
               totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
               viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current} mySVL={mySVL}
+              jsonVersion={jsonVersion} setJsonVersion={setJsonVersion}
             />
           }
         </div>

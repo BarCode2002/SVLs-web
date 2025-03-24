@@ -1,10 +1,14 @@
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from "./baseTypes";
 import { PHOTOGRAPHS_SIZE } from "./constants";
 import i18n from 'i18next'; 
 import axios from "axios";
 import { mongoBrand, mongoList } from "./ip";
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from "./commonTypes";
+import { isMaintenancesBase, isModificationsBase, isRepairsBase } from "./checkBaseType";
+import { isMaintenancesBaseSimple, isModificationsBaseSimple, isRepairsBaseSimple } from "./checkBaseSimpleType";
 
-export const checks = async (start: number, end: number, numPreviousOwners: number, generalInformation: GeneralInformationBase[], maintenances: MaintenancesBase[], modifications: ModificationsBase[], defects: DefectsBase[], repairs: RepairsBase[]) => {
+
+//funciona pero typescript no reconoce correctamente el tipo de data
+export const checks = async (start: number, end: number, numPreviousOwners: number, generalInformation: PossibleGeneralInformationJsonVersions[], maintenances: PossibleMaintenancesJsonVersions[], modifications: PossibleModificationsJsonVersions[], defects: PossibleDefectsJsonVersions[], repairs: PossibleRepairsJsonVersions[]) => {
   const invalidFields: string[] = [];
   let wrongVinBrandModelYear = [false, false, false, false];
   for (let i = start+1; i < end; i++) { 
@@ -87,27 +91,47 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
       let foundNotSaved1 = false;
       let foundNotSaved2 = false;
+      let typeIsMaintenancesBase = isMaintenancesBase(maintenances[i], j);
+      let typeIsMaintenancesBaseSimple = isMaintenancesBaseSimple(maintenances[i], j);
       for (let k = 0; k < PHOTOGRAPHS_SIZE; k++) {
-        if (maintenances[i].group[j].pre[k][4] == ':' && !foundNotSaved1) {
-          invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesGroupMaintenances')} ${j+1}.`);
-          foundNotSaved1 = true;
-        } 
-        if (maintenances[i].group[j].post[k][4] == ':'  && !foundNotSaved2) {
-          invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesGroupMaintenances')} ${j+1}.`);
-          foundNotSaved2 = true;
+        if (typeIsMaintenancesBase) {
+          if (maintenances[i].group[j].pre[k][4] == ':' && !foundNotSaved1) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesGroupMaintenances')} ${j+1}.`);
+            foundNotSaved1 = true;
+          } 
+          if (maintenances[i].group[j].post[k][4] == ':'  && !foundNotSaved2) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesGroupMaintenances')} ${j+1}.`);
+            foundNotSaved2 = true;
+          }
+        }
+        else if (typeIsMaintenancesBaseSimple) {
+          if (maintenances[i].group[j].images[k][4] == ':' && !foundNotSaved1) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesGroupMaintenances')} ${j+1}.`);
+            foundNotSaved1 = true;
+          } 
         }
       }
       foundNotSaved1 = false;
       foundNotSaved2 = false;
       for (let l = 0; l < maintenances[i].group[j].type.length; l++) {
+        typeIsMaintenancesBase = isMaintenancesBase(maintenances[i], j, l);
+        typeIsMaintenancesBaseSimple = isMaintenancesBaseSimple(maintenances[i], j, l);
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
-          if (maintenances[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved1) {
-            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesMaintenance')} ${l+1} ${i18n.t('InvalidFields.maintenanceGroup')} ${j+1}.`);
-            foundNotSaved1 = true;
+          if (typeIsMaintenancesBase) {
+            if (maintenances[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved1) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesMaintenance')} ${l+1} ${i18n.t('InvalidFields.maintenanceGroup')} ${j+1}.`);
+              foundNotSaved1 = true;
+            }
+            if (maintenances[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesMaintenance')} ${l+1} ${i18n.t('InvalidFields.maintenanceGroup')} ${j+1}.`);
+              foundNotSaved2 = true;
+            }
           }
-          if (maintenances[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
-            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesMaintenance')} ${l+1} ${i18n.t('InvalidFields.maintenanceGroup')} ${j+1}.`);
-            foundNotSaved2 = true;
+          else if (typeIsMaintenancesBaseSimple) {
+            if (maintenances[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved1) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesMaintenance')} ${l+1} ${i18n.t('InvalidFields.maintenanceGroup')} ${j+1}.`);
+              foundNotSaved2 = true;
+            }
           }
         }
       }
@@ -121,27 +145,47 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
       let foundNotSaved1 = false;
       let foundNotSaved2 = false;
+      let typeIsModificationsBase = isModificationsBase(modifications[i], j);
+      let typeIsModificationsBaseSimple = isModificationsBaseSimple(modifications[i], j);
       for (let k = 0; k < PHOTOGRAPHS_SIZE; k++) {
-        if (modifications[i].group[j].pre[k][4] == ':' && !foundNotSaved1) {
-          invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesGroupModifications')} ${j+1}.`);
-          foundNotSaved1 = true;
+        if (typeIsModificationsBase) {
+          if (modifications[i].group[j].pre[k][4] == ':' && !foundNotSaved1) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesGroupModifications')} ${j+1}.`);
+            foundNotSaved1 = true;
+          }
+          if (modifications[i].group[j].post[k][4] == ':' && !foundNotSaved2) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesGroupModifications')} ${j+1}.`);
+            foundNotSaved2 = true;
+          }
         }
-        if (modifications[i].group[j].post[k][4] == ':' && !foundNotSaved2) {
-          invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesGroupModifications')} ${j+1}.`);
-          foundNotSaved2 = true;
+        else if (typeIsModificationsBaseSimple) {
+          if (modifications[i].group[j].images[k][4] == ':' && !foundNotSaved1) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesGroupModifications')} ${j+1}.`);
+            foundNotSaved1 = true;
+          }
         }
       }
       foundNotSaved1 = false;
       foundNotSaved2 = false;
       for (let l = 0; l < modifications[i].group[j].type.length; l++) {
+        typeIsModificationsBase = isModificationsBase(modifications[i], j, l);
+        typeIsModificationsBaseSimple = isModificationsBaseSimple(modifications[i], j, l);
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
-          if (modifications[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved2) {
-            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesModification')} ${l+1} ${i18n.t('InvalidFields.modificationGroup')} ${j+1}.`);
-            foundNotSaved2 = true;
+          if (typeIsModificationsBase) {
+            if (modifications[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved1) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesModification')} ${l+1} ${i18n.t('InvalidFields.modificationGroup')} ${j+1}.`);
+              foundNotSaved2 = true;
+            }
+            if (modifications[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesModification')} ${l+1} ${i18n.t('InvalidFields.modificationGroup')} ${j+1}.`);
+              foundNotSaved2 = true;
+            }
           }
-          if (modifications[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
-            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesModification')} ${l+1} ${i18n.t('InvalidFields.modificationGroup')} ${j+1}.`);
-            foundNotSaved2 = true;
+          else if (typeIsModificationsBaseSimple) {
+            if (modifications[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved1) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesModification')} ${l+1} ${i18n.t('InvalidFields.modificationGroup')} ${j+1}.`);
+              foundNotSaved2 = true;
+            }
           }
         }
       }
@@ -153,7 +197,7 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
       for (let l = 0; l < defects[i].group[j].type.length; l++) {
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
-          if (defects[i].group[j].type[l].photographs[z][4] == ':' && !foundNotSaved) {
+          if (defects[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved) {
             invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.imagesDefect')} ${l+1} ${i18n.t('InvalidFields.defectGroup')} ${j+1}.`);
             foundNotSaved = true;
           }
@@ -178,26 +222,47 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
       let foundNotSaved1 = false;
       let foundNotSaved2 = false;
+      let typeIsRepairsBase = isRepairsBase(repairs[i], j);
+      let typeIsRepairsBaseSimple = isRepairsBaseSimple(repairs[i], j);
       for (let k = 0; k < PHOTOGRAPHS_SIZE; k++) {
-        if (repairs[i].group[j].pre[k][4] == ':' && !foundNotSaved1) {
-          invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesGroupRepairs')} ${j+1}.`);
-          foundNotSaved1 = true;
-        } else if (repairs[i].group[j].post[k][4] == ':' && !foundNotSaved2) {
-          invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesGroupRepairs')} ${j+1}.`);
-          foundNotSaved2 = true;
+        if (typeIsRepairsBase) {
+          if (repairs[i].group[j].pre[k][4] == ':' && !foundNotSaved1) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesGroupRepairs')} ${j+1}.`);
+            foundNotSaved1 = true;
+          } 
+          else if (repairs[i].group[j].post[k][4] == ':' && !foundNotSaved2) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesGroupRepairs')} ${j+1}.`);
+            foundNotSaved2 = true;
+          }
+        }
+        else if (typeIsRepairsBaseSimple) {
+          if (repairs[i].group[j].images[k][4] == ':' && !foundNotSaved1) {
+            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesGroupRepairs')} ${j+1}.`);
+            foundNotSaved2 = true;
+          }
         }
       }
       foundNotSaved1 = false;
       foundNotSaved2 = false;
       for (let l = 0; l < repairs[i].group[j].type.length; l++) {
+        typeIsRepairsBase = isRepairsBase(repairs[i], j, l);
+        typeIsRepairsBaseSimple = isRepairsBaseSimple(repairs[i], j, l);
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
-          if (repairs[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved1) {
-            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesRepair')} ${l+1} ${i18n.t('InvalidFields.repairGroup')} ${j+1}.`);
-            foundNotSaved1 = true;
+          if (typeIsRepairsBase) {
+            if (repairs[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved1) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesRepair')} ${l+1} ${i18n.t('InvalidFields.repairGroup')} ${j+1}.`);
+              foundNotSaved1 = true;
+            }
+            if (repairs[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesRepair')} ${l+1} ${i18n.t('InvalidFields.repairGroup')} ${j+1}.`);
+              foundNotSaved2 = true;
+            }
           }
-          if (repairs[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
-            invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesRepair')} ${l+1} ${i18n.t('InvalidFields.repairGroup')} ${j+1}.`);
-            foundNotSaved2 = true;
+          else if (typeIsRepairsBaseSimple) {
+            if (repairs[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved1) {
+              invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesRepair')} ${l+1} ${i18n.t('InvalidFields.repairGroup')} ${j+1}.`);
+              foundNotSaved1 = true;
+            }
           }
         }
       }

@@ -1,7 +1,9 @@
 import { SetStateAction } from "react";
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from "./baseTypes";
+import { GeneralInformationBase } from "./baseTypes";
 import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from "./constants";
 import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from "./commonTypes";
+import { defaultBaseGeneralInformation } from './defaultBase';
+import { cloneDeep } from 'lodash';
 
 export const addGeneralInformationPrev = (setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>, prevOwnersGeneralInformation: GeneralInformationBase[], numPreviousOwners: number) => {
   setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => [
@@ -62,85 +64,110 @@ export const addGeneralInformation = (setGeneralInformation: React.Dispatch<SetS
 export const addGeneralInformationDefault = (setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>) => {
   setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => [
     ...prevGeneralInformation,
-    {
-      VIN: '',
-      brand: 'DataSVL.Forms.brand',
-      model: 'DataSVL.Forms.model',
-      year: '',
-      kilometers: ['', 'km'],
-      transferDate: '',
-      mainPhotograph: '',
-      state: 'DataSVL.Forms.state',
-      photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-      weight: ['', 'kg'],
-      color: '',
-      engine: '',
-      power: ['', 'cv'],
-      shift: 'DataSVL.Forms.shift',
-      fuel: 'DataSVL.Forms.fuel',
-      autonomy: ['', 'km'],
-      climate: 'DataSVL.Forms.climate',
-      usage: 'DataSVL.Forms.usage',
-      storage: 'DataSVL.Forms.storage',
-      comments: '',
-    },
+    cloneDeep(defaultBaseGeneralInformation)
   ]);
 }
 
-export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>) => {
-  setMaintenances((prevMaintenances: MaintenancesBase[]) => [
-    ...prevMaintenances,
-    {
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        type: Array.from({ length: 1 }, () => ({
+export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>, jsonVersion: string) => {
+  if (jsonVersion == 'base') {
+    setMaintenances((prevMaintenances: PossibleMaintenancesJsonVersions[]) => [
+      ...prevMaintenances,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: ['', 'km'],
           name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
+          responsible: [null, "", null, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
+          type: Array.from({ length: 1 }, () => ({
+            name: "",
+            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+            numComponents: 0,
+            pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            comments: "",
+            shrinked: false,
+          })),
           shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    },
-  ]);
+        }))
+      },
+    ]);
+  }
+  else if (jsonVersion == 'baseSimple') {
+    setMaintenances((prevMaintenances: PossibleMaintenancesJsonVersions[]) => [
+      ...prevMaintenances,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: ['', 'km'],
+          name: "",
+          responsible: [null, "", null, ""],
+          images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          type: Array.from({ length: 1 }, () => ({
+            name: "",
+            images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            comments: "",
+            shrinked: false,
+          })),
+          shrinked: false,
+        }))
+      },
+    ]);
+  }
 }
 
-export const addModifications = (setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>) => {
-  setModifications((prevModifications: ModificationsBase[]) => [
-    ...prevModifications,
-    {
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        type: Array.from({ length: 1 }, () => ({
+export const addModifications = (setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>, jsonVersion: string) => {
+  if (jsonVersion == 'base') {
+    setModifications((prevModifications: PossibleModificationsJsonVersions[]) => [
+      ...prevModifications,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: ['', 'km'],
           name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
+          responsible: [null, "", null, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
+          type: Array.from({ length: 1 }, () => ({
+            name: "",
+            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+            numComponents: 0,
+            pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            comments: "",
+            shrinked: false,
+          })),
           shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    },
-  ]);
+        }))
+      },
+    ]);
+  }
+  else if (jsonVersion == 'baseSimple') {
+    setModifications((prevModifications: PossibleModificationsJsonVersions[]) => [
+      ...prevModifications,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: ['', 'km'],
+          name: "",
+          responsible: [null, "", null, ""],
+          images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          type: Array.from({ length: 1 }, () => ({
+            name: "",
+            images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            comments: "",
+            shrinked: false,
+          })),
+          shrinked: false,
+        }))
+      },
+    ]);
+  }
 }
 
 export const addDefects = (setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>) => {
-  setDefects((prevDefects: DefectsBase[]) => [
+  setDefects((prevDefects: PossibleDefectsJsonVersions[]) => [
     ...prevDefects,
     {
       group: Array.from({ length: 1 }, () => ({
@@ -149,7 +176,7 @@ export const addDefects = (setDefects: React.Dispatch<SetStateAction<PossibleDef
         cause: "",
         type: Array.from({ length: 1 }, () => ({
           level: 'DataSVL.Forms.level',
-          photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",
           shrinked: false,
         })),
@@ -159,30 +186,55 @@ export const addDefects = (setDefects: React.Dispatch<SetStateAction<PossibleDef
   ]);
 }
 
-export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>) => {
-  setRepairs((prevRepairs: RepairsBase[]) => [
-    ...prevRepairs,
-    {
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
-        numDefectsRepaired: 0,
-        type: Array.from({ length: 1 }, () => ({
+export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>, jsonVersion: string) => {
+  if (jsonVersion == 'base') {
+    setRepairs((prevRepairs: PossibleRepairsJsonVersions[]) => [
+      ...prevRepairs,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: ['', 'km'],
           name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
+          responsible: [null, "", null, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
+          defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
+          numDefectsRepaired: 0,
+          type: Array.from({ length: 1 }, () => ({
+            name: "",
+            components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
+            numComponents: 0,
+            pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            comments: "",
+            shrinked: false,
+          })),
           shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    },
-  ]);
+        }))
+      },
+    ]);
+  }
+  else if (jsonVersion == 'baseSimple') {
+    setRepairs((prevRepairs: PossibleRepairsJsonVersions[]) => [
+      ...prevRepairs,
+      {
+        group: Array.from({ length: 1 }, () => ({
+          date: "",
+          kilometers: ['', 'km'],
+          name: "",
+          responsible: [null, "", null, ""],
+          images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+          defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
+          numDefectsRepaired: 0,
+          type: Array.from({ length: 1 }, () => ({
+            name: "",
+            images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+            comments: "",
+            shrinked: false,
+          })),
+          shrinked: false,
+        }))
+      },
+    ]);
+  }
 }

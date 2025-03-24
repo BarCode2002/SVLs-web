@@ -1,6 +1,6 @@
 import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from "./baseTypes";
 
-export const createJSON = (selectedOwner: number, generalInformation: GeneralInformationBase[], maintenances: MaintenancesBase[], modifications: ModificationsBase[], defects: DefectsBase[], repairs: RepairsBase[]): any => {
+export const createJSON = (selectedOwner: number, generalInformation: GeneralInformationBase[], maintenances: MaintenancesBase[], modifications: ModificationsBase[], defects: DefectsBase[], repairs: RepairsBase[], jsonVersion: string): any => {
 
   const dataSVL = [ 
     ...generalInformation.slice(selectedOwner, selectedOwner+1).map((item) => ({
@@ -38,7 +38,7 @@ export const createJSON = (selectedOwner: number, generalInformation: GeneralInf
       repairs: item.group,
     })),
     {
-      version: "base"
+      version: jsonVersion
     }
   ];
   return JSON.stringify(dataSVL, null, 2);  

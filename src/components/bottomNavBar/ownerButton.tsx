@@ -1,17 +1,17 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes';
 import { TrashIconWhite, TrashIconDarkBronco } from '../../assets/trash';
 import { useTranslation } from "react-i18next";
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes';
 
 type OwnerButtonProps = {
   index: number;
   ownersContainerRef: any;
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformationBase[]>>;
-  setMaintenances: React.Dispatch<SetStateAction<MaintenancesBase[]>>;
-  setModifications: React.Dispatch<SetStateAction<ModificationsBase[]>>;
-  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
-  setRepairs: React.Dispatch<SetStateAction<RepairsBase[]>>;
+  setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
+  setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>;
+  setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
+  setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
+  setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
   selectedOwner: number;
   setSelectedOwner: React.Dispatch<SetStateAction<number>>;
   numPreviousOwners: number;
@@ -40,23 +40,23 @@ const OwnerButton = ({ index, ownersContainerRef, setGeneralInformation, setMain
   };
   
   const removeGeneralInformation = () => {
-    setGeneralInformation((prevGeneralInformation: GeneralInformationBase[]) => prevGeneralInformation.filter((_, i) => i != index-numPreviousOwners));
+    setGeneralInformation((prevGeneralInformation: PossibleGeneralInformationJsonVersions[]) => prevGeneralInformation.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeMaintenances = () => {
-    setMaintenances((prevMaintenances: MaintenancesBase[]) => prevMaintenances.filter((_, i) => i != index-numPreviousOwners));
+    setMaintenances((prevMaintenances: PossibleMaintenancesJsonVersions[]) => prevMaintenances.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeModifications = () => {
-    setModifications((prevModifications: ModificationsBase[]) => prevModifications.filter((_, i) => i != index-numPreviousOwners));
+    setModifications((prevModifications: PossibleModificationsJsonVersions[]) => prevModifications.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeDefects = () => {
-    setDefects((prevDefects: DefectsBase[]) => prevDefects.filter((_, i) => i != index-numPreviousOwners));
+    setDefects((prevDefects: PossibleDefectsJsonVersions[]) => prevDefects.filter((_, i) => i != index-numPreviousOwners));
   }
 
   const removeRepairs = () => {
-    setRepairs((prevRepairs: RepairsBase[]) => prevRepairs.filter((_, i) => i != index-numPreviousOwners));
+    setRepairs((prevRepairs: PossibleRepairsJsonVersions[]) => prevRepairs.filter((_, i) => i != index-numPreviousOwners));
   }
   
   const handleOwnerRemoval = () => {
