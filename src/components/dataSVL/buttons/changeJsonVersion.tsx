@@ -5,11 +5,12 @@ import { TopArrow, BottomArrowBlack, BottomArrowWhite } from '../../../assets/di
 import { t } from 'i18next';
 
 type ChangeJsonVersionProps = {
-  jsonVersion: string;
-  setJsonVersion: React.Dispatch<SetStateAction<string>>;
+  selectedOwner: number;
+  jsonVersion: string[];
+  setJsonVersion: React.Dispatch<SetStateAction<string[]>>;
 };
 
-const ChangeJsonVersion = ({ jsonVersion, setJsonVersion }: ChangeJsonVersionProps): JSX.Element => {
+const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion }: ChangeJsonVersionProps): JSX.Element => {
  
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,9 +27,10 @@ const ChangeJsonVersion = ({ jsonVersion, setJsonVersion }: ChangeJsonVersionPro
     }
   }
 
-  const handleChangeJsonVersion = (jsonVersion: string)=> {
-    setJsonVersion(jsonVersion);
-    localStorage.setItem('jsonVersion', jsonVersion);
+  const handleChangeJsonVersion = (selectedJsonVersion: string)=> {
+    const updatedJsonVersion = [...jsonVersion]
+    updatedJsonVersion[selectedOwner] = selectedJsonVersion;
+    setJsonVersion(updatedJsonVersion);
     setIsOpen(false);
   }
   
@@ -44,7 +46,7 @@ const ChangeJsonVersion = ({ jsonVersion, setJsonVersion }: ChangeJsonVersionPro
           onMouseLeave={() => setIsHovered(false)}
           className={isOpen ? styles.selectedOpen : styles.selected}
           onClick={hadleOpenDropdownMenu}>
-          <span>{jsonVersion}</span>
+          <span>{jsonVersion[selectedOwner]}</span>
           <span>{(isOpen) ? <TopArrow /> : isHovered ? <BottomArrowBlack /> : <BottomArrowWhite />}</span>
         </button>
         {isOpen && (

@@ -40,49 +40,47 @@ const Data = (): JSX.Element => {
     if (savedFullScreen == null) return 0;
     else return parseInt(savedFullScreen);
   });
-  const [jsonVersion, setJsonVersion] = useState(() => { //esto tendria que ser un la lista del tamaño de totalOwners para saber la version de cada json
-    const savedJsonVersion = localStorage.getItem("jsonVersion");
-    if (savedJsonVersion == null) return 'base';
-    else return savedJsonVersion;
-  });
+  //en add owner añadir una posicion para la version del nuevo json
+  const [jsonVersion, setJsonVersion] = useState<string[]>(['base']); //cuando no sea un SVL nuevo se tendra que actualizar con
+  //los valores en cada json
   
   const [generalInformation, setGeneralInformation] = useState<PossibleGeneralInformationJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion == 'base') return defaultBaseGeneralInformaion;
+      if (jsonVersion[0] == 'base') return defaultBaseGeneralInformaion;
       else return defaultBaseSimpleGeneralInformaion;
     })
   );
 
   const [maintenances, setMaintenances] = useState<PossibleMaintenancesJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion == 'base') return defaultBaseMaintenances;
+      if (jsonVersion[0] == 'base') return defaultBaseMaintenances;
       else return defaultBaseSimpleMaintenances;
     })
   );
   
   const [modifications, setModifications] = useState<PossibleModificationsJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion == 'base') return defaultBaseModifications;
+      if (jsonVersion[0] == 'base') return defaultBaseModifications;
       else return defaultBaseSimpleModifications;  
     })
   );
 
   const [defects, setDefects] = useState<PossibleDefectsJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion == 'base') return defaultBaseDefects;
+      if (jsonVersion[0] == 'base') return defaultBaseDefects;
       else return defaultBaseSimpleDefects;  
     })
   );
 
   const [repairs, setRepairs] = useState<PossibleRepairsJsonVersions[]>(
     Array.from({ length: 1 }, () => {
-      if (jsonVersion == 'base') return defaultBaseRepairs;
+      if (jsonVersion[0] == 'base') return defaultBaseRepairs;
       else return defaultBaseSimpleRepairs;  
     })
   );
 
   useEffect(() => {
-    if (jsonVersion == 'base') {
+    if (jsonVersion[selectedOwner] == 'base') {
       setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
         const updatedMaintenaces = [...prevState];
         updatedMaintenaces[selectedOwner] = defaultBaseMaintenances; 

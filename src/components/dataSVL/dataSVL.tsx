@@ -52,8 +52,8 @@ type DataSVLProps = {
   jsonUploaded: boolean;
   fullScreen: number;
   setFullScreen: React.Dispatch<SetStateAction<number>>;
-  jsonVersion: string;
-  setJsonVersion: React.Dispatch<SetStateAction<string>>;
+  jsonVersion: string[];
+  setJsonVersion: React.Dispatch<SetStateAction<string[]>>;
 };
 
 const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL, viewType, jsonUploaded, fullScreen, setFullScreen, jsonVersion, setJsonVersion }: DataSVLProps): JSX.Element => {
@@ -161,7 +161,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
         {fullScreen == 0 ? <EnterFullScreenIcon /> : <ExitFullScreenIcon />}
       </button>
       <div className={styles.changeJsonVersion}>
-        <ChangeJsonVersion jsonVersion={jsonVersion} setJsonVersion={setJsonVersion} />
+        <ChangeJsonVersion selectedOwner={selectedOwner} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion} />
       </div>
       {viewType == 0 ? (
         <div>
