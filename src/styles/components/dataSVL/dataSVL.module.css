@@ -19,3 +19,10 @@
   cursor: pointer;
   transform: scale(1.05);
 }
+
+.changeJsonVersion {
+  position: absolute;
+  left: 0;
+  margin-top: 10px;
+  margin-left: 10px;
+}

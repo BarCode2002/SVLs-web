@@ -39,6 +39,11 @@ const Data = (): JSX.Element => {
     if (savedFullScreen == null) return 0;
     else return parseInt(savedFullScreen);
   });
+  const [jsonVersion, setJsonVersion] = useState(() => {
+    const savedJsonVersion = localStorage.getItem("jsonVersion");
+    if (savedJsonVersion == null) return 'base';
+    else return savedJsonVersion;
+  });
   
   const [generalInformation, setGeneralInformation] = useState<GeneralInformationBase[]>(
     Array.from({ length: 1 }, () => ( 
@@ -421,7 +426,7 @@ const Data = (): JSX.Element => {
             defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects.current}
             repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
             totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType} jsonUploaded={jsonUploaded}
-            fullScreen={fullScreen} setFullScreen={setFullScreen}
+            fullScreen={fullScreen} setFullScreen={setFullScreen} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion}
           />
           {fullScreen == 0 &&
             <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 

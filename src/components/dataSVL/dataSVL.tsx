@@ -17,6 +17,7 @@ import SummaryViewModifications from './summaryViewModifications.tsx';
 import SummaryViewDefects from './summaryViewDefects.tsx';
 import SummaryViewRepairs from './summaryViewRepairs.tsx';
 import { EnterFullScreenIcon, ExitFullScreenIcon } from '../../assets/fullScreen.tsx';
+import ChangeJsonVersion from './buttons/changeJsonVersion.tsx';
 
 type ShrinkedType = {
   group: boolean;
@@ -50,10 +51,12 @@ type DataSVLProps = {
   viewType: number;
   jsonUploaded: boolean;
   fullScreen: number;
-  setFullScreen: React.Dispatch<SetStateAction<number>>
+  setFullScreen: React.Dispatch<SetStateAction<number>>;
+  jsonVersion: string;
+  setJsonVersion: React.Dispatch<SetStateAction<string>>;
 };
 
-const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL, viewType, jsonUploaded, fullScreen, setFullScreen }: DataSVLProps): JSX.Element => {
+const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL, viewType, jsonUploaded, fullScreen, setFullScreen, jsonVersion, setJsonVersion }: DataSVLProps): JSX.Element => {
 
   const [prevMaintenancesShrinked, setPrevMaintenancesShrinked] = useState<MainShrinkedType[]>([]);
   const [prevModificationsShrinked, setPrevModificationsShrinked] = useState<MainShrinkedType[]>([]);
@@ -157,6 +160,9 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
         onClick={toggleFullScreen}>
         {fullScreen == 0 ? <EnterFullScreenIcon /> : <ExitFullScreenIcon />}
       </button>
+      <div className={styles.changeJsonVersion}>
+        <ChangeJsonVersion jsonVersion={jsonVersion} setJsonVersion={setJsonVersion} />
+      </div>
       {viewType == 0 ? (
         <div>
           {selectedSVLData == 0 && selectedOwner < weird &&
