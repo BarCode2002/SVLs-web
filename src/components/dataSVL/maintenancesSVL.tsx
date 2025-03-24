@@ -14,8 +14,8 @@ import ComponentsField from './fields/componentsField.tsx';
 import DragGroupGroupTypeButton from './buttons/dragGroupGroupTypeButton.tsx';
 import { useTranslation } from "react-i18next";
 import { PossibleMaintenancesJsonVersions } from '../../utils/commonTypes.ts';
-import { MaintenancesBase } from '../../utils/baseTypes.ts';
-import { MaintenancesBaseSimple } from '../../utils/baseSimpleTypes.ts';
+import { isMaintenancesBaseSimple } from '../../utils/checkBaseSimpleType.ts';
+import { isMaintenancesBase } from '../../utils/checkBaseType.ts';
 
 type MainteancesSVLProps = {
   selectedOwner: number;
@@ -64,16 +64,6 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
   }
-
-  const isMaintenancesBase = (data: PossibleMaintenancesJsonVersions, groupIndex: number, typeIndex?: number): data is MaintenancesBase => {
-    if (typeIndex != undefined) return (data as MaintenancesBase).group[groupIndex].type[typeIndex].pre !== undefined;
-    else return (data as MaintenancesBase).group[groupIndex].pre !== undefined;
-  };
-
-  const isMaintenancesBaseSimple = (data: PossibleMaintenancesJsonVersions, groupIndex: number, typeIndex?: number): data is MaintenancesBaseSimple => {
-    if (typeIndex != undefined) return (data as MaintenancesBaseSimple).group[groupIndex].type[typeIndex].images !== undefined;
-    else return (data as MaintenancesBaseSimple).group[groupIndex].images !== undefined;
-  };
 
   const renderlistMaintenances = (groupIndex: number) => {
 
@@ -128,7 +118,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
                 <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={maintenances} 
                   selectedImages={maintenances[selectedOwner].group[groupIndex].type[typeIndex].images} 
-                  setDataSVL={setMaintenances} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                  setDataSVL={setMaintenances} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
                 />
               }
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsMaintenance')} selectedOwner={selectedOwner} 
@@ -197,9 +187,9 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
                 /> 
               }
               {isMaintenancesBaseSimple(maintenances[selectedOwner], groupIndex) &&
-                <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
+                <ImagesField fieldLabel={t('DataSVL.Labels.images')} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={maintenances} selectedImages={maintenances[selectedOwner].group[groupIndex].images} 
-                  setDataSVL={setMaintenances} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                  setDataSVL={setMaintenances} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
                 /> 
               }
             </div>

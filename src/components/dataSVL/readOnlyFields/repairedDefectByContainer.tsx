@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import styles from '../../../styles/components/dataSVL/readOnlyFields/repairedDefectByContainer.module.css';
-import { RepairsBase } from '../../../utils/baseTypes';
 import { DEFECTS_REPAIRED_SIZE } from '../../../utils/constants';
 import { useTranslation } from "react-i18next";
+import { PossibleRepairsJsonVersions } from '../../../utils/commonTypes';
 
 type RepairedDefectsByContainerProps = {
   fieldLabel: string;
-  repairs: RepairsBase[];
+  repairs: PossibleRepairsJsonVersions[];
   prevOwnersRepairs?: any;
   selectedOwner: number;
   selectedGroup: number;

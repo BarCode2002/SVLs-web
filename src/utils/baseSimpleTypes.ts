@@ -61,7 +61,7 @@ export type ModificationsBaseSimple = {
 
 type DefectBaseSimple = {
   level: string;
-  photographs: string[],
+  images: string[],
   description: string;
   shrinked: boolean;
 }

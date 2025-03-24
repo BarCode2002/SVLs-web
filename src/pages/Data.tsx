@@ -82,16 +82,36 @@ const Data = (): JSX.Element => {
   useEffect(() => {
     if (jsonVersion[selectedOwner] == 'base') {
       setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
-        const updatedMaintenaces = [...prevState];
-        updatedMaintenaces[selectedOwner] = defaultBaseMaintenances; 
-        return updatedMaintenaces;
+        const updated = [...prevState];
+        updated[selectedOwner] = defaultBaseMaintenances; 
+        return updated;
+      });
+      setModifications((prevState: PossibleModificationsJsonVersions[]) => {
+        const updated = [...prevState];
+        updated[selectedOwner] = defaultBaseModifications; 
+        return updated;
+      });
+      setRepairs((prevState: PossibleRepairsJsonVersions[]) => {
+        const updated = [...prevState];
+        updated[selectedOwner] = defaultBaseRepairs; 
+        return updated;
       });
     }
     else {
       setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
-        const updatedMaintenaces = [...prevState];
-        updatedMaintenaces[selectedOwner] = defaultBaseSimpleMaintenances; 
-        return updatedMaintenaces;
+        const updated = [...prevState];
+        updated[selectedOwner] = defaultBaseSimpleMaintenances; 
+        return updated;
+      });
+      setModifications((prevState: PossibleModificationsJsonVersions[]) => {
+        const updated = [...prevState];
+        updated[selectedOwner] = defaultBaseSimpleModifications; 
+        return updated;
+      });
+      setRepairs((prevState: PossibleRepairsJsonVersions[]) => {
+        const updated = [...prevState];
+        updated[selectedOwner] = defaultBaseSimpleRepairs; 
+        return updated;
       });
     }
   }, [jsonVersion]);

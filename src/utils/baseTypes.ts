@@ -69,7 +69,7 @@ export type ModificationsBase = {
 
 type DefectBase = {
   level: string;
-  photographs: string[],
+  images: string[],
   description: string;
   shrinked: boolean;
 }

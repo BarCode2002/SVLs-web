@@ -1,6 +1,5 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -14,14 +13,15 @@ import DropdownMenu from './fields/dropdownMenu.tsx';
 import DragGroupGroupTypeButton from './buttons/dragGroupGroupTypeButton.tsx';
 import RepairedDefectsByContainer from './readOnlyFields/repairedDefectByContainer.tsx';
 import { useTranslation } from "react-i18next";
+import { PossibleDefectsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type DefectsSVLProps = {
   selectedOwner: number;
   totalOwners: number;
   numPreviousOwners: number;
-  defects: DefectsBase[];
-  setDefects: React.Dispatch<SetStateAction<DefectsBase[]>>;
-  repairs: RepairsBase[];
+  defects: PossibleDefectsJsonVersions[];
+  setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
+  repairs: PossibleRepairsJsonVersions[];
   editMode: boolean;
   mySVL: boolean;
   jsonUploaded: boolean;
@@ -96,8 +96,8 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
-                selectedImages={defects[selectedOwner].group[groupIndex].type[typeIndex].photographs} 
-                setDataSVL={setDefects} type={'photographs'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                selectedImages={defects[selectedOwner].group[groupIndex].type[typeIndex].images} 
+                setDataSVL={setDefects} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.descriptionDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 

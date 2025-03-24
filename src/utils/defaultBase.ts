@@ -73,7 +73,7 @@ export const defaultBaseDefects: DefectsBase = {
     cause: "",
     type: Array.from({ length: 1 }, () => ({
       level: 'DataSVL.Forms.level',
-      photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
+      images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       description: "",
       shrinked: false,
     })),
