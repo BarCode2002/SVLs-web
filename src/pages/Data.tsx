@@ -80,13 +80,56 @@ const Data = (): JSX.Element => {
     })
   );
 
+  const expandArrayToMatch = (sourceArray: any[], blueprint: any) => {
+    return Array.from({ length: sourceArray.length }, (_, i) =>
+      blueprint[i] !== undefined ? blueprint[i] : cloneDeep(blueprint[0])
+    );
+  };
+  
+  const deepMergePreserveMatching = (source: any, target: any): any => {
+    // If the source is null or an empty string, return it as-is (no merging needed)
+    if (source === null || source === "") {
+      return target; // Fallback to target if source is null or empty string
+    }
+  
+    if (Array.isArray(source) && Array.isArray(target)) {
+      const expandedTarget = expandArrayToMatch(source, target);
+      return source.map((item, index) => deepMergePreserveMatching(item, expandedTarget[index]));
+    } else if (typeof source === "object" && typeof target === "object") {
+      // Only merge fields that exist in both source and target
+      return Object.keys(target).reduce((acc, key) => {
+        if (source.hasOwnProperty(key)) {
+          acc[key] = deepMergePreserveMatching(source[key], target[key]);
+        } else {
+          acc[key] = target[key];  // Default value from target (defaultB)
+        }
+        return acc;
+      }, {});
+    }
+    
+    // If the source is not null and not empty, return the source value (preserved)
+    return source ?? target; // Default to the value from target if missing in source
+  };
+  
+
+  const renderCount = useRef(0); //hecho asi por el strict mode
   useEffect(() => {
+    renderCount.current += 1;
+    // Skip the effect on the first and second renders (including Strict Mode)
+    if (renderCount.current < 3) {
+      return;
+    }
     if (jsonVersion[selectedOwner] == 'base') {
-      setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
+      const updatedMaintenances = maintenances.map((item) =>
+        deepMergePreserveMatching(item, cloneDeep(defaultBaseMaintenances))
+      );
+      console.log(updatedMaintenances);
+      setMaintenances(updatedMaintenances);
+      /*setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
         const updated = [...prevState];
         updated[selectedOwner] = cloneDeep(defaultBaseMaintenances); 
         return updated;
-      });
+      });*/
       setModifications((prevState: PossibleModificationsJsonVersions[]) => {
         const updated = [...prevState];
         updated[selectedOwner] = cloneDeep(defaultBaseModifications); 
@@ -99,11 +142,16 @@ const Data = (): JSX.Element => {
       });
     }
     else {
-      setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
+      const updatedMaintenances = maintenances.map((item) =>
+        deepMergePreserveMatching(item, cloneDeep(defaultBaseSimpleMaintenances))
+      );
+      console.log(updatedMaintenances);
+      setMaintenances(updatedMaintenances);
+      /*setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
         const updated = [...prevState];
         updated[selectedOwner] = cloneDeep(defaultBaseSimpleMaintenances); 
         return updated;
-      });
+      });*/
       setModifications((prevState: PossibleModificationsJsonVersions[]) => {
         const updated = [...prevState];
         updated[selectedOwner] = cloneDeep(defaultBaseSimpleModifications); 
