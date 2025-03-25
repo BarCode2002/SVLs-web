@@ -47,9 +47,11 @@ type TopNavBarProps = {
   mySVL?: boolean;
   jsonUploaded?: boolean;
   setJsonUploaded?: React.Dispatch<boolean>;
+  jsonVersion?: string[];
+  setJsonVersion?: React.Dispatch<SetStateAction<string[]>>;
 };
 
-const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL, jsonUploaded, setJsonUploaded }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL, jsonUploaded, setJsonUploaded, jsonVersion, setJsonVersion }: TopNavBarProps): JSX.Element => {
 
   const [mintPrice, setMintPrice] = useState<string>('');
   const [canBuy, setCanBuy] = useState(false);
@@ -144,17 +146,17 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 {selectedOwner! >= numPreviousOwners! && viewType == 0 && <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />}
                 {selectedOwner! >= numPreviousOwners! && viewType == 0 && <UploadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!}
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
-                  setMaintenances={setMaintenances!} setModifications={setModifications!}
-                  setDefects={setDefects!} setRepairs={setRepairs!}
-                  jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
+                  setMaintenances={setMaintenances!} setModifications={setModifications!} setDefects={setDefects!} setRepairs={setRepairs!}
+                  jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded!} jsonVersion={jsonVersion!} setJsonVersion={setJsonVersion!}
                 />}
                 {selectedOwner! >= numPreviousOwners! && viewType == 0 && <DownloadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!} 
                   generalInformation={generalInformation!} maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
+                  jsonVersion={jsonVersion![selectedOwner!]}
                 />}
                 {selectedOwner! >= numPreviousOwners! && newSVL == true && viewType == 0 && 
                   <div className={styles.mintPriceContainer}>
                     {viewType == 0 && <MintSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
-                      maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} 
+                      maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} jsonVersion={jsonVersion!}
                     />}
                     <div className={styles.mintPrice}>
                       <div>{mintPrice}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
@@ -164,6 +166,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 {selectedOwner! >= numPreviousOwners! && newSVL == false && viewType == 0 &&
                   <EditSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
                     maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} 
+                    jsonVersion={jsonVersion!}
                   />
                 } 
                 <HelpButton />

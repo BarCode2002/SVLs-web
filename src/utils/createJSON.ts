@@ -1,6 +1,6 @@
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from "./baseTypes";
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from "./commonTypes";
 
-export const createJSON = (selectedOwner: number, generalInformation: GeneralInformationBase[], maintenances: MaintenancesBase[], modifications: ModificationsBase[], defects: DefectsBase[], repairs: RepairsBase[], jsonVersion: string): any => {
+export const createJSON = (selectedOwner: number, generalInformation: PossibleGeneralInformationJsonVersions[], maintenances: PossibleMaintenancesJsonVersions[], modifications: PossibleModificationsJsonVersions[], defects: PossibleDefectsJsonVersions[], repairs: PossibleRepairsJsonVersions[], jsonVersion: string): any => {
 
   const dataSVL = [ 
     ...generalInformation.slice(selectedOwner, selectedOwner+1).map((item) => ({

@@ -2,13 +2,13 @@ import { PHOTOGRAPHS_SIZE } from "./constants";
 import i18n from 'i18next'; 
 import axios from "axios";
 import { mongoBrand, mongoList } from "./ip";
-import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from "./commonTypes";
+import { PossibleGeneralInformationJsonVersions } from "./commonTypes";
 import { isMaintenancesBase, isModificationsBase, isRepairsBase } from "./checkBaseType";
 import { isMaintenancesBaseSimple, isModificationsBaseSimple, isRepairsBaseSimple } from "./checkBaseSimpleType";
 
 
-//funciona pero typescript no reconoce correctamente el tipo de data
-export const checks = async (start: number, end: number, numPreviousOwners: number, generalInformation: PossibleGeneralInformationJsonVersions[], maintenances: PossibleMaintenancesJsonVersions[], modifications: PossibleModificationsJsonVersions[], defects: PossibleDefectsJsonVersions[], repairs: PossibleRepairsJsonVersions[]) => {
+//any poque sino el typescript se queja
+export const checks = async (start: number, end: number, numPreviousOwners: number, generalInformation: PossibleGeneralInformationJsonVersions[], maintenances: any, modifications: any, defects: any, repairs: any) => {
   const invalidFields: string[] = [];
   let wrongVinBrandModelYear = [false, false, false, false];
   for (let i = start+1; i < end; i++) { 

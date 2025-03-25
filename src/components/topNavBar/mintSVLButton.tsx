@@ -1,6 +1,5 @@
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
 import { useTranslation } from "react-i18next";
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 import { TezosToolkit, WalletContract } from "@taquito/taquito";
 import { getTezos, getsmartContractAddress } from '../../utils/wallet.ts'
 import { createJSON } from '../../utils/createJSON.ts';
@@ -10,18 +9,20 @@ import { useEffect, useState } from 'react';
 import { checks } from '../../utils/checks.ts';
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent.tsx';
 import { ipfsUpload, mongoSmartContract } from '../../utils/ip.ts';
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type MintSVLButtonProps = {
   numPreviousOwners: number;
   totalOwners: number;
-  generalInformation: GeneralInformationBase[];
-  maintenances: MaintenancesBase[];
-  modifications: ModificationsBase[];
-  defects: DefectsBase[];
-  repairs: RepairsBase[];
+  generalInformation: PossibleGeneralInformationJsonVersions[];
+  maintenances: PossibleMaintenancesJsonVersions[];
+  modifications: PossibleModificationsJsonVersions[];
+  defects: PossibleDefectsJsonVersions[];
+  repairs: PossibleRepairsJsonVersions[];
+  jsonVersion: string[];
 };
 
-const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs }: MintSVLButtonProps): JSX.Element => {
+const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, jsonVersion }: MintSVLButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -48,7 +49,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
     let cids = [];
     let mintPrice;
     for (let i = 0; i < totalOwners; i++) {
-      const json = createJSON(i, generalInformation, maintenances, modifications, defects, repairs);
+      const json = createJSON(i, generalInformation, maintenances, modifications, defects, repairs, jsonVersion[i]);
       const blob = new Blob([json], { type: "application/json" });
       formData.append("file", blob);
     }

@@ -4,24 +4,25 @@ import { checks } from '../../utils/checks.ts';
 import { useTranslation } from "react-i18next";
 import { TezosToolkit, WalletContract } from '@taquito/taquito';
 import { getsmartContractAddress, getTezos } from '../../utils/wallet.ts';
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../../utils/baseTypes.ts';
 import { createJSON } from '../../utils/createJSON.ts';
 import axios from "axios";
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent.tsx';
 import { ipfsUpload } from '../../utils/ip.ts';
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type UpdateSVLButtonProps = {
   numPreviousOwners: number;
   totalOwners: number;
-  generalInformation: GeneralInformationBase[];
-  maintenances: MaintenancesBase[];
-  modifications: ModificationsBase[];
-  defects: DefectsBase[];
-  repairs: RepairsBase[];
+  generalInformation: PossibleGeneralInformationJsonVersions[];
+  maintenances: PossibleMaintenancesJsonVersions[];
+  modifications: PossibleModificationsJsonVersions[];
+  defects: PossibleDefectsJsonVersions[];
+  repairs: PossibleRepairsJsonVersions[];
   svl_pk: string;
+  jsonVersion: string[];
 };
 
-const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, svl_pk }: UpdateSVLButtonProps): JSX.Element => {
+const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, svl_pk, jsonVersion }: UpdateSVLButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -48,7 +49,7 @@ const UpdateSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, m
     let cids = []; 
     let noCids = true;
     for (let i = numPreviousOwners; i < totalOwners; i++) {
-      const json = createJSON(i-numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs);
+      const json = createJSON(i-numPreviousOwners, generalInformation, maintenances, modifications, defects, repairs, jsonVersion[i]);
       const blob = new Blob([json], { type: "application/json" });
       formData.append("file", blob);
       noCids = false;

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/pages/Data.module.css';
-import { GeneralInformationBase, MaintenancesBase, ModificationsBase, DefectsBase, RepairsBase } from '../utils/baseTypes.ts';
 import { OwnershipSummary, PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../utils/commonTypes.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
@@ -150,11 +149,11 @@ const Data = (): JSX.Element => {
     }
   }, [jsonVersion]);
 
-  const prevOwnersGeneralInformation = useRef<GeneralInformationBase[]>([]);
-  const prevOwnersMaintenances = useRef<MaintenancesBase[]>([]);
-  const prevOwnersModifications = useRef<ModificationsBase[]>([]);
-  const prevOwnersDefects = useRef<DefectsBase[]>([]);
-  const prevOwnersRepairs = useRef<RepairsBase[]>([]);
+  const prevOwnersGeneralInformation = useRef<PossibleGeneralInformationJsonVersions[]>([]);
+  const prevOwnersMaintenances = useRef<PossibleMaintenancesJsonVersions[]>([]);
+  const prevOwnersModifications = useRef<PossibleModificationsJsonVersions[]>([]);
+  const prevOwnersDefects = useRef<PossibleDefectsJsonVersions[]>([]);
+  const prevOwnersRepairs = useRef<PossibleRepairsJsonVersions[]>([]);
   const didRun = useRef(false);//en teoria y sin teoria solo necesario para el development por el strict mode
 
   const ownershipSummary = useRef<OwnershipSummary[]>([]);
@@ -197,17 +196,17 @@ const Data = (): JSX.Element => {
     
       setOwnerSVLDataToEmpty(so, setMaintenances);
       for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
-        addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].maintenances[i]);
+        addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].maintenances[i], jsonVersion[so]);
         for (let j = 1; j < ownerSVLData[1].maintenances[i].type.length; j++) {
-          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].maintenances[i].type[j]);
+          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].maintenances[i].type[j], jsonVersion[so]);
         }
       }
 
       setOwnerSVLDataToEmpty(so, setModifications);
       for (let i = 0; i < ownerSVLData[2].modifications.length; i++) {
-        addAndSetModificationGroup(setModifications, so, ownerSVLData[2].modifications[i]);
+        addAndSetModificationGroup(setModifications, so, ownerSVLData[2].modifications[i], jsonVersion[so]);
         for (let j = 1; j < ownerSVLData[2].modifications[i].type.length; j++) {
-          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].modifications[i].type[j]);
+          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].modifications[i].type[j], jsonVersion[so]);
         }
       }
 
@@ -221,15 +220,18 @@ const Data = (): JSX.Element => {
 
       setOwnerSVLDataToEmpty(so, setRepairs);
       for (let i = 0; i < ownerSVLData[4].repairs.length; i++) {
-        addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].repairs[i]);
+        addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].repairs[i], jsonVersion[so]);
         for (let j = 1; j < ownerSVLData[4].repairs[i].type.length; j++) {
-          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].repairs[i].type[j]);
+          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].repairs[i].type[j], jsonVersion[so]);
         }
       }
     }
   }
 
   const addOwners = () => {
+    const updatedJsonVersion = [...jsonVersion];
+    updatedJsonVersion.push(jsonVersion[selectedOwner]);
+    setJsonVersion(updatedJsonVersion);
     addGeneralInformationDefault(setGeneralInformation);
     addMaintenances(setMaintenances, jsonVersion[selectedOwner]);
     addModifications(setModifications, jsonVersion[selectedOwner]);
@@ -491,7 +493,7 @@ const Data = (): JSX.Element => {
               maintenances={maintenances} setMaintenances={setMaintenances} modifications={modifications} 
               setModifications={setModifications} defects={defects} setDefects={setDefects}
               repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk} ownershipSummary={ownershipSummary.current} mySVL={mySVL}
-              jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
+              jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion}
             />
           }
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
