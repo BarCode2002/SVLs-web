@@ -7,7 +7,7 @@ import { PossibleRepairsJsonVersions } from '../../../utils/commonTypes';
 type RepairedDefectsByContainerProps = {
   fieldLabel: string;
   repairs: PossibleRepairsJsonVersions[];
-  prevOwnersRepairs?: any;
+  prevOwnersRepairs?: PossibleRepairsJsonVersions[];
   selectedOwner: number;
   selectedGroup: number;
   numPreviousOwners: number;
@@ -25,20 +25,23 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
   useEffect(() => {
     const updatedDR = Array(DEFECTS_REPAIRED_SIZE).fill('');
     let numDR = 0;
+    
     for (let i = selectedOwner; i < totalOwners; i++) { 
-      if (!mySVL || i < numPreviousOwners) {
-        for (let j = 0; j < prevOwnersRepairs[i].repairs.length; j++) {
-          for (let l = 0; l < prevOwnersRepairs[i].repairs[j].numDefectsRepaired; l++) {
-            if (prevOwnersRepairs[i].repairs[j].defectsRepaired[l][0] == selectedOwner && 
-              prevOwnersRepairs[i].repairs[j].defectsRepaired[l][1] == selectedGroup &&
-              prevOwnersRepairs[i].repairs[j].defectsRepaired[l][2] == -2) {
-              updatedDR[numDR] = `${t('DataSVL.Placeholders.owner')} ${i+1} ${t('DataSVL.Labels.allDefectsRepaired')} ${t('DataSVL.Labels.inTheRepair')} ${j+1}`;
-              ++numDR;
-            }
-            else if (prevOwnersRepairs[i].repairs[j].defectsRepaired[l][0] == selectedOwner && 
-              prevOwnersRepairs[i].repairs[j].defectsRepaired[l][1] == selectedGroup && prevOwnersRepairs[i].repairs[j].defectsRepaired[l][2] >= 0) {
-              updatedDR[numDR] = `${t('DataSVL.Placeholders.owner')} ${i+1} ${t('DataSVL.Labels.defectRepaired')} ${prevOwnersRepairs[i].repairs[j].defectsRepaired[l][2]+1} ${t('DataSVL.Labels.inTheRepair')} ${j+1}`;
-              ++numDR;
+      if (prevOwnersRepairs) {
+        if (!mySVL || i < numPreviousOwners) {
+          for (let j = 0; j < prevOwnersRepairs[i].group.length; j++) {
+            for (let l = 0; l < prevOwnersRepairs[i].group[j].numDefectsRepaired; l++) {
+              if (prevOwnersRepairs[i].group[j].defectsRepaired[l][0] == selectedOwner && 
+                prevOwnersRepairs[i].group[j].defectsRepaired[l][1] == selectedGroup &&
+                prevOwnersRepairs[i].group[j].defectsRepaired[l][2] == -2) {
+                updatedDR[numDR] = `${t('DataSVL.Placeholders.owner')} ${i+1} ${t('DataSVL.Labels.allDefectsRepaired')} ${t('DataSVL.Labels.inTheRepair')} ${j+1}`;
+                ++numDR;
+              }
+              else if (prevOwnersRepairs[i].group[j].defectsRepaired[l][0] == selectedOwner && 
+                prevOwnersRepairs[i].group[j].defectsRepaired[l][1] == selectedGroup && prevOwnersRepairs[i].group[j].defectsRepaired[l][2] >= 0) {
+                updatedDR[numDR] = `${t('DataSVL.Placeholders.owner')} ${i+1} ${t('DataSVL.Labels.defectRepaired')} ${prevOwnersRepairs[i].group[j].defectsRepaired[l][2]+1} ${t('DataSVL.Labels.inTheRepair')} ${j+1}`;
+                ++numDR;
+              }
             }
           }
         }

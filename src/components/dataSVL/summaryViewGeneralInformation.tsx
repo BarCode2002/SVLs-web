@@ -36,7 +36,7 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
             {prevOwnersGeneralInformation[selectedOwner].photographs.filter((image: string) => image != '').length > 0 &&
               <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersGeneralInformation[selectedOwner].photographs} />
             }
-            {prevOwnersGeneralInformation[selectedOwner].state == 'DataSVL.Forms.state' &&
+            {prevOwnersGeneralInformation[selectedOwner].state != 'DataSVL.Forms.state' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.state')} text={prevOwnersGeneralInformation[selectedOwner].state} />
             }
             {prevOwnersGeneralInformation[selectedOwner].weight[0] != '' &&

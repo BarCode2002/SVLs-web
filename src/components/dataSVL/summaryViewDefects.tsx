@@ -34,7 +34,7 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
       else return false;
     }
     else {
-      if (prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].level == 'DataSVL.Forms.level' ||
+      if (prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].level != 'DataSVL.Forms.level' ||
         prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].images.filter((image: string) => image != '').length > 0 ||
         prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].description != '') return true;
       else return false;

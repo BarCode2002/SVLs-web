@@ -196,6 +196,7 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.causeDefect')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
       }
       for (let l = 0; l < defects[i].group[j].type.length; l++) {
+        //nivel del defecto seria bien que fuera obligatorio, hacer llamada api, comproba que el valor esta en los posibles(el default no es de los posible)
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
           if (defects[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved) {
             invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.imagesDefect')} ${l+1} ${i18n.t('InvalidFields.defectGroup')} ${j+1}.`);
