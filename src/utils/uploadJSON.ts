@@ -263,7 +263,7 @@ export const addAndSetDefectGroup = (setDefects: React.Dispatch<SetStateAction<a
                 cause: defectGroup.cause,
                 type: Array.from({ length: 1 }, () => ({
                   level: defectGroup.type[0].level,
-                  photographs: defectGroup.type[0].photographs,
+                  images: defectGroup.type[0].images,
                   description: defectGroup.type[0].description,
                   shrinked: defectGroup.type[0].shrinked,
                 })),
@@ -290,7 +290,7 @@ export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateActi
                       ...groupItem.type,
                       {
                         level: defectType.level,
-                        photographs: defectType.photographs,
+                        images: defectType.images,
                         description: defectType.description,
                         shrinked: defectType.shrinked,
                       },

@@ -34,7 +34,7 @@ const UploadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation
           const result = e.target?.result;
           if (typeof result == "string") {
             const ownerSVLData = JSON.parse(result);
-            const uploadedJsonVersion = ownerSVLData[ownerSVLData.length-1].version;
+            const uploadedJsonVersion = ownerSVLData[5].version;
             const updatedJsonVersion = [...jsonVersion];
             updatedJsonVersion[selectedOwner] = uploadedJsonVersion;
             setJsonVersion(updatedJsonVersion);
@@ -44,34 +44,34 @@ const UploadJSONButton = ({ selectedOwner, numPreviousOwners, generalInformation
             setGeneralInformation(updatedGeneralInformation);
 
             setOwnerSVLDataToEmpty(selectedOwner-numPreviousOwners, setMaintenances);
-            for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
-              addAndSetMaintenanceGroup(setMaintenances, selectedOwner-numPreviousOwners, ownerSVLData[1].maintenances[i], jsonVersion[selectedOwner]);
-              for (let j = 1; j < ownerSVLData[1].maintenances[i].type.length; j++) {
-                addAndSetMaintenanceGroupType(setMaintenances, selectedOwner-numPreviousOwners, i, ownerSVLData[1].maintenances[i].type[j], jsonVersion[selectedOwner]);
+            for (let i = 0; i < ownerSVLData[1].group.length; i++) {
+              addAndSetMaintenanceGroup(setMaintenances, selectedOwner-numPreviousOwners, ownerSVLData[1].group[i], jsonVersion[selectedOwner]);
+              for (let j = 1; j < ownerSVLData[1].group[i].type.length; j++) {
+                addAndSetMaintenanceGroupType(setMaintenances, selectedOwner-numPreviousOwners, i, ownerSVLData[1].group[i].type[j], jsonVersion[selectedOwner]);
               }
             }
 
             setOwnerSVLDataToEmpty(selectedOwner-numPreviousOwners, setModifications);
-            for (let i = 0; i < ownerSVLData[2].modifications.length; i++) {
-              addAndSetModificationGroup(setModifications, selectedOwner-numPreviousOwners, ownerSVLData[2].modifications[i], jsonVersion[selectedOwner]);
-              for (let j = 1; j < ownerSVLData[2].modifications[i].type.length; j++) {
-                addAndSetModificationGroupType(setModifications, selectedOwner-numPreviousOwners, i, ownerSVLData[2].modifications[i].type[j], jsonVersion[selectedOwner]);
+            for (let i = 0; i < ownerSVLData[2].group.length; i++) {
+              addAndSetModificationGroup(setModifications, selectedOwner-numPreviousOwners, ownerSVLData[2].group[i], jsonVersion[selectedOwner]);
+              for (let j = 1; j < ownerSVLData[2].group[i].type.length; j++) {
+                addAndSetModificationGroupType(setModifications, selectedOwner-numPreviousOwners, i, ownerSVLData[2].group[i].type[j], jsonVersion[selectedOwner]);
               }
             }
             
             setOwnerSVLDataToEmpty(selectedOwner-numPreviousOwners, setDefects);
-            for (let i = 0; i < ownerSVLData[3].defects.length; i++) {
-              addAndSetDefectGroup(setDefects, selectedOwner-numPreviousOwners, ownerSVLData[3].defects[i]);
-              for (let j = 1; j < ownerSVLData[3].defects[i].type.length; ++j) {
-                addAndSetDefectGroupType(setDefects, selectedOwner-numPreviousOwners, i, ownerSVLData[3].defects[i].type[j]);
+            for (let i = 0; i < ownerSVLData[3].group.length; i++) {
+              addAndSetDefectGroup(setDefects, selectedOwner-numPreviousOwners, ownerSVLData[3].group[i]);
+              for (let j = 1; j < ownerSVLData[3].group[i].type.length; ++j) {
+                addAndSetDefectGroupType(setDefects, selectedOwner-numPreviousOwners, i, ownerSVLData[3].group[i].type[j]);
               }
             }
 
             setOwnerSVLDataToEmpty(selectedOwner-numPreviousOwners, setRepairs);
-            for (let i = 0; i < ownerSVLData[4].repairs.length; i++) {
-              addAndSetRepairGroup(setRepairs, selectedOwner-numPreviousOwners, ownerSVLData[4].repairs[i], jsonVersion[selectedOwner]);
-              for (let j = 1; j < ownerSVLData[4].repairs[i].type.length; j++) {
-                addAndSetRepairGroupType(setRepairs, selectedOwner-numPreviousOwners, i, ownerSVLData[4].repairs[i].type[j], jsonVersion[selectedOwner]);
+            for (let i = 0; i < ownerSVLData[4].group.length; i++) {
+              addAndSetRepairGroup(setRepairs, selectedOwner-numPreviousOwners, ownerSVLData[4].group[i], jsonVersion[selectedOwner]);
+              for (let j = 1; j < ownerSVLData[4].group[i].type.length; j++) {
+                addAndSetRepairGroupType(setRepairs, selectedOwner-numPreviousOwners, i, ownerSVLData[4].group[i].type[j], jsonVersion[selectedOwner]);
               }
             }
             if (jsonUploaded) setJsonUploaded!(false);
