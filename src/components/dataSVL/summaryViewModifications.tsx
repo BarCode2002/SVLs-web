@@ -13,7 +13,7 @@ import { isModificationsBase } from '../../utils/checkBaseType.ts';
 import { isModificationsBaseSimple } from '../../utils/checkBaseSimpleType.ts';
 
 type SummaryViewModificationsProps = {
-  prevOwnersModifications: any;
+  prevOwnersModifications: PossibleModificationsJsonVersions[];
   modifications: PossibleModificationsJsonVersions[];
   setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
   shrinked: any;
@@ -44,23 +44,30 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
       }
     }
     else {
-      if (prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].numComponents > 0 ||
-        prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
-        prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
-        prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].comments != '') return true;
-      else return false;
+      if (isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex, typeIndex)) {
+        if (prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].numComponents > 0 ||
+          prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
+          prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
+          prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+        else return false;
+      }
+      else if (isModificationsBaseSimple(prevOwnersModifications[selectedOwner], groupIndex, typeIndex)) {
+        if (prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].images.filter(image => image != '').length > 0 ||
+        prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+        else return false;
+      }
     }
   };
 
   const renderListPreviousModifications = (groupIndex: number, selectedOwner: number) => {
 
-    const listPreviousModifications = Array.from({length: prevOwnersModifications[selectedOwner].modifications[groupIndex].type.length}, (_, typeIndex) => (
+    const listPreviousModifications = Array.from({length: prevOwnersModifications[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
-            {prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].name != '' ? (
-              <div>{prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].name}</div>
+            {prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].name != '' ? (
+              <div>{prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].name}</div>
             ) : (
               <div>{t('DataSVL.Placeholders.noNameSelected')}</div>
             )}
@@ -68,17 +75,20 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
           </div>
           {!shrinked[selectedOwner][groupIndex].type[typeIndex] && checkIfSomeDataInType(selectedOwner, groupIndex, typeIndex, false) &&
             <div className={styles.groupTypeBottomPart}>
-              {prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].numComponents > 0 &&
-                <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].components} />
+              {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex, typeIndex) && prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].numComponents > 0 &&
+                <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].components} />
               }
-              {prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].pre} />
+              {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex, typeIndex) && prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].pre} />
               }
-              {prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].post} />
+              {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex, typeIndex) && prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].post} />
               }
-              {prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].comments != '' &&
-                <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].comments} />
+              {isModificationsBaseSimple(prevOwnersModifications[selectedOwner], groupIndex, typeIndex) && prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].images.filter((image: string) => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].images} />
+              }
+              {prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].comments != '' &&
+                <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].comments} />
               }
             </div>
           }
@@ -95,14 +105,14 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
   
   const listPreviousGroupModifications = (selectedOwner: number) => {
 
-    const listPreviousGroupModifications = Array.from({length: prevOwnersModifications[selectedOwner].modifications.length }, (_, groupIndex) => (
+    const listPreviousGroupModifications = Array.from({length: prevOwnersModifications[selectedOwner].group.length }, (_, groupIndex) => (
       <div key={groupIndex}>
         <div className={styles.groupContainerPrevOwners}>
           <div className={styles.topPart}>
             <div className={styles.toggleVisibilityRemoveGroup}>
               # {groupIndex + 1}
-              {prevOwnersModifications[selectedOwner].modifications[groupIndex].name != '' ? (
-                <div>{prevOwnersModifications[selectedOwner].modifications[groupIndex].name}</div>
+              {prevOwnersModifications[selectedOwner].group[groupIndex].name != '' ? (
+                <div>{prevOwnersModifications[selectedOwner].group[groupIndex].name}</div>
               ) : (
                 <div>{t('DataSVL.Placeholders.noNameSelected')}</div>
               )}
@@ -110,18 +120,21 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
             </div>
             {!shrinked[selectedOwner][groupIndex].group &&
               <div className={styles.topBottomPart}>
-                {prevOwnersModifications[selectedOwner].modifications[groupIndex].kilometers[0] != '' &&
-                  <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].kilometers} />
+                {prevOwnersModifications[selectedOwner].group[groupIndex].kilometers[0] != '' &&
+                  <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersModifications[selectedOwner].group[groupIndex].kilometers} />
                 }
-                <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={prevOwnersModifications[selectedOwner].modifications[groupIndex].responsible} />
-                {prevOwnersModifications[selectedOwner].modifications[groupIndex].date != '' &&
-                  <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].date} />
+                <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={prevOwnersModifications[selectedOwner].group[groupIndex].responsible} />
+                {prevOwnersModifications[selectedOwner].group[groupIndex].date != '' &&
+                  <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersModifications[selectedOwner].group[groupIndex].date} />
                 }
-                {prevOwnersModifications[selectedOwner].modifications[groupIndex].pre.filter((image: string) => image != '').length > 0 &&
-                  <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].pre} />
+                {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex) && prevOwnersModifications[selectedOwner].group[groupIndex].pre.filter((image: string) => image != '').length > 0 &&
+                  <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].group[groupIndex].pre} />
                 }
-                {prevOwnersModifications[selectedOwner].modifications[groupIndex].post.filter((image: string) => image != '').length > 0 &&
-                  <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].post} />
+                {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex) && prevOwnersModifications[selectedOwner].group[groupIndex].post.filter((image: string) => image != '').length > 0 &&
+                  <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].group[groupIndex].post} />
+                }
+                {isModificationsBaseSimple(prevOwnersModifications[selectedOwner], groupIndex) && prevOwnersModifications[selectedOwner].group[groupIndex].images.filter((image: string) => image != '').length > 0 &&
+                  <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersModifications[selectedOwner].group[groupIndex].images} />
                 }
               </div>
             }
@@ -251,7 +264,7 @@ const SummaryViewModifications = ({ prevOwnersModifications, modifications, setM
     <div key={selectedOwner}>
       {!mySVL || selectedOwner < numPreviousOwners ? (
         <div>          
-          {prevOwnersModifications[selectedOwner].modifications.length > 0 ? (       
+          {prevOwnersModifications[selectedOwner].group.length > 0 ? (       
             <div>{listPreviousGroupModifications(selectedOwner)}</div>
           ) : (
             <div className={styles.noData}>
