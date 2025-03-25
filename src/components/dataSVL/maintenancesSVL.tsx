@@ -38,32 +38,28 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
   }
 
   const handleOnDrop = (e: React.DragEvent, groupIndex: number, typeIndex: number) => {
-    console.log(groupIndex);
-    console.log(typeIndex);
-    
-    const groupIndexDragged = parseInt(e.dataTransfer.getData("groupIndex"));
-    const typeIndexDragged = parseInt(e.dataTransfer.getData("typeIndex"));
-    console.log(groupIndexDragged);
-    console.log(typeIndexDragged);
-    const updatedMainteances = [...maintenances];
-    if (groupIndex == groupIndexDragged) {
-      if (typeIndexDragged > typeIndex) {
-        const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
-        for (let i = typeIndexDragged; i > typeIndex; i--) {
-          updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i-1];
+    if (draggable) {
+      const groupIndexDragged = parseInt(e.dataTransfer.getData("groupIndex"));
+      const typeIndexDragged = parseInt(e.dataTransfer.getData("typeIndex"));
+      const updatedMainteances = [...maintenances];
+      if (groupIndex == groupIndexDragged) {
+        if (typeIndexDragged > typeIndex) {
+          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
+          for (let i = typeIndexDragged; i > typeIndex; i--) {
+            updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i-1];
+          }
+          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
         }
-        updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
-      }
-      else if (typeIndexDragged < typeIndex) {
-        const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
-        for (let i = typeIndexDragged; i < typeIndex ; i++) {
-          updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i+1];
+        else if (typeIndexDragged < typeIndex) {
+          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
+          for (let i = typeIndexDragged; i < typeIndex ; i++) {
+            updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i+1];
+          }
+          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
         }
-        updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
       }
+      setMaintenances(updatedMainteances);
     }
-    setMaintenances(updatedMainteances);
-    
   }
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -78,7 +74,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
         onDrop={(e) => handleOnDrop(e, groupIndex, typeIndex)} onDragOver={(e) => handleDragOver(e)} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
-            # {typeIndex + 1}      
+            # {typeIndex + 1} {draggable ? 'hola' : 'adios'}
             <ToggleVisibilityButton dataSVL={maintenances} setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
