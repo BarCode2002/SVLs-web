@@ -97,6 +97,7 @@ const Data = (): JSX.Element => {
       return source.map((item, index) => deepMergePreserveMatching(item, expandedTarget[index]));
     } else if (typeof source === "object" && typeof target === "object") {
       // Only merge fields that exist in both source and target
+      const acc: Record<string, any> = {}; // Explicitly declare the type of acc
       return Object.keys(target).reduce((acc, key) => {
         if (source.hasOwnProperty(key)) {
           acc[key] = deepMergePreserveMatching(source[key], target[key]);
@@ -104,7 +105,7 @@ const Data = (): JSX.Element => {
           acc[key] = target[key];  // Default value from target (defaultB)
         }
         return acc;
-      }, {});
+      }, acc);  // Pass the initialized acc object
     }
     
     // If the source is not null and not empty, return the source value (preserved)
@@ -123,45 +124,29 @@ const Data = (): JSX.Element => {
       const updatedMaintenances = maintenances.map((item) =>
         deepMergePreserveMatching(item, cloneDeep(defaultBaseMaintenances))
       );
-      console.log(updatedMaintenances);
       setMaintenances(updatedMaintenances);
-      /*setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
-        const updated = [...prevState];
-        updated[selectedOwner] = cloneDeep(defaultBaseMaintenances); 
-        return updated;
-      });*/
-      setModifications((prevState: PossibleModificationsJsonVersions[]) => {
-        const updated = [...prevState];
-        updated[selectedOwner] = cloneDeep(defaultBaseModifications); 
-        return updated;
-      });
-      setRepairs((prevState: PossibleRepairsJsonVersions[]) => {
-        const updated = [...prevState];
-        updated[selectedOwner] = cloneDeep(defaultBaseRepairs); 
-        return updated;
-      });
+      const updatedModifications = modifications.map((item) =>
+        deepMergePreserveMatching(item, cloneDeep(defaultBaseModifications))
+      );
+      setModifications(updatedModifications);
+      const updatedRepairs = repairs.map((item) =>
+        deepMergePreserveMatching(item, cloneDeep(defaultBaseRepairs))
+      );
+      setRepairs(updatedRepairs);
     }
     else {
       const updatedMaintenances = maintenances.map((item) =>
         deepMergePreserveMatching(item, cloneDeep(defaultBaseSimpleMaintenances))
       );
-      console.log(updatedMaintenances);
       setMaintenances(updatedMaintenances);
-      /*setMaintenances((prevState: PossibleMaintenancesJsonVersions[]) => {
-        const updated = [...prevState];
-        updated[selectedOwner] = cloneDeep(defaultBaseSimpleMaintenances); 
-        return updated;
-      });*/
-      setModifications((prevState: PossibleModificationsJsonVersions[]) => {
-        const updated = [...prevState];
-        updated[selectedOwner] = cloneDeep(defaultBaseSimpleModifications); 
-        return updated;
-      });
-      setRepairs((prevState: PossibleRepairsJsonVersions[]) => {
-        const updated = [...prevState];
-        updated[selectedOwner] = cloneDeep(defaultBaseSimpleRepairs); 
-        return updated;
-      });
+      const updatedModifications = modifications.map((item) =>
+        deepMergePreserveMatching(item, cloneDeep(defaultBaseSimpleModifications))
+      );
+      setModifications(updatedModifications);
+      const updatedRepairs = repairs.map((item) =>
+        deepMergePreserveMatching(item, cloneDeep(defaultBaseSimpleRepairs))
+      );
+      setRepairs(updatedRepairs);
     }
   }, [jsonVersion]);
 

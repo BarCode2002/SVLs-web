@@ -5,7 +5,7 @@ import { GoBackArrowIcon } from '../../../assets/goBackArrow';
 import { useTranslation } from "react-i18next";
 import { TrashIconRed } from '../../../assets/trash';
 import axios from "axios";
-import { ipfsRetrieve, mongoList } from '../../../utils/ip';
+import { ipfsRetrieve, ipfsUpload, mongoList } from '../../../utils/ip';
 
 type ResponsibleFieldProps = {
   fieldLabel: string;
@@ -127,7 +127,7 @@ const ResponsibleField = ({ fieldLabel, selectedOwner, selectedGroup, dataSVL, v
       const blob = await response.blob();     
       const fileExtension = value[3].split('.').pop()?.toLowerCase();
       formData.append("file", blob, `image/${fileExtension}`);
-      const uploadResponse = await axios.post(ipfsRetrieve, formData, {
+      const uploadResponse = await axios.post(ipfsUpload, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
