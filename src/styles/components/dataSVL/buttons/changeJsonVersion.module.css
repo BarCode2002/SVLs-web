@@ -150,6 +150,61 @@
   cursor: pointer;
 }
 
+.warningChangeVersionContainer {
+
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--dataPanelBackgroundColor);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.warningChangeVersion {
+  padding: 10px;
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--dataBackgroundColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.text {
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+}
+
+.confirmCloseButtonContainer {
+  display: flex;
+  flex-grow: 1;
+  justify-content: end;
+}
+
+.confirmCloseButton {
+  margin: 5px;
+  height: var(--buttonHeight);
+  font-size: var(--buttonFontSize);
+  font-weight: var(--buttonFontWeight);
+  border: none;
+  color: var(--dataPanelBackgroundColor);
+  background-color: var(--buttonBackgroundColor);
+  border-radius: 10px;
+}
+
+.confirmCloseButton:hover {
+  background-color: var(--dataPanelBackgroundColor);
+  border-radius: 10px;
+  color: var(--navBarsSecondaryColor);
+  cursor: pointer;
+}
+
 
 
 

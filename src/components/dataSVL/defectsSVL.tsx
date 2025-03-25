@@ -25,9 +25,10 @@ type DefectsSVLProps = {
   editMode: boolean;
   mySVL: boolean;
   jsonUploaded: boolean;
+  jsonVersion: string[];
 };
 
-const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode, mySVL, jsonUploaded }: DefectsSVLProps): JSX.Element => {
+const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode, mySVL, jsonUploaded, jsonVersion }: DefectsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -110,7 +111,7 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
         <div className={styles.addType}>
           {defects[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'defect'} editMode={editMode}
+              selectedGroup={groupIndex} type={'defect'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner]}
             />
           }
         </div>
@@ -162,7 +163,9 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
       </div>
       <div className={styles.addGroupButton}>
         {defects[selectedOwner].group.length - 1 == groupIndex &&
-          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner]}
+          />
         }
       </div>
     </div>
@@ -176,7 +179,9 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
       {listGroupDefects}
       <div className={styles.addGroupButton}>
         {defects[selectedOwner].group.length == 0 &&
-          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner]}
+          />
         }
       </div>
     </div>

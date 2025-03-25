@@ -23,9 +23,10 @@ type ModificationsSVLProps = {
   setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
   editMode: boolean;
   jsonUploaded: boolean;
+  jsonVersion: string[];
 };
 
-const ModificationsSVL = ({ selectedOwner, modifications, setModifications, editMode, jsonUploaded }: ModificationsSVLProps): JSX.Element => {
+const ModificationsSVL = ({ selectedOwner, modifications, setModifications, editMode, jsonUploaded, jsonVersion }: ModificationsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -132,7 +133,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
         <div className={styles.addType}>
           {modifications[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setModifications} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'modifications'} editMode={editMode}
+              selectedGroup={groupIndex} type={'modifications'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner]}
             />
           }
         </div>
@@ -203,7 +204,9 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
       </div>
       <div className={styles.addGroupButton}>
         {modifications[selectedOwner].group.length - 1 == groupIndex &&
-          <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner]}
+          />
         }
       </div>
     </div>
@@ -217,7 +220,9 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
       {listGroupModifications}
       <div className={styles.addGroupButton}>
         {modifications[selectedOwner].group.length == 0 &&
-          <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner]}
+          />
         }
       </div>
     </div>

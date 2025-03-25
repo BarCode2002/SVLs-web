@@ -160,7 +160,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
         onClick={toggleFullScreen}>
         {fullScreen == 0 ? <EnterFullScreenIcon /> : <ExitFullScreenIcon />}
       </button>
-      {viewType == 0 &&
+      {viewType == 0 && selectedOwner >= weird &&
         <div className={styles.changeJsonVersion}>
           <ChangeJsonVersion selectedOwner={selectedOwner} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion} />
         </div>
@@ -177,25 +177,25 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
             <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={prevOwnersMaintenances} />
           }
           {selectedSVLData == 1 && selectedOwner >= weird &&
-            <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} jsonUploaded={jsonUploaded} />
+            <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} jsonUploaded={jsonUploaded} jsonVersion={jsonVersion} />
           }
           {shrinkedReady && selectedSVLData == 2 && selectedOwner < weird &&
             <PrevOwnersModificationsSVL selectedOwner={selectedOwner} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} prevOwnersModifications={prevOwnersModifications} />
           }
           {selectedSVLData == 2 && selectedOwner >= weird &&
-            <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} jsonUploaded={jsonUploaded} />
+            <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} jsonUploaded={jsonUploaded} jsonVersion={jsonVersion} />
           }
           {shrinkedReady && selectedSVLData == 3 && selectedOwner < weird &&
             <PrevOwnersDefectsSVL selectedOwner={selectedOwner} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={prevOwnersDefects} prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} mySVL={mySVL} />
           }
           {selectedSVLData == 3 && selectedOwner >= weird &&
-            <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} totalOwners={totalOwners} numPreviousOwners={numPreviousOwners} defects={defects} setDefects={setDefects} repairs={repairs} editMode={editMode} mySVL={mySVL} jsonUploaded={jsonUploaded} />
+            <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} totalOwners={totalOwners} numPreviousOwners={numPreviousOwners} defects={defects} setDefects={setDefects} repairs={repairs} editMode={editMode} mySVL={mySVL} jsonUploaded={jsonUploaded} jsonVersion={jsonVersion} />
           }
           {shrinkedReady && selectedSVLData == 4 && selectedOwner < weird &&
             <PrevOwnersRepairsSVL selectedOwner={selectedOwner} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={prevOwnersRepairs} />
           }
           {selectedSVLData == 4 && selectedOwner >= weird &&
-            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} jsonUploaded={jsonUploaded} totalOwners={totalOwners} />
+            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} jsonUploaded={jsonUploaded} totalOwners={totalOwners} jsonVersion={jsonVersion} />
           }
         </div>
       ) : (

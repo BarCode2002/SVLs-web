@@ -23,9 +23,10 @@ type MainteancesSVLProps = {
   setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>;
   editMode: boolean;
   jsonUploaded: boolean;
+  jsonVersion: string[];
 };
 
-const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMode, jsonUploaded }: MainteancesSVLProps): JSX.Element => {
+const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMode, jsonUploaded, jsonVersion }: MainteancesSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -37,28 +38,32 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
   }
 
   const handleOnDrop = (e: React.DragEvent, groupIndex: number, typeIndex: number) => {
-    if (draggable) {
-      const groupIndexDragged = parseInt(e.dataTransfer.getData("groupIndex"));
-      const typeIndexDragged = parseInt(e.dataTransfer.getData("typeIndex"));
-      const updatedMainteances = [...maintenances];
-      if (groupIndex == groupIndexDragged) {
-        if (typeIndexDragged > typeIndex) {
-          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
-          for (let i = typeIndexDragged; i > typeIndex; i--) {
-            updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i-1];
-          }
-          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
+    console.log(groupIndex);
+    console.log(typeIndex);
+    
+    const groupIndexDragged = parseInt(e.dataTransfer.getData("groupIndex"));
+    const typeIndexDragged = parseInt(e.dataTransfer.getData("typeIndex"));
+    console.log(groupIndexDragged);
+    console.log(typeIndexDragged);
+    const updatedMainteances = [...maintenances];
+    if (groupIndex == groupIndexDragged) {
+      if (typeIndexDragged > typeIndex) {
+        const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
+        for (let i = typeIndexDragged; i > typeIndex; i--) {
+          updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i-1];
         }
-        else if (typeIndexDragged < typeIndex) {
-          const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
-          for (let i = typeIndexDragged; i < typeIndex ; i++) {
-            updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i+1];
-          }
-          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
-        }
+        updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
       }
-      setMaintenances(updatedMainteances);
+      else if (typeIndexDragged < typeIndex) {
+        const draggedMaintenance = maintenances[selectedOwner].group[groupIndex].type[typeIndexDragged];
+        for (let i = typeIndexDragged; i < typeIndex ; i++) {
+          updatedMainteances[selectedOwner].group[groupIndex].type[i] = maintenances[selectedOwner].group[groupIndex].type[i+1];
+        }
+        updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
+      }
     }
+    setMaintenances(updatedMainteances);
+    
   }
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -132,7 +137,7 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
         <div className={styles.addType}>
           {maintenances[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'maintenance'} editMode={editMode}
+              selectedGroup={groupIndex} type={'maintenance'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner]}
             />
           }
         </div>
@@ -203,7 +208,9 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
       </div>
       <div className={styles.addGroupButton}>
         {maintenances[selectedOwner].group.length - 1 == groupIndex &&
-          <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} editMode={editMode}
+            jsonVersion={jsonVersion[selectedOwner]}
+          />
         }
       </div>
     </div>
@@ -217,7 +224,9 @@ const MaintenancesSVL = ({ selectedOwner, maintenances, setMaintenances, editMod
       {listGroupMaintenances}
       <div className={styles.addGroupButton}>
         {maintenances[selectedOwner].group.length == 0 &&
-          <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setMaintenances} selectedOwner={selectedOwner} type={'maintenances'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner]}
+          />
         }
       </div>
     </div>

@@ -18,6 +18,8 @@ const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion }: Chang
   const cancelButtonText = t('DataSVL.Placeholders.cancel');
   const searchBarPlaceholder = t('DataSVL.Placeholders.search');
   const [isHovered, setIsHovered] = useState(false);
+  const [warningChangeVersion, setWarningChangeVersion] = useState(false);
+  const [selectedJsonVersion, setSelectedJsonVersion] = useState('');
 
   const hadleOpenDropdownMenu = () => {
     if (isOpen) setIsOpen(false);
@@ -27,56 +29,90 @@ const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion }: Chang
     }
   }
 
-  const handleChangeJsonVersion = (selectedJsonVersion: string)=> {
+  const handleChangeJsonVersion = ()=> {
     const updatedJsonVersion = [...jsonVersion]
     updatedJsonVersion[selectedOwner] = selectedJsonVersion;
     setJsonVersion(updatedJsonVersion);
     setIsOpen(false);
+    setWarningChangeVersion(false);
   }
   
   const refClickOutside = DetectClickOutsideComponent(() => { 
     if (isOpen) setIsOpen(false); 
   });
 
+  const handleOpenWarning = (selectedJsonVersion: string) => {
+    setWarningChangeVersion(true);
+    setSelectedJsonVersion(selectedJsonVersion);
+  }
+
+  const handleCloseWarning = () => {
+    setWarningChangeVersion(false);
+  }
+
   return (
-    <div ref={refClickOutside} className={styles.dropdownMenuContainer}>
-      <div className={styles.dropDownPosition}>
-        <button
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className={isOpen ? styles.selectedOpen : styles.selected}
-          onClick={hadleOpenDropdownMenu}>
-          <span>{jsonVersion[selectedOwner]}</span>
-          <span>{(isOpen) ? <TopArrow /> : isHovered ? <BottomArrowBlack /> : <BottomArrowWhite />}</span>
-        </button>
-        {isOpen && (
-          <div className={styles.dropdownMenu}>
-            <input
-              className={styles.searchInput}
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(t(e.target.value))}
-              placeholder={searchBarPlaceholder}
-            />
-            <div className={styles.dropdownList}>
-              {list.length ? list.filter(jsonVersion => jsonVersion.toLocaleLowerCase().includes(searchQuery.toLowerCase())).map((jsonVersion) => (
-                <div key={jsonVersion}>   
-                  <button
-                    className={styles.dropdownItem}
-                    onClick={() => (handleChangeJsonVersion(jsonVersion))}>
-                    {jsonVersion}
-                  </button>
-                </div>
-              )) : null}
+    <div>
+      <div ref={refClickOutside} className={styles.dropdownMenuContainer}>
+        <div className={styles.dropDownPosition}>
+          <button
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={isOpen ? styles.selectedOpen : styles.selected}
+            onClick={hadleOpenDropdownMenu}>
+            <span>{jsonVersion[selectedOwner]}</span>
+            <span>{(isOpen) ? <TopArrow /> : isHovered ? <BottomArrowBlack /> : <BottomArrowWhite />}</span>
+          </button>
+          {isOpen && (
+            <div className={styles.dropdownMenu}>
+              <input
+                className={styles.searchInput}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(t(e.target.value))}
+                placeholder={searchBarPlaceholder}
+              />
+              <div className={styles.dropdownList}>
+                {list.length ? list.filter(jsonVersion => jsonVersion.toLocaleLowerCase().includes(searchQuery.toLowerCase())).map((jsonVersion) => (
+                  <div key={jsonVersion}>   
+                    <button
+                      className={styles.dropdownItem}
+                      onClick={() => (handleOpenWarning(jsonVersion))}>
+                      {jsonVersion}
+                    </button>
+                  </div>
+                )) : null}
+              </div>
+              <button 
+                className={styles.cancelButton} 
+                onClick={() => setIsOpen(false)}>
+                {cancelButtonText}
+              </button>
             </div>
-            <button 
-              className={styles.cancelButton} 
-              onClick={() => setIsOpen(false)}>
-              {cancelButtonText}
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
+      {warningChangeVersion &&
+        <div className={styles.warningChangeVersionContainer}>
+          <div className={styles.warningChangeVersion}>
+            <div className={styles.text}>
+              ¿Estas seguro que quieres cambiar de version? Se perdera la informacion de los campos
+              que no conincidan en ambas versiones
+            </div>
+            <div className={styles.confirmCloseButtonContainer}>
+              <button
+                className={styles.confirmCloseButton}
+                onClick={() => handleChangeJsonVersion()}>
+                {t('DataSVL.Placeholders.confirm')}
+              </button>
+              <button
+                className={styles.confirmCloseButton}
+                onClick={handleCloseWarning}>
+                {t('DataSVL.Placeholders.cancel')}
+              </button>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   );
 };
