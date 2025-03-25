@@ -31,19 +31,19 @@ type DataSVLProps = {
   selectedSVLData: number;
   generalInformation: PossibleGeneralInformationJsonVersions[];
   setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
-  prevOwnersGeneralInformation: any;
+  prevOwnersGeneralInformation: PossibleGeneralInformationJsonVersions[];
   maintenances: PossibleMaintenancesJsonVersions[];
   setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>;
-  prevOwnersMaintenances: any;
+  prevOwnersMaintenances: PossibleMaintenancesJsonVersions[];
   modifications: PossibleModificationsJsonVersions[];
   setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
-  prevOwnersModifications: any;
+  prevOwnersModifications: PossibleModificationsJsonVersions[];
   defects: PossibleDefectsJsonVersions[];
   setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
-  prevOwnersDefects: any;
+  prevOwnersDefects: PossibleDefectsJsonVersions[];
   repairs: PossibleRepairsJsonVersions[];
   setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
-  prevOwnersRepairs: any;
+  prevOwnersRepairs: PossibleRepairsJsonVersions[];
   totalOwners: number;
   editMode: boolean;
   numPreviousOwners: number;
@@ -79,31 +79,31 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     else limit = totalOwners;
     for (let i = 0; i < limit; i++) {
       const numTypesMain: number[] = [];
-      for (let j = 0; j < prevOwnersMaintenances[i].maintenances.length; j++) {
-        numTypesMain.push(prevOwnersMaintenances[i].maintenances[j].type.length);
+      for (let j = 0; j < prevOwnersMaintenances[i].group.length; j++) {
+        numTypesMain.push(prevOwnersMaintenances[i].group[j].type.length);
       }
-      numGroupsMaintenances.push(prevOwnersMaintenances[i].maintenances.length);
+      numGroupsMaintenances.push(prevOwnersMaintenances[i].group.length);
       numTypesMaintenances.push(numTypesMain);
 
       const numTypesMod: number[] = [];
-      for (let j = 0; j < prevOwnersModifications[i].modifications.length; j++) {
-        numTypesMod.push(prevOwnersModifications[i].modifications[j].type.length);
+      for (let j = 0; j < prevOwnersModifications[i].group.length; j++) {
+        numTypesMod.push(prevOwnersModifications[i].group[j].type.length);
       }  
-      numGroupsModifications.push(prevOwnersModifications[i].modifications.length);
+      numGroupsModifications.push(prevOwnersModifications[i].group.length);
       numTypesModifications.push(numTypesMod);
 
       const numTypesDef: number[] = [];
-      for (let j = 0; j < prevOwnersDefects[i].defects.length; j++) {
-        numTypesDef.push(prevOwnersDefects[i].defects[j].type.length);
+      for (let j = 0; j < prevOwnersDefects[i].group.length; j++) {
+        numTypesDef.push(prevOwnersDefects[i].group[j].type.length);
       }  
-      numGroupsDefects.push(prevOwnersDefects[i].defects.length);
+      numGroupsDefects.push(prevOwnersDefects[i].group.length);
       numTypesDefects.push(numTypesDef);
 
       const numTypesRep: number[] = [];
-      for (let j = 0; j < prevOwnersRepairs[i].repairs.length; j++) {
-        numTypesRep.push(prevOwnersRepairs[i].repairs[j].type.length);
+      for (let j = 0; j < prevOwnersRepairs[i].group.length; j++) {
+        numTypesRep.push(prevOwnersRepairs[i].group[j].type.length);
       }  
-      numGroupsRepairs.push(prevOwnersRepairs[i].repairs.length);
+      numGroupsRepairs.push(prevOwnersRepairs[i].group.length);
       numTypesRepairs.push(numTypesRep);
     }
     const updatedShrinkedMaintenances: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>

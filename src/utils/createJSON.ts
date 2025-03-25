@@ -26,16 +26,16 @@ export const createJSON = (selectedOwner: number, generalInformation: PossibleGe
       comments: item.comments
     })),
     ...maintenances.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      maintenances: item.group,
+      group: item.group,
     })),
     ...modifications.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      modifications: item.group,
+      group: item.group,
     })),
     ...defects.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      defects: item.group,
+      group: item.group,
     })),
     ...repairs.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      repairs: item.group,
+      group: item.group,
     })),
     {
       version: jsonVersion

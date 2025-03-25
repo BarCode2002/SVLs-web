@@ -5,12 +5,15 @@ import ResponsibleContainer from './readOnlyFields/responsibleContainer.tsx';
 import ComponentsContainer from './readOnlyFields/componentsContainer.tsx';
 import ToggleVisibilityRDButton from './readOnlyFields/toggleVisibilityRDButton.tsx';
 import { useTranslation } from "react-i18next";
+import { PossibleModificationsJsonVersions } from '../../utils/commonTypes.ts';
+import { isModificationsBase } from '../../utils/checkBaseType.ts';
+import { isModificationsBaseSimple } from '../../utils/checkBaseSimpleType.ts';
 
 type PrevOwnersModificationsSVLProps = {
   selectedOwner: number;
   shrinked: any;
   setShrinked: any;
-  prevOwnersModifications: any;
+  prevOwnersModifications: PossibleModificationsJsonVersions[];
 };
 
 const PrevOwnersModificationsSVL = ({ selectedOwner, shrinked, setShrinked ,prevOwnersModifications }: PrevOwnersModificationsSVLProps): JSX.Element => {
@@ -19,7 +22,7 @@ const PrevOwnersModificationsSVL = ({ selectedOwner, shrinked, setShrinked ,prev
 
   const renderlistModifications = (groupIndex: number) => {
 
-    const listModifications = Array.from({length: prevOwnersModifications[selectedOwner].modifications[groupIndex].type.length}, (_, typeIndex) => (
+    const listModifications = Array.from({length: prevOwnersModifications[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
@@ -28,11 +31,20 @@ const PrevOwnersModificationsSVL = ({ selectedOwner, shrinked, setShrinked ,prev
           </div>
             {shrinked[selectedOwner][groupIndex].type[typeIndex] == false &&
             <div className={styles.groupTypeBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].name} />
-              <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].components} />
-              <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].pre} />
-              <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].post} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].type[typeIndex].comments} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].name} />
+              {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex, typeIndex) &&
+                <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].components} />
+              }
+              {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex, typeIndex) &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].pre} />
+              }
+              {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex, typeIndex) &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].post} />
+              }
+              {isModificationsBaseSimple(prevOwnersModifications[selectedOwner], groupIndex, typeIndex) &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].images} />
+              }
+              <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersModifications[selectedOwner].group[groupIndex].type[typeIndex].comments} />
             </div>
           }
         </div>
@@ -46,7 +58,7 @@ const PrevOwnersModificationsSVL = ({ selectedOwner, shrinked, setShrinked ,prev
     );
   };
 
-  const listGroupModifications = Array.from({length: prevOwnersModifications[selectedOwner].modifications.length }, (_, groupIndex) => (
+  const listGroupModifications = Array.from({length: prevOwnersModifications[selectedOwner].group.length }, (_, groupIndex) => (
     <div key={groupIndex}>
       <div className={styles.groupContainerPrevOwners}>
         <div className={styles.topPart}>
@@ -56,12 +68,19 @@ const PrevOwnersModificationsSVL = ({ selectedOwner, shrinked, setShrinked ,prev
           </div>
           {shrinked[selectedOwner][groupIndex].group == false &&
             <div className={styles.topBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].kilometers} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].name} />
-              <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={prevOwnersModifications[selectedOwner].modifications[groupIndex].responsible} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersModifications[selectedOwner].modifications[groupIndex].date} />
-              <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].pre} />
-              <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].modifications[groupIndex].post} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersModifications[selectedOwner].group[groupIndex].kilometers} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.name')} text={prevOwnersModifications[selectedOwner].group[groupIndex].name} />
+              <ResponsibleContainer fieldLabel={t('DataSVL.Labels.responsible')} responsible={prevOwnersModifications[selectedOwner].group[groupIndex].responsible} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersModifications[selectedOwner].group[groupIndex].date} />
+              {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex) &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersModifications[selectedOwner].group[groupIndex].pre} />
+              }
+              {isModificationsBase(prevOwnersModifications[selectedOwner], groupIndex) &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersModifications[selectedOwner].group[groupIndex].post} />
+              }
+              {isModificationsBaseSimple(prevOwnersModifications[selectedOwner], groupIndex) &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersModifications[selectedOwner].group[groupIndex].images} />
+              }
             </div>
           }
         </div>
