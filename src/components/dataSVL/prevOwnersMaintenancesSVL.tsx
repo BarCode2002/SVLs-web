@@ -79,7 +79,7 @@ const PrevOwnersMaintenancesSVL = ({ selectedOwner, shrinked, setShrinked, prevO
               <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersMaintenances[selectedOwner].group[groupIndex].post} />
             }
             {isMaintenancesBaseSimple(prevOwnersMaintenances[selectedOwner], groupIndex) &&
-              <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersMaintenances[selectedOwner].group[groupIndex].images} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersMaintenances[selectedOwner].group[groupIndex].images} />
             }
           </div>
           }

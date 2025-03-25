@@ -359,6 +359,7 @@ const Data = (): JSX.Element => {
             else { //SVL owned
               let numPreviousOwners = 0;
               let prevTransferDate;
+              const updatedJsonVersion = [...jsonVersion];
               if (!responseIndexer.data[0].first_owner) { //SVL has been transferred
                 for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) { //traverse the previous owners information from the least recent to the most recent
                   const owners = [];
@@ -375,6 +376,8 @@ const Data = (): JSX.Element => {
                       prevOwnersModifications.current.push(parsedIPFSData[2]);
                       prevOwnersDefects.current.push(parsedIPFSData[3]);
                       prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                      if (i == responseIndexer.data[0].previous_owners_info.length-1 && j == 0) updatedJsonVersion[0] = parsedIPFSData[5].version;
+                      else updatedJsonVersion.push(parsedIPFSData[5].version)
                     } catch (error: any | AxiosError) {
                       console.error("Unexpected error:", error);
                     }
@@ -404,14 +407,20 @@ const Data = (): JSX.Element => {
                 }
               }
               //add owners in the use state variable(there is always one owner by default)
-              const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[0]}`, {
-                responseType: "arraybuffer",
-              });
-              const compressedIPFSData = new Uint8Array(responseIPFS.data);
-              const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
-              const parsedIPFSData = JSON.parse(decompressedIPFSData);
-              const updatedJsonVersion = [...jsonVersion];
-              updatedJsonVersion[0] = parsedIPFSData[5].version;
+              if (responseIndexer.data[0].current_owner_info[0] != '') {
+                const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[0]}`, {
+                  responseType: "arraybuffer",
+                });
+                const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                if (!responseIndexer.data[0].first_owner) updatedJsonVersion.push(parsedIPFSData[5].version);
+                else updatedJsonVersion[0] = parsedIPFSData[5].version;
+              }
+              else {
+                if (!responseIndexer.data[0].first_owner) updatedJsonVersion.push('base');
+                else updatedJsonVersion[0] = 'base';
+              }
               setJsonVersion(updatedJsonVersion);
               for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
