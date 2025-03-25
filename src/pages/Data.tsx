@@ -40,9 +40,8 @@ const Data = (): JSX.Element => {
     if (savedFullScreen == null) return 0;
     else return parseInt(savedFullScreen);
   });
-  //en add owner añadir una posicion para la version del nuevo json
-  const [jsonVersion, setJsonVersion] = useState<string[]>(['base']); //cuando no sea un SVL nuevo se tendra que actualizar con
-  //los valores en cada json
+
+  const [jsonVersion, setJsonVersion] = useState<string[]>(['base']); 
   
   const [generalInformation, setGeneralInformation] = useState<PossibleGeneralInformationJsonVersions[]>(
     Array.from({ length: 1 }, () => {
@@ -405,6 +404,15 @@ const Data = (): JSX.Element => {
                 }
               }
               //add owners in the use state variable(there is always one owner by default)
+              const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[0]}`, {
+                responseType: "arraybuffer",
+              });
+              const compressedIPFSData = new Uint8Array(responseIPFS.data);
+              const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+              const parsedIPFSData = JSON.parse(decompressedIPFSData);
+              const updatedJsonVersion = [...jsonVersion];
+              updatedJsonVersion[0] = parsedIPFSData[5].version;
+              setJsonVersion(updatedJsonVersion);
               for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
                   responseType: "arraybuffer",
