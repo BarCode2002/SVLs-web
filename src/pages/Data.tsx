@@ -181,7 +181,6 @@ const Data = (): JSX.Element => {
     }
     else {
       const ownerSVLData = responseIPFS;
-      //console.log(ownerSVLData);
       setGeneralInformation((prevGeneralInformation) =>
         prevGeneralInformation.map((item, i) =>
           i == so ? { ...item,  ...ownerSVLData[0] } : item
@@ -190,17 +189,17 @@ const Data = (): JSX.Element => {
     
       setOwnerSVLDataToEmpty(so, setMaintenances);
       for (let i = 0; i < ownerSVLData[1].group.length; i++) {
-        addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].group[i], jsonVersion[so]);
+        addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].group[i], ownerSVLData[5].version);
         for (let j = 1; j < ownerSVLData[1].group[i].type.length; j++) {
-          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].group[i].type[j], jsonVersion[so]);
+          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].group[i].type[j], ownerSVLData[5].version);
         }
       }
 
       setOwnerSVLDataToEmpty(so, setModifications);
       for (let i = 0; i < ownerSVLData[2].group.length; i++) {
-        addAndSetModificationGroup(setModifications, so, ownerSVLData[2].group[i], jsonVersion[so]);
+        addAndSetModificationGroup(setModifications, so, ownerSVLData[2].group[i], ownerSVLData[5].version);
         for (let j = 1; j < ownerSVLData[2].group[i].type.length; j++) {
-          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].group[i].type[j], jsonVersion[so]);
+          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].group[i].type[j], ownerSVLData[5].version);
         }
       }
 
@@ -214,18 +213,15 @@ const Data = (): JSX.Element => {
 
       setOwnerSVLDataToEmpty(so, setRepairs);
       for (let i = 0; i < ownerSVLData[4].group.length; i++) {
-        addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].group[i], jsonVersion[so]);
+        addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].group[i], ownerSVLData[5].version);
         for (let j = 1; j < ownerSVLData[4].group[i].type.length; j++) {
-          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].group[i].type[j], jsonVersion[so]);
+          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].group[i].type[j], ownerSVLData[5].version);
         }
       }
     }
   }
 
   const addOwners = (selectedJsonVersion: string) => {
-    const updatedJsonVersion = [...jsonVersion];
-    updatedJsonVersion.push(selectedJsonVersion);
-    setJsonVersion(updatedJsonVersion);
     addGeneralInformationDefault(setGeneralInformation);
     addMaintenances(setMaintenances, selectedJsonVersion);
     addModifications(setModifications, selectedJsonVersion);
@@ -243,6 +239,7 @@ const Data = (): JSX.Element => {
             const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
             if (responseIndexer.data[0].owner_address != localStorage.getItem('address')) { //SVL not owned
               setMySVL(false);
+              const updatedJsonVersion = [...jsonVersion];
               if (responseIndexer.data[0].first_owner) { //SVL has not been transferred
                 const owners = [];
                 for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
@@ -258,6 +255,8 @@ const Data = (): JSX.Element => {
                     prevOwnersModifications.current.push(parsedIPFSData[2]);
                     prevOwnersDefects.current.push(parsedIPFSData[3]);
                     prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                    if (i == 0) updatedJsonVersion[0] = parsedIPFSData[5].version;
+                    else updatedJsonVersion.push(parsedIPFSData[5].version);
                   } catch (error: any | AxiosError) {
                     console.error("Unexpected error:", error);
                   }
@@ -293,6 +292,8 @@ const Data = (): JSX.Element => {
                       prevOwnersModifications.current.push(parsedIPFSData[2]);
                       prevOwnersDefects.current.push(parsedIPFSData[3]);
                       prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                      if (i == responseIndexer.data[0].previous_owners_info.length-1 && j == 0) updatedJsonVersion[0] = parsedIPFSData[5].version;
+                      else updatedJsonVersion.push(parsedIPFSData[5].version);
                       ++numPreviousOwners; 
                       owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                     } catch (error: any | AxiosError) {
@@ -335,6 +336,7 @@ const Data = (): JSX.Element => {
                     prevOwnersModifications.current.push(parsedIPFSData[2]);
                     prevOwnersDefects.current.push(parsedIPFSData[3]);
                     prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                    updatedJsonVersion.push(parsedIPFSData[5].version);
                     ++numPreviousOwners; 
                     owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                   } catch (error: any | AxiosError) {
@@ -346,6 +348,7 @@ const Data = (): JSX.Element => {
                   owners: responseIndexer.data[0].current_owner_info.length == 1 && responseIndexer.data[0].current_owner_info[0] == '' ? [t('DataSVL.TopBar.justTransferred')] : owners,
                   transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransfeDate}`,
                 }
+                setJsonVersion(updatedJsonVersion);
                 ownershipSummary.current.push(ownershipInfo);
                 setTotalOwners(numPreviousOwners);          
                 setSelectedOwner(0);
@@ -409,14 +412,13 @@ const Data = (): JSX.Element => {
                 const compressedIPFSData = new Uint8Array(responseIPFS.data);
                 const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
                 const parsedIPFSData = JSON.parse(decompressedIPFSData);
-                if (!responseIndexer.data[0].first_owner) updatedJsonVersion.push(parsedIPFSData[5].version);
-                else updatedJsonVersion[0] = parsedIPFSData[5].version;
+                if (responseIndexer.data[0].first_owner) updatedJsonVersion[0] = parsedIPFSData[5].version;
+                else updatedJsonVersion.push(parsedIPFSData[5].version);
               }
               else {
-                if (!responseIndexer.data[0].first_owner) updatedJsonVersion.push('base');
-                else updatedJsonVersion[0] = 'base';
+                if (responseIndexer.data[0].first_owner) updatedJsonVersion[0] = 'base';
+                else updatedJsonVersion.push('base');
               }
-              setJsonVersion(updatedJsonVersion);
               for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
                 const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
                   responseType: "arraybuffer",
@@ -424,8 +426,10 @@ const Data = (): JSX.Element => {
                 const compressedIPFSData = new Uint8Array(responseIPFS.data);
                 const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
                 const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                updatedJsonVersion.push(parsedIPFSData[5].version);
                 addOwners(parsedIPFSData[5].version);
               }
+              setJsonVersion(updatedJsonVersion);
               const owners = [];
               if (responseIndexer.data[0].current_owner_info[0] == '') { //the SVL has been transferred and not updated by the current_owner
                 fillOwnerSVLData(0, [], prevOwnersGeneralInformation.current[numPreviousOwners-1], true);

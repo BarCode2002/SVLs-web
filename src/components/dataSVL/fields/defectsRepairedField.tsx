@@ -59,8 +59,10 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
             }
           }
           else {
-            const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
-            if (defectOwner < totalOwners-numPreviousOwners) {
+            //se resta numPreviousOwner porque en defect repaired se guarda el selected owner global, y no el de current owner info
+            //que es el que se accede en defects
+            const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
+            if (defectOwner < totalOwners) {
               for (let i = 0; i < defects[defectOwner].group.length; ++i) {
                 updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
               }
@@ -81,8 +83,8 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
               }
             }
             else {
-              const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
-              if (defectOwner < totalOwners-numPreviousOwners) {
+              const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
+              if (defectOwner < totalOwners) {
                 for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
                   updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
                 }    
