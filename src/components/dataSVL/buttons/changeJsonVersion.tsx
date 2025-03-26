@@ -8,9 +8,10 @@ type ChangeJsonVersionProps = {
   selectedOwner: number;
   jsonVersion: string[];
   setJsonVersion: React.Dispatch<SetStateAction<string[]>>;
+  editMode: boolean;
 };
 
-const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion }: ChangeJsonVersionProps): JSX.Element => {
+const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion, editMode }: ChangeJsonVersionProps): JSX.Element => {
  
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -50,17 +51,30 @@ const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion }: Chang
     setWarningChangeVersion(false);
   }
 
+  const handleIsHovered = () => {
+    if (isHovered && editMode) setIsHovered(false);
+    else if (!isHovered && editMode) setIsHovered(true);
+  }
+
   return (
     <div>
       <div ref={refClickOutside} className={styles.dropdownMenuContainer}>
         <div className={styles.dropDownPosition}>
           <button
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={handleIsHovered}
+            onMouseLeave={handleIsHovered}
             className={isOpen ? styles.selectedOpen : styles.selected}
-            onClick={hadleOpenDropdownMenu}>
-            <span>{jsonVersion[selectedOwner]}</span>
-            <span>{(isOpen) ? <TopArrow /> : isHovered ? <BottomArrowBlack /> : <BottomArrowWhite />}</span>
+            onClick={hadleOpenDropdownMenu}
+            disabled={!editMode}>
+            {!editMode && 
+              <span>Versión: {jsonVersion[selectedOwner]}</span>
+            }
+            {editMode && 
+              <span>{jsonVersion[selectedOwner]}</span>
+            }
+            {editMode && 
+              <span>{(isOpen) ? <TopArrow /> : isHovered ? <BottomArrowBlack /> : <BottomArrowWhite />}</span>
+            }
           </button>
           {isOpen && (
             <div className={styles.dropdownMenu}>

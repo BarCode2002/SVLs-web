@@ -27,10 +27,13 @@
 }
 
 .selected:hover {
-  background-color: var(--navBarsSecondaryColor);
-  border-radius: 10px;
-  color: var(--navBarsPrimaryColor);
   cursor: pointer;
+}
+
+.selected:disabled {
+  cursor: default;
+  background-color: white;
+  color: black;
 }
 
 .selectedOpen {
