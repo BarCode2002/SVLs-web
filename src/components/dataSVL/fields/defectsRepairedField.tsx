@@ -33,7 +33,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
 
   useEffect(() => {
     const updatedOwnersWithDefects = [];
-    for (let i = 0; i < selectedOwner+numPreviousOwners+1; i++) {
+    for (let i = 0; i < selectedOwner+numPreviousOwners+1; i++) { //se cogen los owners con defects desde el owner 0 hasta el seleccionado
       if (i < numPreviousOwners) {
         if (prevOwnersDefects[i].group.length > 0) updatedOwnersWithDefects.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`); 
       }
@@ -42,79 +42,71 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
       }
     }
     setOwnersWithDefects(updatedOwnersWithDefects);
-    if (repairs[selectedOwner].group[selectedGroup].numDefectsRepaired > 0) {
+    if (repairs[selectedOwner].group[selectedGroup].numDefectsRepaired > 0) { 
+      //se actualizan los defectos reparados del owner seleccionado. Si el propietario X ya no existe porque ha sido borrado no se actualiza.
       const updatedSearchQuery = [...searchQuery];
       const updatedStep = [...step];
       for (let i = 0; i < DEFECTS_REPAIRED_SIZE; i++) {
-        if (i < repairs[selectedOwner].group[selectedGroup].numDefectsRepaired) {
-          if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0] != -1) {
-            updatedSearchQuery[i][0] = `${t('DataSVL.Placeholders.owner')} ${repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]+1}`;
+        //Para cada owner con defectos reparados se cogen todos los grupos de defectos y tipos
+        if (i < repairs[selectedOwner].group[selectedGroup].numDefectsRepaired && repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0] != -1) { 
+          updatedSearchQuery[i][0] = `${t('DataSVL.Placeholders.owner')} ${repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]+1}`;
 
-            const updatedDefectGroupsOwner = [];
-            if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]+1-numPreviousOwners < numPreviousOwners) {
-              const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
-              for (let i = 0; i < prevOwnersDefects[defectOwner].group.length; ++i) {
-                updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
-              }
-            }
-            else {
-              const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
-              if (defectOwner < totalOwners) {
-                for (let i = 0; i < defects[defectOwner].group.length; ++i) {
-                  updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
-                }
-              }
-            }
-            setDefectGroupsOwner(updatedDefectGroupsOwner);
-
-            if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1] != -1) {
-              updatedSearchQuery[i][1] = `${t('DataSVL.Placeholders.groupDefect')} ${repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1]+1}`;
-              updatedStep[i] = 2;
-
-              const updatedDefectGroupTypesOwner = [];
-              const groupDefect = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1];
-              if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]+1-numPreviousOwners < numPreviousOwners) {
-                const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
-                if (prevOwnersDefects[defectOwner].group.length > 0 && prevOwnersDefects[defectOwner].group[groupDefect].type.length > 0) {
-                  for (let i = 0; i < prevOwnersDefects[defectOwner].group[groupDefect].type.length; ++i) {
-                    updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
-                  }
-                }
-              }
-              else {
-                const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
-                if (defectOwner < totalOwners) {
-                  if (defects[defectOwner].group.length > 0) {
-                    for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
-                      updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
-                    }
-                  }
-                }
-              }
-              updatedDefectGroupTypesOwner.push(t('DataSVL.Placeholders.allDefects')); 
-              setDefectGroupTypesOwner(updatedDefectGroupTypesOwner);
-              
-              if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][2] == -2) {
-                updatedSearchQuery[i][2] = `${t('DataSVL.Placeholders.allDefects')}`;
-                updatedStep[i] = 3;
-              }
-              else if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][2] == -1) {
-                updatedSearchQuery[i][2] = '';
-                updatedStep[i] = 2;
-              }
-              else {
-                updatedSearchQuery[i][2] = `${t('DataSVL.Placeholders.defect')} ${repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][2]+1}`;
-                updatedStep[i] = 3;
-              }
-            }
-            else {
-              updatedSearchQuery[i][1] = '';
-              updatedSearchQuery[i][2] = '';
-              updatedStep[i] = 1;
+          const updatedDefectGroupsOwner = [];
+          if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0] < numPreviousOwners) {
+            const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
+            for (let i = 0; i < prevOwnersDefects[defectOwner].group.length; ++i) {
+              updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
             }
           }
           else {
-            updatedSearchQuery[i] = ['', '', ''];
+            const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
+            if (defectOwner < totalOwners-numPreviousOwners) {
+              for (let i = 0; i < defects[defectOwner].group.length; ++i) {
+                updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
+              }
+            }
+          }
+          setDefectGroupsOwner(updatedDefectGroupsOwner);
+
+          if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1] != -1) {
+            updatedSearchQuery[i][1] = `${t('DataSVL.Placeholders.groupDefect')} ${repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1]+1}`;
+            updatedStep[i] = 2;
+
+            const updatedDefectGroupTypesOwner = [];
+            const groupDefect = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1];
+            if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0] < numPreviousOwners) {
+              const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
+              for (let i = 0; i < prevOwnersDefects[defectOwner].group[groupDefect].type.length; ++i) {
+                updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
+              }
+            }
+            else {
+              const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
+              if (defectOwner < totalOwners-numPreviousOwners) {
+                for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
+                  updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
+                }    
+              }
+            }
+            updatedDefectGroupTypesOwner.push(t('DataSVL.Placeholders.allDefects')); 
+            setDefectGroupTypesOwner(updatedDefectGroupTypesOwner);
+            
+            if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][2] == -2) {
+              updatedSearchQuery[i][2] = `${t('DataSVL.Placeholders.allDefects')}`;
+              updatedStep[i] = 3;
+            }
+            else if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][2] == -1) {
+              updatedSearchQuery[i][2] = '';
+              updatedStep[i] = 2;
+            }
+            else {
+              updatedSearchQuery[i][2] = `${t('DataSVL.Placeholders.defect')} ${repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][2]+1}`;
+              updatedStep[i] = 3;
+            }
+          }
+          else {
+            updatedSearchQuery[i][1] = '';
+            updatedSearchQuery[i][2] = '';
             updatedStep[i] = 1;
           }
         }

@@ -118,32 +118,27 @@ const Data = (): JSX.Element => {
     if (renderCount.current < 3) {
       return;
     }
+
     if (jsonVersion[selectedOwner] == 'base') {
-      const updatedMaintenances = maintenances.map((item) =>
-        deepMergePreserveMatching(item, cloneDeep(defaultBaseMaintenances))
-      );
+      const updatedMaintenances = [...maintenances];
+      updatedMaintenances[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(maintenances[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseMaintenances));
       setMaintenances(updatedMaintenances);
-      const updatedModifications = modifications.map((item) =>
-        deepMergePreserveMatching(item, cloneDeep(defaultBaseModifications))
-      );
+      const updatedModifications = [...modifications];
+      updatedModifications[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(modifications[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseModifications));
       setModifications(updatedModifications);
-      const updatedRepairs = repairs.map((item) =>
-        deepMergePreserveMatching(item, cloneDeep(defaultBaseRepairs))
-      );
+      const updatedRepairs = [...repairs];
+      updatedRepairs[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(repairs[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseRepairs));
       setRepairs(updatedRepairs);
     }
     else {
-      const updatedMaintenances = maintenances.map((item) =>
-        deepMergePreserveMatching(item, cloneDeep(defaultBaseSimpleMaintenances))
-      );
+      const updatedMaintenances = [...maintenances];
+      updatedMaintenances[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(maintenances[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseSimpleMaintenances));
       setMaintenances(updatedMaintenances);
-      const updatedModifications = modifications.map((item) =>
-        deepMergePreserveMatching(item, cloneDeep(defaultBaseSimpleModifications))
-      );
+      const updatedModifications = [...modifications];
+      updatedModifications[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(modifications[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseSimpleModifications));
       setModifications(updatedModifications);
-      const updatedRepairs = repairs.map((item) =>
-        deepMergePreserveMatching(item, cloneDeep(defaultBaseSimpleRepairs))
-      );
+      const updatedRepairs = [...repairs];
+      updatedRepairs[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(repairs[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseSimpleRepairs));
       setRepairs(updatedRepairs);
     }
   }, [jsonVersion]);

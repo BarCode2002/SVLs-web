@@ -28,15 +28,15 @@ const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModificatio
       addGeneralInformationPrev(setGeneralInformation, prevOwnersGeneralInformation, numPreviousOwners);
     }
     else addGeneralInformation(setGeneralInformation);
+    const updatedJsonVersion = [...jsonVersion];
+    updatedJsonVersion.push(selectedJsonVersion);
+    setJsonVersion(updatedJsonVersion);
     addMaintenances(setMaintenances, selectedJsonVersion);
     addModifications(setModifications, selectedJsonVersion);
     addDefects(setDefects);
     addRepairs(setRepairs, selectedJsonVersion);
     setSelectedOwner(totalOwners);
-    setTotalOwners(totalOwners+1);
-    const updatedJsonVersion = [...jsonVersion];
-    updatedJsonVersion.push(selectedJsonVersion);
-    setJsonVersion(updatedJsonVersion);
+    setTotalOwners(totalOwners+1); 
   }
 
   return (
