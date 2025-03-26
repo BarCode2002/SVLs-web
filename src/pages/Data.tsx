@@ -347,11 +347,11 @@ const Data = (): JSX.Element => {
                   owners: responseIndexer.data[0].current_owner_info.length == 1 && responseIndexer.data[0].current_owner_info[0] == '' ? [t('DataSVL.TopBar.justTransferred')] : owners,
                   transferDate: `${t('DataSVL.TopBar.acquisitionDate')} ${prevTransfeDate}`,
                 }
-                setJsonVersion(updatedJsonVersion);
                 ownershipSummary.current.push(ownershipInfo);
                 setTotalOwners(numPreviousOwners);          
                 setSelectedOwner(0);
               }
+              setJsonVersion(updatedJsonVersion);
             }
             else { //SVL owned
               let numPreviousOwners = 0;
