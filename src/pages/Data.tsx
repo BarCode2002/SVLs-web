@@ -148,7 +148,7 @@ const Data = (): JSX.Element => {
   const prevOwnersModifications = useRef<PossibleModificationsJsonVersions[]>([]);
   const prevOwnersDefects = useRef<PossibleDefectsJsonVersions[]>([]);
   const prevOwnersRepairs = useRef<PossibleRepairsJsonVersions[]>([]);
-  const didRun = useRef(false);//en teoria y sin teoria solo necesario para el development por el strict mode
+  //const didRun = useRef(false);//en teoria y sin teoria solo necesario para el development por el strict mode
 
   const ownershipSummary = useRef<OwnershipSummary[]>([]);
 
@@ -230,8 +230,8 @@ const Data = (): JSX.Element => {
 
   useEffect(() => {
     const getSVLFull = async () => {
-      if (didRun.current) return;
-      didRun.current = true;
+      //if (didRun.current) return;
+      //didRun.current = true;
       const timer = setTimeout(async () => {
         if (svl_pk) {
           try {
