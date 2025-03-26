@@ -160,9 +160,11 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
         onClick={toggleFullScreen}>
         {fullScreen == 0 ? <EnterFullScreenIcon /> : <ExitFullScreenIcon />}
       </button>
-      <div className={styles.changeJsonVersion}>
-        <ChangeJsonVersion selectedOwner={selectedOwner} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion} editMode={editMode} numPreviousOwners={numPreviousOwners} />
-      </div>
+      {viewType == 0 &&
+        <div className={styles.changeJsonVersion}>
+          <ChangeJsonVersion selectedOwner={selectedOwner} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion} editMode={editMode} numPreviousOwners={numPreviousOwners} />
+        </div>
+      }
       {viewType == 0 ? (
         <div>
           {selectedSVLData == 0 && selectedOwner < weird &&
