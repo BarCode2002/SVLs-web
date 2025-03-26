@@ -24,7 +24,7 @@ type RepairsSVLProps = {
   repairs: PossibleRepairsJsonVersions[];
   setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
   defects: PossibleDefectsJsonVersions[];
-  prevOwnersDefects: any;
+  prevOwnersDefects: PossibleDefectsJsonVersions[];
   editMode: boolean;
   jsonUploaded: boolean;
   totalOwners: number;

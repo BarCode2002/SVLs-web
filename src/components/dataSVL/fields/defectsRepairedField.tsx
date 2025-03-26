@@ -1,4 +1,5 @@
 import styles from '../../../styles/components/dataSVL/fields/defectsRepairedField.module.css';
+import { PossibleDefectsJsonVersions, PossibleRepairsJsonVersions } from '../../../utils/commonTypes';
 import { DEFECTS_REPAIRED_SIZE } from '../../../utils/constants';
 import { DetectClickOutsideComponent } from '../../varied/detectClickOutsideComponent';
 import { SetStateAction, useEffect, useState } from "react";
@@ -9,10 +10,10 @@ type DefectsRepairedFieldProps = {
   numPreviousOwners: number;
   selectedOwner: number;
   selectedGroup: number;
-  repairs: any;
-  setRepairs: React.Dispatch<SetStateAction<any>>;
-  defects: any;
-  prevOwnersDefects: any;
+  repairs: PossibleRepairsJsonVersions[];
+  setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
+  defects: PossibleDefectsJsonVersions[];
+  prevOwnersDefects: PossibleDefectsJsonVersions[];
   editMode: boolean;
   jsonUploaded: boolean;
   totalOwners: number;
@@ -34,7 +35,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
     const updatedOwnersWithDefects = [];
     for (let i = 0; i < selectedOwner+numPreviousOwners+1; i++) {
       if (i < numPreviousOwners) {
-        if (prevOwnersDefects[i].defects.length > 0) updatedOwnersWithDefects.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`); 
+        if (prevOwnersDefects[i].group.length > 0) updatedOwnersWithDefects.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`); 
       }
       else {
         if (defects[i-numPreviousOwners].group.length > 0) updatedOwnersWithDefects.push(`${t('DataSVL.Placeholders.owner')} ${i+1}`); 
@@ -52,7 +53,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
             const updatedDefectGroupsOwner = [];
             if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]+1-numPreviousOwners < numPreviousOwners) {
               const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
-              for (let i = 0; i < prevOwnersDefects[defectOwner].defects.length; ++i) {
+              for (let i = 0; i < prevOwnersDefects[defectOwner].group.length; ++i) {
                 updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
               }
             }
@@ -74,8 +75,8 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
               const groupDefect = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1];
               if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]+1-numPreviousOwners < numPreviousOwners) {
                 const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
-                if (prevOwnersDefects[defectOwner].defects.length > 0 && prevOwnersDefects[defectOwner].defects[groupDefect].length > 0) {
-                  for (let i = 0; i < prevOwnersDefects[defectOwner].defects[groupDefect].type.length; ++i) {
+                if (prevOwnersDefects[defectOwner].group.length > 0 && prevOwnersDefects[defectOwner].group[groupDefect].type.length > 0) {
+                  for (let i = 0; i < prevOwnersDefects[defectOwner].group[groupDefect].type.length; ++i) {
                     updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
                   }
                 }
@@ -83,7 +84,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
               else {
                 const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
                 if (defectOwner < totalOwners) {
-                  if (defects[defectOwner].length > 0) {
+                  if (defects[defectOwner].group.length > 0) {
                     for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
                       updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
                     }
@@ -238,7 +239,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
     setRepairs(updatedRepairs);
     const updatedDefectGroupsOwner = [];
     if (ownerNumber-numPreviousOwners < numPreviousOwners) {
-      for (let i = 0; i < prevOwnersDefects[ownerNumber-1].defects.length; ++i) {
+      for (let i = 0; i < prevOwnersDefects[ownerNumber-1].group.length; ++i) {
         updatedDefectGroupsOwner.push(`${t('DataSVL.Placeholders.groupDefect')} ${i+1}`); 
       }
     }
@@ -266,7 +267,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
     const groupNumber = parseInt(groupNum![0]);
     const updatedDefectGroupTypesOwner = [];
     if (ownerNumber-numPreviousOwners < numPreviousOwners) {
-      for (let i = 0; i < prevOwnersDefects[ownerNumber-1].defects[groupNumber-1].type.length; ++i) {
+      for (let i = 0; i < prevOwnersDefects[ownerNumber-1].group[groupNumber-1].type.length; ++i) {
         updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
       }
     }
