@@ -9,9 +9,10 @@ type ChangeJsonVersionProps = {
   jsonVersion: string[];
   setJsonVersion: React.Dispatch<SetStateAction<string[]>>;
   editMode: boolean;
+  numPreviousOwners: number;
 };
 
-const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion, editMode }: ChangeJsonVersionProps): JSX.Element => {
+const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion, editMode, numPreviousOwners }: ChangeJsonVersionProps): JSX.Element => {
  
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -65,14 +66,14 @@ const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion, editMod
             onMouseLeave={handleIsHovered}
             className={isOpen ? styles.selectedOpen : styles.selected}
             onClick={hadleOpenDropdownMenu}
-            disabled={!editMode}>
-            {!editMode && 
-              <span>Versión: {jsonVersion[selectedOwner]}</span>
+            disabled={!editMode || selectedOwner < numPreviousOwners}>
+            {(selectedOwner < numPreviousOwners || !editMode) && 
+              <span>{t('jsonVersion.version')} {t(`jsonVersion.${jsonVersion[selectedOwner]}`)}</span>
             }
-            {editMode && 
-              <span>{jsonVersion[selectedOwner]}</span>
+            {selectedOwner >= numPreviousOwners && editMode && 
+              <span>{t(`jsonVersion.${jsonVersion[selectedOwner]}`)}</span>
             }
-            {editMode && 
+            {selectedOwner >= numPreviousOwners && editMode && 
               <span>{(isOpen) ? <TopArrow /> : isHovered ? <BottomArrowBlack /> : <BottomArrowWhite />}</span>
             }
           </button>
@@ -86,12 +87,12 @@ const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion, editMod
                 placeholder={searchBarPlaceholder}
               />
               <div className={styles.dropdownList}>
-                {list.length ? list.filter(jsonVersion => jsonVersion.toLocaleLowerCase().includes(searchQuery.toLowerCase())).map((jsonVersion) => (
+                {list.length ? list.filter(jsonVersion => t(`jsonVersion.${jsonVersion}`).toLocaleLowerCase().includes(searchQuery.toLowerCase())).map((jsonVersion) => (
                   <div key={jsonVersion}>   
                     <button
                       className={styles.dropdownItem}
                       onClick={() => (handleOpenWarning(jsonVersion))}>
-                      {jsonVersion}
+                      {t(`jsonVersion.${jsonVersion}`)}
                     </button>
                   </div>
                 )) : null}
@@ -109,8 +110,7 @@ const ChangeJsonVersion = ({ selectedOwner, jsonVersion, setJsonVersion, editMod
         <div className={styles.warningChangeVersionContainer}>
           <div className={styles.warningChangeVersion}>
             <div className={styles.text}>
-              ¿Estas seguro que quieres cambiar de version? Se perdera la informacion de los campos
-              que no conincidan en ambas versiones
+              {t('DataSVL.Placeholders.warningChangeVersion')}
             </div>
             <div className={styles.confirmCloseButtonContainer}>
               <button

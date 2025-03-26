@@ -70,13 +70,13 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.transferDate')} ${i18n.t('InvalidFields.mandatoryField')}`);    
     }
     if (generalInformation[i].images.filter(image => image != '').length == 0) {
-      invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.photographsNotSaved')} 'upload at least an image'`);
+      invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.images')}`);
     }
     let foundNotSaved = false;
     for (let j = 0; j < PHOTOGRAPHS_SIZE; j++) {
       if (generalInformation[i].images[j][4] == ':' && !foundNotSaved) {
         foundNotSaved = true;
-        invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.photographsNotSaved')}`);        
+        invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.imagesNotSaved')}`);        
       }
     }
     for (let j = 0; j < maintenances[i].group.length; j++) {

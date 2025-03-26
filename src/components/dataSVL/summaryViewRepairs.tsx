@@ -180,7 +180,7 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
           </div>
-          {!repairs[currentSelOwner].group[groupIndex].type[typeIndex].shrinked && checkIfSomeDataInType(currentSelOwner-numPreviousOwners, groupIndex, typeIndex, true) &&
+          {!repairs[currentSelOwner].group[groupIndex].type[typeIndex].shrinked && checkIfSomeDataInType(currentSelOwner+numPreviousOwners, groupIndex, typeIndex, true) &&
             <div className={styles.groupTypeBottomPart}>
               {isRepairsBase(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].type[typeIndex].numComponents > 0 &&
                 <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={repairs[currentSelOwner].group[groupIndex].type[typeIndex].components} />
