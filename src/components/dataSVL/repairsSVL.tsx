@@ -1,6 +1,5 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Repairs, Defects } from '../../utils/interfaces.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -15,20 +14,24 @@ import ComponentsField from './fields/componentsField.tsx';
 import DragGroupGroupTypeButton from './buttons/dragGroupGroupTypeButton.tsx';
 import DefectsRepairedField from './fields/defectsRepairedField.tsx';
 import { useTranslation } from "react-i18next";
+import { isRepairsBase } from '../../utils/checkBaseType.ts';
+import { isRepairsBaseSimple } from '../../utils/checkBaseSimpleType.ts';
+import { PossibleDefectsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type RepairsSVLProps = {
   selectedOwner: number;
   numPreviousOwners: number;
-  repairs: Repairs[];
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
-  defects: Defects[];
-  prevOwnersDefects: any;
+  repairs: PossibleRepairsJsonVersions[];
+  setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
+  defects: PossibleDefectsJsonVersions[];
+  prevOwnersDefects: PossibleDefectsJsonVersions[];
   editMode: boolean;
   jsonUploaded: boolean;
   totalOwners: number;
+  jsonVersion: string[];
 };
 
-const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, defects, prevOwnersDefects, editMode, jsonUploaded, totalOwners }: RepairsSVLProps): JSX.Element => {
+const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, defects, prevOwnersDefects, editMode, jsonUploaded, totalOwners, jsonVersion }: RepairsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -96,21 +99,34 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
                 value={repairs[selectedOwner].group[groupIndex].type[typeIndex].name} 
                 setDataSVL={setRepairs} type={'name'} editMode={editMode}
               />
-              <ComponentsField placeholder={t('DataSVL.Placeholders.component')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
-                selectedGroupType={typeIndex} dataSVL={repairs} 
-                selectedComponents={repairs[selectedOwner].group[groupIndex].type[typeIndex].components} 
-                setDataSVL={setRepairs} type={'components'} editMode={editMode}
-              />
-              <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
-                selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].pre} 
-                setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
-              />
-              <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
-                selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].post} 
-                setDataSVL={setRepairs} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
-              />
+              {isRepairsBase(repairs[selectedOwner], groupIndex, typeIndex) &&
+                <ComponentsField placeholder={t('DataSVL.Placeholders.component')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+                  selectedGroupType={typeIndex} dataSVL={repairs} 
+                  selectedComponents={repairs[selectedOwner].group[groupIndex].type[typeIndex].components} 
+                  setDataSVL={setRepairs} type={'components'} editMode={editMode}
+                />
+              }
+              {isRepairsBase(repairs[selectedOwner], groupIndex, typeIndex) &&
+                <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
+                  selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].pre} 
+                  setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
+              {isRepairsBase(repairs[selectedOwner], groupIndex, typeIndex) &&
+                <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
+                  selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].post} 
+                  setDataSVL={setRepairs} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
+              {isRepairsBaseSimple(repairs[selectedOwner], groupIndex, typeIndex) &&
+                <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
+                  selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].images} 
+                  setDataSVL={setRepairs} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsRepair')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
                 value={repairs[selectedOwner].group[groupIndex].type[typeIndex].comments} 
@@ -122,7 +138,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
         <div className={styles.addType}>
           {repairs[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setRepairs} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'repairs'} editMode={editMode}
+              selectedGroup={groupIndex} type={'repairs'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
             />
           }
         </div>
@@ -168,14 +184,24 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
                 selectedOwner={selectedOwner} selectedGroup={groupIndex} repairs={repairs} setRepairs={setRepairs} defects={defects} 
                 prevOwnersDefects={prevOwnersDefects} editMode={editMode} jsonUploaded={jsonUploaded} totalOwners={totalOwners}
               />
-              <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].pre} 
-                setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
-              />
-              <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].post} 
-                setDataSVL={setRepairs} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
-              />
+              {isRepairsBase(repairs[selectedOwner], groupIndex) &&
+                <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].pre} 
+                  setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
+              {isRepairsBase(repairs[selectedOwner], groupIndex) &&
+                <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].post} 
+                  setDataSVL={setRepairs} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
+              {isRepairsBaseSimple(repairs[selectedOwner], groupIndex) &&
+                <ImagesField fieldLabel={t('DataSVL.Labels.images')} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={repairs} selectedImages={repairs[selectedOwner].group[groupIndex].images} 
+                  setDataSVL={setRepairs} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
             </div>
           }
         </div>
@@ -187,7 +213,9 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
       </div>
       <div className={styles.addGroupButton}>
         {repairs[selectedOwner].group.length - 1 == groupIndex &&
-          <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
+          />
         }
       </div>
     </div>
@@ -201,7 +229,9 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
       {listGroupRepairs}
       <div className={styles.addGroupButton}>
         {repairs[selectedOwner].group.length == 0 &&
-          <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
+          />
         }
       </div>
     </div>

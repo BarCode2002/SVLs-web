@@ -1,35 +1,42 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/bottomNavBar/manageOwnerButtons.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
+import { GeneralInformationBase } from '../../utils/baseTypes.ts';
 import { addGeneralInformationPrev, addGeneralInformation, addMaintenances, addModifications, addDefects, addRepairs } from '../../utils/addOwners.ts';
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type AddOwnerButtonProps = {
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
-  setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
-  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
+  setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
+  setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>;
+  setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
+  setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
+  setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
   setSelectedOwner: React.Dispatch<React.SetStateAction<number>>;
   totalOwners: number;
   setTotalOwners: React.Dispatch<React.SetStateAction<number>>;
   numPreviousOwners: number;
   editMode: boolean;
-  prevOwnersGeneralInformation: GeneralInformation[];
+  prevOwnersGeneralInformation: GeneralInformationBase[];
+  selectedJsonVersion: string;
+  jsonVersion: string[];
+  setJsonVersion: React.Dispatch<SetStateAction<string[]>>;
 };
 
-const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, setSelectedOwner, totalOwners, setTotalOwners, numPreviousOwners, editMode, prevOwnersGeneralInformation }: AddOwnerButtonProps): JSX.Element => {
+const AddOwnerButton = ({ setGeneralInformation, setMaintenances, setModifications, setDefects, setRepairs, setSelectedOwner, totalOwners, setTotalOwners, numPreviousOwners, editMode, prevOwnersGeneralInformation, selectedJsonVersion, jsonVersion, setJsonVersion }: AddOwnerButtonProps): JSX.Element => {
 
   const handleOwnerAddition = () => {
     if (numPreviousOwners == totalOwners) {
       addGeneralInformationPrev(setGeneralInformation, prevOwnersGeneralInformation, numPreviousOwners);
     }
     else addGeneralInformation(setGeneralInformation);
-    addMaintenances(setMaintenances);
-    addModifications(setModifications);
+    const updatedJsonVersion = [...jsonVersion];
+    updatedJsonVersion.push(selectedJsonVersion);
+    setJsonVersion(updatedJsonVersion);
+    addMaintenances(setMaintenances, selectedJsonVersion);
+    addModifications(setModifications, selectedJsonVersion);
     addDefects(setDefects);
-    addRepairs(setRepairs);
+    addRepairs(setRepairs, selectedJsonVersion);
     setSelectedOwner(totalOwners);
-    setTotalOwners(totalOwners+1);
+    setTotalOwners(totalOwners+1); 
   }
 
   return (

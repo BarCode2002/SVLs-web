@@ -1,17 +1,17 @@
 import { SetStateAction } from 'react';
 import styles from '../../styles/components/dataSVL/generalInformationSVL.module.css';
-import { GeneralInformation } from '../../utils/interfaces.ts';
 import InputField from './fields/inputField.tsx';
 import DropdownMenu from './fields/dropdownMenu.tsx';
 import ImagesField from './fields/imagesField.tsx';
 import InputTextField from './fields/inputTextField.tsx';
 import { useTranslation } from "react-i18next";
 import DateField from './fields/dateField.tsx';
+import { PossibleGeneralInformationJsonVersions } from '../../utils/commonTypes.ts';
 
 type GeneralInformationSVLProps = {
   selectedOwner: number;
-  generalInformation: GeneralInformation[];
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
+  generalInformation: PossibleGeneralInformationJsonVersions[];
+  setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
   editMode: boolean;
   jsonUploaded: boolean;
 };
@@ -50,13 +50,9 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 
             setDataSVL={setGeneralInformation} type={'kilometers'} editMode={editMode}
           /> 
-          <ImagesField fieldLabel={t('DataSVL.Labels.mainImage')} placeholder={t('DataSVL.Placeholders.mainImage')} selectedOwner={selectedOwner} 
-            selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={[generalInformation[selectedOwner].mainPhotograph]} 
-            setDataSVL={setGeneralInformation} type={'mainPhotograph'} allowMultipleImages={false} editMode={editMode} jsonUploaded={jsonUploaded}
-          />
           <ImagesField fieldLabel={t('DataSVL.Labels.images')} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
-            selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].photographs} 
-            setDataSVL={setGeneralInformation} type={'photographs'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+            selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].images} 
+            setDataSVL={setGeneralInformation} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
           />        
           <DropdownMenu fieldLabel={t('DataSVL.Labels.state')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].state} 

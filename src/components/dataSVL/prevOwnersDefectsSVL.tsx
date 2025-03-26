@@ -1,10 +1,10 @@
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { /*Defects*/ Repairs } from '../../utils/interfaces.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import RepairedDefectsByContainer from './readOnlyFields/repairedDefectByContainer.tsx';
 import ToggleVisibilityRDButton from './readOnlyFields/toggleVisibilityRDButton.tsx';
 import { useTranslation } from "react-i18next";
+import { PossibleDefectsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type PrevOwnersDefectsSVLProps = {
   selectedOwner: number;
@@ -12,9 +12,9 @@ type PrevOwnersDefectsSVLProps = {
   totalOwners: number,
   shrinked: any;
   setShrinked: any;
-  prevOwnersDefects: any;
-  prevOwnersRepairs: any;
-  repairs: Repairs[];
+  prevOwnersDefects: PossibleDefectsJsonVersions[];
+  prevOwnersRepairs: PossibleRepairsJsonVersions[];
+  repairs: PossibleRepairsJsonVersions[];
   mySVL: boolean;
 };
 
@@ -24,7 +24,7 @@ const PrevOwnersDefectsSVL = ({ selectedOwner, numPreviousOwners, totalOwners, s
 
   const renderlistDefects = (groupIndex: number) => {
 
-    const listDefects = Array.from({length: prevOwnersDefects[selectedOwner].defects[groupIndex].type.length}, (_, typeIndex) => (
+    const listDefects = Array.from({length: prevOwnersDefects[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
@@ -33,9 +33,9 @@ const PrevOwnersDefectsSVL = ({ selectedOwner, numPreviousOwners, totalOwners, s
           </div>
           {shrinked[selectedOwner][groupIndex].type[typeIndex] == false &&
             <div className={styles.groupTypeBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.level')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].level} />
-              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].photographs} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].type[typeIndex].description} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.level')} text={prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].level} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].images} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].description} />
             </div>
           }
         </div>
@@ -49,7 +49,7 @@ const PrevOwnersDefectsSVL = ({ selectedOwner, numPreviousOwners, totalOwners, s
     );
   };
 
-  const listGroupDefects = Array.from({length: prevOwnersDefects[selectedOwner].defects.length }, (_, groupIndex) => (
+  const listGroupDefects = Array.from({length: prevOwnersDefects[selectedOwner].group.length }, (_, groupIndex) => (
     <div key={groupIndex}>
       <div className={styles.groupContainerPrevOwners}>
         <div className={styles.topPart}>
@@ -59,9 +59,9 @@ const PrevOwnersDefectsSVL = ({ selectedOwner, numPreviousOwners, totalOwners, s
           </div>
           {shrinked[selectedOwner][groupIndex].group == false &&
             <div className={styles.topBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].date} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].kilometers} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={prevOwnersDefects[selectedOwner].defects[groupIndex].cause} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.date')} text={prevOwnersDefects[selectedOwner].group[groupIndex].date} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersDefects[selectedOwner].group[groupIndex].kilometers} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.cause')} text={prevOwnersDefects[selectedOwner].group[groupIndex].cause} />
               <RepairedDefectsByContainer fieldLabel={t('DataSVL.Labels.repairsL')} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs} 
                 selectedOwner={selectedOwner} selectedGroup={groupIndex} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners}
                 mySVL={mySVL} view={'ownerView'}

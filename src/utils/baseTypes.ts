@@ -1,13 +1,12 @@
-export interface GeneralInformation {
+export type GeneralInformationBase = {
   VIN: string;
   brand: string;
   model: string;
   year: string;
   kilometers: [string, string];
   transferDate: string;
-  mainPhotograph: string;
   state: string;
-  photographs: string[];
+  images: string[];
   weight: [string, string];
   color: string;
   engine: string;
@@ -21,7 +20,7 @@ export interface GeneralInformation {
   comments: string;
 }
 
-interface Maintenance {
+type MaintenanceBase = {
   name: string;
   components: string[];
   numComponents: number;
@@ -31,7 +30,7 @@ interface Maintenance {
   shrinked: boolean;
 }
 
-export interface Maintenances {
+export type MaintenancesBase = {
   group: {
     date: string;
     kilometers: [string, string];
@@ -39,12 +38,12 @@ export interface Maintenances {
     responsible: [number | null, string, boolean | null, string];
     pre: string[],
     post: string[],
-    type: Maintenance[];
+    type: MaintenanceBase[];
     shrinked: boolean;
   }[];
 }
 
-interface Modification {
+type ModificationBase = {
   name: string;
   components: string[];
   numComponents: number;
@@ -54,7 +53,7 @@ interface Modification {
   shrinked: boolean;
 }
 
-export interface Modifications {
+export type ModificationsBase = {
   group: {
     date: string;
     kilometers: [string, string];
@@ -62,29 +61,29 @@ export interface Modifications {
     responsible: [number | null, string, boolean | null, string];
     pre: string[],
     post: string[],
-    type: Modification[];
+    type: ModificationBase[];
     shrinked: boolean;
   }[];
 }
 
-interface Defect {
+type DefectBase = {
   level: string;
-  photographs: string[],
+  images: string[],
   description: string;
   shrinked: boolean;
 }
 
-export interface Defects {
+export type DefectsBase = {
   group: {
     date: string;
     kilometers: [string, string];
     cause: string;
-    type: Defect[];
+    type: DefectBase[];
     shrinked: boolean;
   }[];
 }
 
-interface Repair {
+type RepairBase = {
   name: string;
   components: string[];
   numComponents: number;
@@ -94,7 +93,7 @@ interface Repair {
   shrinked: boolean;
 }
 
-export interface Repairs {
+export type RepairsBase = {
   group: {
     date: string;
     kilometers: [string, string];
@@ -104,56 +103,7 @@ export interface Repairs {
     post: string[],
     defectsRepaired: [number, number, number][];
     numDefectsRepaired: number;
-    type: Repair[];
+    type: RepairBase[];
     shrinked: boolean;
   }[];
-}
-
-export interface PreviewSVLsInfo {
-  pk: string;
-  price: number;
-  mySVL: boolean | null;
-  mainPhotograph: string;
-  brand: string;
-  model: string;
-  year: string;
-  stateMySVL: [boolean | null, string, boolean | null];
-  //requested or not / requester address / request accepted or not
-  stateNotMySVL: [boolean | null, string, string, boolean | null, boolean | null];
-  //requested or not / owner address / requester address / request accepted or not / just transferred(curr_owner_info == '') or not 
-}
-
-export interface OwnershipSummary {
-  ownerAddress: string;
-  owners: string[];
-  transferDate: string;
-}
-
-export interface FilterSVLsInterface {
-  key: string;
-  numOwners: string[];
-  numMaintenances: string[]; 
-  numModifications: string[]; 
-  defects: {
-    cosmetic: [boolean, string, string],
-    minor: [boolean, string, string],
-    moderate: [boolean, string, string],
-    important: [boolean, string, string],
-    critical: [boolean, string, string]
-  };
-  numRepairs: string[];
-  vin: string;
-  brand: string;
-  model: string;
-  year: string[];
-  kilometers: string[];
-  state: string[];
-  weight: string[];
-  power: string[];
-  shift: string[];
-  fuel: string[];
-  autonomy: string[];
-  climate: string[];
-  usage: string[];
-  storage: string[];
 }

@@ -1,6 +1,6 @@
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from "./interfaces";
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from "./commonTypes";
 
-export const createJSON = (selectedOwner: number, generalInformation: GeneralInformation[], maintenances: Maintenances[], modifications: Modifications[], defects: Defects[], repairs: Repairs[]): any => {
+export const createJSON = (selectedOwner: number, generalInformation: PossibleGeneralInformationJsonVersions[], maintenances: PossibleMaintenancesJsonVersions[], modifications: PossibleModificationsJsonVersions[], defects: PossibleDefectsJsonVersions[], repairs: PossibleRepairsJsonVersions[], jsonVersion: string): any => {
 
   const dataSVL = [ 
     ...generalInformation.slice(selectedOwner, selectedOwner+1).map((item) => ({
@@ -10,9 +10,8 @@ export const createJSON = (selectedOwner: number, generalInformation: GeneralInf
       year: item.year,
       transferDate: item.transferDate,
       kilometers: item.kilometers,
-      mainPhotograph: item.mainPhotograph,
       state: item.state,
-      photographs: item.photographs,
+      images: item.images,
       weight: item.weight,
       color: item.color,
       engine: item.engine,
@@ -26,19 +25,19 @@ export const createJSON = (selectedOwner: number, generalInformation: GeneralInf
       comments: item.comments
     })),
     ...maintenances.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      maintenances: item.group,
+      group: item.group,
     })),
     ...modifications.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      modifications: item.group,
+      group: item.group,
     })),
     ...defects.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      defects: item.group,
+      group: item.group,
     })),
     ...repairs.slice(selectedOwner, selectedOwner+1).map((item) => ({
-      repairs: item.group,
+      group: item.group,
     })),
     {
-      version: "base"
+      version: jsonVersion
     }
   ];
   return JSON.stringify(dataSVL, null, 2);  

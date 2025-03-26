@@ -32,6 +32,7 @@ const DateField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, data
         <DatePicker 
           portalId="react-datepicker-popper"
           className={styles.date}
+          maxDate={new Date("9999-12-31")}
           selected={type == 'transferDate' ? dataSVL[selectedOwner][type] : dataSVL[selectedOwner].group[selectedGroup][type]} 
           onChange={handleDateSelected} 
           dateFormat="dd-MM-yyyy" 

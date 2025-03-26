@@ -8,7 +8,7 @@ import MySVLsButton from '../components/dashboard/mySVLsButton';
 import RequestedSVLsButton from '../components/dashboard/requestedSVLsButton';
 import FilterSVLs from '../components/dashboard/filterSVLs';
 import PreviewSVLs from '../components/dashboard/previewSVLs';
-import { FilterSVLsInterface } from '../utils/interfaces';
+import { FilterSVLsType } from '../utils/commonTypes';
 import { useTranslation } from 'react-i18next';
 import { GROUP_SIZE } from '../utils/constants';
 import { BottomArrowWide, BottomArrowWideWhite, TopArrowWide, TopArrowWideWhite } from '../assets/directionArrows';
@@ -26,7 +26,7 @@ const Dashboard = (): JSX.Element => {
     if (savedfilterSVLs == null) return 0;
     else return parseInt(savedfilterSVLs);
   });
-  const defaultAppliedFilterSVL: FilterSVLsInterface = {
+  const defaultAppliedFilterSVL: FilterSVLsType = {
     key: "v1",
     numOwners: ['0', ''],
     numMaintenances: ['0', ''],
@@ -54,7 +54,7 @@ const Dashboard = (): JSX.Element => {
     usage: ['Dashboard.Placeholders.usage', '', '', ''],
     storage: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
   }
-  const [appliedFiltersSVL, setAppliedFiltersSVL] = useState<FilterSVLsInterface>(() => {
+  const [appliedFiltersSVL, setAppliedFiltersSVL] = useState<FilterSVLsType>(() => {
     const savedFilters = localStorage.getItem("appliedFiltersSVL");
     const parsedSavedFilters = savedFilters ? JSON.parse(savedFilters) : null;
     if (parsedSavedFilters && parsedSavedFilters.key === defaultAppliedFilterSVL.key) {

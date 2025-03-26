@@ -1,6 +1,5 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Modifications } from '../../utils/interfaces.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -14,16 +13,21 @@ import ResponsibleField from './fields/responsibleField.tsx';
 import ComponentsField from './fields/componentsField.tsx';
 import DragGroupGroupTypeButton from './buttons/dragGroupGroupTypeButton.tsx';
 import { useTranslation } from "react-i18next";
+import { isModificationsBaseSimple } from '../../utils/checkBaseSimpleType.ts';
+import { isModificationsBase } from '../../utils/checkBaseType.ts';
+import { PossibleModificationsJsonVersions } from '../../utils/commonTypes.ts';
 
 type ModificationsSVLProps = {
   selectedOwner: number;
-  modifications: Modifications[];
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
+  modifications: PossibleModificationsJsonVersions[];
+  setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
   editMode: boolean;
   jsonUploaded: boolean;
+  jsonVersion: string[];
+  numPreviousOwners: number;
 };
 
-const ModificationsSVL = ({ selectedOwner, modifications, setModifications, editMode, jsonUploaded }: ModificationsSVLProps): JSX.Element => {
+const ModificationsSVL = ({ selectedOwner, modifications, setModifications, editMode, jsonUploaded, jsonVersion, numPreviousOwners }: ModificationsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -91,21 +95,34 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
                 value={modifications[selectedOwner].group[groupIndex].type[typeIndex].name} 
                 setDataSVL={setModifications} type={'name'} editMode={editMode}
               />
-              <ComponentsField placeholder={t('DataSVL.Placeholders.component')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
-                selectedGroupType={typeIndex} dataSVL={modifications} 
-                selectedComponents={modifications[selectedOwner].group[groupIndex].type[typeIndex].components} 
-                setDataSVL={setModifications} type={'components'} editMode={editMode}
-              />
-              <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
-                selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].pre} 
-                setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
-              />
-              <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
-                selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].post} 
-                setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
-              />
+              {isModificationsBase(modifications[selectedOwner], groupIndex, typeIndex) &&
+                <ComponentsField placeholder={t('DataSVL.Placeholders.component')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
+                  selectedGroupType={typeIndex} dataSVL={modifications} 
+                  selectedComponents={modifications[selectedOwner].group[groupIndex].type[typeIndex].components} 
+                  setDataSVL={setModifications} type={'components'} editMode={editMode}
+                />
+              }
+              {isModificationsBase(modifications[selectedOwner], groupIndex, typeIndex) &&
+                <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
+                  selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].pre} 
+                  setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
+              {isModificationsBase(modifications[selectedOwner], groupIndex, typeIndex) &&
+                <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
+                  selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].post} 
+                  setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
+              {isModificationsBaseSimple(modifications[selectedOwner], groupIndex, typeIndex) &&
+                <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
+                  selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].images} 
+                  setDataSVL={setModifications} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsModifications')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
                 value={modifications[selectedOwner].group[groupIndex].type[typeIndex].comments} 
@@ -117,7 +134,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
         <div className={styles.addType}>
           {modifications[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setModifications} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'modifications'} editMode={editMode}
+              selectedGroup={groupIndex} type={'modifications'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
             />
           }
         </div>
@@ -159,14 +176,24 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
               <DateField fieldLabel={t('DataSVL.Labels.date')} placeholder={t('DataSVL.Placeholders.date')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} dataSVL={modifications} setDataSVL={setModifications} type={'date'} editMode={editMode}
               />
-              <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].pre} 
-                setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
-              />
-              <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
-                selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].post} 
-                setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
-              />
+              {isModificationsBase(modifications[selectedOwner], groupIndex) &&
+                <ImagesField fieldLabel={t('DataSVL.Labels.preImages')} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].pre} 
+                  setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
+              {isModificationsBase(modifications[selectedOwner], groupIndex) &&
+                <ImagesField fieldLabel={t('DataSVL.Labels.postImages')} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].post} 
+                  setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
+              {isModificationsBaseSimple(modifications[selectedOwner], groupIndex) &&
+                <ImagesField fieldLabel={t('DataSVL.Labels.images')} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
+                  selectedGroup={groupIndex} selectedGroupType={-1} dataSVL={modifications} selectedImages={modifications[selectedOwner].group[groupIndex].images} 
+                  setDataSVL={setModifications} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                />
+              }
             </div>
           }
         </div>
@@ -178,7 +205,9 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
       </div>
       <div className={styles.addGroupButton}>
         {modifications[selectedOwner].group.length - 1 == groupIndex &&
-          <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
+          />
         }
       </div>
     </div>
@@ -192,7 +221,9 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
       {listGroupModifications}
       <div className={styles.addGroupButton}>
         {modifications[selectedOwner].group.length == 0 &&
-          <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
+          />
         }
       </div>
     </div>
