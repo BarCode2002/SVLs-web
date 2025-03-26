@@ -138,7 +138,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
         <div className={styles.addType}>
           {repairs[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setRepairs} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'repairs'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner]}
+              selectedGroup={groupIndex} type={'repairs'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
             />
           }
         </div>
@@ -214,7 +214,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
       <div className={styles.addGroupButton}>
         {repairs[selectedOwner].group.length - 1 == groupIndex &&
           <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} editMode={editMode} 
-            jsonVersion={jsonVersion[selectedOwner]}
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
           />
         }
       </div>
@@ -230,7 +230,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
       <div className={styles.addGroupButton}>
         {repairs[selectedOwner].group.length == 0 &&
           <AddGroupButton setDataSVL={setRepairs} selectedOwner={selectedOwner} type={'repairs'} editMode={editMode} 
-            jsonVersion={jsonVersion[selectedOwner]}
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
           />
         }
       </div>

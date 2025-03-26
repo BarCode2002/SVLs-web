@@ -24,9 +24,10 @@ type ModificationsSVLProps = {
   editMode: boolean;
   jsonUploaded: boolean;
   jsonVersion: string[];
+  numPreviousOwners: number;
 };
 
-const ModificationsSVL = ({ selectedOwner, modifications, setModifications, editMode, jsonUploaded, jsonVersion }: ModificationsSVLProps): JSX.Element => {
+const ModificationsSVL = ({ selectedOwner, modifications, setModifications, editMode, jsonUploaded, jsonVersion, numPreviousOwners }: ModificationsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -133,7 +134,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
         <div className={styles.addType}>
           {modifications[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setModifications} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'modifications'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner]}
+              selectedGroup={groupIndex} type={'modifications'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
             />
           }
         </div>
@@ -205,7 +206,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
       <div className={styles.addGroupButton}>
         {modifications[selectedOwner].group.length - 1 == groupIndex &&
           <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} 
-            jsonVersion={jsonVersion[selectedOwner]}
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
           />
         }
       </div>
@@ -221,7 +222,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
       <div className={styles.addGroupButton}>
         {modifications[selectedOwner].group.length == 0 &&
           <AddGroupButton setDataSVL={setModifications} selectedOwner={selectedOwner} type={'modifications'} editMode={editMode} 
-            jsonVersion={jsonVersion[selectedOwner]}
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
           />
         }
       </div>
