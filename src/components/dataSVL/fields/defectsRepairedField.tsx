@@ -84,7 +84,9 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
             }
             else {
               const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
+              console.log(defectOwner);
               if (defectOwner < totalOwners) {
+                if (defects[defectOwner].group.length > 0)
                 for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
                   updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
                 }    
