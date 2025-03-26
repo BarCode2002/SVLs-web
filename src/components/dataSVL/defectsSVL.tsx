@@ -1,6 +1,5 @@
 import { SetStateAction, useState } from 'react';
 import styles from '../../styles/components/dataSVL/typeSVL.module.css';
-import { Defects, Repairs } from '../../utils/interfaces.ts';
 import AddGroupButton from './buttons/addGroupButton.tsx';
 import AddGroupTypeButton from './buttons/addGroupTypeButton.tsx';
 import RemoveGroupButton from './buttons/removeGroupButton.tsx';
@@ -14,20 +13,22 @@ import DropdownMenu from './fields/dropdownMenu.tsx';
 import DragGroupGroupTypeButton from './buttons/dragGroupGroupTypeButton.tsx';
 import RepairedDefectsByContainer from './readOnlyFields/repairedDefectByContainer.tsx';
 import { useTranslation } from "react-i18next";
+import { PossibleDefectsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type DefectsSVLProps = {
   selectedOwner: number;
   totalOwners: number;
   numPreviousOwners: number;
-  defects: Defects[];
-  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  repairs: Repairs[];
+  defects: PossibleDefectsJsonVersions[];
+  setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
+  repairs: PossibleRepairsJsonVersions[];
   editMode: boolean;
   mySVL: boolean;
   jsonUploaded: boolean;
+  jsonVersion: string[];
 };
 
-const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode, mySVL, jsonUploaded }: DefectsSVLProps): JSX.Element => {
+const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, setDefects, repairs, editMode, mySVL, jsonUploaded, jsonVersion }: DefectsSVLProps): JSX.Element => {
 
   const { t } = useTranslation();
   
@@ -96,8 +97,8 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
-                selectedImages={defects[selectedOwner].group[groupIndex].type[typeIndex].photographs} 
-                setDataSVL={setDefects} type={'photographs'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+                selectedImages={defects[selectedOwner].group[groupIndex].type[typeIndex].images} 
+                setDataSVL={setDefects} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.descriptionDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
@@ -110,7 +111,7 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
         <div className={styles.addType}>
           {defects[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
-              selectedGroup={groupIndex} type={'defect'} editMode={editMode}
+              selectedGroup={groupIndex} type={'defect'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
             />
           }
         </div>
@@ -162,7 +163,9 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
       </div>
       <div className={styles.addGroupButton}>
         {defects[selectedOwner].group.length - 1 == groupIndex &&
-          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
+          />
         }
       </div>
     </div>
@@ -176,7 +179,9 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
       {listGroupDefects}
       <div className={styles.addGroupButton}>
         {defects[selectedOwner].group.length == 0 &&
-          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} />
+          <AddGroupButton setDataSVL={setDefects} selectedOwner={selectedOwner} type={'defects'} editMode={editMode} 
+            jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
+          />
         }
       </div>
     </div>

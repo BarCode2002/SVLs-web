@@ -12,8 +12,7 @@ import OwnershipSummaryButton from './ownershipSummaryButton';
 import ChangeWalletButton from './changeWalletButton';
 import LanguageSelector from '../varied/languageSelector';
 import HelpButton from './helpButton';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces';
-import { OwnershipSummary } from '../../utils/interfaces';
+import { OwnershipSummary, PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes';
 import { SetStateAction, useEffect, useState } from 'react';
 import axios from "axios";
 import { indexer, mongoSmartContract } from '../../utils/ip';
@@ -33,24 +32,26 @@ type TopNavBarProps = {
   selectedOwner?: number;
   totalOwners?: number;
   numPreviousOwners?: number;
-  generalInformation?: GeneralInformation[];
-  setGeneralInformation?: React.Dispatch<SetStateAction<GeneralInformation[]>>;
-  maintenances?: Maintenances[];
-  setMaintenances?: React.Dispatch<SetStateAction<Maintenances[]>>;
-  modifications?: Modifications[];
-  setModifications?: React.Dispatch<SetStateAction<Modifications[]>>;
-  defects?: Defects[];
-  setDefects?: React.Dispatch<SetStateAction<Defects[]>>;
-  repairs?: Repairs[];
-  setRepairs?: React.Dispatch<SetStateAction<Repairs[]>>;
+  generalInformation?: PossibleGeneralInformationJsonVersions[];
+  setGeneralInformation?: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
+  maintenances?: PossibleMaintenancesJsonVersions[];
+  setMaintenances?: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>;
+  modifications?: PossibleModificationsJsonVersions[];
+  setModifications?: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
+  defects?: PossibleDefectsJsonVersions[];
+  setDefects?: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
+  repairs?: PossibleRepairsJsonVersions[];
+  setRepairs?: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
   svl_pk?: string;
   ownershipSummary?: OwnershipSummary[];
   mySVL?: boolean;
   jsonUploaded?: boolean;
   setJsonUploaded?: React.Dispatch<boolean>;
+  jsonVersion?: string[];
+  setJsonVersion?: React.Dispatch<SetStateAction<string[]>>;
 };
 
-const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL, jsonUploaded, setJsonUploaded }: TopNavBarProps): JSX.Element => {
+const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType, myAddress, setMyAddress, selectedOwner, totalOwners, numPreviousOwners, generalInformation, setGeneralInformation, maintenances, setMaintenances, modifications, setModifications, defects, setDefects, repairs, setRepairs, svl_pk, ownershipSummary, mySVL, jsonUploaded, setJsonUploaded, jsonVersion, setJsonVersion }: TopNavBarProps): JSX.Element => {
 
   const [mintPrice, setMintPrice] = useState<string>('');
   const [canBuy, setCanBuy] = useState(false);
@@ -145,17 +146,17 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 {selectedOwner! >= numPreviousOwners! && viewType == 0 && <EditModeButton editMode={editMode!} setEditMode={setEditMode!} />}
                 {selectedOwner! >= numPreviousOwners! && viewType == 0 && <UploadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!}
                   generalInformation={generalInformation!} setGeneralInformation={setGeneralInformation!} 
-                  setMaintenances={setMaintenances!} setModifications={setModifications!}
-                  setDefects={setDefects!} setRepairs={setRepairs!}
-                  jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
+                  setMaintenances={setMaintenances!} setModifications={setModifications!} setDefects={setDefects!} setRepairs={setRepairs!}
+                  jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded!} jsonVersion={jsonVersion!} setJsonVersion={setJsonVersion!}
                 />}
                 {selectedOwner! >= numPreviousOwners! && viewType == 0 && <DownloadJSONButton selectedOwner={selectedOwner!} numPreviousOwners={numPreviousOwners!} 
                   generalInformation={generalInformation!} maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!}
+                  jsonVersion={jsonVersion![selectedOwner!]}
                 />}
                 {selectedOwner! >= numPreviousOwners! && newSVL == true && viewType == 0 && 
                   <div className={styles.mintPriceContainer}>
                     {viewType == 0 && <MintSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
-                      maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} 
+                      maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} jsonVersion={jsonVersion!}
                     />}
                     <div className={styles.mintPrice}>
                       <div>{mintPrice}</div> <div className={styles.tezosLogo}><TezosLogo /></div>
@@ -165,6 +166,7 @@ const TopNavBar = ({ page, newSVL, editMode, setEditMode, viewType, setViewType,
                 {selectedOwner! >= numPreviousOwners! && newSVL == false && viewType == 0 &&
                   <EditSVLButton numPreviousOwners={numPreviousOwners!} totalOwners={totalOwners!} generalInformation={generalInformation!} 
                     maintenances={maintenances!} modifications={modifications!} defects={defects!} repairs={repairs!} svl_pk={svl_pk!} 
+                    jsonVersion={jsonVersion!}
                   />
                 } 
                 <HelpButton />

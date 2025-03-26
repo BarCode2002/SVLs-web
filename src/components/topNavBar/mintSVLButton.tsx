@@ -1,6 +1,5 @@
 import styles from '../../styles/components/topNavBar/topNavBarButtons.module.css';
 import { useTranslation } from "react-i18next";
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
 import { TezosToolkit, WalletContract } from "@taquito/taquito";
 import { getTezos, getsmartContractAddress } from '../../utils/wallet.ts'
 import { createJSON } from '../../utils/createJSON.ts';
@@ -10,18 +9,20 @@ import { useEffect, useState } from 'react';
 import { checks } from '../../utils/checks.ts';
 import InvalidFieldsComponent from '../varied/invalidFieldsComponent.tsx';
 import { ipfsUpload, mongoSmartContract } from '../../utils/ip.ts';
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type MintSVLButtonProps = {
   numPreviousOwners: number;
   totalOwners: number;
-  generalInformation: GeneralInformation[];
-  maintenances: Maintenances[];
-  modifications: Modifications[];
-  defects: Defects[];
-  repairs: Repairs[];
+  generalInformation: PossibleGeneralInformationJsonVersions[];
+  maintenances: PossibleMaintenancesJsonVersions[];
+  modifications: PossibleModificationsJsonVersions[];
+  defects: PossibleDefectsJsonVersions[];
+  repairs: PossibleRepairsJsonVersions[];
+  jsonVersion: string[];
 };
 
-const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs }: MintSVLButtonProps): JSX.Element => {
+const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, maintenances, modifications, defects, repairs, jsonVersion }: MintSVLButtonProps): JSX.Element => {
 
   const { t } = useTranslation();
 
@@ -48,7 +49,7 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
     let cids = [];
     let mintPrice;
     for (let i = 0; i < totalOwners; i++) {
-      const json = createJSON(i, generalInformation, maintenances, modifications, defects, repairs);
+      const json = createJSON(i, generalInformation, maintenances, modifications, defects, repairs, jsonVersion[i]);
       const blob = new Blob([json], { type: "application/json" });
       formData.append("file", blob);
     }
@@ -76,7 +77,6 @@ const MintSVLButton = ({ numPreviousOwners, totalOwners, generalInformation, mai
         const contract: WalletContract = await Tezos!.wallet.at(contractAddress!);
         const op = await contract.methodsObject.mint({
           svl_key: svl_key, 
-          VIN: generalInformation[0].VIN,
           curr_owner_info: cids,
         }).send({amount: mintPrice});
         await op.confirmation();   

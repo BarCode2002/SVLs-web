@@ -1,6 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../styles/components/dataSVL/dataSVL.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../../utils/interfaces.ts';
 import GeneralInformationSVL from './generalInformationSVL.tsx';
 import PrevOwnersGeneralInformationSVL from './prevOwnersGeneralInformationSVL.tsx';
 import MaintenancesSVL from './maintenancesSVL.tsx';
@@ -17,6 +16,8 @@ import SummaryViewModifications from './summaryViewModifications.tsx';
 import SummaryViewDefects from './summaryViewDefects.tsx';
 import SummaryViewRepairs from './summaryViewRepairs.tsx';
 import { EnterFullScreenIcon, ExitFullScreenIcon } from '../../assets/fullScreen.tsx';
+import ChangeJsonVersion from './buttons/changeJsonVersion.tsx';
+import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../../utils/commonTypes.ts';
 
 type ShrinkedType = {
   group: boolean;
@@ -28,21 +29,21 @@ type MainShrinkedType = ShrinkedType[];
 type DataSVLProps = {
   selectedOwner: number;
   selectedSVLData: number;
-  generalInformation: GeneralInformation[];
-  setGeneralInformation: React.Dispatch<SetStateAction<GeneralInformation[]>>;
-  prevOwnersGeneralInformation: any;
-  maintenances: Maintenances[];
-  setMaintenances: React.Dispatch<SetStateAction<Maintenances[]>>;
-  prevOwnersMaintenances: any;
-  modifications: Modifications[];
-  setModifications: React.Dispatch<SetStateAction<Modifications[]>>;
-  prevOwnersModifications: any;
-  defects: Defects[];
-  setDefects: React.Dispatch<SetStateAction<Defects[]>>;
-  prevOwnersDefects: any;
-  repairs: Repairs[];
-  setRepairs: React.Dispatch<SetStateAction<Repairs[]>>;
-  prevOwnersRepairs: any;
+  generalInformation: PossibleGeneralInformationJsonVersions[];
+  setGeneralInformation: React.Dispatch<SetStateAction<PossibleGeneralInformationJsonVersions[]>>;
+  prevOwnersGeneralInformation: PossibleGeneralInformationJsonVersions[];
+  maintenances: PossibleMaintenancesJsonVersions[];
+  setMaintenances: React.Dispatch<SetStateAction<PossibleMaintenancesJsonVersions[]>>;
+  prevOwnersMaintenances: PossibleMaintenancesJsonVersions[];
+  modifications: PossibleModificationsJsonVersions[];
+  setModifications: React.Dispatch<SetStateAction<PossibleModificationsJsonVersions[]>>;
+  prevOwnersModifications: PossibleModificationsJsonVersions[];
+  defects: PossibleDefectsJsonVersions[];
+  setDefects: React.Dispatch<SetStateAction<PossibleDefectsJsonVersions[]>>;
+  prevOwnersDefects: PossibleDefectsJsonVersions[];
+  repairs: PossibleRepairsJsonVersions[];
+  setRepairs: React.Dispatch<SetStateAction<PossibleRepairsJsonVersions[]>>;
+  prevOwnersRepairs: PossibleRepairsJsonVersions[];
   totalOwners: number;
   editMode: boolean;
   numPreviousOwners: number;
@@ -50,10 +51,12 @@ type DataSVLProps = {
   viewType: number;
   jsonUploaded: boolean;
   fullScreen: number;
-  setFullScreen: React.Dispatch<SetStateAction<number>>
+  setFullScreen: React.Dispatch<SetStateAction<number>>;
+  jsonVersion: string[];
+  setJsonVersion: React.Dispatch<SetStateAction<string[]>>;
 };
 
-const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL, viewType, jsonUploaded, fullScreen, setFullScreen }: DataSVLProps): JSX.Element => {
+const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGeneralInformation, prevOwnersGeneralInformation, maintenances, setMaintenances, prevOwnersMaintenances, modifications, setModifications, prevOwnersModifications, defects, setDefects, prevOwnersDefects, repairs, setRepairs, prevOwnersRepairs, totalOwners, editMode, numPreviousOwners, mySVL, viewType, jsonUploaded, fullScreen, setFullScreen, jsonVersion, setJsonVersion }: DataSVLProps): JSX.Element => {
 
   const [prevMaintenancesShrinked, setPrevMaintenancesShrinked] = useState<MainShrinkedType[]>([]);
   const [prevModificationsShrinked, setPrevModificationsShrinked] = useState<MainShrinkedType[]>([]);
@@ -76,31 +79,31 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     else limit = totalOwners;
     for (let i = 0; i < limit; i++) {
       const numTypesMain: number[] = [];
-      for (let j = 0; j < prevOwnersMaintenances[i].maintenances.length; j++) {
-        numTypesMain.push(prevOwnersMaintenances[i].maintenances[j].type.length);
+      for (let j = 0; j < prevOwnersMaintenances[i].group.length; j++) {
+        numTypesMain.push(prevOwnersMaintenances[i].group[j].type.length);
       }
-      numGroupsMaintenances.push(prevOwnersMaintenances[i].maintenances.length);
+      numGroupsMaintenances.push(prevOwnersMaintenances[i].group.length);
       numTypesMaintenances.push(numTypesMain);
 
       const numTypesMod: number[] = [];
-      for (let j = 0; j < prevOwnersModifications[i].modifications.length; j++) {
-        numTypesMod.push(prevOwnersModifications[i].modifications[j].type.length);
+      for (let j = 0; j < prevOwnersModifications[i].group.length; j++) {
+        numTypesMod.push(prevOwnersModifications[i].group[j].type.length);
       }  
-      numGroupsModifications.push(prevOwnersModifications[i].modifications.length);
+      numGroupsModifications.push(prevOwnersModifications[i].group.length);
       numTypesModifications.push(numTypesMod);
 
       const numTypesDef: number[] = [];
-      for (let j = 0; j < prevOwnersDefects[i].defects.length; j++) {
-        numTypesDef.push(prevOwnersDefects[i].defects[j].type.length);
+      for (let j = 0; j < prevOwnersDefects[i].group.length; j++) {
+        numTypesDef.push(prevOwnersDefects[i].group[j].type.length);
       }  
-      numGroupsDefects.push(prevOwnersDefects[i].defects.length);
+      numGroupsDefects.push(prevOwnersDefects[i].group.length);
       numTypesDefects.push(numTypesDef);
 
       const numTypesRep: number[] = [];
-      for (let j = 0; j < prevOwnersRepairs[i].repairs.length; j++) {
-        numTypesRep.push(prevOwnersRepairs[i].repairs[j].type.length);
+      for (let j = 0; j < prevOwnersRepairs[i].group.length; j++) {
+        numTypesRep.push(prevOwnersRepairs[i].group[j].type.length);
       }  
-      numGroupsRepairs.push(prevOwnersRepairs[i].repairs.length);
+      numGroupsRepairs.push(prevOwnersRepairs[i].group.length);
       numTypesRepairs.push(numTypesRep);
     }
     const updatedShrinkedMaintenances: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
@@ -157,6 +160,11 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
         onClick={toggleFullScreen}>
         {fullScreen == 0 ? <EnterFullScreenIcon /> : <ExitFullScreenIcon />}
       </button>
+      {viewType == 0 &&
+        <div className={styles.changeJsonVersion}>
+          <ChangeJsonVersion selectedOwner={selectedOwner} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion} editMode={editMode} numPreviousOwners={numPreviousOwners} />
+        </div>
+      }
       {viewType == 0 ? (
         <div>
           {selectedSVLData == 0 && selectedOwner < weird &&
@@ -169,25 +177,25 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
             <PrevOwnersMaintenancesSVL selectedOwner={selectedOwner} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} prevOwnersMaintenances={prevOwnersMaintenances} />
           }
           {selectedSVLData == 1 && selectedOwner >= weird &&
-            <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} jsonUploaded={jsonUploaded} />
+            <MaintenancesSVL selectedOwner={selectedOwner-numPreviousOwners} maintenances={maintenances} setMaintenances={setMaintenances} editMode={editMode} jsonUploaded={jsonUploaded} jsonVersion={jsonVersion} numPreviousOwners={numPreviousOwners} />
           }
           {shrinkedReady && selectedSVLData == 2 && selectedOwner < weird &&
             <PrevOwnersModificationsSVL selectedOwner={selectedOwner} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} prevOwnersModifications={prevOwnersModifications} />
           }
           {selectedSVLData == 2 && selectedOwner >= weird &&
-            <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} jsonUploaded={jsonUploaded} />
+            <ModificationsSVL selectedOwner={selectedOwner-numPreviousOwners} modifications={modifications} setModifications={setModifications} editMode={editMode} jsonUploaded={jsonUploaded} jsonVersion={jsonVersion} numPreviousOwners={numPreviousOwners} />
           }
           {shrinkedReady && selectedSVLData == 3 && selectedOwner < weird &&
             <PrevOwnersDefectsSVL selectedOwner={selectedOwner} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  prevOwnersDefects={prevOwnersDefects} prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} mySVL={mySVL} />
           }
           {selectedSVLData == 3 && selectedOwner >= weird &&
-            <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} totalOwners={totalOwners} numPreviousOwners={numPreviousOwners} defects={defects} setDefects={setDefects} repairs={repairs} editMode={editMode} mySVL={mySVL} jsonUploaded={jsonUploaded} />
+            <DefectsSVL selectedOwner={selectedOwner-numPreviousOwners} totalOwners={totalOwners} numPreviousOwners={numPreviousOwners} defects={defects} setDefects={setDefects} repairs={repairs} editMode={editMode} mySVL={mySVL} jsonUploaded={jsonUploaded} jsonVersion={jsonVersion} />
           }
           {shrinkedReady && selectedSVLData == 4 && selectedOwner < weird &&
             <PrevOwnersRepairsSVL selectedOwner={selectedOwner} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked}  prevOwnersRepairs={prevOwnersRepairs} />
           }
           {selectedSVLData == 4 && selectedOwner >= weird &&
-            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} jsonUploaded={jsonUploaded} totalOwners={totalOwners} />
+            <RepairsSVL selectedOwner={selectedOwner-numPreviousOwners} numPreviousOwners={numPreviousOwners} repairs={repairs} setRepairs={setRepairs} defects={defects} prevOwnersDefects={prevOwnersDefects} editMode={editMode} jsonUploaded={jsonUploaded} totalOwners={totalOwners} jsonVersion={jsonVersion} />
           }
         </div>
       ) : (
@@ -195,7 +203,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
           {selectedSVLData == 0 && <SummaryViewGeneralInformation prevOwnersGeneralInformation={prevOwnersGeneralInformation} generalInformation={generalInformation} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
           {selectedSVLData == 1 && <SummaryViewMaintenances prevOwnersMaintenances={prevOwnersMaintenances} maintenances={maintenances} setMaintenances={setMaintenances} shrinked={prevMaintenancesShrinked} setShrinked={setPrevMaintenancesShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
           {selectedSVLData == 2 && <SummaryViewModifications prevOwnersModifications={prevOwnersModifications} modifications={modifications} setModifications={setModifications} shrinked={prevModificationsShrinked} setShrinked={setPrevModificationsShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
-          {selectedSVLData == 3 && <SummaryViewDefects prevOwnersDefects={prevOwnersDefects} defects={defects} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs} setDefects={setDefects} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked}  numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
+          {selectedSVLData == 3 && <SummaryViewDefects prevOwnersDefects={prevOwnersDefects} defects={defects} repairs={repairs} prevOwnersRepairs={prevOwnersRepairs} setDefects={setDefects} shrinked={prevDefectsShrinked} setShrinked={setPrevDefectsShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
           {selectedSVLData == 4 && <SummaryViewRepairs prevOwnersRepairs={prevOwnersRepairs} repairs={repairs} setRepairs={setRepairs} shrinked={prevRepairsShrinked} setShrinked={setPrevRepairsShrinked} numPreviousOwners={numPreviousOwners} totalOwners={totalOwners} mySVL={mySVL} />}
         </div>
       )}

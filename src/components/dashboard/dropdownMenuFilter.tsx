@@ -4,13 +4,13 @@ import axios, { AxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 import { DetectClickOutsideComponent } from '../varied/detectClickOutsideComponent';
 import { mongoBrand, mongoList } from '../../utils/ip';
-import { FilterSVLsInterface } from '../../utils/interfaces';
+import { FilterSVLsType } from '../../utils/commonTypes';
 import { createPortal } from "react-dom";
 import { LeftArrow, RightArrow } from '../../assets/directionArrows';
 
 type DropdownMenuFilterProps = {
-  appliedFiltersSVL: FilterSVLsInterface;
-  setAppliedFiltersSVL: React.Dispatch<React.SetStateAction<FilterSVLsInterface>>
+  appliedFiltersSVL: FilterSVLsType;
+  setAppliedFiltersSVL: React.Dispatch<React.SetStateAction<FilterSVLsType>>
   type: string;
   defectList: string[];
 };
@@ -32,7 +32,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
     const getList = async () => {
       try {
         if (prevBrand != '' && prevBrand != appliedFiltersSVL.brand) {
-          setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+          setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
             ...prevAppliedFiltersSVL,
             model: 'Dashboard.Placeholders.model',
           }));
@@ -64,20 +64,20 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   const updateValue = (checked: boolean, value: string, index: number) => {
     if (type == 'state' || type == 'shift' || type == 'fuel' || type == 'climate' || type == 'usage' || type == 'storage') {
       if (checked) {
-        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface): FilterSVLsInterface => ({ 
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType): FilterSVLsType => ({ 
           ...prevAppliedFiltersSVL, 
           [type]: prevAppliedFiltersSVL[type].map((item, i) => (index === i ? value : item)) 
         }));
       }
       else {
-        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
           ...prevAppliedFiltersSVL,
           [type]: prevAppliedFiltersSVL[type].map((item, i) => (index == i ? '' : item)),
         }));
       }
     }
     else {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: value,
       }));
@@ -87,7 +87,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
 
   const updateValueDefects = (checked: boolean, value: string, defectIndex: number, typeDefectIndex: number) => {
     if (typeDefectIndex == 0) {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         defects: {
           ...prevAppliedFiltersSVL.defects,
@@ -100,7 +100,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
       let re: RegExp;
       re = /^(0|[1-9]\d*)$/;
       if (value == '' || re.test(value)) {
-        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+        setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
           ...prevAppliedFiltersSVL,
           defects: {
             ...prevAppliedFiltersSVL.defects,
@@ -134,7 +134,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
 
   const defaultValue = () => {
     if (type == 'defects') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         defects: {
           cosmetic: [false, "0", ""],
@@ -146,49 +146,49 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
       }));
     }
     else if (type == 'brand') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: 'Dashboard.Placeholders.brand',
       }));
     }
     else if (type == 'model') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: 'Dashboard.Placeholders.model',
       }));
     }
     else if (type == 'state') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: ['Dashboard.Placeholders.state', '', '', '', '', '', ''],
       }))
     }
     else if (type == 'shift') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: ['Dashboard.Placeholders.shift', ''],
       }));
     }
     else if (type == 'fuel') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: ['Dashboard.Placeholders.fuel', '', '', '', '', '', ''],
       }));
     }
     else if (type == 'climate') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: ['Dashboard.Placeholders.climate', '', '', '', '', '', ''],
       }));
     }
     else if (type == 'usage') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: ['Dashboard.Placeholders.usage', '', '', ''],
       }));
     }
     else {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsInterface) => ({
+      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
         [type]: ['Dashboard.Placeholders.storage', '', '', '', '', '', ''],
       }));

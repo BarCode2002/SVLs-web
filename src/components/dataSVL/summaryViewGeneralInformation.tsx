@@ -1,12 +1,12 @@
 import styles from '../../styles/components/dataSVL/generalInformationSVL.module.css';
-import { GeneralInformation } from '../../utils/interfaces.ts';
 import TextContainer from './readOnlyFields/textContainer.tsx';
 import ImageContainer from './readOnlyFields/imageContainer.tsx';
 import { useTranslation } from "react-i18next";
+import { PossibleGeneralInformationJsonVersions } from '../../utils/commonTypes.ts';
 
 type SummaryViewGeneralInformationProps = {
-  prevOwnersGeneralInformation: GeneralInformation[];
-  generalInformation: GeneralInformation[];
+  prevOwnersGeneralInformation: PossibleGeneralInformationJsonVersions[];
+  generalInformation: PossibleGeneralInformationJsonVersions[];
   numPreviousOwners: number;
   totalOwners: number;
   mySVL: boolean
@@ -32,11 +32,8 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
             {prevOwnersGeneralInformation[selectedOwner].kilometers[0] != '' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersGeneralInformation[selectedOwner].kilometers} />
             }
-            <ImageContainer fieldLabel={t('DataSVL.Labels.mainImage')} images={[prevOwnersGeneralInformation[selectedOwner].mainPhotograph]} />
-            {prevOwnersGeneralInformation[selectedOwner].photographs.filter((image: string) => image != '').length > 0 &&
-              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersGeneralInformation[selectedOwner].photographs} />
-            }
-            {prevOwnersGeneralInformation[selectedOwner].state == 'DataSVL.Forms.state' &&
+            <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersGeneralInformation[selectedOwner].images} />
+            {prevOwnersGeneralInformation[selectedOwner].state != 'DataSVL.Forms.state' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.state')} text={prevOwnersGeneralInformation[selectedOwner].state} />
             }
             {prevOwnersGeneralInformation[selectedOwner].weight[0] != '' &&
@@ -83,10 +80,7 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
             {generalInformation[selectedOwner-numPreviousOwners].kilometers[0] != '' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={generalInformation[selectedOwner-numPreviousOwners].kilometers} />
             }
-            <ImageContainer fieldLabel={t('DataSVL.Labels.mainImage')} images={[generalInformation[selectedOwner-numPreviousOwners].mainPhotograph]} />
-            {generalInformation[selectedOwner-numPreviousOwners].photographs.filter(image => image != '').length > 0 &&
-              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={generalInformation[selectedOwner-numPreviousOwners].photographs} />
-            }
+            <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={generalInformation[selectedOwner-numPreviousOwners].images} />
             {generalInformation[selectedOwner-numPreviousOwners].state != 'DataSVL.Forms.state' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.state')} text={generalInformation[selectedOwner-numPreviousOwners].state} />
             }

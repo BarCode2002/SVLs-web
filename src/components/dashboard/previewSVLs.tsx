@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../styles/components/dashboard/previewSVLs.module.css';
-import { FilterSVLsInterface, PreviewSVLsInfo } from '../../utils/interfaces';
+import { FilterSVLsType, PreviewSVLsInfo } from '../../utils/commonTypes';
 import { useTranslation } from 'react-i18next';
 import AcceptSVLRequestButton from './stateSVLsButtons/acceptSVLRequestButton';
 import DenySVLRequestButton from './stateSVLsButtons/denySVLRequestButton';
@@ -16,7 +16,7 @@ import { GROUP_SIZE } from '../../utils/constants';
 type PreviewSVLsProps = {
   myAddress: string;
   filterSVL: number;
-  appliedFiltersSVL: FilterSVLsInterface;
+  appliedFiltersSVL: FilterSVLsType;
   search: boolean;
   page: number;
   setNumPreviewSVLs: React.Dispatch<SetStateAction<number>>;
@@ -113,7 +113,7 @@ const PreviewSVLs = ({ myAddress, filterSVL, appliedFiltersSVL, search, page, se
           const parsedIPFSData = JSON.parse(decompressedIPFSData);
           updatedPreviewSVLsInfo[i].pk = responseIndexer.data[0][i].svl_key;
           updatedPreviewSVLsInfo[i].price = responseIndexer.data[0][i].svl_price.slice(0, -6);
-          updatedPreviewSVLsInfo[i].mainPhotograph = parsedIPFSData[0].mainPhotograph;
+          updatedPreviewSVLsInfo[i].mainPhotograph = parsedIPFSData[0].images[0];
           updatedPreviewSVLsInfo[i].brand = responseIndexer.data[0][i].brand;
           updatedPreviewSVLsInfo[i].model = responseIndexer.data[0][i].model;
           updatedPreviewSVLsInfo[i].year = responseIndexer.data[0][i].year;

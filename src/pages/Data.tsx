@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/pages/Data.module.css';
-import { GeneralInformation, Maintenances, Modifications, Defects, Repairs } from '../utils/interfaces.ts';
-import { OwnershipSummary } from '../utils/interfaces.ts';
+import { OwnershipSummary, PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, PossibleMaintenancesJsonVersions, PossibleModificationsJsonVersions, PossibleRepairsJsonVersions } from '../utils/commonTypes.ts';
 import TopNavBar from '../components/topNavBar/topNavBar.tsx';
 import DataSVL from '../components/dataSVL/dataSVL.tsx';
 import BottomNavBar from '../components/bottomNavBar/bottomNavBar.tsx';
-import { PHOTOGRAPHS_SIZE, COMPONENTS_SIZE, DEFECTS_REPAIRED_SIZE } from '../utils/constants.ts';
 import { useTranslation } from "react-i18next";
 import { useParams } from 'react-router-dom';
 import axios, { AxiosError } from "axios";
@@ -17,6 +15,9 @@ import { addGeneralInformationDefault, addMaintenances, addModifications, addDef
 import { parse, format } from "date-fns";
 import pako from "pako";
 import { indexer, ipfsRetrieve } from '../utils/ip.ts';
+import { defaultBaseDefects, defaultBaseGeneralInformation, defaultBaseMaintenances, defaultBaseModifications, defaultBaseRepairs } from '../utils/defaultBase.ts';
+import { defaultBaseSimpleDefects, defaultBaseSimpleGeneralInformation, defaultBaseSimpleMaintenances, defaultBaseSimpleModifications, defaultBaseSimpleRepairs } from '../utils/defaultBaseSimple.ts';
+import { cloneDeep } from 'lodash';
 
 const Data = (): JSX.Element => {
 
@@ -39,125 +40,114 @@ const Data = (): JSX.Element => {
     if (savedFullScreen == null) return 0;
     else return parseInt(savedFullScreen);
   });
+
+  const [jsonVersion, setJsonVersion] = useState<string[]>(['base']); 
   
-  const [generalInformation, setGeneralInformation] = useState<GeneralInformation[]>(
-    Array.from({ length: 1 }, () => ({
-      VIN: '',
-      brand: 'DataSVL.Forms.brand',
-      model: 'DataSVL.Forms.model',
-      year: '',
-      kilometers: ['', 'km'],
-      transferDate: '',
-      mainPhotograph: '',
-      state: 'DataSVL.Forms.state',
-      photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-      weight: ['', 'kg'],
-      color: '',
-      engine: '',
-      power: ['', 'cv'],
-      shift: 'DataSVL.Forms.shift',
-      fuel: 'DataSVL.Forms.fuel',
-      autonomy: ['', 'km'],
-      climate: 'DataSVL.Forms.climate',
-      usage: 'DataSVL.Forms.usage',
-      storage: 'DataSVL.Forms.storage',
-      comments: '',
-    }))
+  const [generalInformation, setGeneralInformation] = useState<PossibleGeneralInformationJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseGeneralInformation);
+      else return cloneDeep(defaultBaseSimpleGeneralInformation);
+    })
   );
 
-  const [maintenances, setMaintenances] = useState<Maintenances[]>(
-    Array.from({ length: 1 }, () => ({
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        type: Array.from({ length: 1 }, () => ({
-          name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
-          shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    }))
+  const [maintenances, setMaintenances] = useState<PossibleMaintenancesJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseMaintenances);
+      else return cloneDeep(defaultBaseSimpleMaintenances);
+    })
   );
   
-  const [modifications, setModifications] = useState<Modifications[]>(
-    Array.from({ length: 1 }, () => ({
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        type: Array.from({ length: 1 }, () => ({
-          name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
-          shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    }))
+  const [modifications, setModifications] = useState<PossibleModificationsJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseModifications);
+      else return cloneDeep(defaultBaseSimpleModifications);  
+    })
   );
 
-  const [defects, setDefects] = useState<Defects[]>(
-    Array.from({ length: 1 }, () => ({
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        cause: "",
-        type: Array.from({ length: 1 }, () => ({
-          level: 'DataSVL.Forms.level',
-          photographs: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          description: "",
-          shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    }))
+  const [defects, setDefects] = useState<PossibleDefectsJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseDefects);
+      else return cloneDeep(defaultBaseSimpleDefects);  
+    })
   );
 
-  const [repairs, setRepairs] = useState<Repairs[]>(
-    Array.from({ length: 1 }, () => ({
-      group: Array.from({ length: 1 }, () => ({
-        date: "",
-        kilometers: ['', 'km'],
-        name: "",
-        responsible: [null, "", null, ""],
-        pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-        defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
-        numDefectsRepaired: 0,
-        type: Array.from({ length: 1 }, () => ({
-          name: "",
-          components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
-          numComponents: 0,
-          pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          comments: "",
-          shrinked: false,
-        })),
-        shrinked: false,
-      }))
-    }))
+  const [repairs, setRepairs] = useState<PossibleRepairsJsonVersions[]>(
+    Array.from({ length: 1 }, () => {
+      if (jsonVersion[0] == 'base') return cloneDeep(defaultBaseRepairs);
+      else return cloneDeep(defaultBaseSimpleRepairs);  
+    })
   );
 
-  const prevOwnersGeneralInformation = useRef<GeneralInformation[]>([]);
-  const prevOwnersMaintenances = useRef<Maintenances[]>([]);
-  const prevOwnersModifications = useRef<Modifications[]>([]);
-  const prevOwnersDefects = useRef<Defects[]>([]);
-  const prevOwnersRepairs = useRef<Repairs[]>([]);
+  const expandArrayToMatch = (sourceArray: any[], blueprint: any) => {
+    return Array.from({ length: sourceArray.length }, (_, i) =>
+      blueprint[i] !== undefined ? blueprint[i] : cloneDeep(blueprint[0])
+    );
+  };
+  
+  const deepMergePreserveMatching = (source: any, target: any): any => {
+    // If the source is null or an empty string, return it as-is (no merging needed)
+    if (source === null || source === "") {
+      return target; // Fallback to target if source is null or empty string
+    }
+  
+    if (Array.isArray(source) && Array.isArray(target)) {
+      const expandedTarget = expandArrayToMatch(source, target);
+      return source.map((item, index) => deepMergePreserveMatching(item, expandedTarget[index]));
+    } else if (typeof source === "object" && typeof target === "object") {
+      // Only merge fields that exist in both source and target
+      const acc: Record<string, any> = {}; // Explicitly declare the type of acc
+      return Object.keys(target).reduce((acc, key) => {
+        if (source.hasOwnProperty(key)) {
+          acc[key] = deepMergePreserveMatching(source[key], target[key]);
+        } else {
+          acc[key] = target[key];  // Default value from target (defaultB)
+        }
+        return acc;
+      }, acc);  // Pass the initialized acc object
+    }
+    
+    // If the source is not null and not empty, return the source value (preserved)
+    return source ?? target; // Default to the value from target if missing in source
+  };
+  
+
+  const renderCount = useRef(0); //hecho asi por el strict mode
+  useEffect(() => {
+    renderCount.current += 1;
+    // Skip the effect on the first and second renders (including Strict Mode)
+    if (renderCount.current < 3) {
+      return;
+    }
+
+    if (jsonVersion[selectedOwner] == 'base') {
+      const updatedMaintenances = [...maintenances];
+      updatedMaintenances[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(maintenances[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseMaintenances));
+      setMaintenances(updatedMaintenances);
+      const updatedModifications = [...modifications];
+      updatedModifications[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(modifications[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseModifications));
+      setModifications(updatedModifications);
+      const updatedRepairs = [...repairs];
+      updatedRepairs[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(repairs[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseRepairs));
+      setRepairs(updatedRepairs);
+    }
+    else {
+      const updatedMaintenances = [...maintenances];
+      updatedMaintenances[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(maintenances[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseSimpleMaintenances));
+      setMaintenances(updatedMaintenances);
+      const updatedModifications = [...modifications];
+      updatedModifications[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(modifications[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseSimpleModifications));
+      setModifications(updatedModifications);
+      const updatedRepairs = [...repairs];
+      updatedRepairs[selectedOwner-numPreviousOwners] = deepMergePreserveMatching(repairs[selectedOwner-numPreviousOwners], cloneDeep(defaultBaseSimpleRepairs));
+      setRepairs(updatedRepairs);
+    }
+  }, [jsonVersion]);
+
+  const prevOwnersGeneralInformation = useRef<PossibleGeneralInformationJsonVersions[]>([]);
+  const prevOwnersMaintenances = useRef<PossibleMaintenancesJsonVersions[]>([]);
+  const prevOwnersModifications = useRef<PossibleModificationsJsonVersions[]>([]);
+  const prevOwnersDefects = useRef<PossibleDefectsJsonVersions[]>([]);
+  const prevOwnersRepairs = useRef<PossibleRepairsJsonVersions[]>([]);
   const didRun = useRef(false);//en teoria y sin teoria solo necesario para el development por el strict mode
 
   const ownershipSummary = useRef<OwnershipSummary[]>([]);
@@ -172,9 +162,8 @@ const Data = (): JSX.Element => {
         year: prevOwnerGeneralInformation.year,
         kilometers: prevOwnerGeneralInformation.kilometers,
         transferDate: '',
-        mainPhotograph: prevOwnerGeneralInformation.mainPhotograph,
         state: 'DataSVL.Forms.state',
-        photographs: [...prevOwnerGeneralInformation.photographs],
+        images: [...prevOwnerGeneralInformation.images],
         weight: prevOwnerGeneralInformation.weight,
         color: prevOwnerGeneralInformation.color,
         engine: prevOwnerGeneralInformation.engine,
@@ -191,7 +180,6 @@ const Data = (): JSX.Element => {
     }
     else {
       const ownerSVLData = responseIPFS;
-      //console.log(ownerSVLData);
       setGeneralInformation((prevGeneralInformation) =>
         prevGeneralInformation.map((item, i) =>
           i == so ? { ...item,  ...ownerSVLData[0] } : item
@@ -199,45 +187,45 @@ const Data = (): JSX.Element => {
       );
     
       setOwnerSVLDataToEmpty(so, setMaintenances);
-      for (let i = 0; i < ownerSVLData[1].maintenances.length; i++) {
-        addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].maintenances[i]);
-        for (let j = 1; j < ownerSVLData[1].maintenances[i].type.length; j++) {
-          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].maintenances[i].type[j]);
+      for (let i = 0; i < ownerSVLData[1].group.length; i++) {
+        addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].group[i], ownerSVLData[5].version);
+        for (let j = 1; j < ownerSVLData[1].group[i].type.length; j++) {
+          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].group[i].type[j], ownerSVLData[5].version);
         }
       }
 
       setOwnerSVLDataToEmpty(so, setModifications);
-      for (let i = 0; i < ownerSVLData[2].modifications.length; i++) {
-        addAndSetModificationGroup(setModifications, so, ownerSVLData[2].modifications[i]);
-        for (let j = 1; j < ownerSVLData[2].modifications[i].type.length; j++) {
-          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].modifications[i].type[j]);
+      for (let i = 0; i < ownerSVLData[2].group.length; i++) {
+        addAndSetModificationGroup(setModifications, so, ownerSVLData[2].group[i], ownerSVLData[5].version);
+        for (let j = 1; j < ownerSVLData[2].group[i].type.length; j++) {
+          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].group[i].type[j], ownerSVLData[5].version);
         }
       }
 
       setOwnerSVLDataToEmpty(so, setDefects);
-      for (let i = 0; i < ownerSVLData[3].defects.length; i++) {
-        addAndSetDefectGroup(setDefects, so, ownerSVLData[3].defects[i]);
-        for (let j = 1; j < ownerSVLData[3].defects[i].type.length; ++j) {
-          addAndSetDefectGroupType(setDefects, so, i, ownerSVLData[3].defects[i].type[j]);
+      for (let i = 0; i < ownerSVLData[3].group.length; i++) {
+        addAndSetDefectGroup(setDefects, so, ownerSVLData[3].group[i]);
+        for (let j = 1; j < ownerSVLData[3].group[i].type.length; ++j) {
+          addAndSetDefectGroupType(setDefects, so, i, ownerSVLData[3].group[i].type[j]);
         }
       }
 
       setOwnerSVLDataToEmpty(so, setRepairs);
-      for (let i = 0; i < ownerSVLData[4].repairs.length; i++) {
-        addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].repairs[i]);
-        for (let j = 1; j < ownerSVLData[4].repairs[i].type.length; j++) {
-          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].repairs[i].type[j]);
+      for (let i = 0; i < ownerSVLData[4].group.length; i++) {
+        addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].group[i], ownerSVLData[5].version);
+        for (let j = 1; j < ownerSVLData[4].group[i].type.length; j++) {
+          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].group[i].type[j], ownerSVLData[5].version);
         }
       }
     }
   }
 
-  const addOwners = () => {
+  const addOwners = (selectedJsonVersion: string) => {
     addGeneralInformationDefault(setGeneralInformation);
-    addMaintenances(setMaintenances);
-    addModifications(setModifications);
+    addMaintenances(setMaintenances, selectedJsonVersion);
+    addModifications(setModifications, selectedJsonVersion);
     addDefects(setDefects);
-    addRepairs(setRepairs);
+    addRepairs(setRepairs, selectedJsonVersion);
   }
 
   useEffect(() => {
@@ -250,6 +238,7 @@ const Data = (): JSX.Element => {
             const responseIndexer = await axios.get(`${indexer}holder/pk/${svl_pk}`);
             if (responseIndexer.data[0].owner_address != localStorage.getItem('address')) { //SVL not owned
               setMySVL(false);
+              const updatedJsonVersion = [...jsonVersion];
               if (responseIndexer.data[0].first_owner) { //SVL has not been transferred
                 const owners = [];
                 for (let i = 0; i < responseIndexer.data[0].current_owner_info.length; i++) {
@@ -265,6 +254,8 @@ const Data = (): JSX.Element => {
                     prevOwnersModifications.current.push(parsedIPFSData[2]);
                     prevOwnersDefects.current.push(parsedIPFSData[3]);
                     prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                    if (i == 0) updatedJsonVersion[0] = parsedIPFSData[5].version;
+                    else updatedJsonVersion.push(parsedIPFSData[5].version);
                   } catch (error: any | AxiosError) {
                     console.error("Unexpected error:", error);
                   }
@@ -300,6 +291,8 @@ const Data = (): JSX.Element => {
                       prevOwnersModifications.current.push(parsedIPFSData[2]);
                       prevOwnersDefects.current.push(parsedIPFSData[3]);
                       prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                      if (i == responseIndexer.data[0].previous_owners_info.length-1 && j == 0) updatedJsonVersion[0] = parsedIPFSData[5].version;
+                      else updatedJsonVersion.push(parsedIPFSData[5].version);
                       ++numPreviousOwners; 
                       owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                     } catch (error: any | AxiosError) {
@@ -342,6 +335,7 @@ const Data = (): JSX.Element => {
                     prevOwnersModifications.current.push(parsedIPFSData[2]);
                     prevOwnersDefects.current.push(parsedIPFSData[3]);
                     prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                    updatedJsonVersion.push(parsedIPFSData[5].version);
                     ++numPreviousOwners; 
                     owners.push(`${t('DataSVL.Placeholders.owner')} ${numPreviousOwners}`);
                   } catch (error: any | AxiosError) {
@@ -357,10 +351,12 @@ const Data = (): JSX.Element => {
                 setTotalOwners(numPreviousOwners);          
                 setSelectedOwner(0);
               }
+              setJsonVersion(updatedJsonVersion);
             }
             else { //SVL owned
               let numPreviousOwners = 0;
               let prevTransferDate;
+              const updatedJsonVersion = [...jsonVersion];
               if (!responseIndexer.data[0].first_owner) { //SVL has been transferred
                 for (let i = responseIndexer.data[0].previous_owners_info.length-1; i >= 0; i--) { //traverse the previous owners information from the least recent to the most recent
                   const owners = [];
@@ -377,6 +373,8 @@ const Data = (): JSX.Element => {
                       prevOwnersModifications.current.push(parsedIPFSData[2]);
                       prevOwnersDefects.current.push(parsedIPFSData[3]);
                       prevOwnersRepairs.current.push(parsedIPFSData[4]);
+                      if (i == responseIndexer.data[0].previous_owners_info.length-1 && j == 0) updatedJsonVersion[0] = parsedIPFSData[5].version;
+                      else updatedJsonVersion.push(parsedIPFSData[5].version)
                     } catch (error: any | AxiosError) {
                       console.error("Unexpected error:", error);
                     }
@@ -406,9 +404,31 @@ const Data = (): JSX.Element => {
                 }
               }
               //add owners in the use state variable(there is always one owner by default)
-              for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
-                addOwners();
+              if (responseIndexer.data[0].current_owner_info[0] != '') {
+                const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[0]}`, {
+                  responseType: "arraybuffer",
+                });
+                const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                if (responseIndexer.data[0].first_owner) updatedJsonVersion[0] = parsedIPFSData[5].version;
+                else updatedJsonVersion.push(parsedIPFSData[5].version);
               }
+              else {
+                if (responseIndexer.data[0].first_owner) updatedJsonVersion[0] = 'base';
+                else updatedJsonVersion.push('base');
+              }
+              for (let i = 1; i < responseIndexer.data[0].current_owner_info.length; i++) {
+                const responseIPFS = await axios.get(`${ipfsRetrieve}${responseIndexer.data[0].current_owner_info[i]}`, {
+                  responseType: "arraybuffer",
+                });
+                const compressedIPFSData = new Uint8Array(responseIPFS.data);
+                const decompressedIPFSData = pako.ungzip(compressedIPFSData, { to: "string" });
+                const parsedIPFSData = JSON.parse(decompressedIPFSData);
+                updatedJsonVersion.push(parsedIPFSData[5].version);
+                addOwners(parsedIPFSData[5].version);
+              }
+              setJsonVersion(updatedJsonVersion);
               const owners = [];
               if (responseIndexer.data[0].current_owner_info[0] == '') { //the SVL has been transferred and not updated by the current_owner
                 fillOwnerSVLData(0, [], prevOwnersGeneralInformation.current[numPreviousOwners-1], true);
@@ -494,7 +514,7 @@ const Data = (): JSX.Element => {
               maintenances={maintenances} setMaintenances={setMaintenances} modifications={modifications} 
               setModifications={setModifications} defects={defects} setDefects={setDefects}
               repairs={repairs} setRepairs={setRepairs} svl_pk={svl_pk} ownershipSummary={ownershipSummary.current} mySVL={mySVL}
-              jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded}
+              jsonUploaded={jsonUploaded} setJsonUploaded={setJsonUploaded} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion}
             />
           }
           <DataSVL selectedOwner={selectedOwner} selectedSVLData={selectedSVLData}
@@ -504,7 +524,7 @@ const Data = (): JSX.Element => {
             defects={defects} setDefects={setDefects} prevOwnersDefects={prevOwnersDefects.current}
             repairs={repairs} setRepairs={setRepairs} prevOwnersRepairs={prevOwnersRepairs.current}
             totalOwners={totalOwners} editMode={editMode} numPreviousOwners={numPreviousOwners} mySVL={mySVL} viewType={viewType} jsonUploaded={jsonUploaded}
-            fullScreen={fullScreen} setFullScreen={setFullScreen}
+            fullScreen={fullScreen} setFullScreen={setFullScreen} jsonVersion={jsonVersion} setJsonVersion={setJsonVersion}
           />
           {fullScreen == 0 &&
             <BottomNavBar selectedSVLData={selectedSVLData} setSelectedSVLData={setSelectedSVLData} 
@@ -513,6 +533,7 @@ const Data = (): JSX.Element => {
               setModifications={setModifications} setDefects={setDefects} setRepairs={setRepairs}
               totalOwners={totalOwners} setTotalOwners={setTotalOwners} editMode={editMode} 
               viewType={viewType}prevOwnersGeneralInformation={prevOwnersGeneralInformation.current} mySVL={mySVL}
+              jsonVersion={jsonVersion} setJsonVersion={setJsonVersion}
             />
           }
         </div>
