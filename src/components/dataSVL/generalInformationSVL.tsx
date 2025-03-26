@@ -50,13 +50,9 @@ const GeneralInformationSVL = ({ selectedOwner, generalInformation, setGeneralIn
             selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} value={generalInformation[selectedOwner].kilometers} 
             setDataSVL={setGeneralInformation} type={'kilometers'} editMode={editMode}
           /> 
-          <ImagesField fieldLabel={t('DataSVL.Labels.mainImage')} placeholder={t('DataSVL.Placeholders.mainImage')} selectedOwner={selectedOwner} 
-            selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={[generalInformation[selectedOwner].mainPhotograph]} 
-            setDataSVL={setGeneralInformation} type={'mainPhotograph'} allowMultipleImages={false} editMode={editMode} jsonUploaded={jsonUploaded}
-          />
           <ImagesField fieldLabel={t('DataSVL.Labels.images')} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
-            selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].photographs} 
-            setDataSVL={setGeneralInformation} type={'photographs'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
+            selectedGroup={-1} selectedGroupType={-1} dataSVL={generalInformation} selectedImages={generalInformation[selectedOwner].images} 
+            setDataSVL={setGeneralInformation} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
           />        
           <DropdownMenu fieldLabel={t('DataSVL.Labels.state')} selectedOwner={selectedOwner} selectedGroup={-1} selectedGroupType={-1}
             dataSVL={generalInformation} value={generalInformation[selectedOwner].state} 

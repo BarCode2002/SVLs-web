@@ -26,8 +26,7 @@ const PrevOwnersGeneralInformationSVL = ({ selectedOwner, prevOwnersGeneralInfor
           <TextContainer fieldLabel={t('DataSVL.Labels.year')} text={prevOwnersGeneralInformation[selectedOwner].year} />
           <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersGeneralInformation[selectedOwner].kilometers} />
           <TextContainer fieldLabel={t('DataSVL.Labels.acquisitionDate')} text={prevOwnersGeneralInformation[selectedOwner].transferDate} />
-          <ImageContainer fieldLabel={t('DataSVL.Labels.mainImage')} images={[prevOwnersGeneralInformation[selectedOwner].mainPhotograph]} />
-          <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersGeneralInformation[selectedOwner].photographs} />
+          <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersGeneralInformation[selectedOwner].images} />
           <TextContainer fieldLabel={t('DataSVL.Labels.state')} text={prevOwnersGeneralInformation[selectedOwner].state} />
           <TextContainer fieldLabel={t('DataSVL.Labels.weight')} text={prevOwnersGeneralInformation[selectedOwner].weight} />
           <TextContainer fieldLabel={t('DataSVL.Labels.color')} text={prevOwnersGeneralInformation[selectedOwner].color} />

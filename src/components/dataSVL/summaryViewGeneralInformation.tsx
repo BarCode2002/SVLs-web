@@ -32,10 +32,7 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
             {prevOwnersGeneralInformation[selectedOwner].kilometers[0] != '' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={prevOwnersGeneralInformation[selectedOwner].kilometers} />
             }
-            <ImageContainer fieldLabel={t('DataSVL.Labels.mainImage')} images={[prevOwnersGeneralInformation[selectedOwner].mainPhotograph]} />
-            {prevOwnersGeneralInformation[selectedOwner].photographs.filter((image: string) => image != '').length > 0 &&
-              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersGeneralInformation[selectedOwner].photographs} />
-            }
+            <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersGeneralInformation[selectedOwner].images} />
             {prevOwnersGeneralInformation[selectedOwner].state != 'DataSVL.Forms.state' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.state')} text={prevOwnersGeneralInformation[selectedOwner].state} />
             }
@@ -83,10 +80,7 @@ const SummaryViewGeneralInformation = ({ prevOwnersGeneralInformation, generalIn
             {generalInformation[selectedOwner-numPreviousOwners].kilometers[0] != '' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.kilometers')} text={generalInformation[selectedOwner-numPreviousOwners].kilometers} />
             }
-            <ImageContainer fieldLabel={t('DataSVL.Labels.mainImage')} images={[generalInformation[selectedOwner-numPreviousOwners].mainPhotograph]} />
-            {generalInformation[selectedOwner-numPreviousOwners].photographs.filter(image => image != '').length > 0 &&
-              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={generalInformation[selectedOwner-numPreviousOwners].photographs} />
-            }
+            <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={generalInformation[selectedOwner-numPreviousOwners].images} />
             {generalInformation[selectedOwner-numPreviousOwners].state != 'DataSVL.Forms.state' &&
               <TextContainer fieldLabel={t('DataSVL.Labels.state')} text={generalInformation[selectedOwner-numPreviousOwners].state} />
             }

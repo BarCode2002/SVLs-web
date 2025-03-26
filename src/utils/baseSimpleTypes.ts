@@ -5,9 +5,8 @@ export type GeneralInformationBaseSimple = {
   year: string;
   kilometers: [string, string];
   transferDate: string;
-  mainPhotograph: string;
   state: string;
-  photographs: string[];
+  images: string[];
   weight: [string, string];
   color: string;
   engine: string;

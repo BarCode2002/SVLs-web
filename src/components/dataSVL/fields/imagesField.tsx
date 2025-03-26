@@ -31,10 +31,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
   const imagePreviewContainer = useRef(null);
 
   let imageInputId;
-  if (selectedGroup == -1) {
-    if (type == 'mainPhotograph' ) imageInputId = `image-input${'-1'}`;
-    else imageInputId = `image-input${'-2'}`;
-  }
+  if (selectedGroup == -1) imageInputId = `image-input${'-1'}`;
   else imageInputId = `image-input${type}${selectedGroup}${selectedGroupType}`;
 
   const [showType, setShowType] = useState({showBig: false, imageIndex: -1});
@@ -54,16 +51,11 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     if (event.target.files) {
       const updatedDataSVL = [...dataSVL];
       if (selectedGroup == -1 && selectedGroupType == -1) {
-        if (type == 'mainPhotograph') {
-          updatedDataSVL[selectedOwner][type] = URL.createObjectURL(event.target.files[0]);    
-        }
-        else {
-          const numImages = selectedImages.filter(url => url != '').length;
-          let maxImages = event.target.files.length + numImages;
-          if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
-          for (let i = numImages; i < maxImages; i++) {
-            updatedDataSVL[selectedOwner][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
-          }
+        const numImages = selectedImages.filter(url => url != '').length;
+        let maxImages = event.target.files.length + numImages;
+        if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
+        for (let i = numImages; i < maxImages; i++) {
+          updatedDataSVL[selectedOwner][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
         }
       }
       else if (selectedGroup != -1 && selectedGroupType == -1) {
@@ -92,38 +84,28 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     const updatedDataSVL = [...dataSVL];
     const numImages = selectedImages.filter(url => url != '').length;
     for (let i = imageRemovedIndex; i < numImages; i++) {
-      if (selectedGroup == -1 && selectedGroupType == -1) {
-        if (type == 'mainPhotograph') {
-          updatedDataSVL[selectedOwner][type] = '';
+      if (selectedGroup == -1 && selectedGroupType == -1) {    
+        updatedDataSVL[selectedOwner][type][i] = updatedDataSVL[selectedOwner][type][i+1];
+        if (numImages == 1) {
           setShowType((prevState) => ({
             ...prevState,
             showBig: false,
             imageIndex: i,
           }));
         }
-        else {
-          updatedDataSVL[selectedOwner][type][i] = updatedDataSVL[selectedOwner][type][i+1];
-          if (numImages == 1) {
-            setShowType((prevState) => ({
-              ...prevState,
-              showBig: false,
-              imageIndex: i,
-            }));
-          }
-          else if (showType.showBig && showType.imageIndex+1 == numImages) {
-            setShowType((prevState) => ({
-              ...prevState,
-              showBig: true,
-              imageIndex: i-1,
-            }));
-          }
-          else if (showType.showBig && showType.imageIndex > imageRemovedIndex) {
-            setShowType((prevState) => ({
-              ...prevState,
-              showBig: true,
-              imageIndex: showType.imageIndex-1,
-            }));
-          }
+        else if (showType.showBig && showType.imageIndex+1 == numImages) {
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: true,
+            imageIndex: i-1,
+          }));
+        }
+        else if (showType.showBig && showType.imageIndex > imageRemovedIndex) {
+          setShowType((prevState) => ({
+            ...prevState,
+            showBig: true,
+            imageIndex: showType.imageIndex-1,
+          }));
         }
       }
       else if (selectedGroup != -1 && selectedGroupType == -1) {
@@ -324,12 +306,9 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
       });
       const updatedDataSVL = [...dataSVL];
       if (selectedGroup == -1 && selectedGroupType == -1) {
-        if (type == 'mainPhotograph') updatedDataSVL[selectedOwner][type] = uploadResponse.data.cids[0]; 
-        else {
-          for (let i = 0; i < indexImagesToSave.length; i++) {
-            updatedDataSVL[selectedOwner][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
-          }
-        }  
+        for (let i = 0; i < indexImagesToSave.length; i++) {
+          updatedDataSVL[selectedOwner][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
+        }
       }
       else if (selectedGroup != -1 && selectedGroupType == -1) {
         for (let i = 0; i < indexImagesToSave.length; i++) {
