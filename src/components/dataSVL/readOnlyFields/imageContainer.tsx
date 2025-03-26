@@ -165,4 +165,3 @@ const ImageContainer = ({ fieldLabel, images }: ImageContainerProps) => {
 };
 
 export default ImageContainer;
-   

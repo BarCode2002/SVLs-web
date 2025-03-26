@@ -49,5 +49,3 @@ const DefectsRepairedContainer = ({ fieldLabel, numDefectsRepaired, defectsRepai
 };
 
 export default DefectsRepairedContainer;
-
-

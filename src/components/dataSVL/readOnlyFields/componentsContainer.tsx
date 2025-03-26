@@ -27,5 +27,3 @@ const ComponentsContainer = ({ fieldLabel, components }: ComponentsContainerProp
 };
 
 export default ComponentsContainer;
-
-

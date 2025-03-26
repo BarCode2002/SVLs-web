@@ -80,5 +80,3 @@ const OwnershipSummaryButton = ({ ownershipSummary }: OwnershipSummaryButtonProp
 };
 
 export default OwnershipSummaryButton;
-
-

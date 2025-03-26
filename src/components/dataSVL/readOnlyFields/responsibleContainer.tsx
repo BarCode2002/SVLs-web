@@ -159,5 +159,3 @@ const ResponsibleContainer = ({ fieldLabel, responsible }: ResponsibleContainerP
 };
 
 export default ResponsibleContainer;
-
-

@@ -105,5 +105,3 @@ const RepairedDefectsByContainer = ({ fieldLabel, repairs, prevOwnersRepairs, se
 };
 
 export default RepairedDefectsByContainer;
-
-

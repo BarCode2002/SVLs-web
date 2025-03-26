@@ -59,5 +59,3 @@ const TextContainer = ({ fieldLabel, text }: TextContainerProps) => {
 };
 
 export default TextContainer;
-
-
