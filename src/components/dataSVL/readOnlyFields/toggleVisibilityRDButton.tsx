@@ -19,8 +19,8 @@ const ToggleVisibilityRDButton = ({ shrinked, setShrinked, selectedOwner, select
       else updatedShrinked[selectedOwner][selectedGroup].group = true;
     }
     else {
-      if (shrinked[selectedOwner][selectedGroup].type[selectedGroupType] == true) updatedShrinked[selectedOwner][selectedGroup].type[selectedGroupType] = false;
-      else updatedShrinked[selectedOwner][selectedGroup].type[selectedGroupType] = true;
+      if (shrinked[selectedOwner][selectedGroup].element[selectedGroupType] == true) updatedShrinked[selectedOwner][selectedGroup].element[selectedGroupType] = false;
+      else updatedShrinked[selectedOwner][selectedGroup].element[selectedGroupType] = true;
     }
     setShrinked(updatedShrinked);
   }
@@ -37,7 +37,7 @@ const ToggleVisibilityRDButton = ({ shrinked, setShrinked, selectedOwner, select
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {shrinked[selectedOwner][selectedGroup].type[selectedGroupType] == false ? <TopArrowWide /> : <BottomArrowWide />}
+          {shrinked[selectedOwner][selectedGroup].element[selectedGroupType] == false ? <TopArrowWide /> : <BottomArrowWide />}
         </button>
       )}
     </div>

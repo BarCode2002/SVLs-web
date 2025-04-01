@@ -34,7 +34,7 @@ export type MaintenancesBaseSimple = {
     name: string;
     responsible: [number | null, string, boolean | null, string];
     images: string[];
-    type: MaintenanceBaseSimple[];
+    element: MaintenanceBaseSimple[];
     shrinked: boolean;
   }[];
 }
@@ -53,7 +53,7 @@ export type ModificationsBaseSimple = {
     name: string;
     responsible: [number | null, string, boolean | null, string];
     images: string[];
-    type: ModificationBaseSimple[];
+    element: ModificationBaseSimple[];
     shrinked: boolean;
   }[];
 }
@@ -70,7 +70,7 @@ export type DefectsBaseSimple = {
     date: string;
     kilometers: [string, string];
     cause: string;
-    type: DefectBaseSimple[];
+    element: DefectBaseSimple[];
     shrinked: boolean;
   }[];
 }
@@ -91,7 +91,7 @@ export type RepairsBaseSimple = {
     images: string[];
     defectsRepaired: [number, number, number][];
     numDefectsRepaired: number;
-    type: RepairBaseSimple[];
+    element: RepairBaseSimple[];
     shrinked: boolean;
   }[];
 }

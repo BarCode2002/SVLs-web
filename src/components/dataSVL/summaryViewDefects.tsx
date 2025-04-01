@@ -28,40 +28,40 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
 
   const checkIfSomeDataInType = (selectedOwner: number, groupIndex: number, typeIndex: number, actual: boolean) => {
     if (actual) {
-      if (defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].level != 'DataSVL.Forms.level' ||
-        defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].images.filter(image => image != '').length > 0 ||
-        defects[selectedOwner-numPreviousOwners].group[groupIndex].type[typeIndex].description != '') return true;
+      if (defects[selectedOwner-numPreviousOwners].group[groupIndex].element[typeIndex].level != 'DataSVL.Forms.level' ||
+        defects[selectedOwner-numPreviousOwners].group[groupIndex].element[typeIndex].images.filter(image => image != '').length > 0 ||
+        defects[selectedOwner-numPreviousOwners].group[groupIndex].element[typeIndex].description != '') return true;
       else return false;
     }
     else {
-      if (prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].level != 'DataSVL.Forms.level' ||
-        prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].images.filter((image: string) => image != '').length > 0 ||
-        prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].description != '') return true;
+      if (prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].level != 'DataSVL.Forms.level' ||
+        prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].images.filter((image: string) => image != '').length > 0 ||
+        prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].description != '') return true;
       else return false;
     }
   };
 
   const renderListPreviousDefects = (groupIndex: number, selectedOwner: number) => {
 
-    const listPreviousDefects = Array.from({length: prevOwnersDefects[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
+    const listPreviousDefects = Array.from({length: prevOwnersDefects[selectedOwner].group[groupIndex].element.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
-            {prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].level != 'DataSVL.Forms.level' ? (
-              <div>{t(prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].level)}</div>
+            {prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].level != 'DataSVL.Forms.level' ? (
+              <div>{t(prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].level)}</div>
             ) : (
               <div>{t('DataSVL.Placeholders.noDefectLevelSelected')}</div>
             )}
             <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={typeIndex} />
           </div>
-          {!shrinked[selectedOwner][groupIndex].type[typeIndex] && checkIfSomeDataInType(selectedOwner, groupIndex, typeIndex, false) &&
+          {!shrinked[selectedOwner][groupIndex].element[typeIndex] && checkIfSomeDataInType(selectedOwner, groupIndex, typeIndex, false) &&
             <div className={styles.groupTypeBottomPart}>
-              {prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].images.filter((image: string) => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].images} />
+              {prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].images.filter((image: string) => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].images} />
               }
-              {prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].description != '' &&
-                <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].description} />
+              {prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].description != '' &&
+                <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].description} />
               }
             </div>
           }
@@ -127,13 +127,13 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
 
   const renderListActualDefects = (groupIndex: number, currentSelOwner: number) => {
 
-    const listActualDefects = Array.from({length: defects[currentSelOwner].group[groupIndex].type.length}, (_, typeIndex) => (
+    const listActualDefects = Array.from({length: defects[currentSelOwner].group[groupIndex].element.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
-            {defects[currentSelOwner].group[groupIndex].type[typeIndex].level != 'DataSVL.Forms.level' ? (
-              <div>{t(defects[currentSelOwner].group[groupIndex].type[typeIndex].level)}</div>
+            {defects[currentSelOwner].group[groupIndex].element[typeIndex].level != 'DataSVL.Forms.level' ? (
+              <div>{t(defects[currentSelOwner].group[groupIndex].element[typeIndex].level)}</div>
             ) : (
               <div>{t('DataSVL.Placeholders.noDefectLevelSelected')}</div>
             )}
@@ -141,13 +141,13 @@ const SummaryViewDefects = ({ prevOwnersDefects, defects, repairs, prevOwnersRep
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
           </div>
-          {!defects[currentSelOwner].group[groupIndex].type[typeIndex].shrinked && checkIfSomeDataInType(currentSelOwner+numPreviousOwners, groupIndex, typeIndex, true) &&
+          {!defects[currentSelOwner].group[groupIndex].element[typeIndex].shrinked && checkIfSomeDataInType(currentSelOwner+numPreviousOwners, groupIndex, typeIndex, true) &&
             <div className={styles.groupTypeBottomPart}>
-              {defects[currentSelOwner].group[groupIndex].type[typeIndex].images.filter(image => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={defects[currentSelOwner].group[groupIndex].type[typeIndex].images} />
+              {defects[currentSelOwner].group[groupIndex].element[typeIndex].images.filter(image => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={defects[currentSelOwner].group[groupIndex].element[typeIndex].images} />
               }
-              {defects[currentSelOwner].group[groupIndex].type[typeIndex].description != '' &&
-                <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={defects[currentSelOwner].group[groupIndex].type[typeIndex].description} />
+              {defects[currentSelOwner].group[groupIndex].element[typeIndex].description != '' &&
+                <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={defects[currentSelOwner].group[groupIndex].element[typeIndex].description} />
               }
             </div>
           }

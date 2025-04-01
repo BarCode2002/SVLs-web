@@ -78,7 +78,7 @@ export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<P
           responsible: [null, "", null, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          type: Array.from({ length: 1 }, () => ({
+          element: Array.from({ length: 1 }, () => ({
             name: "",
             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
             numComponents: 0,
@@ -102,7 +102,7 @@ export const addMaintenances = (setMaintenances: React.Dispatch<SetStateAction<P
           name: "",
           responsible: [null, "", null, ""],
           images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          type: Array.from({ length: 1 }, () => ({
+          element: Array.from({ length: 1 }, () => ({
             name: "",
             images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
             comments: "",
@@ -127,7 +127,7 @@ export const addModifications = (setModifications: React.Dispatch<SetStateAction
           responsible: [null, "", null, ""],
           pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          type: Array.from({ length: 1 }, () => ({
+          element: Array.from({ length: 1 }, () => ({
             name: "",
             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
             numComponents: 0,
@@ -151,7 +151,7 @@ export const addModifications = (setModifications: React.Dispatch<SetStateAction
           name: "",
           responsible: [null, "", null, ""],
           images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-          type: Array.from({ length: 1 }, () => ({
+          element: Array.from({ length: 1 }, () => ({
             name: "",
             images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
             comments: "",
@@ -172,7 +172,7 @@ export const addDefects = (setDefects: React.Dispatch<SetStateAction<PossibleDef
         date: "",
         kilometers: ['', 'km'],
         cause: "",
-        type: Array.from({ length: 1 }, () => ({
+        element: Array.from({ length: 1 }, () => ({
           level: 'DataSVL.Forms.level',
           images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           description: "",
@@ -198,7 +198,7 @@ export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<PossibleRep
           post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
           numDefectsRepaired: 0,
-          type: Array.from({ length: 1 }, () => ({
+          element: Array.from({ length: 1 }, () => ({
             name: "",
             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
             numComponents: 0,
@@ -224,7 +224,7 @@ export const addRepairs = (setRepairs: React.Dispatch<SetStateAction<PossibleRep
           images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
           defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
           numDefectsRepaired: 0,
-          type: Array.from({ length: 1 }, () => ({
+          element: Array.from({ length: 1 }, () => ({
             name: "",
             images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
             comments: "",

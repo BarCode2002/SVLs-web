@@ -46,18 +46,18 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
       const updatedDefects = [...defects];
       if (groupIndex == groupIndexDragged) {
         if (typeIndexDragged > typeIndex) {
-          const draggedMaintenance = defects[selectedOwner].group[groupIndex].type[typeIndexDragged];
+          const draggedMaintenance = defects[selectedOwner].group[groupIndex].element[typeIndexDragged];
           for (let i = typeIndexDragged; i > typeIndex; i--) {
-            updatedDefects[selectedOwner].group[groupIndex].type[i] = defects[selectedOwner].group[groupIndex].type[i-1];
+            updatedDefects[selectedOwner].group[groupIndex].element[i] = defects[selectedOwner].group[groupIndex].element[i-1];
           }
-          updatedDefects[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
+          updatedDefects[selectedOwner].group[groupIndex].element[typeIndex] = draggedMaintenance;
         }
         else if (typeIndexDragged < typeIndex) {
-          const draggedMaintenance = defects[selectedOwner].group[groupIndex].type[typeIndexDragged];
+          const draggedMaintenance = defects[selectedOwner].group[groupIndex].element[typeIndexDragged];
           for (let i = typeIndexDragged; i < typeIndex ; i++) {
-            updatedDefects[selectedOwner].group[groupIndex].type[i] = defects[selectedOwner].group[groupIndex].type[i+1];
+            updatedDefects[selectedOwner].group[groupIndex].element[i] = defects[selectedOwner].group[groupIndex].element[i+1];
           }
-          updatedDefects[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
+          updatedDefects[selectedOwner].group[groupIndex].element[typeIndex] = draggedMaintenance;
         }
       }
       setDefects(updatedDefects);
@@ -70,7 +70,7 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
 
   const renderlistDefects = (groupIndex: number) => {
 
-    const listDefects = Array.from({length: defects[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
+    const listDefects = Array.from({length: defects[selectedOwner].group[groupIndex].element.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} 
         draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, typeIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, typeIndex)} onDragOver={(e) => handleDragOver(e)} >
@@ -80,36 +80,36 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
             <ToggleVisibilityButton dataSVL={defects} setDataSVL={setDefects} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            {defects[selectedOwner].group[groupIndex].type.length > 1 &&
+            {defects[selectedOwner].group[groupIndex].element.length > 1 &&
               <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
             }
-            {defects[selectedOwner].group[groupIndex].type.length > 1 &&
+            {defects[selectedOwner].group[groupIndex].element.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
               />
             }
           </div>
-          {defects[selectedOwner].group[groupIndex].type[typeIndex].shrinked == false &&
+          {defects[selectedOwner].group[groupIndex].element[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
               <DropdownMenu fieldLabel={''} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
-                selectedGroupType={typeIndex} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].type[typeIndex].level} 
+                selectedGroupType={typeIndex} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].element[typeIndex].level} 
                 setDataSVL={setDefects} type={'level'} editMode={editMode}
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
-                selectedImages={defects[selectedOwner].group[groupIndex].type[typeIndex].images} 
+                selectedImages={defects[selectedOwner].group[groupIndex].element[typeIndex].images} 
                 setDataSVL={setDefects} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
               />
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.descriptionDefect')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 
-                value={defects[selectedOwner].group[groupIndex].type[typeIndex].description} 
+                value={defects[selectedOwner].group[groupIndex].element[typeIndex].description} 
                 setDataSVL={setDefects} type={'description'} editMode={editMode}
               />
             </div>
           }
         </div>
         <div className={styles.addType}>
-          {defects[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
+          {defects[selectedOwner].group[groupIndex].element.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setDefects} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} type={'defect'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
             />

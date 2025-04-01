@@ -110,22 +110,22 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
       foundNotSaved1 = false;
       foundNotSaved2 = false;
-      for (let l = 0; l < maintenances[i].group[j].type.length; l++) {
+      for (let l = 0; l < maintenances[i].group[j].element.length; l++) {
         typeIsMaintenancesBase = isMaintenancesBase(maintenances[i], j, l);
         typeIsMaintenancesBaseSimple = isMaintenancesBaseSimple(maintenances[i], j, l);
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
           if (typeIsMaintenancesBase) {
-            if (maintenances[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved1) {
+            if (maintenances[i].group[j].element[l].pre[z][4] == ':' && !foundNotSaved1) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesMaintenance')} ${l+1} ${i18n.t('InvalidFields.maintenanceGroup')} ${j+1}.`);
               foundNotSaved1 = true;
             }
-            if (maintenances[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
+            if (maintenances[i].group[j].element[l].post[z][4] == ':' && !foundNotSaved2) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesMaintenance')} ${l+1} ${i18n.t('InvalidFields.maintenanceGroup')} ${j+1}.`);
               foundNotSaved2 = true;
             }
           }
           else if (typeIsMaintenancesBaseSimple) {
-            if (maintenances[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved1) {
+            if (maintenances[i].group[j].element[l].images[z][4] == ':' && !foundNotSaved1) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesMaintenance')} ${l+1} ${i18n.t('InvalidFields.maintenanceGroup')} ${j+1}.`);
               foundNotSaved2 = true;
             }
@@ -164,22 +164,22 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
       foundNotSaved1 = false;
       foundNotSaved2 = false;
-      for (let l = 0; l < modifications[i].group[j].type.length; l++) {
+      for (let l = 0; l < modifications[i].group[j].element.length; l++) {
         typeIsModificationsBase = isModificationsBase(modifications[i], j, l);
         typeIsModificationsBaseSimple = isModificationsBaseSimple(modifications[i], j, l);
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
           if (typeIsModificationsBase) {
-            if (modifications[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved1) {
+            if (modifications[i].group[j].element[l].pre[z][4] == ':' && !foundNotSaved1) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesModification')} ${l+1} ${i18n.t('InvalidFields.modificationGroup')} ${j+1}.`);
               foundNotSaved2 = true;
             }
-            if (modifications[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
+            if (modifications[i].group[j].element[l].post[z][4] == ':' && !foundNotSaved2) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesModification')} ${l+1} ${i18n.t('InvalidFields.modificationGroup')} ${j+1}.`);
               foundNotSaved2 = true;
             }
           }
           else if (typeIsModificationsBaseSimple) {
-            if (modifications[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved1) {
+            if (modifications[i].group[j].element[l].images[z][4] == ':' && !foundNotSaved1) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesModification')} ${l+1} ${i18n.t('InvalidFields.modificationGroup')} ${j+1}.`);
               foundNotSaved2 = true;
             }
@@ -192,10 +192,10 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       if (defects[i].group[j].cause == '') {
         invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.causeDefect')} ${j+1}. ${i18n.t('InvalidFields.mandatoryField')}`);
       }
-      for (let l = 0; l < defects[i].group[j].type.length; l++) {
+      for (let l = 0; l < defects[i].group[j].element.length; l++) {
         //nivel del defecto seria bien que fuera obligatorio, hacer llamada api, comproba que el valor esta en los posibles(el default no es de los posible)
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
-          if (defects[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved) {
+          if (defects[i].group[j].element[l].images[z][4] == ':' && !foundNotSaved) {
             invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.imagesDefect')} ${l+1} ${i18n.t('InvalidFields.defectGroup')} ${j+1}.`);
             foundNotSaved = true;
           }
@@ -242,22 +242,22 @@ export const checks = async (start: number, end: number, numPreviousOwners: numb
       }
       foundNotSaved1 = false;
       foundNotSaved2 = false;
-      for (let l = 0; l < repairs[i].group[j].type.length; l++) {
+      for (let l = 0; l < repairs[i].group[j].element.length; l++) {
         typeIsRepairsBase = isRepairsBase(repairs[i], j, l);
         typeIsRepairsBaseSimple = isRepairsBaseSimple(repairs[i], j, l);
         for (let z = 0; z < PHOTOGRAPHS_SIZE; z++) {
           if (typeIsRepairsBase) {
-            if (repairs[i].group[j].type[l].pre[z][4] == ':' && !foundNotSaved1) {
+            if (repairs[i].group[j].element[l].pre[z][4] == ':' && !foundNotSaved1) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesRepair')} ${l+1} ${i18n.t('InvalidFields.repairGroup')} ${j+1}.`);
               foundNotSaved1 = true;
             }
-            if (repairs[i].group[j].type[l].post[z][4] == ':' && !foundNotSaved2) {
+            if (repairs[i].group[j].element[l].post[z][4] == ':' && !foundNotSaved2) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.postImagesRepair')} ${l+1} ${i18n.t('InvalidFields.repairGroup')} ${j+1}.`);
               foundNotSaved2 = true;
             }
           }
           else if (typeIsRepairsBaseSimple) {
-            if (repairs[i].group[j].type[l].images[z][4] == ':' && !foundNotSaved1) {
+            if (repairs[i].group[j].element[l].images[z][4] == ':' && !foundNotSaved1) {
               invalidFields.push(`${i18n.t('InvalidFields.owner')} ${numPreviousOwners+i+1} ${i18n.t('InvalidFields.previousImagesRepair')} ${l+1} ${i18n.t('InvalidFields.repairGroup')} ${j+1}.`);
               foundNotSaved1 = true;
             }

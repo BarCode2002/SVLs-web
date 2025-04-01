@@ -20,7 +20,7 @@ const InputTextField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup,
     const updateSVLdata = [...dataSVL];
     if (selectedGroup == -1 && selectedGroupType == -1) updateSVLdata[selectedOwner][type] = e.target.value;
     else if (selectedGroup != -1 && selectedGroupType == -1 ) updateSVLdata[selectedOwner].group[selectedGroup][type] = e.target.value;
-    else updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type] = e.target.value;
+    else updateSVLdata[selectedOwner].group[selectedGroup].element[selectedGroupType][type] = e.target.value;
     setDataSVL(updateSVLdata);
   }
 

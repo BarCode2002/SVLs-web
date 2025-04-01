@@ -31,7 +31,7 @@ export const defaultBaseMaintenances: MaintenancesBase = {
     responsible: [null, "", null, ""],
     pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
     post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-    type: Array.from({ length: 1 }, () => ({
+    element: Array.from({ length: 1 }, () => ({
       name: "",
       components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
       numComponents: 0,
@@ -52,7 +52,7 @@ export const defaultBaseModifications: ModificationsBase = {
     responsible: [null, "", null, ""],
     pre: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
     post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-    type: Array.from({ length: 1 }, () => ({
+    element: Array.from({ length: 1 }, () => ({
       name: "",
       components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
       numComponents: 0,
@@ -70,7 +70,7 @@ export const defaultBaseDefects: DefectsBase = {
     date: "",
     kilometers: ['', 'km'],
     cause: "",
-    type: Array.from({ length: 1 }, () => ({
+    element: Array.from({ length: 1 }, () => ({
       level: 'DataSVL.Forms.level',
       images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       description: "",
@@ -90,7 +90,7 @@ export const defaultBaseRepairs: RepairsBase = {
     post: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
     defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
     numDefectsRepaired: 0,
-    type: Array.from({ length: 1 }, () => ({
+    element: Array.from({ length: 1 }, () => ({
       name: "",
       components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
       numComponents: 0,

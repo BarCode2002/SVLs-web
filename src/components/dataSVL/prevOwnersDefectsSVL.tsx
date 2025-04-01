@@ -24,18 +24,18 @@ const PrevOwnersDefectsSVL = ({ selectedOwner, numPreviousOwners, totalOwners, s
 
   const renderlistDefects = (groupIndex: number) => {
 
-    const listDefects = Array.from({length: prevOwnersDefects[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
+    const listDefects = Array.from({length: prevOwnersDefects[selectedOwner].group[groupIndex].element.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
             <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={typeIndex} />
           </div>
-          {shrinked[selectedOwner][groupIndex].type[typeIndex] == false &&
+          {shrinked[selectedOwner][groupIndex].element[typeIndex] == false &&
             <div className={styles.groupTypeBottomPart}>
-              <TextContainer fieldLabel={t('DataSVL.Labels.level')} text={prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].level} />
-              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].images} />
-              <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={prevOwnersDefects[selectedOwner].group[groupIndex].type[typeIndex].description} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.level')} text={prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].level} />
+              <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].images} />
+              <TextContainer fieldLabel={t('DataSVL.Labels.description')} text={prevOwnersDefects[selectedOwner].group[groupIndex].element[typeIndex].description} />
             </div>
           }
         </div>

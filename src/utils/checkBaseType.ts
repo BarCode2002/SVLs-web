@@ -23,14 +23,14 @@ export const isGeneralInformationBase = (data: PossibleGeneralInformationJsonVer
     (data as GeneralInformationBase).comments != undefined
 };
 
-export const isMaintenancesBase = (data: PossibleMaintenancesJsonVersions, groupIndex: number, typeIndex?: number): data is MaintenancesBase => {
-  if (typeIndex != undefined) {
-    return (data as MaintenancesBase).group[groupIndex].type[typeIndex].name != undefined && 
-      (data as MaintenancesBase).group[groupIndex].type[typeIndex].components != undefined && 
-      (data as MaintenancesBase).group[groupIndex].type[typeIndex].numComponents != undefined &&
-      (data as MaintenancesBase).group[groupIndex].type[typeIndex].pre != undefined &&
-      (data as MaintenancesBase).group[groupIndex].type[typeIndex].post != undefined &&
-      (data as MaintenancesBase).group[groupIndex].type[typeIndex].comments != undefined
+export const isMaintenancesBase = (data: PossibleMaintenancesJsonVersions, groupIndex: number, elementIndex?: number): data is MaintenancesBase => {
+  if (elementIndex != undefined) {
+    return (data as MaintenancesBase).group[groupIndex].element[elementIndex].name != undefined && 
+      (data as MaintenancesBase).group[groupIndex].element[elementIndex].components != undefined && 
+      (data as MaintenancesBase).group[groupIndex].element[elementIndex].numComponents != undefined &&
+      (data as MaintenancesBase).group[groupIndex].element[elementIndex].pre != undefined &&
+      (data as MaintenancesBase).group[groupIndex].element[elementIndex].post != undefined &&
+      (data as MaintenancesBase).group[groupIndex].element[elementIndex].comments != undefined
   }
   else {
     return (data as MaintenancesBase).group[groupIndex].date != undefined && 
@@ -42,13 +42,13 @@ export const isMaintenancesBase = (data: PossibleMaintenancesJsonVersions, group
   }
 };
 
-export const isModificationsBase = (data: PossibleModificationsJsonVersions, groupIndex: number, typeIndex?: number): data is ModificationsBase => {
-  if (typeIndex != undefined) {
-    return (data as ModificationsBase).group[groupIndex].type[typeIndex].name !== undefined && 
-      (data as ModificationsBase).group[groupIndex].type[typeIndex].comments !== undefined && 
-      (data as ModificationsBase).group[groupIndex].type[typeIndex].numComponents !== undefined &&
-      (data as ModificationsBase).group[groupIndex].type[typeIndex].pre !== undefined &&
-      (data as ModificationsBase).group[groupIndex].type[typeIndex].post !== undefined
+export const isModificationsBase = (data: PossibleModificationsJsonVersions, groupIndex: number, elementIndex?: number): data is ModificationsBase => {
+  if (elementIndex != undefined) {
+    return (data as ModificationsBase).group[groupIndex].element[elementIndex].name !== undefined && 
+      (data as ModificationsBase).group[groupIndex].element[elementIndex].comments !== undefined && 
+      (data as ModificationsBase).group[groupIndex].element[elementIndex].numComponents !== undefined &&
+      (data as ModificationsBase).group[groupIndex].element[elementIndex].pre !== undefined &&
+      (data as ModificationsBase).group[groupIndex].element[elementIndex].post !== undefined
   }
   else {
     return (data as ModificationsBase).group[groupIndex].date != undefined &&
@@ -60,11 +60,11 @@ export const isModificationsBase = (data: PossibleModificationsJsonVersions, gro
   }
 };
 
-export const isDefectsBase = (data: PossibleDefectsJsonVersions, groupIndex: number, typeIndex?: number): data is DefectsBase => {
-  if (typeIndex != undefined) {
-    return (data as DefectsBase).group[groupIndex].type[typeIndex].level !== undefined && 
-      (data as DefectsBase).group[groupIndex].type[typeIndex].images !== undefined && 
-      (data as DefectsBase).group[groupIndex].type[typeIndex].description !== undefined
+export const isDefectsBase = (data: PossibleDefectsJsonVersions, groupIndex: number, elementIndex?: number): data is DefectsBase => {
+  if (elementIndex != undefined) {
+    return (data as DefectsBase).group[groupIndex].element[elementIndex].level !== undefined && 
+      (data as DefectsBase).group[groupIndex].element[elementIndex].images !== undefined && 
+      (data as DefectsBase).group[groupIndex].element[elementIndex].description !== undefined
   }
   else {
     return (data as DefectsBase).group[groupIndex].date != undefined &&
@@ -73,14 +73,14 @@ export const isDefectsBase = (data: PossibleDefectsJsonVersions, groupIndex: num
   }
 };
 
-export const isRepairsBase = (data: PossibleRepairsJsonVersions, groupIndex: number, typeIndex?: number): data is RepairsBase => {
-  if (typeIndex != undefined) {
-    return (data as RepairsBase).group[groupIndex].type[typeIndex].name !== undefined && 
-      (data as RepairsBase).group[groupIndex].type[typeIndex].comments !== undefined && 
-      (data as RepairsBase).group[groupIndex].type[typeIndex].numComponents !== undefined && 
-      (data as RepairsBase).group[groupIndex].type[typeIndex].pre !== undefined && 
-      (data as RepairsBase).group[groupIndex].type[typeIndex].post !== undefined && 
-      (data as RepairsBase).group[groupIndex].type[typeIndex].comments !== undefined
+export const isRepairsBase = (data: PossibleRepairsJsonVersions, groupIndex: number, elementIndex?: number): data is RepairsBase => {
+  if (elementIndex != undefined) {
+    return (data as RepairsBase).group[groupIndex].element[elementIndex].name !== undefined && 
+      (data as RepairsBase).group[groupIndex].element[elementIndex].comments !== undefined && 
+      (data as RepairsBase).group[groupIndex].element[elementIndex].numComponents !== undefined && 
+      (data as RepairsBase).group[groupIndex].element[elementIndex].pre !== undefined && 
+      (data as RepairsBase).group[groupIndex].element[elementIndex].post !== undefined && 
+      (data as RepairsBase).group[groupIndex].element[elementIndex].comments !== undefined
   }
   else {
     return (data as RepairsBase).group[groupIndex].date != undefined &&

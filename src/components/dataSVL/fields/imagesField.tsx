@@ -71,7 +71,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         let maxImages = event.target.files.length + numImages;
         if (maxImages > PHOTOGRAPHS_SIZE) maxImages = PHOTOGRAPHS_SIZE;
         for (let i = numImages; i < maxImages; i++) {
-          updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
+          updatedDataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][i] = URL.createObjectURL(event.target.files[i-numImages]);
         }
       }
       setDataSVL(updatedDataSVL);
@@ -133,7 +133,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
         }
       }
       else {
-        updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i+1];
+        updatedDataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][i] = updatedDataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][i+1];
         if (numImages == 1) {
           setShowType((prevState) => ({
             ...prevState,
@@ -265,18 +265,18 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
     }
     else {
       if (indexDragged > index) {
-        const draggedValue = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][indexDragged];
+        const draggedValue = dataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][indexDragged];
         for (let i = indexDragged; i > index; i--) {
-          updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i-1];
+          updatedDataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][i-1];
         }
-        updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][index] = draggedValue;
+        updatedDataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][index] = draggedValue;
       }
       else if (indexDragged < index) {
-        const draggedValue = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][indexDragged];
+        const draggedValue = dataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][indexDragged];
         for (let i = indexDragged; i < index; i++) {
-          updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][i+1];
+          updatedDataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][i] = dataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][i+1];
         }
-        updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][index] = draggedValue;
+        updatedDataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][index] = draggedValue;
       }
     }
     setDataSVL(updatedDataSVL);
@@ -317,7 +317,7 @@ const ImagesField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, se
       }
       else {
         for (let i = 0; i < indexImagesToSave.length; i++) {
-          updatedDataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
+          updatedDataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType][type][indexImagesToSave[i]] = uploadResponse.data.cids[i];   
         }
       }
       setDataSVL(updatedDataSVL);

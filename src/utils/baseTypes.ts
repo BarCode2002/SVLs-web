@@ -38,7 +38,7 @@ export type MaintenancesBase = {
     responsible: [number | null, string, boolean | null, string];
     pre: string[],
     post: string[],
-    type: MaintenanceBase[];
+    element: MaintenanceBase[];
     shrinked: boolean;
   }[];
 }
@@ -61,7 +61,7 @@ export type ModificationsBase = {
     responsible: [number | null, string, boolean | null, string];
     pre: string[],
     post: string[],
-    type: ModificationBase[];
+    element: ModificationBase[];
     shrinked: boolean;
   }[];
 }
@@ -78,7 +78,7 @@ export type DefectsBase = {
     date: string;
     kilometers: [string, string];
     cause: string;
-    type: DefectBase[];
+    element: DefectBase[];
     shrinked: boolean;
   }[];
 }
@@ -103,7 +103,7 @@ export type RepairsBase = {
     post: string[],
     defectsRepaired: [number, number, number][];
     numDefectsRepaired: number;
-    type: RepairBase[];
+    element: RepairBase[];
     shrinked: boolean;
   }[];
 }

@@ -32,29 +32,29 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
     if (actual) {
       const currentSelOwner = selectedOwner - numPreviousOwners;
       if (isRepairsBase(repairs[currentSelOwner], groupIndex, typeIndex)) {
-        if (repairs[currentSelOwner].group[groupIndex].type[typeIndex].numComponents > 0 ||
-          repairs[currentSelOwner].group[groupIndex].type[typeIndex].pre.filter(image => image != '').length > 0 ||
-          repairs[currentSelOwner].group[groupIndex].type[typeIndex].post.filter(image => image != '').length > 0 ||
-          repairs[currentSelOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+        if (repairs[currentSelOwner].group[groupIndex].element[typeIndex].numComponents > 0 ||
+          repairs[currentSelOwner].group[groupIndex].element[typeIndex].pre.filter(image => image != '').length > 0 ||
+          repairs[currentSelOwner].group[groupIndex].element[typeIndex].post.filter(image => image != '').length > 0 ||
+          repairs[currentSelOwner].group[groupIndex].element[typeIndex].comments != '') return true;
         else return false;
       }
       else if (isRepairsBaseSimple(repairs[currentSelOwner], groupIndex, typeIndex)) {
-        if (repairs[currentSelOwner].group[groupIndex].type[typeIndex].images.filter(image => image != '').length > 0 ||
-          repairs[currentSelOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+        if (repairs[currentSelOwner].group[groupIndex].element[typeIndex].images.filter(image => image != '').length > 0 ||
+          repairs[currentSelOwner].group[groupIndex].element[typeIndex].comments != '') return true;
         else return false;
       }
     }
     else {
       if (isRepairsBase(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex)) {
-        if (prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].numComponents > 0 ||
-          prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
-          prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 ||
-          prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+        if (prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].numComponents > 0 ||
+          prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].pre.filter((image: string) => image != '').length > 0 ||
+          prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].post.filter((image: string) => image != '').length > 0 ||
+          prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].comments != '') return true;
         else return false;
       }
       else if (isRepairsBaseSimple(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex)) {
-        if (prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].images.filter(image => image != '').length > 0 ||
-        prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].comments != '') return true;
+        if (prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].images.filter(image => image != '').length > 0 ||
+        prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].comments != '') return true;
         else return false;
       }
     }
@@ -62,34 +62,34 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
 
   const renderListPreviousRepairs = (groupIndex: number, selectedOwner: number) => {
 
-    const listPreviousRepairs = Array.from({length: prevOwnersRepairs[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
+    const listPreviousRepairs = Array.from({length: prevOwnersRepairs[selectedOwner].group[groupIndex].element.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
-            {prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].name ? (
-              <div>{prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].name}</div>
+            {prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].name ? (
+              <div>{prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].name}</div>
             ) : (
               <div>{t('DataSVL.Placeholders.noNameSelected')}</div>
             )}
             <ToggleVisibilityRDButton shrinked={shrinked} setShrinked={setShrinked} selectedOwner={selectedOwner} selectedGroup={groupIndex} selectedGroupType={typeIndex} />
           </div>
-          {!shrinked[selectedOwner][groupIndex].type[typeIndex] && checkIfSomeDataInType(selectedOwner, groupIndex, typeIndex, false) &&
+          {!shrinked[selectedOwner][groupIndex].element[typeIndex] && checkIfSomeDataInType(selectedOwner, groupIndex, typeIndex, false) &&
             <div className={styles.groupTypeBottomPart}>
-              {isRepairsBase(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex) && prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].numComponents > 0 &&
-                <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].components} />
+              {isRepairsBase(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex) && prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].numComponents > 0 &&
+                <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].components} />
               }
-              {isRepairsBase(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex) && prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].pre.filter((image: string) => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].pre} />
+              {isRepairsBase(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex) && prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].pre.filter((image: string) => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].pre} />
               }
-              {isRepairsBase(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex) && prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].post.filter((image: string) => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].post} />
+              {isRepairsBase(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex) && prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].post.filter((image: string) => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].post} />
               }
-              {isRepairsBaseSimple(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex) && prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].images.filter((image: string) => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].images} />
+              {isRepairsBaseSimple(prevOwnersRepairs[selectedOwner], groupIndex, typeIndex) && prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].images.filter((image: string) => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].images} />
               }
-              {prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].comments != '' &&
-                <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersRepairs[selectedOwner].group[groupIndex].type[typeIndex].comments} />
+              {prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].comments != '' &&
+                <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={prevOwnersRepairs[selectedOwner].group[groupIndex].element[typeIndex].comments} />
               }
             </div>
           }
@@ -166,13 +166,13 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
 
   const renderListActualRepairs = (groupIndex: number, currentSelOwner: number) => {
 
-    const listActualRepairs = Array.from({length: repairs[currentSelOwner].group[groupIndex].type.length}, (_, typeIndex) => (
+    const listActualRepairs = Array.from({length: repairs[currentSelOwner].group[groupIndex].element.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} >
         <div className={styles.groupType}>
           <div className={styles.groupTypeTopPart}>
             # {typeIndex + 1}
-            {repairs[currentSelOwner].group[groupIndex].type[typeIndex].name != '' ? (
-              <div>{repairs[currentSelOwner].group[groupIndex].type[typeIndex].name}</div>
+            {repairs[currentSelOwner].group[groupIndex].element[typeIndex].name != '' ? (
+              <div>{repairs[currentSelOwner].group[groupIndex].element[typeIndex].name}</div>
             ) : (
               <div>{t('DataSVL.Placeholders.noNameSelected')}</div>
             )}
@@ -180,22 +180,22 @@ const SummaryViewRepairs = ({ prevOwnersRepairs, repairs, setRepairs, shrinked, 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
           </div>
-          {!repairs[currentSelOwner].group[groupIndex].type[typeIndex].shrinked && checkIfSomeDataInType(currentSelOwner+numPreviousOwners, groupIndex, typeIndex, true) &&
+          {!repairs[currentSelOwner].group[groupIndex].element[typeIndex].shrinked && checkIfSomeDataInType(currentSelOwner+numPreviousOwners, groupIndex, typeIndex, true) &&
             <div className={styles.groupTypeBottomPart}>
-              {isRepairsBase(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].type[typeIndex].numComponents > 0 &&
-                <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={repairs[currentSelOwner].group[groupIndex].type[typeIndex].components} />
+              {isRepairsBase(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].element[typeIndex].numComponents > 0 &&
+                <ComponentsContainer fieldLabel={t('DataSVL.Labels.components')} components={repairs[currentSelOwner].group[groupIndex].element[typeIndex].components} />
               }
-              {isRepairsBase(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].type[typeIndex].pre.filter(image => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={repairs[currentSelOwner].group[groupIndex].type[typeIndex].pre} />
+              {isRepairsBase(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].element[typeIndex].pre.filter(image => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.preImages')} images={repairs[currentSelOwner].group[groupIndex].element[typeIndex].pre} />
               }
-              {isRepairsBase(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].type[typeIndex].post.filter(image => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={repairs[currentSelOwner].group[groupIndex].type[typeIndex].post} />
+              {isRepairsBase(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].element[typeIndex].post.filter(image => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.postImages')} images={repairs[currentSelOwner].group[groupIndex].element[typeIndex].post} />
               }
-              {isRepairsBaseSimple(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].type[typeIndex].images.filter(image => image != '').length > 0 &&
-                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={repairs[currentSelOwner].group[groupIndex].type[typeIndex].images} />
+              {isRepairsBaseSimple(repairs[currentSelOwner], groupIndex, typeIndex) && repairs[currentSelOwner].group[groupIndex].element[typeIndex].images.filter(image => image != '').length > 0 &&
+                <ImageContainer fieldLabel={t('DataSVL.Labels.images')} images={repairs[currentSelOwner].group[groupIndex].element[typeIndex].images} />
               }
-              {repairs[currentSelOwner].group[groupIndex].type[typeIndex].comments != '' &&
-                <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={repairs[currentSelOwner].group[groupIndex].type[typeIndex].comments} />
+              {repairs[currentSelOwner].group[groupIndex].element[typeIndex].comments != '' &&
+                <TextContainer fieldLabel={t('DataSVL.Labels.comments')} text={repairs[currentSelOwner].group[groupIndex].element[typeIndex].comments} />
               }
             </div>
           }
