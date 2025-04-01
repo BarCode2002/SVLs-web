@@ -78,7 +78,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
             const groupDefect = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][1];
             if (repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0] < numPreviousOwners) {
               const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0];
-              for (let i = 0; i < prevOwnersDefects[defectOwner].group[groupDefect].type.length; ++i) {
+              for (let i = 0; i < prevOwnersDefects[defectOwner].group[groupDefect].element.length; ++i) {
                 updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
               }
             }
@@ -86,7 +86,7 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
               const defectOwner = repairs[selectedOwner].group[selectedGroup].defectsRepaired[i][0]-numPreviousOwners;
               if (defectOwner < totalOwners) {
                 if (defects[defectOwner].group.length > 0)
-                for (let i = 0; i < defects[defectOwner].group[groupDefect].type.length; ++i) {
+                for (let i = 0; i < defects[defectOwner].group[groupDefect].element.length; ++i) {
                   updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
                 }    
               }
@@ -262,12 +262,12 @@ const DefectsRepairedField = ({ fieldLabel, numPreviousOwners, selectedOwner, se
     const groupNumber = parseInt(groupNum![0]);
     const updatedDefectGroupTypesOwner = [];
     if (ownerNumber-numPreviousOwners < numPreviousOwners) {
-      for (let i = 0; i < prevOwnersDefects[ownerNumber-1].group[groupNumber-1].type.length; ++i) {
+      for (let i = 0; i < prevOwnersDefects[ownerNumber-1].group[groupNumber-1].element.length; ++i) {
         updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
       }
     }
     else {
-      for (let i = 0; i < defects[ownerNumber-numPreviousOwners-1].group[groupNumber-1].type.length; ++i) {
+      for (let i = 0; i < defects[ownerNumber-numPreviousOwners-1].group[groupNumber-1].element.length; ++i) {
         updatedDefectGroupTypesOwner.push(`${t('DataSVL.Placeholders.defect')} ${i+1}`); 
       }
     }

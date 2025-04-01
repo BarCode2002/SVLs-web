@@ -48,7 +48,7 @@ const InputField = ({ fieldLabel, placeholder, selectedOwner, selectedGroup, sel
           updateSVLdata[selectedOwner].group[selectedGroup][type] = e.target.value;
         }
       }
-      else updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type] = e.target.value;
+      else updateSVLdata[selectedOwner].group[selectedGroup].element[selectedGroupType][type] = e.target.value;
       setDataSVL(updateSVLdata);
     }
   };

@@ -19,8 +19,8 @@ const ToggleVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGr
       else updateSVLdata[selectedOwner].group[selectedGroup].shrinked = true;
     }
     else {
-      if (dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked == true) updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked = false;
-      else updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked = true;
+      if (dataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType].shrinked == true) updateSVLdata[selectedOwner].group[selectedGroup].element[selectedGroupType].shrinked = false;
+      else updateSVLdata[selectedOwner].group[selectedGroup].element[selectedGroupType].shrinked = true;
     }
     setDataSVL(updateSVLdata);
   }
@@ -37,7 +37,7 @@ const ToggleVisibilityButton = ({ dataSVL, setDataSVL, selectedOwner, selectedGr
         <button
           className={styles.toogleButton}
           onClick={handleToggle}>
-          {dataSVL[selectedOwner].group[selectedGroup].type[selectedGroupType].shrinked == false ? <TopArrowWide /> : <BottomArrowWide />}
+          {dataSVL[selectedOwner].group[selectedGroup].element[selectedGroupType].shrinked == false ? <TopArrowWide /> : <BottomArrowWide />}
         </button>
       )}
     </div>

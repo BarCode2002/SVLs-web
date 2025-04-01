@@ -19,14 +19,14 @@ export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetSta
                   responsible: maintenanceGroup.responsible,
                   pre: maintenanceGroup.pre,
                   post: maintenanceGroup.post,
-                  type: Array.from({ length: 1 }, () => ({
-                    name: maintenanceGroup.type[0].name,
-                    components: maintenanceGroup.type[0].components,
-                    numComponents: maintenanceGroup.type[0].numComponents,
-                    pre: maintenanceGroup.type[0].pre,
-                    post: maintenanceGroup.type[0].post,
-                    comments: maintenanceGroup.type[0].comments,
-                    shrinked: maintenanceGroup.type[0].shrinked,
+                  element: Array.from({ length: 1 }, () => ({
+                    name: maintenanceGroup.element[0].name,
+                    components: maintenanceGroup.element[0].components,
+                    numComponents: maintenanceGroup.element[0].numComponents,
+                    pre: maintenanceGroup.element[0].pre,
+                    post: maintenanceGroup.element[0].post,
+                    comments: maintenanceGroup.element[0].comments,
+                    shrinked: maintenanceGroup.element[0].shrinked,
                   })),
                   shrinked: maintenanceGroup.shrinked,
                 },
@@ -50,11 +50,11 @@ export const addAndSetMaintenanceGroup = (setMaintenances: React.Dispatch<SetSta
                   name: maintenanceGroup.name,
                   responsible: maintenanceGroup.responsible,
                   images: maintenanceGroup.post,
-                  type: Array.from({ length: 1 }, () => ({
-                    name: maintenanceGroup.type[0].name,
-                    images: maintenanceGroup.type[0].post,
-                    comments: maintenanceGroup.type[0].comments,
-                    shrinked: maintenanceGroup.type[0].shrinked,
+                  element: Array.from({ length: 1 }, () => ({
+                    name: maintenanceGroup.element[0].name,
+                    images: maintenanceGroup.element[0].post,
+                    comments: maintenanceGroup.element[0].comments,
+                    shrinked: maintenanceGroup.element[0].shrinked,
                   })),
                   shrinked: maintenanceGroup.shrinked,
                 },
@@ -77,8 +77,8 @@ export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<Se
                 gIndex == selectedGroup 
                   ? {
                       ...groupItem,
-                      type: [
-                        ...groupItem.type,
+                      element: [
+                        ...groupItem.element,
                         {
                           name: maintenanceType.name,
                           components: maintenanceType.components,
@@ -107,8 +107,8 @@ export const addAndSetMaintenanceGroupType = (setMaintenances: React.Dispatch<Se
                 gIndex == selectedGroup 
                   ? {
                       ...groupItem,
-                      type: [
-                        ...groupItem.type,
+                      element: [
+                        ...groupItem.element,
                         {
                           name: maintenanceType.name,
                           images: maintenanceType.post,
@@ -142,14 +142,14 @@ export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetS
                   responsible: modificationGroup.responsible,
                   pre: modificationGroup.pre,
                   post: modificationGroup.post,
-                  type: Array.from({ length: 1 }, () => ({
-                    name: modificationGroup.type[0].name,
-                    components: modificationGroup.type[0].components,
-                    numComponents: modificationGroup.type[0].numComponents,
-                    pre: modificationGroup.type[0].pre,
-                    post: modificationGroup.type[0].post,
-                    comments: modificationGroup.type[0].comments,
-                    shrinked: modificationGroup.type[0].shrinked,
+                  element: Array.from({ length: 1 }, () => ({
+                    name: modificationGroup.element[0].name,
+                    components: modificationGroup.element[0].components,
+                    numComponents: modificationGroup.element[0].numComponents,
+                    pre: modificationGroup.element[0].pre,
+                    post: modificationGroup.element[0].post,
+                    comments: modificationGroup.element[0].comments,
+                    shrinked: modificationGroup.element[0].shrinked,
                   })),
                   shrinked: modificationGroup.shrinked,
                 },
@@ -173,11 +173,11 @@ export const addAndSetModificationGroup = (setModifications: React.Dispatch<SetS
                   name: modificationGroup.name,
                   responsible: modificationGroup.responsible,
                   images: modificationGroup.post,
-                  type: Array.from({ length: 1 }, () => ({
-                    name: modificationGroup.type[0].name,
-                    images: modificationGroup.type[0].post,
-                    comments: modificationGroup.type[0].comments,
-                    shrinked: modificationGroup.type[0].shrinked,
+                  element: Array.from({ length: 1 }, () => ({
+                    name: modificationGroup.element[0].name,
+                    images: modificationGroup.element[0].post,
+                    comments: modificationGroup.element[0].comments,
+                    shrinked: modificationGroup.element[0].shrinked,
                   })),
                   shrinked: modificationGroup.shrinked,
                 },
@@ -200,8 +200,8 @@ export const addAndSetModificationGroupType = (setModifications: React.Dispatch<
                 gIndex == selectedGroup 
                   ? {
                       ...groupItem,
-                      type: [
-                        ...groupItem.type,
+                      element: [
+                        ...groupItem.element,
                         {
                           name: modificationType.name,
                           components: modificationType.components,
@@ -230,8 +230,8 @@ export const addAndSetModificationGroupType = (setModifications: React.Dispatch<
                 gIndex == selectedGroup 
                   ? {
                       ...groupItem,
-                      type: [
-                        ...groupItem.type,
+                      element: [
+                        ...groupItem.element,
                         {
                           name: modificationType.name,
                           images: modificationType.post,
@@ -261,11 +261,11 @@ export const addAndSetDefectGroup = (setDefects: React.Dispatch<SetStateAction<a
                 date: defectGroup.date,
                 kilometers: defectGroup.kilometers,
                 cause: defectGroup.cause,
-                type: Array.from({ length: 1 }, () => ({
-                  level: defectGroup.type[0].level,
-                  images: defectGroup.type[0].images,
-                  description: defectGroup.type[0].description,
-                  shrinked: defectGroup.type[0].shrinked,
+                element: Array.from({ length: 1 }, () => ({
+                  level: defectGroup.element[0].level,
+                  images: defectGroup.element[0].images,
+                  description: defectGroup.element[0].description,
+                  shrinked: defectGroup.element[0].shrinked,
                 })),
                 shrinked: defectGroup.shrinked,
               },
@@ -286,8 +286,8 @@ export const addAndSetDefectGroupType = (setDefects: React.Dispatch<SetStateActi
               gIndex == selectedGroup 
                 ? {
                     ...groupItem,
-                    type: [
-                      ...groupItem.type,
+                    element: [
+                      ...groupItem.element,
                       {
                         level: defectType.level,
                         images: defectType.images,
@@ -322,14 +322,14 @@ export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<a
                   post: repairGroup.post,
                   defectsRepaired: repairGroup.defectsRepaired,
                   numDefectsRepaired: repairGroup.numDefectsRepaired,
-                  type: Array.from({ length: 1 }, () => ({
-                    name: repairGroup.type[0].name,
-                    components: repairGroup.type[0].components,
-                    numComponents: repairGroup.type[0].numComponents,
-                    pre: repairGroup.type[0].pre,
-                    post: repairGroup.type[0].post,
-                    comments: repairGroup.type[0].comments,
-                    shrinked: repairGroup.type[0].shrinked,
+                  element: Array.from({ length: 1 }, () => ({
+                    name: repairGroup.element[0].name,
+                    components: repairGroup.element[0].components,
+                    numComponents: repairGroup.element[0].numComponents,
+                    pre: repairGroup.element[0].pre,
+                    post: repairGroup.element[0].post,
+                    comments: repairGroup.element[0].comments,
+                    shrinked: repairGroup.element[0].shrinked,
                   })),
                   shrinked: repairGroup.shrinked,
                 },
@@ -355,11 +355,11 @@ export const addAndSetRepairGroup = (setRepairs: React.Dispatch<SetStateAction<a
                   images: repairGroup.post,
                   defectsRepaired: repairGroup.defectsRepaired,
                   numDefectsRepaired: repairGroup.numDefectsRepaired,
-                  type: Array.from({ length: 1 }, () => ({
-                    name: repairGroup.type[0].name,
-                    images: repairGroup.type[0].post,
-                    comments: repairGroup.type[0].comments,
-                    shrinked: repairGroup.type[0].shrinked,
+                  element: Array.from({ length: 1 }, () => ({
+                    name: repairGroup.element[0].name,
+                    images: repairGroup.element[0].post,
+                    comments: repairGroup.element[0].comments,
+                    shrinked: repairGroup.element[0].shrinked,
                   })),
                   shrinked: repairGroup.shrinked,
                 },
@@ -382,8 +382,8 @@ export const addAndSetRepairGroupType = (setRepairs: React.Dispatch<SetStateActi
                 gIndex == selectedGroup 
                   ? {
                       ...groupItem,
-                      type: [
-                        ...groupItem.type,
+                      element: [
+                        ...groupItem.element,
                         {
                           name: repairType.name,
                           components: repairType.components,
@@ -412,8 +412,8 @@ export const addAndSetRepairGroupType = (setRepairs: React.Dispatch<SetStateActi
                 gIndex == selectedGroup 
                   ? {
                       ...groupItem,
-                      type: [
-                        ...groupItem.type,
+                      element: [
+                        ...groupItem.element,
                         {
                           name: repairType.name,
                           images: repairType.post,

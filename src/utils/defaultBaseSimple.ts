@@ -30,7 +30,7 @@ export const defaultBaseSimpleMaintenances: MaintenancesBaseSimple = {
     name: "",
     responsible: [null, "", null, ""],
     images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-    type: Array.from({ length: 1 }, () => ({
+    element: Array.from({ length: 1 }, () => ({
       name: "",
       images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       comments: "",
@@ -47,7 +47,7 @@ export const defaultBaseSimpleModifications: ModificationsBaseSimple = {
     name: "",
     responsible: [null, "", null, ""],
     images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
-    type: Array.from({ length: 1 }, () => ({
+    element: Array.from({ length: 1 }, () => ({
       name: "",
       images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       comments: "",
@@ -62,7 +62,7 @@ export const defaultBaseSimpleDefects: DefectsBaseSimple = {
     date: "",
     kilometers: ['', 'km'],
     cause: "",
-    type: Array.from({ length: 1 }, () => ({
+    element: Array.from({ length: 1 }, () => ({
       level: 'DataSVL.Forms.level',
       images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       description: "",
@@ -81,7 +81,7 @@ export const defaultBaseSimpleRepairs: RepairsBaseSimple = {
     images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
     defectsRepaired: Array.from({ length: DEFECTS_REPAIRED_SIZE }, () => ([-1, -1, -1 ])),
     numDefectsRepaired: 0,
-    type: Array.from({ length: 1 }, () => ({
+    element: Array.from({ length: 1 }, () => ({
       name: "",
       images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
       comments: "",

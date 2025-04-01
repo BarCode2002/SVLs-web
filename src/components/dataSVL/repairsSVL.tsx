@@ -49,18 +49,18 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
       const updatedMainteances = [...repairs];
       if (groupIndex == groupIndexDragged) {
         if (typeIndexDragged > typeIndex) {
-          const draggedMaintenance = repairs[selectedOwner].group[groupIndex].type[typeIndexDragged];
+          const draggedMaintenance = repairs[selectedOwner].group[groupIndex].element[typeIndexDragged];
           for (let i = typeIndexDragged; i > typeIndex; i--) {
-            updatedMainteances[selectedOwner].group[groupIndex].type[i] = repairs[selectedOwner].group[groupIndex].type[i-1];
+            updatedMainteances[selectedOwner].group[groupIndex].element[i] = repairs[selectedOwner].group[groupIndex].element[i-1];
           }
-          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
+          updatedMainteances[selectedOwner].group[groupIndex].element[typeIndex] = draggedMaintenance;
         }
         else if (typeIndexDragged < typeIndex) {
-          const draggedMaintenance = repairs[selectedOwner].group[groupIndex].type[typeIndexDragged];
+          const draggedMaintenance = repairs[selectedOwner].group[groupIndex].element[typeIndexDragged];
           for (let i = typeIndexDragged; i < typeIndex ; i++) {
-            updatedMainteances[selectedOwner].group[groupIndex].type[i] = repairs[selectedOwner].group[groupIndex].type[i+1];
+            updatedMainteances[selectedOwner].group[groupIndex].element[i] = repairs[selectedOwner].group[groupIndex].element[i+1];
           }
-          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
+          updatedMainteances[selectedOwner].group[groupIndex].element[typeIndex] = draggedMaintenance;
         }
       }
       setRepairs(updatedMainteances);
@@ -73,7 +73,7 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
 
   const renderlistRepairs = (groupIndex: number) => {
 
-    const listMaintenances = Array.from({length: repairs[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
+    const listMaintenances = Array.from({length: repairs[selectedOwner].group[groupIndex].element.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} 
         draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, typeIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, typeIndex)} onDragOver={(e) => handleDragOver(e)} >
@@ -83,60 +83,60 @@ const RepairsSVL = ({ selectedOwner, numPreviousOwners, repairs, setRepairs, def
             <ToggleVisibilityButton dataSVL={repairs} setDataSVL={setRepairs} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            {repairs[selectedOwner].group[groupIndex].type.length > 1 &&
+            {repairs[selectedOwner].group[groupIndex].element.length > 1 &&
               <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
             }
-            {repairs[selectedOwner].group[groupIndex].type.length > 1 &&
+            {repairs[selectedOwner].group[groupIndex].element.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setRepairs} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
               />
             }
           </div>
-          {repairs[selectedOwner].group[groupIndex].type[typeIndex].shrinked == false &&
+          {repairs[selectedOwner].group[groupIndex].element[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
               <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.nameRepair')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
-                value={repairs[selectedOwner].group[groupIndex].type[typeIndex].name} 
+                value={repairs[selectedOwner].group[groupIndex].element[typeIndex].name} 
                 setDataSVL={setRepairs} type={'name'} editMode={editMode}
               />
               {isRepairsBase(repairs[selectedOwner], groupIndex, typeIndex) &&
                 <ComponentsField placeholder={t('DataSVL.Placeholders.component')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                   selectedGroupType={typeIndex} dataSVL={repairs} 
-                  selectedComponents={repairs[selectedOwner].group[groupIndex].type[typeIndex].components} 
+                  selectedComponents={repairs[selectedOwner].group[groupIndex].element[typeIndex].components} 
                   setDataSVL={setRepairs} type={'components'} editMode={editMode}
                 />
               }
               {isRepairsBase(repairs[selectedOwner], groupIndex, typeIndex) &&
                 <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
-                  selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].pre} 
+                  selectedImages={repairs[selectedOwner].group[groupIndex].element[typeIndex].pre} 
                   setDataSVL={setRepairs} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
                 />
               }
               {isRepairsBase(repairs[selectedOwner], groupIndex, typeIndex) &&
                 <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
-                  selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].post} 
+                  selectedImages={repairs[selectedOwner].group[groupIndex].element[typeIndex].post} 
                   setDataSVL={setRepairs} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
                 />
               }
               {isRepairsBaseSimple(repairs[selectedOwner], groupIndex, typeIndex) &&
                 <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
-                  selectedImages={repairs[selectedOwner].group[groupIndex].type[typeIndex].images} 
+                  selectedImages={repairs[selectedOwner].group[groupIndex].element[typeIndex].images} 
                   setDataSVL={setRepairs} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
                 />
               }
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsRepair')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={repairs} 
-                value={repairs[selectedOwner].group[groupIndex].type[typeIndex].comments} 
+                value={repairs[selectedOwner].group[groupIndex].element[typeIndex].comments} 
                 setDataSVL={setRepairs} type={'comments'} editMode={editMode}
               />
             </div>
           }
         </div>
         <div className={styles.addType}>
-          {repairs[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
+          {repairs[selectedOwner].group[groupIndex].element.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setRepairs} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} type={'repairs'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
             />

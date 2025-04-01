@@ -21,7 +21,7 @@ import { PossibleDefectsJsonVersions, PossibleGeneralInformationJsonVersions, Po
 
 type ShrinkedType = {
   group: boolean;
-  type: boolean[];
+  element: boolean[];
 };
 
 type MainShrinkedType = ShrinkedType[];
@@ -80,28 +80,28 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     for (let i = 0; i < limit; i++) {
       const numTypesMain: number[] = [];
       for (let j = 0; j < prevOwnersMaintenances[i].group.length; j++) {
-        numTypesMain.push(prevOwnersMaintenances[i].group[j].type.length);
+        numTypesMain.push(prevOwnersMaintenances[i].group[j].element.length);
       }
       numGroupsMaintenances.push(prevOwnersMaintenances[i].group.length);
       numTypesMaintenances.push(numTypesMain);
 
       const numTypesMod: number[] = [];
       for (let j = 0; j < prevOwnersModifications[i].group.length; j++) {
-        numTypesMod.push(prevOwnersModifications[i].group[j].type.length);
+        numTypesMod.push(prevOwnersModifications[i].group[j].element.length);
       }  
       numGroupsModifications.push(prevOwnersModifications[i].group.length);
       numTypesModifications.push(numTypesMod);
 
       const numTypesDef: number[] = [];
       for (let j = 0; j < prevOwnersDefects[i].group.length; j++) {
-        numTypesDef.push(prevOwnersDefects[i].group[j].type.length);
+        numTypesDef.push(prevOwnersDefects[i].group[j].element.length);
       }  
       numGroupsDefects.push(prevOwnersDefects[i].group.length);
       numTypesDefects.push(numTypesDef);
 
       const numTypesRep: number[] = [];
       for (let j = 0; j < prevOwnersRepairs[i].group.length; j++) {
-        numTypesRep.push(prevOwnersRepairs[i].group[j].type.length);
+        numTypesRep.push(prevOwnersRepairs[i].group[j].element.length);
       }  
       numGroupsRepairs.push(prevOwnersRepairs[i].group.length);
       numTypesRepairs.push(numTypesRep);
@@ -109,7 +109,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     const updatedShrinkedMaintenances: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
       Array.from({ length: numGroupsMaintenances[groupIndex] }, (_, typeIndex) => ({
         group: false,
-        type: Array(numTypesMaintenances[groupIndex][typeIndex]).fill(false),
+        element: Array(numTypesMaintenances[groupIndex][typeIndex]).fill(false),
       }))
     );
     setPrevMaintenancesShrinked(updatedShrinkedMaintenances);
@@ -117,7 +117,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     const updatedShrinkedModifications: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
       Array.from({ length: numGroupsModifications[groupIndex] }, (_, typeIndex) => ({
         group: false,
-        type: Array(numTypesModifications[groupIndex][typeIndex]).fill(false),
+        element: Array(numTypesModifications[groupIndex][typeIndex]).fill(false),
       }))
     );
     setPrevModificationsShrinked(updatedShrinkedModifications);
@@ -125,7 +125,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     const updatedShrinkedDefectss: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
       Array.from({ length: numGroupsDefects[groupIndex] }, (_, typeIndex) => ({
         group: false,
-        type: Array(numTypesDefects[groupIndex][typeIndex]).fill(false),
+        element: Array(numTypesDefects[groupIndex][typeIndex]).fill(false),
       }))
     );
     setPrevDefectsShrinked(updatedShrinkedDefectss);
@@ -133,7 +133,7 @@ const DataSVL = ({ selectedOwner, selectedSVLData, generalInformation, setGenera
     const updatedShrinkedRepairs: MainShrinkedType[] = Array.from({ length: limit }, (_, groupIndex) =>
       Array.from({ length: numGroupsRepairs[groupIndex] }, (_, typeIndex) => ({
         group: false,
-        type: Array(numTypesRepairs[groupIndex][typeIndex]).fill(false),
+        element: Array(numTypesRepairs[groupIndex][typeIndex]).fill(false),
       }))
     );
     setPrevRepairsShrinked(updatedShrinkedRepairs);

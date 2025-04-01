@@ -189,32 +189,32 @@ const Data = (): JSX.Element => {
       setOwnerSVLDataToEmpty(so, setMaintenances);
       for (let i = 0; i < ownerSVLData[1].group.length; i++) {
         addAndSetMaintenanceGroup(setMaintenances, so, ownerSVLData[1].group[i], ownerSVLData[5].version);
-        for (let j = 1; j < ownerSVLData[1].group[i].type.length; j++) {
-          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].group[i].type[j], ownerSVLData[5].version);
+        for (let j = 1; j < ownerSVLData[1].group[i].element.length; j++) {
+          addAndSetMaintenanceGroupType(setMaintenances, so, i, ownerSVLData[1].group[i].element[j], ownerSVLData[5].version);
         }
       }
 
       setOwnerSVLDataToEmpty(so, setModifications);
       for (let i = 0; i < ownerSVLData[2].group.length; i++) {
         addAndSetModificationGroup(setModifications, so, ownerSVLData[2].group[i], ownerSVLData[5].version);
-        for (let j = 1; j < ownerSVLData[2].group[i].type.length; j++) {
-          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].group[i].type[j], ownerSVLData[5].version);
+        for (let j = 1; j < ownerSVLData[2].group[i].element.length; j++) {
+          addAndSetModificationGroupType(setModifications, so, i, ownerSVLData[2].group[i].element[j], ownerSVLData[5].version);
         }
       }
 
       setOwnerSVLDataToEmpty(so, setDefects);
       for (let i = 0; i < ownerSVLData[3].group.length; i++) {
         addAndSetDefectGroup(setDefects, so, ownerSVLData[3].group[i]);
-        for (let j = 1; j < ownerSVLData[3].group[i].type.length; ++j) {
-          addAndSetDefectGroupType(setDefects, so, i, ownerSVLData[3].group[i].type[j]);
+        for (let j = 1; j < ownerSVLData[3].group[i].element.length; ++j) {
+          addAndSetDefectGroupType(setDefects, so, i, ownerSVLData[3].group[i].element[j]);
         }
       }
 
       setOwnerSVLDataToEmpty(so, setRepairs);
       for (let i = 0; i < ownerSVLData[4].group.length; i++) {
         addAndSetRepairGroup(setRepairs, so, ownerSVLData[4].group[i], ownerSVLData[5].version);
-        for (let j = 1; j < ownerSVLData[4].group[i].type.length; j++) {
-          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].group[i].type[j], ownerSVLData[5].version);
+        for (let j = 1; j < ownerSVLData[4].group[i].element.length; j++) {
+          addAndSetRepairGroupType(setRepairs, so, i, ownerSVLData[4].group[i].element[j], ownerSVLData[5].version);
         }
       }
     }

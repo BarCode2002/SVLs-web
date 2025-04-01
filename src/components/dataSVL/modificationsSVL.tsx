@@ -45,18 +45,18 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
       const updatedMainteances = [...modifications];
       if (groupIndex == groupIndexDragged) {
         if (typeIndexDragged > typeIndex) {
-          const draggedMaintenance = modifications[selectedOwner].group[groupIndex].type[typeIndexDragged];
+          const draggedMaintenance = modifications[selectedOwner].group[groupIndex].element[typeIndexDragged];
           for (let i = typeIndexDragged; i > typeIndex; i--) {
-            updatedMainteances[selectedOwner].group[groupIndex].type[i] = modifications[selectedOwner].group[groupIndex].type[i-1];
+            updatedMainteances[selectedOwner].group[groupIndex].element[i] = modifications[selectedOwner].group[groupIndex].element[i-1];
           }
-          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
+          updatedMainteances[selectedOwner].group[groupIndex].element[typeIndex] = draggedMaintenance;
         }
         else if (typeIndexDragged < typeIndex) {
-          const draggedMaintenance = modifications[selectedOwner].group[groupIndex].type[typeIndexDragged];
+          const draggedMaintenance = modifications[selectedOwner].group[groupIndex].element[typeIndexDragged];
           for (let i = typeIndexDragged; i < typeIndex ; i++) {
-            updatedMainteances[selectedOwner].group[groupIndex].type[i] = modifications[selectedOwner].group[groupIndex].type[i+1];
+            updatedMainteances[selectedOwner].group[groupIndex].element[i] = modifications[selectedOwner].group[groupIndex].element[i+1];
           }
-          updatedMainteances[selectedOwner].group[groupIndex].type[typeIndex] = draggedMaintenance;
+          updatedMainteances[selectedOwner].group[groupIndex].element[typeIndex] = draggedMaintenance;
         }
       }
       setModifications(updatedMainteances);
@@ -69,7 +69,7 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
 
   const renderlistModifications = (groupIndex: number) => {
 
-    const listMaintenances = Array.from({length: modifications[selectedOwner].group[groupIndex].type.length}, (_, typeIndex) => (
+    const listMaintenances = Array.from({length: modifications[selectedOwner].group[groupIndex].element.length}, (_, typeIndex) => (
       <div key={typeIndex} className={styles.typeContainer} 
         draggable={draggable} onDragStart={(e) => handleOnDrag(e, groupIndex, typeIndex)} 
         onDrop={(e) => handleOnDrop(e, groupIndex, typeIndex)} onDragOver={(e) => handleDragOver(e)} >
@@ -79,60 +79,60 @@ const ModificationsSVL = ({ selectedOwner, modifications, setModifications, edit
             <ToggleVisibilityButton dataSVL={modifications} setDataSVL={setModifications} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} selectedGroupType={typeIndex}
             />
-            {modifications[selectedOwner].group[groupIndex].type.length > 1 &&
+            {modifications[selectedOwner].group[groupIndex].element.length > 1 &&
               <DragGroupGroupTypeButton setDraggable={setDraggable} editMode={editMode} />
             }
-            {modifications[selectedOwner].group[groupIndex].type.length > 1 &&
+            {modifications[selectedOwner].group[groupIndex].element.length > 1 &&
               <RemoveGroupTypeButton setDataSVL={setModifications} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} editMode={editMode}
               />
             }
           </div>
-          {modifications[selectedOwner].group[groupIndex].type[typeIndex].shrinked == false &&
+          {modifications[selectedOwner].group[groupIndex].element[typeIndex].shrinked == false &&
             <div className={styles.groupTypeBottomPart}>
               <InputField fieldLabel={''} placeholder={t('DataSVL.Placeholders.nameModification')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
-                value={modifications[selectedOwner].group[groupIndex].type[typeIndex].name} 
+                value={modifications[selectedOwner].group[groupIndex].element[typeIndex].name} 
                 setDataSVL={setModifications} type={'name'} editMode={editMode}
               />
               {isModificationsBase(modifications[selectedOwner], groupIndex, typeIndex) &&
                 <ComponentsField placeholder={t('DataSVL.Placeholders.component')} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                   selectedGroupType={typeIndex} dataSVL={modifications} 
-                  selectedComponents={modifications[selectedOwner].group[groupIndex].type[typeIndex].components} 
+                  selectedComponents={modifications[selectedOwner].group[groupIndex].element[typeIndex].components} 
                   setDataSVL={setModifications} type={'components'} editMode={editMode}
                 />
               }
               {isModificationsBase(modifications[selectedOwner], groupIndex, typeIndex) &&
                 <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.preImages')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
-                  selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].pre} 
+                  selectedImages={modifications[selectedOwner].group[groupIndex].element[typeIndex].pre} 
                   setDataSVL={setModifications} type={'pre'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
                 />
               }
               {isModificationsBase(modifications[selectedOwner], groupIndex, typeIndex) &&
                 <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.postImages')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
-                  selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].post} 
+                  selectedImages={modifications[selectedOwner].group[groupIndex].element[typeIndex].post} 
                   setDataSVL={setModifications} type={'post'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
                 />
               }
               {isModificationsBaseSimple(modifications[selectedOwner], groupIndex, typeIndex) &&
                 <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                   selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
-                  selectedImages={modifications[selectedOwner].group[groupIndex].type[typeIndex].images} 
+                  selectedImages={modifications[selectedOwner].group[groupIndex].element[typeIndex].images} 
                   setDataSVL={setModifications} type={'images'} allowMultipleImages={true} editMode={editMode} jsonUploaded={jsonUploaded}
                 />
               }
               <InputTextField fieldLabel={''} placeholder={t('DataSVL.Placeholders.commentsModifications')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={modifications} 
-                value={modifications[selectedOwner].group[groupIndex].type[typeIndex].comments} 
+                value={modifications[selectedOwner].group[groupIndex].element[typeIndex].comments} 
                 setDataSVL={setModifications} type={'comments'} editMode={editMode}
               />
             </div>
           }
         </div>
         <div className={styles.addType}>
-          {modifications[selectedOwner].group[groupIndex].type.length - 1 == typeIndex &&
+          {modifications[selectedOwner].group[groupIndex].element.length - 1 == typeIndex &&
             <AddGroupTypeButton setDataSVL={setModifications} selectedOwner={selectedOwner} 
               selectedGroup={groupIndex} type={'modifications'} editMode={editMode} jsonVersion={jsonVersion[selectedOwner+numPreviousOwners]}
             />

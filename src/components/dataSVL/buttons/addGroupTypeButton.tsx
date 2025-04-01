@@ -30,8 +30,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                   gIndex == selectedGroup 
                     ? {
                         ...groupItem,
-                        type: [
-                          ...groupItem.type,
+                        element: [
+                          ...groupItem.element,
                           {
                             name: "",
                             components: Array.from({ length: COMPONENTS_SIZE }, () => ""),
@@ -60,8 +60,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                   gIndex == selectedGroup 
                     ? {
                         ...groupItem,
-                        type: [
-                          ...groupItem.type,
+                        element: [
+                          ...groupItem.element,
                           {
                             name: "",                            
                             images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ""),
@@ -90,8 +90,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                   gIndex === selectedGroup 
                     ? {
                         ...groupItem,
-                        type: [
-                          ...groupItem.type,
+                        element: [
+                          ...groupItem.element,
                           {
                             name: "",
                             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
@@ -120,8 +120,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                   gIndex === selectedGroup 
                     ? {
                         ...groupItem,
-                        type: [
-                          ...groupItem.type,
+                        element: [
+                          ...groupItem.element,
                           {
                             name: "",
                             images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -149,8 +149,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                 gIndex === selectedGroup 
                   ? {
                       ...groupItem,
-                      type: [
-                        ...groupItem.type,
+                      element: [
+                        ...groupItem.element,
                         {
                           level: t('DataSVL.Forms.level'),
                           images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),
@@ -178,8 +178,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                   gIndex === selectedGroup 
                     ? {
                         ...groupItem,
-                        type: [
-                          ...groupItem.type,
+                        element: [
+                          ...groupItem.element,
                           {
                             name: "",
                             components: Array.from({ length: COMPONENTS_SIZE }, () => ''),
@@ -208,8 +208,8 @@ const AddGroupTypeButton = ({ setDataSVL, selectedOwner, selectedGroup, type, ed
                   gIndex === selectedGroup 
                     ? {
                         ...groupItem,
-                        type: [
-                          ...groupItem.type,
+                        element: [
+                          ...groupItem.element,
                           {
                             name: "",
                             images: Array.from({ length: PHOTOGRAPHS_SIZE }, () => ''),

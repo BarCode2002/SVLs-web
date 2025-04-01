@@ -65,7 +65,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
       updateSVLdata[selectedOwner][type] = value;
     }
     else {
-      updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type] = value;
+      updateSVLdata[selectedOwner].group[selectedGroup].element[selectedGroupType][type] = value;
     }
     setDataSVL(updateSVLdata);
     setIsOpen(false);
@@ -101,7 +101,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
       updateSVLdata[selectedOwner][type] = defaultValue;
     }
     else {
-      updateSVLdata[selectedOwner].group[selectedGroup].type[selectedGroupType][type] = defaultValue;
+      updateSVLdata[selectedOwner].group[selectedGroup].element[selectedGroupType][type] = defaultValue;
     }
     setDataSVL(updateSVLdata);
     setIsOpen(false);
