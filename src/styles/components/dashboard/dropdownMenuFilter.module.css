@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   width: 210px;
-  height: var(--fieldHeight);
+  min-height: var(--fieldHeight);
   padding-left: 10px;
   padding-right: 10px;
   font-size: var(--fieldFontSize);

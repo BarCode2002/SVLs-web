@@ -93,7 +93,7 @@ const DefectsSVL = ({ selectedOwner, totalOwners, numPreviousOwners, defects, se
             <div className={styles.groupTypeBottomPart}>
               <DropdownMenu fieldLabel={''} selectedOwner={selectedOwner} selectedGroup={groupIndex} 
                 selectedGroupType={typeIndex} dataSVL={defects} value={defects[selectedOwner].group[groupIndex].element[typeIndex].level} 
-                setDataSVL={setDefects} type={'level'} editMode={editMode}
+                setDataSVL={setDefects} type={'level'} editMode={editMode} placeholder='DataSVL.Forms.level'
               />
               <ImagesField fieldLabel={''} placeholder={t('DataSVL.Placeholders.images')} selectedOwner={selectedOwner} 
                 selectedGroup={groupIndex} selectedGroupType={typeIndex} dataSVL={defects} 

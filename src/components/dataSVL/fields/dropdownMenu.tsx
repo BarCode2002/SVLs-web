@@ -17,9 +17,10 @@ type DropdownMenuProps = {
   setDataSVL: React.Dispatch<SetStateAction<any>>;
   type: string;
   editMode: boolean;
+  placeholder: string;
 };
 
-const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode }: DropdownMenuProps) => {
+const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupType, dataSVL, value, setDataSVL, type, editMode, placeholder }: DropdownMenuProps) => {
   
   const { t } = useTranslation();
 
@@ -31,16 +32,16 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
   useEffect(() => {
     const getList = async () => {
       try {
-        if (dataSVL[selectedOwner].brand == 'DataSVL.Forms.brand') setList([]);
-        if (prevBrand != '' && prevBrand != 'DataSVL.Forms.brand' && prevBrand != dataSVL[selectedOwner].brand) {
+        if (dataSVL[selectedOwner].brand == '') setList([]);
+        if (prevBrand != '' && prevBrand != '' && prevBrand != dataSVL[selectedOwner].brand) {
           const updatedDataSVL = [...dataSVL];
-          updatedDataSVL[selectedOwner].model = 'DataSVL.Forms.model';
+          updatedDataSVL[selectedOwner].model = '';
           setDataSVL(updatedDataSVL);
           setPrevBrand(dataSVL[selectedOwner].brand);
         }
         else setPrevBrand(dataSVL[selectedOwner].brand);
         if (type == 'model') {
-          if (dataSVL[selectedOwner].brand != 'DataSVL.Forms.brand') {
+          if (dataSVL[selectedOwner].brand != '') {
             const responseMongo = await axios.get(`${mongoBrand}${dataSVL[selectedOwner].brand}`);
             setList(responseMongo.data);
           }
@@ -71,37 +72,13 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
     setIsOpen(false);
   }
 
-  const getDefaultValue = () => {
-    switch (type) {
-      case "brand":
-        return 'DataSVL.Forms.brand';
-      case "model":
-        return 'DataSVL.Forms.model';
-      case "state":
-        return 'DataSVL.Forms.state';
-      case "shift":
-        return 'DataSVL.Forms.shift';
-      case "fuel":
-        return 'DataSVL.Forms.fuel';
-      case "climate":
-        return 'DataSVL.Forms.climate';
-      case "storage":
-        return 'DataSVL.Forms.storage';
-      case "usage":
-        return 'DataSVL.Forms.usage';
-      default:
-        return;
-    }
-  }
-
   const defaultValue = () => {
     const updateSVLdata = [...dataSVL];
-    const defaultValue = getDefaultValue();
     if (selectedGroup == -1 && selectedGroupType == -1) {
-      updateSVLdata[selectedOwner][type] = defaultValue;
+      updateSVLdata[selectedOwner][type] = '';
     }
     else {
-      updateSVLdata[selectedOwner].group[selectedGroup].element[selectedGroupType][type] = defaultValue;
+      updateSVLdata[selectedOwner].group[selectedGroup].element[selectedGroupType][type] = '';
     }
     setDataSVL(updateSVLdata);
     setIsOpen(false);
@@ -140,8 +117,8 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
             <button
               className={styles.selected}
               onClick={hadleOpenDropdownMenu}
-              disabled={!editMode || dataSVL[selectedOwner].brand == 'DataSVL.Forms.brand'}>
-              <span>{t(value)}</span>
+              disabled={!editMode || dataSVL[selectedOwner].brand == ''}>
+              <span>{value == '' ? t(placeholder) : t(value)}</span>
               <span>{(isOpen) ? <LeftArrow /> : <RightArrow />}</span>
             </button>
           }
@@ -150,7 +127,7 @@ const DropdownMenu = ({ fieldLabel, selectedOwner, selectedGroup, selectedGroupT
               className={styles.selected}
               onClick={hadleOpenDropdownMenu}
               disabled={!editMode}>
-              <span>{t(value)}</span>
+              <span>{value == '' ? t(placeholder) : t(value)}</span>
               <span>{(isOpen) ? <LeftArrow /> : <RightArrow />}</span>
             </button>
           }
