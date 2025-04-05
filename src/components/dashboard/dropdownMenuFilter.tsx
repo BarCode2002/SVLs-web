@@ -13,10 +13,11 @@ type DropdownMenuFilterProps = {
   setAppliedFiltersSVL: React.Dispatch<React.SetStateAction<FilterSVLsType>>
   type: string;
   defectList: string[];
+  placeholder: string;
 };
 
 
-const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, defectList }: DropdownMenuFilterProps) => {
+const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, defectList, placeholder }: DropdownMenuFilterProps) => {
   
   const { t } = useTranslation();
 
@@ -34,12 +35,12 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
         if (prevBrand != '' && prevBrand != appliedFiltersSVL.brand) {
           setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
             ...prevAppliedFiltersSVL,
-            model: 'Dashboard.Placeholders.model',
+            model: '',
           }));
         }
         else setPrevBrand(appliedFiltersSVL.brand);
         if (type == 'model') {
-          if (appliedFiltersSVL.brand != 'Dashboard.Placeholders.brand') {
+          if (appliedFiltersSVL.brand != '') {
             const responseMongo = await axios.get(`${mongoBrand}${appliedFiltersSVL.brand}`);
             setList(responseMongo.data);
           }
@@ -145,16 +146,10 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
         },
       }));
     }
-    else if (type == 'brand') {
+    else if (type == 'brand' || type == 'model') {
       setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
         ...prevAppliedFiltersSVL,
-        [type]: 'Dashboard.Placeholders.brand',
-      }));
-    }
-    else if (type == 'model') {
-      setAppliedFiltersSVL((prevAppliedFiltersSVL: FilterSVLsType) => ({
-        ...prevAppliedFiltersSVL,
-        [type]: 'Dashboard.Placeholders.model',
+        [type]: '',
       }));
     }
     else if (type == 'state') {
@@ -199,7 +194,7 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
   const ref = DetectClickOutsideComponent(() => { 
     setIsOpen(false);
   });
-
+  //hacer que tambien se pueden filtrar por varias marcas y modelos
   return (
     <div className={styles.dropdownMenuContainer}>
       <div className={styles.dropDownPosition}>
@@ -207,35 +202,9 @@ const DropdownMenuFilter = ({ appliedFiltersSVL, setAppliedFiltersSVL, type, def
           <button
             ref={buttonRef}
             className={styles.selected}
-            onClick={hadleOpenDropdownMenu}
-            disabled={type == 'model' && appliedFiltersSVL.brand == 'Dashboard.Placeholders.brand'}>
-            {type == 'state' &&
-              <span>{t('Dashboard.Placeholders.state')}</span>
-            }
-            {type == 'shift' &&
-              <span>{t('Dashboard.Placeholders.shift')}</span>
-            }
-            {type == 'fuel' &&
-              <span>{t('Dashboard.Placeholders.fuel')}</span>
-            }
-            {type == 'climate' &&
-              <span>{t('Dashboard.Placeholders.climate')}</span>
-            }
-            {type == 'usage' &&
-              <span>{t('Dashboard.Placeholders.usage')}</span>
-            }
-            {type == 'storage' &&
-              <span>{t('Dashboard.Placeholders.storage')}</span>
-            }
-            {type == 'defects' &&
-              <span>{t('Dashboard.Placeholders.defectChoosenLevel')}</span>
-            }
-            {type == 'brand' &&
-              <span>{t(appliedFiltersSVL.brand)}</span>
-            }
-            {type == 'model' &&
-              <span>{t(appliedFiltersSVL.model)}</span>
-            }
+            onClick={hadleOpenDropdownMenu} 
+            disabled={type == 'model' && appliedFiltersSVL.brand == ''}>
+            <span>{t(placeholder)}</span>
             <span>{(isOpen) ? <LeftArrow /> : <RightArrow />}</span>
           </button>
         </div>
